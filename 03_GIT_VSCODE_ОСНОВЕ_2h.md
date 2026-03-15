@@ -54,7 +54,7 @@ LOKALNO  [feature] ----git merge----> [staging] ----git merge----> [main]
 - Креирање feature локалне гране (`git checkout -b 2026-03-12-features`):
 	У стварном раду прво станеш на главни папир командом `git checkout main`, освјежиш га командом `git pull origin main`, па онда направиш свој радни папир командом `git checkout -b 2026-03-12-features`.
 - Рад у локалној feature грани (`git commit -m "Expand Git foundations workflow"`):
-	Послије тога мијењаш фајлове у VS Code-у, провјериш шта си тачно урадио са `git status --short` и `git diff --stat`, па локално снимаш своје стање командама `git add 03_GIT_VSCODE_FOUNDATIONS_2h.md` и `git commit -m "Expand Git foundations workflow"`.
+	Послије тога мијењаш фајлове у VS Code-у, провјериш шта си тачно урадио са `git status --short` и `git diff --stat`, па локално снимаш своје стање командама `git add 03_GIT_VSCODE_ОСНОВЕ_2h.md` и `git commit -m "Expand Git foundations workflow"`.
 - pull и merge локалне feature гране у staging (`git pull origin staging` и `git merge 2026-03-12-features`) и main:
 	Кад хоћеш да и други виде твој рад, пошаљеш свој локални радни папир на GitHub командом `git push -u origin 2026-03-12-features`, чиме твој локални `2026-03-12-features` добије и своју remote копију `origin/2026-03-12-features`.
 	Кад је промјена провјерена, пређеш на `staging` са `git checkout staging`, освјежиш га са `git pull origin staging`, унесеш садржај свог радног папира командом `git merge 2026-03-12-features`, па резултат пошаљеш назад на GitHub са `git push origin staging`; касније исту логику поновиш и за `main`, тако да Git практично служи да тачно знаш на ком папиру радиш, шта си мијењао и како се та промјена креће до главне верзије.
@@ -181,23 +181,23 @@ git push -u origin 2026-03-12-features
 ```powershell
 git status --short
 git diff --stat
-git diff -- 03_GIT_VSCODE_FOUNDATIONS_2h.md
+git diff -- 03_GIT_VSCODE_ОСНОВЕ_2h.md
 ```
 - `git status --short`: прикаже кратак, компактни статус working tree-ја.
 - `git diff --stat`: прикаже статистички преглед промјена по фајловима.
-- `git diff -- 03_GIT_VSCODE_FOUNDATIONS_2h.md`: прикаже тачан diff само за наведени фајл.
+- `git diff -- 03_GIT_VSCODE_ОСНОВЕ_2h.md`: прикаже тачан diff само за наведени фајл.
 - `--short` је дуга опција; тражиш краћи, компактнији приказ Git статуса.
 - `--stat` је дуга опција; тражиш кратак статистички преглед промјена по фајловима.
-- у команди `git diff -- 03_GIT_VSCODE_FOUNDATIONS_2h.md`, оно `--` није назив фајла него раздвајач; Git-у говори: све послије овога третирај као путању, не као опцију.
-- `03_GIT_VSCODE_FOUNDATIONS_2h.md` је аргумент, односно путања фајла за који тражиш diff.
+- у команди `git diff -- 03_GIT_VSCODE_ОСНОВЕ_2h.md`, оно `--` није назив фајла него раздвајач; Git-у говори: све послије овога третирај као путању, не као опцију.
+- `03_GIT_VSCODE_ОСНОВЕ_2h.md` је аргумент, односно путања фајла за који тражиш diff.
 - у причи са папиром: сад пишеш по свом радном папиру и онда гледаш шта си на њему стварно промијенио у односу на старо стање.
 
 ### Корак 4: staged-уј и commit-уј
 ```powershell
-git add 03_GIT_VSCODE_FOUNDATIONS_2h.md ИЛИ git add --all
+git add 03_GIT_VSCODE_ОСНОВЕ_2h.md ИЛИ git add --all
 git commit -m "Expand Git foundations workflow"
 ```
-- `git add 03_GIT_VSCODE_FOUNDATIONS_2h.md`: staged-ује само тај један фајл.
+- `git add 03_GIT_VSCODE_ОСНОВЕ_2h.md`: staged-ује само тај један фајл.
 - Кад кажемо `staged`, то практично значи: `изабрао си да та измјена уђе у сљедећи снимак`, односно у сљедећи commit.
 - `git add --all`: staged-ује све детектоване измјене у радном стаблу, укључујући нове, измијењене и обрисане фајлове.
 - `git commit -m "Expand Git foundations workflow"`: направи commit од staged измјена и одмах упише commit поруку.
@@ -354,14 +354,14 @@ git push origin <branch>
 ------------------------------------------------------------------------------------------------------------------
 
 ## 12) Шта читаш даље
-- `04_INFRA_TERRAFORM_DOCKER_AWS_FOUNDATIONS_4h.md`
-- `05_ODOO_FOUNDATIONS_4h.md`
-- `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`
-- `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
+- `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+- `05_ODOO_ОСНОВЕ_4h.md`
+- `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
+- `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
 
 ## 99) Задатак на komiti_academy пројекту за кандидата
 
-1. Направи Git plan за `komiti_academy`: назив feature гране, први commit scope и правило шта не смије ући у исти commit.
+1. Одреди како ће изгледати твој први рад у Git-у за `komiti_academy`: назив feature гране, прва логичка цјелина за commit и правило шта не смије ући у исти commit.
 Референца: Ово је објашњено у поглављима `## 7) Основни локални ток рада` и `## 10) Како ово изгледа у KomITi-ју`.
 2. Кад крене прва имплементација на `komiti_academy`, staged-уј и commit-уј само фајлове који припадају једној логичкој цјелини, нпр. skeleton или један model слој.
 Референца: Ово је објашњено у поглављима `## 7) Основни локални ток рада`, `## 8) Најчешће почетничке грешке` и `## 10) Како ово изгледа у KomITi-ју`.
@@ -370,15 +370,15 @@ git push origin <branch>
 
 ## 99) Рјешења
 
-1. За Git plan уради ово редом:
+1. За овај први Git задатак уради ово редом:
 	1. У `## 7) Основни локални ток рада` узми образац за branch flow.
 	2. У терминалу укуцај `git checkout -b feature/komiti-academy-skeleton`; као резултат треба да пређеш на нову грану чије име јасно каже да је везана за `komiti_academy`.
 	3. Запиши шта ће бити прва логичка цјелина за commit, нпр. `module skeleton` или `почетни model`.
 	4. Из `## 10) Како ово изгледа у KomITi-ју` запиши правило шта неће ући у исти commit ако не припада истој промјени.
-2. За clean staging и commit уради ово редом:
+2. За clean staging и commit уради ово редом у свом репоу `komiti_academy_ime_polaznika`:
 	1. Направи измјену само у једном слоју или једној логичкој цјелини `komiti_academy` модула.
 	2. Прије staging-а у терминалу укуцај `git status --short` и `git diff --stat`; као резултат треба да видиш само фајлове и diff који припадају тој једној цјелини.
-	3. Stage-уј само релевантне фајлове те цјелине, нпр. `git add custom-addons/komiti_academy/__manifest__.py custom-addons/komiti_academy/models/__init__.py`, без мијешања других измјена.
+	3. Stage-уј само релевантне фајлове те цјелине, нпр. `git add __manifest__.py models/__init__.py`, без мијешања других измјена.
 	4. Из `## 8) Најчешће почетничке грешке` провјери да ниси случајно убацио нешто што не припада том commit-у.
 	5. Укуцај `git commit -m "Add komiti_academy skeleton"`; као резултат треба да добијеш commit који описује баш ту једну цјелину рада.
 3. За push и review спремност уради ово редом:

@@ -130,5 +130,5 @@ KomITi example:
 
 ## 13) Шта читаш даље
 
-- `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`
-- `11_ODOO_DATA_AND_MIGRATION_SAFETY_3h.md`
+- `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`
+- `11_ODOO_БЕЗБЈЕДНОСТ_ПОДАТАКА_И_МИГРАЦИЈЕ_3h.md`

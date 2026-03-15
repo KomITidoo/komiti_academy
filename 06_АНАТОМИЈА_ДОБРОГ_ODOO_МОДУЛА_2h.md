@@ -119,9 +119,9 @@ KomITi examples:
 
 ## 12) Шта читаш даље
 
-- `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
+- `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
 - `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`
-- `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
 
 ## 99) Задатак на komiti_academy пројекту за кандидата
 
@@ -135,7 +135,7 @@ KomITi examples:
 ## 99) Рјешења
 
 1. За структуру модула уради ово редом:
-	1. У `## 1) Типична структура` узми циљни skeleton.
+	1. У `## 1) Типична структура` узми циљну структуру модула.
 	2. Провјери да model-и, view-ови и security фајлови нису помијешани.
 	3. Из `## 4) Добар XML слој` и `## 5) Добар security слој` провјери да сваки слој живи на очекиваном мјесту, нпр. `models/*.py` у `models/`, XML view-ови у `views/`, access rules у `security/`.
 	4. Ако нешто није јасно раздвојено, запиши шта треба премјестити или преименовати, нпр. `views.xml` у `views/academy_course_views.xml`.

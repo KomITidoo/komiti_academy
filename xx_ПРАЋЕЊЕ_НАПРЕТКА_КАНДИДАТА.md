@@ -15,35 +15,35 @@
 Овај tracker припада Срђану Дрљачи.
 
 Срђан је до сада прочитао:
-- [x] `00_END2END_ONBOARDING_LEARNING_PATH_39-52w.md`
+- [x] `00_END2END_ONBOARDING_ПУТ_УЧЕЊА_39-52w.md`
 - [x] `ENGINEERING_CODEX.md`
-- [x] `02_DEVELOPER_QUICKSTART_1h.md`
+- [x] `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
 
 Срђан још није прочитао:
-- [ ] `03_GIT_VSCODE_FOUNDATIONS_2h.md`
-- [ ] `04_INFRA_TERRAFORM_DOCKER_AWS_FOUNDATIONS_4h.md`
-- [ ] `05_ODOO_FOUNDATIONS_4h.md`
-- [ ] `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`
-- [ ] `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
-- [ ] `08_KOMITI_DOMAIN_MODEL_MAP_2h.md`
+- [ ] `03_GIT_VSCODE_ОСНОВЕ_2h.md`
+- [ ] `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+- [ ] `05_ODOO_ОСНОВЕ_4h.md`
+- [ ] `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
+- [ ] `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
+- [ ] `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md`
 - [ ] `custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`
 - [ ] `custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
 - [ ] `custom-addons/CODEX_ODOO.md`
-- [ ] `09_ODOO_DEBUGGING_PLAYBOOK_3h.md`
-- [ ] `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`
-- [ ] `11_ODOO_DATA_AND_MIGRATION_SAFETY_3h.md`
-- [ ] `12_ODOO_CODE_REVIEW_CHECKLIST_1h.md`
-- [ ] `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`
-- [ ] `14_ODOO_WEBSITE_AND_FRONTEND_2h.md`
-- [ ] `15_PRACTICE_LADDER_20_EXERCISES_40h.md`
-- [ ] `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- [ ] `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`
+- [ ] `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`
+- [ ] `11_ODOO_БЕЗБЈЕДНОСТ_ПОДАТАКА_И_МИГРАЦИЈЕ_3h.md`
+- [ ] `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`
+- [ ] `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`
+- [ ] `14_ODOO_ВЕБСАЈТ_И_КОРИСНИЧКИ_ИНТЕРФЕЈС_2h.md`
+- [ ] `15_ЉЕСТВИЦА_ПРАКСЕ_20_ВЈЕЖБИ_40h.md`
+- [ ] `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
 
 ## Сљедећи корак
 
 Сљедећи документ за читање је:
-- `03_GIT_VSCODE_FOUNDATIONS_2h.md`
+- `03_GIT_VSCODE_ОСНОВЕ_2h.md`
 
 ## Напомена
 
 Ово је оперативни tracker, не канонски learning roadmap. Канонски редослијед и критеријуми и даље живе у:
-- `00_END2END_ONBOARDING_LEARNING_PATH_39-52w.md`
+- `00_END2END_ONBOARDING_ПУТ_УЧЕЊА_39-52w.md`

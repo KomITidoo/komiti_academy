@@ -1,18 +1,20 @@
-# Capstone: Build Your Own Odoo Module
+# Завршни пројекат: Build Your Own Odoo Module
 
 Document Owner: Project Manager
 Product Scope Input: Product Manager
 Business Validation Input: Business Owner
 
-Ово је канонски capstone за learning library. Циљ није да полазник само чита документа, него да кроз њих постепено изгради свој први озбиљан Odoo модул и да до краја curriculum-а тај модул буде:
+Ово је главни завршни пројекат learning библиотеке (завршни, сабирни практични пројекат learning библиотеке). Циљ није да полазник само чита документа, него да кроз њих постепено изгради свој први озбиљан Odoo модул и да до краја curriculum-а тај модул буде:
 - функционалан,
 - upgrade-safe,
 - ручно истестиран,
 - документован,
 - довољно чист да може проћи review.
 
-Канонски опис самог производа/модула који се гради је у `00_PROJECT_PRODUCT_DESCRIPTION_2h.md`.
-Овај документ објашњава capstone scope, checkpoints, Definition of Done и learning execution редослијед.
+Главни опис самог производа/модула који се гради је у `00_ОПИС_ПРОЈЕКТА_И_ПРОИЗВОДА_2h.md`.
+Овај документ објашњава scope завршног пројекта, контролне тачке, Definition of Done и learning execution редослијед.
+
+Кандидат implementation ради у свом GitHub репоу `komiti_academy_ime_polaznika`, док је овај репо `komiti_academy` learning/documentation репо.
 
 Модул који се прави је:
 - `komiti_academy`
@@ -125,7 +127,7 @@ Capstone не радиш одједном. Градиш га у фазама.
 
 ### Фаза A
 
-После `05_ODOO_FOUNDATIONS_4h.md`, `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md` и `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md` мораш имати:
+После `05_ODOO_ОСНОВЕ_4h.md`, `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md` мораш имати:
 - име модула,
 - folder skeleton,
 - manifest,
@@ -222,12 +224,12 @@ Capstone не радиш одједном. Градиш га у фазама.
 
 ## 11) Како користиш остале learning документе док правиш овај модул
 
-- `05_ODOO_FOUNDATIONS_4h.md`: разумијеш model, field, view, action, security.
-- `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`: држиш модул чистим и читљивим.
-- `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`: читаш KomITi модуле да видиш добре pattern-е.
-- `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`: пишеш verification као професионалац.
-- `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`: scope држиш реалним и upgrade-safe.
-- `15_PRACTICE_LADDER_20_EXERCISES_40h.md`: кроз вјежбе долазиш до готовог capstone-а.
+- `05_ODOO_ОСНОВЕ_4h.md`: разумијеш model, field, view, action, security.
+- `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`: држиш модул чистим и читљивим.
+- `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`: читаш KomITi модуле да видиш добре pattern-е.
+- `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`: пишеш verification као професионалац.
+- `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`: scope држиш реалним и upgrade-safe.
+- `15_ЉЕСТВИЦА_ПРАКСЕ_20_ВЈЕЖБИ_40h.md`: кроз вјежбе долазиш до готовог capstone-а.
 
 ## 12) Завршна провјера за ментора
 

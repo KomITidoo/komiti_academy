@@ -38,7 +38,7 @@ Model је Python класа која описује business object.
 - нови model: `_name = "komiti.dispatch.order"`
 - inheritance existing model-а: `_inherit = "project.task"`
 
-Практично искуство за model слој кандидат стиче читајући `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md` и `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а прво властито model искуство стиче радећи `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md` кроз `academy.course` и `academy.session`.
+Практично искуство за model слој кандидат стиче читајући `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а прво властито model искуство стиче радећи `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` кроз `academy.course` и `academy.session`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 3) Шта је recordset
@@ -52,7 +52,7 @@ Model је Python класа која описује business object.
 
 Ово мораш усвојити рано, иначе ћеш правити багове у `write`, `compute` и helper методама.
 
-Практичан recordset reasoning кандидат најбрже увјежбава у `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md` док чита KomITi module flow-ове, а затим у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md` кад почне писати властите compute и helper методе.
+Практичан recordset reasoning кандидат најбрже увјежбава у `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md` док чита KomITi module flow-ове, а затим у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` кад почне писати властите compute и helper методе.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 4) Шта су: `env`, `domain`, `context`
@@ -80,7 +80,7 @@ Model је Python класа која описује business object.
 
 У KomITi-ју је битан нпр. search default pattern у dispatching action-има.
 
-Практично искуство за `env`, `domain` и `context` кандидат стиче читајући `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а конкретне search/action pattern-е касније увјежбава у `08_KOMITI_DOMAIN_MODEL_MAP_2h.md` и у свом capstone модулу из `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`.
+Практично искуство за `env`, `domain` и `context` кандидат стиче читајући `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а конкретне search/action pattern-е касније увјежбава у `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md` и у свом capstone модулу из `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 5) Fields
@@ -100,7 +100,7 @@ KomITi примјер: У `komiti_timesheet` Hours се рачуна из From/T
 - шта иде у onchange,
 - шта мора бити server-side validated.
 
-Практичан рад са field-овима кандидат стиче читајући `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md` и `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а затим у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md` кад мора сам дефинисати relation, selection и computed field-ове.
+Практичан рад са field-овима кандидат стиче читајући `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а затим у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` кад мора сам дефинисати relation, selection и computed field-ове.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 6) Шта су: `onchange`, `constrains`, `create`, `write`, `unlink`
@@ -117,7 +117,7 @@ KomITi примјер: У `komiti_timesheet` Hours се рачуна из From/T
 
 У `komiti_timesheet` lock date логика је добар study case за ову тему.
 
-Практично искуство за `onchange`, `constrains` и lifecycle методе кандидат стиче прво кроз analysis/read path у `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а онда кроз властита правила у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`; касније их провјерава у `09_ODOO_DEBUGGING_PLAYBOOK_3h.md` и `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`.
+Практично искуство за `onchange`, `constrains` и lifecycle методе кандидат стиче прво кроз analysis/read path у `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а онда кроз властита правила у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`; касније их провјерава у `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md` и `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 7) Views
@@ -135,7 +135,7 @@ Odoo UI углавном долази из XML view-ова:
 
 Ово је један од слојева који ћеш касније морати сам да направиш на `komiti_academy`, не само да га препознаш у туђем модулу.
 
-Практично искуство прављења и мијењања view-ова кандидат стиче читајући `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md` и `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а затим радећи `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md` гдје мора направити `course` и `session` tree/form/search view-ове.
+Практично искуство прављења и мијењања view-ова кандидат стиче читајући `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а затим радећи `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` гдје мора направити `course` и `session` tree/form/search view-ове.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 8) View inheritance
@@ -146,7 +146,7 @@ Odoo UI углавном долази из XML view-ова:
 
 Ово је један од најчешћих junior failure mode-ова.
 
-Практично искуство за view inheritance кандидат стиче највише у `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md` док прати existing KomITi view измјене, а затим у стварним промјенама и провјерама из `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`.
+Практично искуство за view inheritance кандидат стиче највише у `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md` док прати existing KomITi view измјене, а затим у стварним промјенама и провјерама из `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 9) Action и menu слој
@@ -159,7 +159,7 @@ Odoo UI углавном долази из XML view-ова:
 
 `komiti_gantt` је добар KomITi примјер јер показује да “view постоји у коду” није исто што и “view је доступан у Odoo switcher-у”.
 
-Практично искуство за action/menu wiring кандидат стиче читајући `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а затим у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md` кад мора повезати menu, action и search/view mode за `komiti_academy`.
+Практично искуство за action/menu wiring кандидат стиче читајући `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а затим у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` кад мора повезати menu, action и search/view mode за `komiti_academy`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 10) Security basics
@@ -170,7 +170,7 @@ Odoo UI углавном долази из XML view-ова:
 - record rule,
 - server-side checks у Python-у.
 
-Практично искуство за security слој кандидат стиче у `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md` и `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`, а затим га стварно гради у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md` кроз access CSV, role reasoning и basic permission separation.
+Практично искуство за security слој кандидат стиче у `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`, а затим га стварно гради у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` кроз access CSV, role reasoning и basic permission separation.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 11) Module upgrade није опционо
@@ -179,7 +179,7 @@ Odoo UI углавном долази из XML view-ова:
 - ако мијењаш Odoo модул, upgrade је нормалан дио измјене,
 - без upgrade-а не можеш тврditi да си провјерио понашање.
 
-Практичну upgrade дисциплину кандидат стиче најјасније у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`, а troubleshooting послије upgrade-а увјежбава у `09_ODOO_DEBUGGING_PLAYBOOK_3h.md`.
+Практичну upgrade дисциплину кандидат стиче најјасније у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`, а troubleshooting послије upgrade-а увјежбава у `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 12) Runtime truth > source code truth
@@ -190,7 +190,7 @@ Odoo UI углавном долази из XML view-ова:
 - да ли assets стварно служе ново стање,
 - да ли конкретан user flow ради.
 
-Практично runtime verification искуство кандидат стиче у `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`, а затим га мора показати и на свом модулу кроз `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`.
+Практично runtime verification искуство кандидат стиче у `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`, а затим га мора показати и на свом модулу кроз `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`.
 -----------------------------------------------------------------------------------------------------------------
 
 ## 13) KomITi foundations checklist
@@ -230,9 +230,9 @@ Odoo UI углавном долази из XML view-ова:
 
 ## 15) Шта читаш даље
 
-- `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`
-- `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
-- `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
+- `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
+- `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
 
 ## 99) Задатак на komiti_academy пројекту за кандидата
 
