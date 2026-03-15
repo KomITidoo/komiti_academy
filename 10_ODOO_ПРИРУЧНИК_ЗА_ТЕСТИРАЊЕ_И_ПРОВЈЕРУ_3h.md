@@ -139,9 +139,9 @@ Verification note за capstone мора експлицитно имати:
 
 ## 14) Шта читаш даље
 
-- `12_ODOO_CODE_REVIEW_CHECKLIST_1h.md`
-- `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`
-- `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`
+- `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`
+- `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
 
 ## 99) Задатак на komiti_academy пројекту за кандидата
 

@@ -143,5 +143,5 @@ Ops modules не мијењају само data; они утичу на инфр
 
 ## 11) Шта читаш даље
 
-- `14_ODOO_WEBSITE_AND_FRONTEND_2h.md`
-- `09_ODOO_DEBUGGING_PLAYBOOK_3h.md`
+- `14_ODOO_ВЕБСАЈТ_И_КОРИСНИЧКИ_ИНТЕРФЕЈС_2h.md`
+- `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`

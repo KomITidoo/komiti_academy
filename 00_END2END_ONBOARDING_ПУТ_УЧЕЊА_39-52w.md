@@ -7,24 +7,26 @@ Business Context Input: Business Owner
 Кандидат: нови члан тима  
 Циљ: од потпуног почетника до самосталног Odoo/Python инжењера у KomITi начину рада.
 
-Ово је канонски onboarding и learning документ. Служи истовремено као:
+Ово је кровни onboarding и learning документ. Служи истовремено као:
 - roadmap учења,
 - reading order,
 - index learning библиотеке,
 - објашњење шта сваки learning документ ради.
 
-Кроз цијели onboarding постоји и једна трајна capstone нит:
+Кроз цијели onboarding постоји и један трајни завршни практични пројекат који се гради кроз све фазе:
 - полазник постепено гради свој први модул `komiti_academy`,
 - свака фаза додаје нови слој тог модула,
 - до краја learning path-а модул мора бити готов, истестиран и документован,
-- канонски product/project description је у `00_PROJECT_PRODUCT_DESCRIPTION_2h.md`,
-- канонска capstone спецификација и execution plan су у `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`.
+- полазник своју верзију пројекта ради у свом GitHub репоу `komiti_academy_ime_polaznika`,
+- главни product/project description је у `00_ОПИС_ПРОЈЕКТА_И_ПРОИЗВОДА_2h.md`,
+- главна спецификација завршног пројекта и execution plan су у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`.
 
 Циљ овог сета није само да објасни Odoo, већ да нови члан тима кроз учење одмах усвоји:
 - KomITi engineering начин рада,
 - KomITi branch / promotion / documentation дисциплину,
 - KomITi custom модуле и пословне flow-ове,
 - начин дијагнозе, тестирања и испоруке измјена у овом репоу.
+------------------------------------------------------------------------------------------------------------------
 
 ## 1) Реалан временски оквир
 
@@ -33,26 +35,29 @@ Business Context Input: Business Owner
 - **Стабилан mid-level рад на пројекту:** 4–6 мјесеци
 - **Професионалац који сам води сложеније измјене end-to-end:** 9–12 мјесеци
 
-> Напомена: брзина зависи од менторске подршке, времена за вјежбу и броја реалних таскова.
+Напомена: брзина зависи од менторске подршке, времена за вјежбу и броја реалних таскова.
+------------------------------------------------------------------------------------------------------------------
 
-## 2) Како се користи овај документ
+## 2) Како се користe документи у овом komiti_academy repo
 
 Редослијед није случајан. Читање иде од потпуног почетника ка човјеку који разумије и Odoo и KomITi начин рада.
 
 Значи:
-
-1. прво учиш основне појмове,
-  - документи: `00_PROJECT_PRODUCT_DESCRIPTION_2h.md`, `01_PROJECT_PRODUCT_MANAGEMENT_1h.md`, `02_DEVELOPER_QUICKSTART_1h.md`, `03_GIT_VSCODE_FOUNDATIONS_2h.md`, `04_INFRA_TERRAFORM_DOCKER_AWS_FOUNDATIONS_4h.md`, `05_ODOO_FOUNDATIONS_4h.md`
-2. онда учиш како се чита модул и систем,
-  - документи: `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`, `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
-3. онда учиш KomITi module/domain стварност,
-  - документи: `08_KOMITI_DOMAIN_MODEL_MAP_2h.md`, `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`, `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
-4. тек онда читаш policy/codex слој пуним капацитетом,
+1. прочиташ како ће изгледати пројекат и производ који ћеш направити кроз овај курс
+  - документ: `00_ОПИС_ПРОЈЕКТА_И_ПРОИЗВОДА_2h.md`,
+2. прво учиш основне појмове,
+  - документи:  `01_УПРАВЉАЊЕ_ПРОЈЕКТОМ_И_ПРОИЗВОДОМ_1h.md`, `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`, `03_GIT_VSCODE_ОСНОВЕ_2h.md`, `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, `05_ODOO_ОСНОВЕ_4h.md`
+3. онда учиш како се чита модул и систем,
+  - документи: `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`, `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
+4. онда учиш KomITi module/domain стварност,
+  - документи: `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md`, `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`, `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
+5. тек онда читаш policy/codex слој пуним капацитетом,
   - документи: `../custom-addons/CODEX_ODOO.md`, `../ENGINEERING_CODEX.md`, `../SESSION_NOTES.md`
-5. тек послије тога улазиш у debugging, testing, rollout и infra discipline.
-  - документи: `09_ODOO_DEBUGGING_PLAYBOOK_3h.md`, `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`, `11_ODOO_DATA_AND_MIGRATION_SAFETY_3h.md`, `12_ODOO_CODE_REVIEW_CHECKLIST_1h.md`, `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`, `14_ODOO_WEBSITE_AND_FRONTEND_2h.md`, `15_PRACTICE_LADDER_20_EXERCISES_40h.md`, `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`, `../infra/aws/CODEX_TERRAFORM.md`, `../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md`
+6. тек послије тога улазиш у debugging, testing, rollout и infra discipline.
+  - документи: `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`, `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`, `11_ODOO_БЕЗБЈЕДНОСТ_ПОДАТАКА_И_МИГРАЦИЈЕ_3h.md`, `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`, `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`, `14_ODOO_ВЕБСАЈТ_И_КОРИСНИЧКИ_ИНТЕРФЕЈС_2h.md`, `15_ЉЕСТВИЦА_ПРАКСЕ_20_ВЈЕЖБИ_40h.md`, `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`, `../infra/aws/CODEX_TERRAFORM.md`, `../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md`
 
-Ако током читања наиђеш на појам или акроним који ти није јасан, користи appendix документ `99_DICTIONARY_ACROMINS.md` као брзи индекс термина и упуту ка главним документима гдје је тај појам детаљније обрађен.
+Ако током читања наиђеш на појам или акроним који ти није јасан, користи appendix документ `99_РЈЕЧНИК_АКРОНИМА.md` као брзи индекс термина и упуту ка главним документима гдје је тај појам детаљније обрађен.
+------------------------------------------------------------------------------------------------------------------
 
 ## 3) Фаза A — Foundations (седмице 1–4)
 
@@ -72,27 +77,30 @@ Business Context Input: Business Owner
 
 ### 3.2.1 Документи за ову фазу
 
-- `02_DEVELOPER_QUICKSTART_1h.md`
-- `03_GIT_VSCODE_FOUNDATIONS_2h.md`
-- `04_INFRA_TERRAFORM_DOCKER_AWS_FOUNDATIONS_4h.md`
-- `05_ODOO_FOUNDATIONS_4h.md`
-- `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`
-- `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
+- `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
+- `03_GIT_VSCODE_ОСНОВЕ_2h.md`
+- `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+- `05_ODOO_ОСНОВЕ_4h.md`
+- `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
+- `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
 
 ### 3.3 Практични задаци
 
-- Подигнути локално окружење из репоа
+- Отвори свој налог на GitHub и претплати се на услугу GitCopilot
+- Креирај свој GitHub repo `komiti_academy_ime_polaznika`
+- Клонирај repo `komiti_academy_ime_polaznika` локално и подигни окружење из тог репоа
 - Направити micro PR који мијења документацију
 - Написати 5 SQL упита над локалном базом (уз објашњење резултата)
 - Измјенити један label/field у Odoo view-у и пустити module upgrade
-- Направити skeleton за `komiti_academy` према `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- Направити skeleton за `komiti_academy` према `05_ODOO_ОСНОВЕ_4h.md` и `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`; `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md` касније служи као документ за сабирање и контролне тачке завршног пројекта
 
 ### 3.4 Критеријум пролаза
 
 - Може сам да подигне локално окружење
-- Разумије где су `ENGINEERING_CODEX`, `custom-addons/CODEX_ODOO`, `SESSION_NOTES` и `00_END2END_ONBOARDING_LEARNING_PATH_39-52w.md`
+- Разумије где су `ENGINEERING_CODEX`, `custom-addons/CODEX_ODOO`, `SESSION_NOTES` и `00_END2END_ONBOARDING_ПУТ_УЧЕЊА_39-52w.md`
 - Направио бар 1 чист PR по стандарду
 - `komiti_academy` skeleton постоји и може бити објашњен без нагађања
+------------------------------------------------------------------------------------------------------------------
 
 ## 4) Фаза B — Guided Odoo Development (седмице 5–8)
 
@@ -110,7 +118,7 @@ Business Context Input: Business Owner
 
 ### 4.2.1 Документи за ову фазу
 
-- `08_KOMITI_DOMAIN_MODEL_MAP_2h.md`
+- `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md`
 - `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`
 - `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
 - `../custom-addons/CODEX_ODOO.md`
@@ -128,6 +136,7 @@ Business Context Input: Business Owner
 - 2–3 merge-ована PR-а без критичних regression-а
 - Самостално прати `staging -> main` flow уз менторску потврду
 - `komiti_academy` се инсталира, отвара у UI-ју и покрива основни flow course -> session
+------------------------------------------------------------------------------------------------------------------
 
 ## 5) Фаза C — Independent Delivery (седмице 9–12)
 
@@ -144,9 +153,9 @@ Business Context Input: Business Owner
 
 ### 5.2.1 Документи за ову фазу
 
-- `09_ODOO_DEBUGGING_PLAYBOOK_3h.md`
-- `10_ODOO_TESTING_AND_VERIFICATION_HANDBOOK_3h.md`
-- `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`
+- `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`
+- `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`
+- `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`
 - `../ENGINEERING_CODEX.md`
 - `../SESSION_NOTES.md`
 
@@ -162,6 +171,7 @@ Business Context Input: Business Owner
 - Самостално имплементира, тестира, документује и пушта мањи task
 - Може објаснити зашто је нешто root-cause, а не симптом
 - `komiti_academy` има manual verification proof и јасан Definition of Done status
+------------------------------------------------------------------------------------------------------------------
 
 ## 6) Фаза D — Professional Growth (мјесеци 4–12)
 
@@ -178,11 +188,11 @@ Business Context Input: Business Owner
 
 ### 6.2.1 Документи за ову фазу
 
-- `11_ODOO_DATA_AND_MIGRATION_SAFETY_3h.md`
-- `12_ODOO_CODE_REVIEW_CHECKLIST_1h.md`
-- `14_ODOO_WEBSITE_AND_FRONTEND_2h.md`
-- `15_PRACTICE_LADDER_20_EXERCISES_40h.md`
-- `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- `11_ODOO_БЕЗБЈЕДНОСТ_ПОДАТАКА_И_МИГРАЦИЈЕ_3h.md`
+- `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`
+- `14_ODOO_ВЕБСАЈТ_И_КОРИСНИЧКИ_ИНТЕРФЕЈС_2h.md`
+- `15_ЉЕСТВИЦА_ПРАКСЕ_20_ВЈЕЖБИ_40h.md`
+- `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
 - `../infra/aws/CODEX_TERRAFORM.md`
 - `../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md`
 
@@ -192,6 +202,7 @@ Business Context Input: Business Owner
 - Прави технички план, процјену и rollout стратегију
 - Менторише новог junior члана
 - Има завршен `komiti_academy` као лични доказ да умије направити Odoo модул end-to-end
+------------------------------------------------------------------------------------------------------------------
 
 ## 7) Дневни/седмични ритам учења
 
@@ -204,6 +215,7 @@ Business Context Input: Business Owner
   - 1 менторски review састанак (60–90 мин)
   - 1 mini demo урађеног
   - 1 ретроспектива: шта је било тешко, шта мијењамо
+  ------------------------------------------------------------------------------------------------------------------
 
 ## 8) Проверa напретка (checkpoint-и)
 
@@ -214,11 +226,12 @@ Business Context Input: Business Owner
 - **Мјесец 6:** стабилан mid-level delivery
 - **Мјесец 12:** професионални ниво за већину Odoo/KomITi задатака
 
-Capstone checkpoints:
+Контролне тачке завршног пројекта:
 - **Дан 14:** `komiti_academy` skeleton
 - **Дан 30:** installable MVP
 - **Дан 60:** business rules + negative tests
 - **Дан 90:** documentation + verification + clean handoff
+------------------------------------------------------------------------------------------------------------------
 
 ## 9) Definition of Done за „0 -> pro"
 
@@ -229,6 +242,7 @@ Capstone checkpoints:
 - Пише јасну документацију и handoff
 - Не нарушава KomITi стандарде из `ENGINEERING_CODEX.md`
 - Има један свој модул `komiti_academy` који је прошао install, upgrade, verification и documentation циклус
+------------------------------------------------------------------------------------------------------------------
 
 ## 10) Напомена
 

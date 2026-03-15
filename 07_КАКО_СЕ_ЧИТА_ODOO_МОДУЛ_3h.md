@@ -148,9 +148,9 @@
 
 ## 11) Шта читаш даље
 
-- `08_KOMITI_DOMAIN_MODEL_MAP_2h.md`
-- `09_ODOO_DEBUGGING_PLAYBOOK_3h.md`
-- `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
+- `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md`
+- `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`
+- `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
 
 ## 99) Задатак на komiti_academy пројекту за кандидата
 

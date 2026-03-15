@@ -93,5 +93,5 @@ XML ID је identity contract.
 
 ## 11) Шта читаш даље
 
-- `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`
-- `12_ODOO_CODE_REVIEW_CHECKLIST_1h.md`
+- `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`
+- `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`
