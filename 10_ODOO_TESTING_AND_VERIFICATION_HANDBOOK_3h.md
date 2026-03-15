@@ -143,7 +143,7 @@ Verification note за capstone мора експлицитно имати:
 - `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`
 - `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
 
-## 99) Task на komiti_academy пројекту за кандидата
+## 99) Задатак на komiti_academy пројекту за кандидата
 
 1. Верификуј `komiti_academy` тако да докажеш install, upgrade, happy path и negative path.
 Референца: Ово је објашњено у поглављима `## 3) XML / view измјена`, `## 4) Python business logic измјена`, `## 5) Security измјена` и `## 13) Capstone verification за \`komiti_academy\``.
@@ -152,7 +152,7 @@ Verification note за capstone мора експлицитно имати:
 3. Напиши verification note који стварно доказује да модул ради.
 Референца: Ово је објашњено у поглављима `## 11) Verification note template` и `## 13) Capstone verification за \`komiti_academy\``.
 
-## 99) Solutions
+## 99) Рјешења
 
 1. За општу verification дисциплину уради ово редом:
 	1. Одреди који тип измјене провјераваш: XML/view, Python logic или security.
