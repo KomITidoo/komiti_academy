@@ -34,50 +34,41 @@
 ## 2) Git основе које мораш знати 
 - `Git` и `GitHub` нису исто: `Git` је систем за version control, а `GitHub` је платформа на којој живи remote репо.
 - VS Code Explorer и Source Control углавном ти показују Git стање локалног workspace-а.
+- У KomITi workflow-у који сада користимо, типичан ток је: `feature` -> `staging` -> `main`.
 
+## 3.1) Локална и remote грана
 ```text
-REMOTE   [origin/feature]           [origin/dev]              [origin/prod]
+REMOTE   [origin/feature]         [origin/staging]           [origin/main]
 			  ^                           |                         |
 			  | git push                  | git pull                | git pull
 			  |                           v                         v
-LOKALNO  [feature] ----git merge----> [dev] ----git merge----> [prod]
-			  ^                                                     |
-			  |                                                     |
-			  +--------- git checkout -b feature iz local prod -----+
-								(a local prod je prethodno
-								osvježen iz origin/prod)
+LOKALNO  [feature] ----git merge----> [staging] ----git merge----> [main]
+			  ^                                                       |
+			  |                                                       |
+			  +------- git checkout -b feature iz local main ---------+
+								(a local main je prethodno
+								osvježen iz origin/main)
 ```
 
-Замисли да је Git repo једна фасцикла са више папира, а сваки branch један посебан папир у тој фасцикли. 
-У стварном раду прво станеш на главни папир командом `git checkout prod`, освјежиш га командом `git pull origin prod`, па онда направиш свој радни папир командом `git checkout -b 2026-03-12-features`.
-Послије тога мијењаш фајлове у VS Code-у, провјериш шта си тачно урадио са `git status --short` и `git diff --stat`, па локално снимаш своје стање командама `git add 03_GIT_VSCODE_FOUNDATIONS_2h.md` и `git commit -m "Expand Git foundations workflow"`.
-Кад хоћеш да и други виде твој рад, пошаљеш свој локални радни папир на GitHub командом `git push -u origin 2026-03-12-features`, чиме твој локални `2026-03-12-features` добије и своју remote копију `origin/2026-03-12-features`.
-Кад је промјена провјерена, пређеш на `dev` са `git checkout dev`, освјежиш га са `git pull origin dev`, унесеш садржај свог радног папира командом `git merge 2026-03-12-features`, па резултат пошаљеш назад на GitHub са `git push origin dev`; касније исту логику поновиш и за `prod`, тако да Git практично служи да тачно знаш на ком папиру радиш, шта си мијењао и како се та промјена креће до главне верзије.
-------------------------------------------------------------------------------------------------------------------
+Замисли да је Git repo једна фасцикла са више папира, а сваки branch један посебан папир у тој фасцикли. Исти branch може постојати на два мјеста: локално, код тебе на рачунару и remote, на GitHub-у.
+- Креирање feature локалне гране (`git checkout -b 2026-03-12-features`):
+	У стварном раду прво станеш на главни папир командом `git checkout main`, освјежиш га командом `git pull origin main`, па онда направиш свој радни папир командом `git checkout -b 2026-03-12-features`.
+- Рад у локалној feature грани (`git commit -m "Expand Git foundations workflow"`):
+	Послије тога мијењаш фајлове у VS Code-у, провјериш шта си тачно урадио са `git status --short` и `git diff --stat`, па локално снимаш своје стање командама `git add 03_GIT_VSCODE_FOUNDATIONS_2h.md` и `git commit -m "Expand Git foundations workflow"`.
+- pull и merge локалне feature гране у staging (`git pull origin staging` и `git merge 2026-03-12-features`) и main:
+	Кад хоћеш да и други виде твој рад, пошаљеш свој локални радни папир на GitHub командом `git push -u origin 2026-03-12-features`, чиме твој локални `2026-03-12-features` добије и своју remote копију `origin/2026-03-12-features`.
+	Кад је промјена провјерена, пређеш на `staging` са `git checkout staging`, освјежиш га са `git pull origin staging`, унесеш садржај свог радног папира командом `git merge 2026-03-12-features`, па резултат пошаљеш назад на GitHub са `git push origin staging`; касније исту логику поновиш и за `main`, тако да Git практично служи да тачно знаш на ком папиру радиш, шта си мијењао и како се та промјена креће до главне верзије.
 
-## 3) Најважнији појмови
-- `working tree`: локалне измјене које још нису commit-оване,
-- `staged changes`: измјене спремљене за наредни commit,
-- `commit`: снимак једне логичке цјелине,
-- `branch`: изолована линија рада,
-- `checkout`: прелазак на други branch или креирање новог branch-а,
-- `merge`: пренос садржаја из једног branch-а у други branch,
-- `origin`: default remote,
-- `push`: слање локалних commit-а на remote,
-- `pull`: преузимање remote промјена.
-
-## 3.1) Локална и remote грана
-Прије формалних дефиниција, најлакше је да ово замислиш са папиром.
-Замисли да је repo једна фасцикла, а сваки branch један папир.
-- `prod` = главни папир,
-- `dev` = папир за провјеру,
+Обзиром да је ово јако важан концепт, ајде да га поновимо таксативно:
+- `main` = главни папир,
+- `staging` = папир за провјеру,
 - `2026-03-12-features` = твој радни папир.
 Исти тај branch може постојати на два мјеста:
 - локално, код тебе на рачунару,
 - remote, на GitHub-у.
 Зато можеш имати:
-- локални `dev`,
-- remote `origin/dev`.
+- локални `staging`,
+- remote `origin/staging`.
 То нису буквално исти branch, него локална и remote копија исте линије рада.
 У причи са папиром ово значи:
 - `checkout` = прелазиш на други папир,
@@ -86,9 +77,9 @@ LOKALNO  [feature] ----git merge----> [dev] ----git merge----> [prod]
 - `pull` = узмеш новију верзију папира са GitHub-а,
 - `merge` = пренесеш садржај са једног папира на други папир.
 Практично:
-- `git checkout dev` значи да си прешао на свој локални `dev`,
-- `git pull origin dev` значи да си узео ново стање са remote `origin/dev`,
-- `git push origin dev` значи да си послао свој локални `dev` на remote `origin/dev`.
+- `git checkout staging` значи да си прешао на свој локални `staging`,
+- `git pull origin staging` значи да си узео ново стање са remote `origin/staging`,
+- `git push origin staging` значи да си послао свој локални `staging` на remote `origin/staging`.
 ------------------------------------------------------------------------------------------------------------------
 
 ## 4) Шта значе слова у VS Code Explorer-у
@@ -150,22 +141,22 @@ LOKALNO  [feature] ----git merge----> [dev] ----git merge----> [prod]
 
 Исти овај Git ток касније ћеш морати сам да проведеш и за task-ове на `komiti_academy`, па га не читај као апстрактно правило него као радну процедуру.
 
-### Корак 1: узми најновији `prod`
+### Корак 1: узми најновији `main`
 ```powershell
-git checkout prod
-git pull origin prod
+git checkout main
+git pull origin main
 ```
-- `git checkout prod`: пређе на локалну грану `prod`.
-- `git pull origin prod`: повуче најновије промјене са remote-а `origin` за грану `prod` и споји их у локалну `prod`.
+- `git checkout main`: пређе на локалну грану `main`.
+- `git pull origin main`: повуче најновије промјене са remote-а `origin` за грану `main` и споји их у локалну `main`.
 - `origin`: аргумент који каже са ког remote-а повлачиш.
-- `prod`: аргумент који каже коју грану повлачиш.
+- `main`: аргумент који каже коју грану повлачиш.
 Овдје узимаш најновији главни branch као полазну основу.
 То значи:
-- прешао си на локални `prod`,
-- повукао си најновије стање са remote `origin/prod`,
+- прешао си на локални `main`,
+- повукао си најновије стање са remote `origin/main`,
 - у причи са папиром: стао си на главни папир и провјерио да ли имаш његову најновију верзију из заједничке фасцикле.
 
-### Корак 2: направи нови feature branch из `prod`
+### Корак 2: направи нови feature branch из `main`
 ```powershell
 git checkout -b 2026-03-12-features
 ```
@@ -239,42 +230,42 @@ git push origin 2026-03-12-features
 - remote `origin/2026-03-12-features` = на GitHub-у,
 - у причи са папиром: свој радни папир си послао у заједничку фасциклу да и други могу да виде ту верзију.
 
-### Корак 6: промоција у `dev`
-Прво пређеш на `dev` и освјежиш га:
+### Корак 6: промоција у `staging`
+Прво пређеш на `staging` и освјежиш га:
 ```powershell
-git checkout dev
-git pull origin dev
+git checkout staging
+git pull origin staging
 ```
-- `git checkout dev`: пређе на локалну грану `dev`.
-- `git pull origin dev`: освјежи локални `dev` најновијим стањем са remote-а `origin/dev`.
-Онда унесеш feature садржај у `dev`:
+- `git checkout staging`: пређе на локалну грану `staging`.
+- `git pull origin staging`: освјежи локални `staging` најновијим стањем са remote-а `origin/staging`.
+Онда унесеш feature садржај у `staging`:
 ```powershell
 git merge 2026-03-12-features
-git push origin dev
+git push origin staging
 ```
-- `git merge 2026-03-12-features`: у тренутну грану `dev` уноси садржај са feature гране.
-- `git push origin dev`: шаље ажурирани `dev` назад на GitHub.
-То значи да је садржај са твог feature branch-а прешао у `dev`.
+- `git merge 2026-03-12-features`: у тренутну грану `staging` уноси садржај са feature гране.
+- `git push origin staging`: шаље ажурирани `staging` назад на GitHub.
+То значи да је садржај са твог feature branch-а прешао у `staging`.
 Овдје `merge` ради овако:
-- стао си на `dev`,
-- освјежио си `dev` са GitHub-а,
-- у `dev` си унео садржај са `2026-03-12-features`,
-- па си нови `dev` послао назад на GitHub,
+- стао си на `staging`,
+- освјежио си `staging` са GitHub-а,
+- у `staging` си унео садржај са `2026-03-12-features`,
+- па си нови `staging` послао назад на GitHub,
 - у причи са папиром: узео си папир за провјеру, провјерио да је свеж, па на њега пренио садржај са свог радног папира.
 
-### Корак 7: промоција у `prod`
-Кад је `dev` или feature промјена провјерена, идеш на `prod`:
+### Корак 7: промоција у `main`
+Кад је `staging` или feature промјена провјерена, идеш на `main`:
 ```powershell
-git checkout prod
-git pull origin prod
+git checkout main
+git pull origin main
 git merge 2026-03-12-features
-git push origin prod
+git push origin main
 ```
-- `git checkout prod`: пређе на локалну грану `prod`.
-- `git pull origin prod`: освјежи локални `prod` remote стањем са `origin/prod`.
-- `git merge 2026-03-12-features`: у `prod` уноси садржај провјерене feature гране.
-- `git push origin prod`: шаље ажурирани `prod` на GitHub.
-У неким токовима се у `prod` merge-ује `dev`, а у неким директно feature branch. Битна логика је иста:
+- `git checkout main`: пређе на локалну грану `main`.
+- `git pull origin main`: освјежи локални `main` remote стањем са `origin/main`.
+- `git merge 2026-03-12-features`: у `main` уноси садржај провјерене feature гране.
+- `git push origin main`: шаље ажурирани `main` на GitHub.
+У неким токовима се у `main` merge-ује `staging`, а у неким директно feature branch. Битна логика је иста:
 - прво станеш на branch који прима промјену,
 - онда у њега merge-ујеш провјерени branch,
 - па push-ујеш remote,
@@ -286,7 +277,7 @@ git checkout 2026-03-12-features
 ```
 - `git checkout 2026-03-12-features`: врати те на локалну feature грану да наставиш рад.
 Ако ово схватиш, онда практично разумијеш и:
-- у причи са папиром: вратио си се на свој радни папир и настављаш да пишеш на њему, а не на `dev` или `prod` папиру,
+- у причи са папиром: вратио си се на свој радни папир и настављаш да пишеш на њему, а не на `staging` или `main` папиру,
 - шта је локална грана,
 - шта је remote грана,
 - шта је `checkout`,
@@ -304,11 +295,21 @@ git checkout 2026-03-12-features
 - мислити да је `push` исто што и `deploy`.
 ------------------------------------------------------------------------------------------------------------------
 
-## 9) Минималне команде које мораш знати
+## 9) Најважнији појмови и Минималне команде које мораш знати
+- `working tree`: локалне измјене које још нису commit-оване,
+- `staged changes`: измјене спремљене за наредни commit,
+- `commit`: снимак једне логичке цјелине,
+- `branch`: изолована линија рада,
+- `checkout`: прелазак на други branch или креирање новог branch-а,
+- `merge`: пренос садржаја из једног branch-а у други branch,
+- `origin`: default remote,
+- `push`: слање локалних commit-а на remote,
+- `pull`: преузимање remote промјена.
+
 Ово су исте оне команде из workflow-а изнад, само као кратка cheat-sheet листа:
 ```powershell
-git checkout prod
-git checkout dev
+git checkout main
+git checkout staging
 git checkout -b <new-branch>
 git status --short
 git diff --stat
@@ -319,7 +320,7 @@ git merge <source-branch>
 git pull origin <branch>
 git push origin <branch>
 ```
-- `git checkout prod` / `git checkout dev`: прелазак на постојећу локалну грану.
+- `git checkout main` / `git checkout staging`: прелазак на постојећу локалну грану.
 - `git checkout -b <new-branch>`: креира нову грану и одмах пређе на њу; `-b` значи `branch`.
 - `git status --short`: кратак статус working tree-ја; `--short` значи компактни приказ.
 - `git diff --stat`: статистички преглед diff-а; `--stat` значи summary по фајловима.
@@ -336,7 +337,8 @@ git push origin <branch>
 - један commit = једна логичка цјелина,
 - не комитуј неповезане измјене,
 - прво прочитај `eng codex`,
-- не третирај `prod` као playground,
+- не третирај `main` као playground,
+- `staging` је integration грана, а `main` production грана,
 - локални Git proof није исто што и Odoo runtime proof.
 ------------------------------------------------------------------------------------------------------------------
 
@@ -346,7 +348,7 @@ git push origin <branch>
 - која је разлика између save / commit / push,
 - шта је branch,
 - шта ради `checkout`, а шта `merge`,
-- која је разлика између локалне `dev` и remote `origin/dev`,
+- која је разлика између локалне `staging` и remote `origin/staging`,
 - зашто `git status --short` провјеравамо прије commit-а,
 - зашто не стављамо неповезане фајлове у исти commit.
 ------------------------------------------------------------------------------------------------------------------
@@ -357,7 +359,7 @@ git push origin <branch>
 - `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`
 - `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
 
-## 99) Task на komiti_academy пројекту за кандидата
+## 99) Задатак на komiti_academy пројекту за кандидата
 
 1. Направи Git plan за `komiti_academy`: назив feature гране, први commit scope и правило шта не смије ући у исти commit.
 Референца: Ово је објашњено у поглављима `## 7) Основни локални ток рада` и `## 10) Како ово изгледа у KomITi-ју`.
@@ -366,7 +368,7 @@ git push origin <branch>
 3. Push-уј радну грану тако да ментор може review-овати еволуцију `komiti_academy` по чистим commit-има.
 Референца: Ово је објашњено у поглављима `## 7) Основни локални ток рада` и `## 10) Како ово изгледа у KomITi-ју`.
 
-## 99) Solutions
+## 99) Рјешења
 
 1. За Git plan уради ово редом:
 	1. У `## 7) Основни локални ток рада` узми образац за branch flow.

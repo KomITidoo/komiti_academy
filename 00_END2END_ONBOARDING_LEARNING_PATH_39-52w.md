@@ -126,7 +126,7 @@ Business Context Input: Business Owner
 ### 4.4 Критеријум пролаза
 
 - 2–3 merge-ована PR-а без критичних regression-а
-- Samostalno прати `dev -> prod` flow уз менторску потврду
+- Самостално прати `staging -> main` flow уз менторску потврду
 - `komiti_academy` се инсталира, отвара у UI-ју и покрива основни flow course -> session
 
 ## 5) Фаза C — Independent Delivery (седмице 9–12)
@@ -225,7 +225,7 @@ Capstone checkpoints:
 Кандидат се сматра „професионалцем“ кад:
 - Самостално испоручује feature/quickfix са квалитетом
 - Самостално ради root-cause debugging
-- Самостално води `dev -> prod` промоцију уз верификацију
+- Самостално води `staging -> main` промоцију уз верификацију
 - Пише јасну документацију и handoff
 - Не нарушава KomITi стандарде из `ENGINEERING_CODEX.md`
 - Има један свој модул `komiti_academy` који је прошао install, upgrade, verification и documentation циклус

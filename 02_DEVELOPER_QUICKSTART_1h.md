@@ -148,7 +148,7 @@ docker compose restart odoo-web
 
 - Не комитуј тајне, backup dump-ове или локалне runtime артефакте.
 - Не пуштај risky refactor без јасног verification plana.
-- Не третирај `prod` као playground.
+- Не третирај `main` као playground.
 - Не претпостављај да су localhost и remote исти ако ниси провјерио runtime слој.
 ------------------------------------------------------------------------------------------------------------------
 
