@@ -36,7 +36,7 @@ Business Context Input: Business Owner
 1. прочиташ како ће изгледати производ који ћеш направити кроз овај курс
   - документ: `00_ОПИС_ПРОИЗВОДА_2h.md`,
 2. прво учиш основне појмове,
-  - документи:  `01_УПРАВЉАЊЕ_ПРОЈЕКТОМ_И_ПРОИЗВОДОМ_2h.md`, `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`, `03_GIT_VSCODE_ОСНОВЕ_2h.md`, `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, `05_ODOO_ОСНОВЕ_4h.md`
+  - документи:  `01_УПРАВЉАЊЕ_ПРОЈЕКТОМ_И_ПРОИЗВОДОМ_2h.md`, `02_GIT_VSCODE_ОСНОВЕ_2h.md`, `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, `04_ODOO_ОСНОВЕ_4h.md`, `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
 3. онда учиш како се чита модул и систем,
   - документи: `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`, `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
 4. онда учиш KomITi module/domain стварност,
@@ -75,10 +75,10 @@ Business Context Input: Business Owner
 
 Кад желиш једним читањем да видиш све task-ове који воде ка готовом `komiti_academy`, користи ове референце:
 
-- `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`:  project-specific почетни задатак и како да га припремиш кроз runtime, health и search секције.
-- `03_GIT_VSCODE_ОСНОВЕ_2h.md`: Git task-ови за feature branch, clean commit и push discipline, са упутом из workflow поглавља.
-- `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`: runtime/infra reasoning task-ови, локални Terraform + Docker Desktop lab за `komiti_academy` dev runtime и упута како да разликујеш infra enablement од application проблема и core product scope-а.
-- `05_ODOO_ОСНОВЕ_4h.md`: први стварни project task-ови за почетну структуру модула, model-е, relation-е, поља и UI, са упутом на foundations поглавља.
+- `02_GIT_VSCODE_ОСНОВЕ_2h.md`: Git task-ови за feature branch, clean commit и push discipline, са упутом из workflow поглавља.
+- `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`: runtime/infra reasoning task-ови, локални Terraform + Docker Desktop lab за `komiti_academy` dev runtime и упута како да разликујеш infra enablement од application проблема и core product scope-а.
+- `04_ODOO_ОСНОВЕ_4h.md`: први стварни project task-ови за почетну структуру модула, model-е, relation-е, поља и UI, са упутом на foundations поглавља.
+- `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`: project-specific почетни задатак и како да га operationalно припремиш након што савладаш Odoo основе.
 - `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`: task-ови за module structure и упута која поглавља воде manifest, XML и security провјеру.
 - `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`: task-ови за читање властитог модула и упута којим редослиједом то радиш.
 - `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`: verification task-ови и јасна референца на testing, role-based testing и поглавља о провјери завршног пројекта.
@@ -96,33 +96,33 @@ Business Context Input: Business Owner
 ### 3.2 Теме
 
 - Python основе: типови, функције, услови, петље, грешке
-  - документи: нема засебног Python-only документа у овој фази; Python основе се највише утврђују кроз `05_ODOO_ОСНОВЕ_4h.md`, `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
+  - документи: нема засебног Python-only документа у овој фази; Python основе се највише утврђују кроз `04_ODOO_ОСНОВЕ_4h.md`, `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md` и `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
 - Git основе: branch, commit, merge, pull request
   - документи: 
-    - уводни operational контекст из `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
+    - уводни operational контекст из `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
       - задатак: Клонирај repo `komiti_academy_ime_polaznika` локално
-    - `03_GIT_VSCODE_ОСНОВЕ_2h.md`
+    - `02_GIT_VSCODE_ОСНОВЕ_2h.md`
       - задатак: Отвори свој налог на GitHub и претплати се на услугу GitCopilot
       - задатак: Креирај свој GitHub repo `komiti_academy_ime_polaznika`
       - задатак: Направити micro PR који мијења документацију
 - SQL основе: SELECT, JOIN, WHERE, GROUP BY
   - документи: нема засебног SQL-only документа у овој фази; 
-    - SQL reasoning се вјежба уз `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
+    - SQL reasoning се вјежба уз `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
       - задатак: Написати 5 SQL упита над локалном базом (уз објашњење резултата)
-    - data/model контекст из `05_ODOO_ОСНОВЕ_4h.md`
+    - data/model контекст из `04_ODOO_ОСНОВЕ_4h.md`
       - задатак: Објасни резултате тих SQL упита кроз Odoo data/model контекст
 - AWS основе: EC2, security group, VPC, EIP, DNS thinking
-  - документи: `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+  - документи: `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
 - Docker основе: контејнер, image, `docker compose`
   - документи:
-    - `02_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
+    - `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
       - задатак: Подигни локално окружење из repo-а `komiti_academy_ime_polaznika`
-    - `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
 - Terraform основе: provider, resource, variables, state, `plan`/`apply`
-  - документи: `04_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+  - документи: `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
 - Odoo основе: model, view, action, security, module upgrade
   - документи:
-    - `05_ODOO_ОСНОВЕ_4h.md`
+    - `04_ODOO_ОСНОВЕ_4h.md`
       - задатак: Направити skeleton за `komiti_academy`
     - `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
       - задатак: Дорадити skeleton за `komiti_academy` према структури доброг Odoo модула
