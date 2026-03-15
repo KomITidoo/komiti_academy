@@ -11,7 +11,7 @@ Business Validation Input: Business Owner
 - документован,
 - довољно чист да може проћи review.
 
-Главни опис самог производа/модула који се гради је у `00_ОПИС_ПРОЈЕКТА_И_ПРОИЗВОДА_2h.md`.
+Главни опис самог производа/модула који се гради је у `00_ОПИС_ПРОИЗВОДА_2h.md`.
 Овај документ објашњава scope завршног пројекта, контролне тачке, Definition of Done и learning execution редослијед.
 
 Кандидат implementation ради у свом GitHub репоу `komiti_academy_ime_polaznika`, док је овај репо `komiti_academy` learning/documentation репо.
