@@ -33,8 +33,8 @@ Task често има више слојева:
 
 Питај се:
 - шта мора бити локално verified,
-- шта је minimum safe path до `dev`,
-- шта је minimum safe path до `prod`,
+- шта је minimum safe path до `staging`,
+- шта је minimum safe path до `main`,
 - шта је rollback boundary ако нешто падне.
 
 ## 5) KomITi examples

@@ -51,7 +51,7 @@
 ## B
 
 `Branch` је Git линија развоја.
-У KomITi workflow-у је битно разликовати feature, `dev` и `prod` гране и промоцију између њих.
+У KomITi workflow-у је битно разликовати feature, `staging` и `main` гране и промоцију између њих.
 Гдје се помиње:
 - `00_END2END_ONBOARDING_LEARNING_PATH_39-52w.md`
 - `03_GIT_VSCODE_FOUNDATIONS_2h.md`
@@ -204,7 +204,7 @@
 
 ## F
 
-`Feature branch` је радна Git грана на којој се прави конкретан batch измјена прије промоције у `dev` и `prod`.
+`Feature branch` је радна Git грана на којој се прави конкретан batch измјена прије промоције у `staging` и `main`.
 Гдје се помиње:
 - `03_GIT_VSCODE_FOUNDATIONS_2h.md`
 - `13_TASK_BREAKDOWN_AND_ROLLOUT_THINKING_2h.md`
