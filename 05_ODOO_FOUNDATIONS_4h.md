@@ -234,7 +234,7 @@ Odoo UI углавном долази из XML view-ова:
 - `07_HOW_TO_READ_AN_ODOO_MODULE_3h.md`
 - `16_CAPSTONE_BUILD_YOUR_OWN_ODOO_MODULE_16h.md`
 
-## 99) Task на komiti_academy пројекту за кандидата
+## 99) Задатак на komiti_academy пројекту за кандидата
 
 1. Направи skeleton модула `komiti_academy` са почетним Odoo фајловима.
 Референца: Ово је објашњено у поглављима `## 2) Шта је model`, `## 7) Views`, `## 9) Action и menu слој` и `## 14) Foundations capstone задатак`.
@@ -245,7 +245,7 @@ Odoo UI углавном долази из XML view-ова:
 4. Именуј минимални UI који модул мора имати: tree, form и search слој.
 Референца: Ово је објашњено у поглављима `## 7) Views`, `## 8) View inheritance`, `## 9) Action и menu слој` и `## 14) Foundations capstone задатак`.
 
-## 99) Solutions
+## 99) Рјешења
 
 1. За skeleton модула уради ово редом:
 	1. У `## 14) Foundations capstone задатак` узми основни образац за почетак.

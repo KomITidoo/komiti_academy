@@ -150,7 +150,8 @@ docker compose restart odoo-web
 - Не пуштај risky refactor без јасног verification plana.
 - Не третирај `main` као playground.
 - Не претпостављај да су localhost и remote исти ако ниси провјерио runtime слој.
-------------------------------------------------------------------------------------------------------------------
+-------------------------------- Не третирај `main` као playground.
+--------------------------------------------
 
 ## 10) Шта читаш даље
 
@@ -159,7 +160,7 @@ docker compose restart odoo-web
 - `05_ODOO_FOUNDATIONS_4h.md`
 - `06_ANATOMY_OF_A_GOOD_ODOO_MODULE_2h.md`
 
-## 99) Task на komiti_academy пројекту за кандидата
+## 99) Задатак на komiti_academy пројекту за кандидата
 
 1. Ако не постоји, направи локални директоријум `local-notes/project/` у root-у свог издвојеног `komiti_academy` workspace-а, па онда у њему напиши кратку почетну биљешку у Markdown фајл `local-notes/project/komiti_academy_start_note.md`: који ће бити први model-и, који постојећи addon-и су ти reference и шта прво мораш провјерити на localhost-у прије почетка рада.
 Референца: Ово је објашњено у поглављима `## 7) Прва три модула која треба да упознаш` и `## 8) Шта да урадиш првог дана`.
@@ -168,7 +169,7 @@ docker compose restart odoo-web
 3. Попиши свој минимални локални preflight checklist за `komiti_academy`: runtime, health check, search strategy и module upgrade flow.
 Референца: Ово је објашњено у поглављима `## 3) Локални runtime`, `## 3.1) rg као основни алат за претрагу` и `## 5) Први Odoo workflow који мораш знати`.
 
-## 99) Solutions
+## 99) Рјешења
 
 1. За почетну биљешку уради ово редом:
 	1. У root-у свог издвојеног `komiti_academy` workspace-а провјери да ли постоји локални директоријум `local-notes/project/`; ако не постоји, направи га прије свега осталог.

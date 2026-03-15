@@ -475,7 +475,7 @@ Minimum safe lab flow нека буде:
 - `../infra/aws/odoo-prod-ec2-compose/README.md`
 - `../infra/aws/odoo-prod-ec2-compose/RUNBOOK.md`
 
-## 99) Task на komiti_academy пројекту за кандидата
+## 99) Задатак на komiti_academy пројекту за кандидата
 
 1. Напиши кратку infra/runtime дијагностичку биљешку за `komiti_academy`: шта би прво провјеравао ако модул не ради, а шта ако runtime уопште није здрав.
 Референца: Ово је објашњено у поглављима `## 12) Како се AWS, Docker и Terraform вежу у један flow` и `## 19) Foundations practical drill`.
@@ -486,7 +486,7 @@ Minimum safe lab flow нека буде:
 4. Осмисли и локално опиши Terraform lab за `komiti_academy` који преко Docker Desktop-а подиже Postgres и Odoo stack за локални `dev` runtime, са јасном структуром фајлова, variables, outputs и operator flow-ом.
 Референца: Ово је објашњено у поглављима `## 8) Variables и \`terraform.tfvars\``, `## 9) Структура директоријума: општа и KomITi конкретна`, `## 10) Plan није формалност`, `## 17) Minimal safe workflow у KomITi-ју` и `## 20) Local Terraform + Docker Desktop lab за кандидата`.
 
-## 99) Solutions
+## 99) Рјешења
 
 1. За дијагностичку биљешку уради ово редом:
 	1. У `## 12) Како се AWS, Docker и Terraform вежу у један flow` узми образац како раздвајаш infra слој од application слоја.
