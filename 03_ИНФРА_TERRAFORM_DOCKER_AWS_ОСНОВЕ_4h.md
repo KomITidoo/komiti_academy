@@ -472,7 +472,7 @@ Terraform рад постаје опасан кад људи ручно мије
 - идеју да Terraform доводи runtime skeleton у стање у ком Odoo може да се покрене.
 
 Овај lab не учи стварни cloud networking, VM lifecycle и cloud security boundary. То мораш знати да не замијениш локални Docker lab са стварним AWS/Azure infra радом.
-Добро је да овај lab гледаш као bridge: pattern-и око variables, outputs, naming-а и environment separation касније се могу пренијети на AWS/Azure Terraform рад, али ово није 1:1 cloud template.
+Треба да овај lab гледаш као bridge: pattern-и око variables, outputs, naming-а и environment separation касније се могу пренијети на AWS/Azure Terraform рад, али ово није 1:1 cloud template.
 
 Предложени lab нека живи у твом репоу `komiti_academy_ime_polaznika`, нпр. овако:
 - `infra/local/odoo-dev-docker-desktop/`
@@ -527,13 +527,13 @@ Minimum safe lab flow нека буде:
 
 ## 99) Задатак на komiti_academy пројекту за кандидата
 
-1. Напиши кратку infra/runtime дијагностичку биљешку за `komiti_academy`: шта би прво провјеравао ако модул не ради, а шта ако runtime уопште није здрав.
+1. Напиши кратку infra/runtime дијагностичку биљешку за `komiti_academy`: шта би прво провјеравао ако модул не ради, а шта ако runtime уопште није здрав.  
 Референца: Ово је објашњено у поглављима `## 5) Како се AWS, Docker и Terraform вежу у један flow` и `## 11) Foundations practical drill`.
-2. За `komiti_academy` попиши које runtime претпоставке морају бити истините прије стварне провјере да модул ради.
+2. За `komiti_academy` попиши које runtime претпоставке морају бити истините прије стварне провјере да модул ради.  
 Референца: Ово је објашњено у поглављима `## 3) Docker и container основе које мораш знати`, `### 4.4) State је критична истина` и `## 9) Minimal safe workflow у KomITi-ју`.
-3. Објасни на једном примјеру зашто container restart, module upgrade и стварна провјера захваћеног flow-а нису иста ствар.
+3. Објасни на једном примјеру зашто container restart, module upgrade и стварна провјера захваћеног flow-а нису иста ствар.  
 Референца: Ово је објашњено у поглављима `## 3) Docker и container основе које мораш знати`, `## 5) Како се AWS, Docker и Terraform вежу у један flow` и `## 9) Minimal safe workflow у KomITi-ју`.
-4. Осмисли и локално опиши Terraform lab у свом репоу `komiti_academy_ime_polaznika` који преко Docker Desktop-а подиже Postgres и Odoo stack за локални `dev` runtime, са јасном структуром фајлова, variables, outputs и јасним редослиједом рада.
+4. Осмисли и локално опиши Terraform lab у свом репоу `komiti_academy_ime_polaznika` који преко Docker Desktop-а подиже Postgres и Odoo stack за локални `dev` runtime, са јасном структуром фајлова, variables, outputs и јасним редослиједом рада.  
 Референца: Ово је објашњено у поглављима `#### 4.7.1) \`variables.tf\`, \`terraform.tfvars.example\` и \`terraform.tfvars\``, `### 4.5) Структура директоријума: општа и KomITi конкретна`, `### 4.8) Plan није формалност`, `## 9) Minimal safe workflow у KomITi-ју` и `## 12) Local Terraform + Docker Desktop lab за кандидата`.
 
 ## 99) Рјешења
