@@ -380,9 +380,7 @@ Terraform мора знати:
 
 На локалном `komiti_academy` Docker Desktop lab-у тај dependency graph изгледа отприлике овако:
 
-![Terraform dependency graph](assets/terraform-local-dependency-graph.svg)
-
-Ова слика је добијена из Terraform dependency graph-а. Ако кандидат има инсталиран Graphviz `dot`, граф може да генерише из терминала овако:
+Ако кандидат има инсталиран Graphviz `dot`, граф може да генерише из терминала овако:
 
 ```bash
 terraform graph | dot -Tpng > graph.png
