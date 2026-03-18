@@ -557,7 +557,7 @@ Minimum safe lab flow нека буде:
 		</tr>
 		<tr>
 			<td>Postgres DB name</td>
-			<td><a href="infra/local/odoo-dev-docker-desktop/variables.tf">variables.tf</a> - <code>postgres_db</code><br><a href="infra/local/odoo-dev-docker-desktop/terraform.tfvars">terraform.tfvars</a> - <code>postgres</code></td>
+			<td>default: <a href="infra/local/odoo-dev-docker-desktop/variables.tf">variables.tf</a> - <code>postgres_db</code><br>стварна вриједност: <a href="infra/local/odoo-dev-docker-desktop/terraform.tfvars">terraform.tfvars</a> - <code>postgres</code></td>
 			<td><a href="infra/local/odoo-dev-docker-desktop/docker-compose.yml">docker-compose.yml</a> - <code>POSTGRES_DB</code></td>
 		</tr>
 		<tr>
