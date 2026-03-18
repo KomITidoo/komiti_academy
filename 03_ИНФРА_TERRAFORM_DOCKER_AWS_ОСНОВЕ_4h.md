@@ -637,34 +637,47 @@ Minimum safe lab flow нека буде:
 	</tbody>
 </table>
 
-### 12.2) Одакле долази Master Password који видиш у browser-у
+### 12.2) Посебно важне напомене
 
 <table>
 	<colgroup>
-		<col width="22%">
-		<col width="43%">
-		<col width="35%">
+		<col width="20%">
+		<col width="18%">
+		<col width="18%">
+		<col width="44%">
 	</colgroup>
 	<thead>
 		<tr>
-			<th>Информација</th>
+			<th>Тема</th>
 			<th>Terraform</th>
 			<th>Compose</th>
+			<th>Шта то значи</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td>Odoo Master Password који се види у browser-у</td>
-			<td><table>
-				<tr><td>default:</td><td>нема експлицитног <code>admin_passwd</code> / <code>ADMIN_PASSWD</code> у <a href="infra/local/odoo-dev-docker-desktop/variables.tf">variables.tf</a></td></tr>
-				<tr><td>стварна вриједност:</td><td>не долази из <a href="infra/local/odoo-dev-docker-desktop/terraform.tfvars">terraform.tfvars</a>; ако је видиш у browser-у, то није вриједност дефинисана овим Terraform lab фајловима</td></tr>
-				<tr><td>гдје се примјењује:</td><td>у <a href="infra/local/odoo-dev-docker-desktop/compute.tf">compute.tf</a> се не просљеђује <code>ADMIN_PASSWD</code>; видљива лозинка долази из Odoo runtime/config state-а, а не из овог Terraform wiring-а</td></tr>
-			</table></td>
-			<td><table>
-				<tr><td>default:</td><td>у <a href="infra/local/odoo-dev-docker-desktop/docker-compose.yml">docker-compose.yml</a> нема <code>ADMIN_PASSWD</code></td></tr>
-				<tr><td>стварна вриједност:</td><td>ако browser приказује конкретан password, он не долази из овог Compose фајла</td></tr>
-				<tr><td>гдје се примјењује:</td><td>видљива вриједност долази из Odoo runtime/config state-а унутар покренутог runtime-а, не из Compose декларације</td></tr>
-			</table></td>
+			<td>Master Password за localhost Odoo</td>
+			<td>Није експлицитно дефинисан</td>
+			<td>Није експлицитно дефинисан</td>
+			<td>Ниједан од ваших academy фајлова тренутно не задаје <code>admin_passwd</code>, па password који видиш у browser-у не долази директно из овог Terraform/Compose wiring-а.</td>
+		</tr>
+		<tr>
+			<td>Postgres healthcheck</td>
+			<td>Нема</td>
+			<td>Има</td>
+			<td>Compose варијанта је ту мало богатија, јер има експлицитан <code>healthcheck</code> и чека да Postgres буде здрав прије Odoo старта.</td>
+		</tr>
+		<tr>
+			<td>Docker Desktop UI grouping</td>
+			<td>Нема Compose metadata</td>
+			<td>Има Compose metadata</td>
+			<td>Зато је Compose груписан у Docker Desktop UI-ју, а Terraform Docker provider ресурси изгледају више као појединачни Docker објекти.</td>
+		</tr>
+		<tr>
+			<td>State</td>
+			<td><code>terraform.tfstate</code></td>
+			<td>Нема један state фајл</td>
+			<td>Terraform памти жељено и стварно стање у свом state-у, док се Compose више ослања на тренутно Docker engine стање и Compose пројектне metadata ознаке.</td>
 		</tr>
 	</tbody>
 </table>
