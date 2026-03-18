@@ -37,7 +37,7 @@ variable "odoo_port" {
 variable "postgres_db" {
   type        = string
   description = "Application database name initialized in Postgres for the local Odoo lab."
-  default     = "komiti_academy_odoo_dev"
+  default     = "komiti_academy_odoo"
 }
 
 variable "postgres_user" {
