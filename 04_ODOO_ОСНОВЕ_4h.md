@@ -55,6 +55,13 @@ Model је Python класа која описује business object.
 - нови model: `_name = "komiti.dispatch.order"`
 - inheritance existing model-а: `_inherit = "project.task"`
 
+Кад правиш нови Odoo addon са властитим model-има, најмањи skeleton који мораш разумјети изгледа овако:
+- `__manifest__.py`: описује идентитет модула, dependency-је и које data/view/security фајлове Odoo треба да учита.
+- `__init__.py`: root Python улаз за модул; њиме кажеш Python/Odoo-у да module package стварно учита свој код.
+- `models/__init__.py`: увози Python фајлове из `models/` директоријума, нпр. `academy_course.py` и `academy_session.py`, да би се те model класе регистровале.
+
+Без ова три фајла можеш имати написан Python код у репоу, али Odoo модул неће бити јасно повезан, учитан и регистрован као цјелина.
+
 ## 3) Шта је recordset
 
 У Odoo-у `self` скоро никад не значи “само један објекат”; често значи recordset.
@@ -183,6 +190,7 @@ Odoo UI углавном долази из XML view-ова:
 
 Кад завршиш овај документ, мораш моћи објаснити:
 - разлику између `_name` и `_inherit`,
+- улогу `__manifest__.py`, `__init__.py` и `models/__init__.py` у skeleton-у модула,
 - шта је recordset,
 - шта је `env`,
 - када користиш `onchange`, а када server-side validation,
