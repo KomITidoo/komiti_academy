@@ -392,7 +392,10 @@ flowchart RL
 	postgres_container --> postgres_volume["docker_volume.postgres_data"]
 ```
 
-Из овог дијаграма се одмах види да је `docker_network.odoo` foundation, да Postgres долази прије Odoo runtime-а и да Odoo није самосталан resource него чвор који зависи од више других елемената.
+Кад у овом примеру видиш стрелицу:
+-  `docker_container.odoo --> docker_container.postgres`, то значи да `docker_container.odoo` зависи од `docker_container.postgres`; 
+- `docker_network.odoo` је foundation чвор унутар овог graph-а, а `docker_container.postgres` је у дијаграму приказан као чвор који се на ту мрежу везује;
+- из остатка зависности се онда види да `docker_container.odoo` није самосталан, него зависи од других runtime елемената (`docker_container.postgres`, `docker_image.odoo`, `docker_volume.odoo_data`).
 
 Junior грешка је да гледа фајл по фајл, а не graph по graph.
 
