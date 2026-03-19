@@ -152,7 +152,7 @@ Verification note за capstone мора експлицитно имати:
 3. Напиши verification note који стварно доказује да модул ради.
 Референца: Ово је објашњено у поглављима `## 11) Verification note template` и `## 13) Capstone verification за \`komiti_academy\``.
 
-## 99) Рјешења
+Рјешења:
 
 1. За општу verification дисциплину уради ово редом:
 	1. Одреди који тип измјене провјераваш: XML/view, Python logic или security.

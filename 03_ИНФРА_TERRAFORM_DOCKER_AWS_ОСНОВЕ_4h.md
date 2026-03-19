@@ -8,6 +8,32 @@
 - шта ради Terraform и његове терминалске команде,
 - и како се та три слоја везују у један систем.
 
+## Садржај
+
+- 1) Шта је infra stack у KomITi-ју
+- 2) AWS основе које мораш знати
+- 3) Docker и container основе које мораш знати
+- 4) Terraform
+	- 4.1) Terraform mental model
+	- 4.2) Шта је provider
+	- 4.3) Шта су resource, data source и output
+	- 4.4) Структура директоријума: општа и KomITi конкретна
+	- 4.5) Terraform фајлови у [modules/]
+	- 4.6) Terraform фајлови у [root stack/]
+	- 4.7) Dependency reasoning
+	- 4.8) Да сумирамо шта Terraform код често значи у овом репоу
+	- 4.9) Како се AWS, Docker и Terraform вежу у један flow
+	- 4.10) Terraform vs Docker Compose: исте информације, друго мјесто записа
+- 5) Како Tefraform фајлове претворити у акцију и материјализовати артифакте (Docker контејнере, aws ресурсе, Odoo)
+	- 5.1) Plan није формалност
+	- 5.2) Apply није deploy script
+- 6) Minimal safe workflow у KomITi-ју
+- 7) KomITi infra checklist
+- 8) Foundations practical drill
+- 9) Local Terraform + Docker Desktop lab за кандидата
+- 10) Шта читаш даље
+- 99) Задатак на komiti_academy пројекту за кандидата
+
 ## 1) Шта је infra stack у KomITi-ју
 
 Кад у овом репоу кажемо „infra“, не мислимо на један алат, него на више слојева који раде заједно:
@@ -670,7 +696,7 @@ Minimum safe lab flow нека буде:
 4. Осмисли и локално опиши Terraform lab у свом репоу `komiti_academy_ime_polaznika` који преко Docker Desktop-а подиже Postgres и Odoo stack за локални `dev` runtime, са јасном структуром фајлова, variables, outputs и јасним редослиједом рада.  
 Референца: Ово је објашњено у поглављима `#### 4.6.2) \`variables.tf\`, \`terraform.tfvars.example\` и \`terraform.tfvars\``, `### 4.4) Структура директоријума: општа и KomITi конкретна`, `### 5.1) Plan није формалност`, `## 6) Minimal safe workflow у KomITi-ју` и `## 9) Local Terraform + Docker Desktop lab за кандидата`.
 
-## 99) Рјешења
+Рјешења:
 
 1. За дијагностичку биљешку уради ово редом:
 	1. У `### 4.9) Како се AWS, Docker и Terraform вежу у један flow` узми образац како раздвајаш infra слој од application слоја.
