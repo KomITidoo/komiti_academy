@@ -16,7 +16,9 @@ Business Context Input: Business Owner
 - до краја learning path-а модул мора бити готов, истестиран и документован,
 - полазник своју верзију пројекта ради у свом GitHub репоу `komiti_academy_ime_polaznika`,
 - главни product description је у `00_ОПИС_ПРОИЗВОДА_2h.md`,
-- главна спецификација завршног пројекта и execution plan су у `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`.
+- главни foundations/delivery mental model за цијели систем је у `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`,
+- главни Odoo learning path и execution редослијед за Odoo-only тему су у `04_ODOO_PLAN_UČENJA.md`,
+- стари AI Odoo материјали су премјештени у `xxx_odoo_tutorijali_AI_pravio_arhiva/` и нису више канонски пут учења.
 
 ## Садржај
 
@@ -49,15 +51,19 @@ Business Context Input: Business Owner
 1. прочиташ како ће изгледати производ који ћеш направити кроз овај курс
   - документ: `00_ОПИС_ПРОИЗВОДА_2h.md`,
 2. прво учиш основне појмове,
-  - документи:  `01_УПРАВЉАЊЕ_ПРОЈЕКТОМ_И_ПРОИЗВОДОМ_2h.md`, `02_GIT_VSCODE_ОСНОВЕ_2h.md`, `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, `04_ODOO_ОСНОВЕ_4h.md`, `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
-3. онда учиш како се чита модул и систем,
-  - документи: `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`, `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
-4. онда учиш KomITi module/domain стварност,
-  - документи: `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md`, `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`, `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
-5. тек онда читаш policy/codex слој пуним капацитетом,
+  - документи: `01_УПРАВЉАЊЕ_ПРОЈЕКТОМ_И_ПРОИЗВОДОМ_2h.md`, `02_GIT_VSCODE_ОСНОВЕ_2h.md`, `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+3. онда кроз `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md` усвајаш кровни mental model за цијели delivery систем,
+  - правило: кад год ниси сигуран да ли је питање product, project, infra, runtime или application, прво се враћаш на `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+4. онда градиш Odoo основу кроз канонски Odoo план,
+  - документ: `04_ODOO_PLAN_UČENJA.md`
+5. онда учиш KomITi module/domain стварност,
+  - документи: `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`, `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
+6. тек онда читаш policy/codex слој пуним капацитетом,
   - документи: `../custom-addons/CODEX_ODOO.md`, `../ENGINEERING_CODEX.md`, `../SESSION_NOTES.md`
-6. тек послије тога улазиш у debugging, testing, rollout и infra discipline.
-  - документи: `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`, `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`, `11_ODOO_БЕЗБЈЕДНОСТ_ПОДАТАКА_И_МИГРАЦИЈЕ_3h.md`, `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`, `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`, `14_ODOO_ВЕБСАЈТ_И_КОРИСНИЧКИ_ИНТЕРФЕЈС_2h.md`, `15_ЉЕСТВИЦА_ПРАКСЕ_20_ВЈЕЖБИ_40h.md`, `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`, `../infra/aws/CODEX_TERRAFORM.md`, `../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md`
+7. тек послије тога улазиш у debugging, testing, rollout и infra discipline.
+  - документи: `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, `04_ODOO_PLAN_UČENJA.md`, `../custom-addons/CODEX_ODOO.md`, `../ENGINEERING_CODEX.md`, `../SESSION_NOTES.md`, `../infra/aws/CODEX_TERRAFORM.md`, `../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md`
+
+Архива `xxx_odoo_tutorijali_AI_pravio_arhiva/` остаје само као историјски/помоћни материјал. Не третира се више као обавезан onboarding path.
 
 Ако током читања наиђеш на појам или акроним који ти није јасан, користи appendix документ `99_РЈЕЧНИК_АКРОНИМА.md` као брзи индекс термина и упуту ка главним документима гдје је тај појам детаљније обрађен.
 
@@ -81,20 +87,19 @@ Business Context Input: Business Owner
       испорука зреле верзије `komiti_academy` као личног доказа да кандидат умије водити сложенији scope, rollout и handoff готово без надзора.
 
 Задаци у пројекту
-Док читаш `komiti_academy` learning библиотеку, добијаћеш пројектне задатке који се налазе на крају сваког документа (у поглављима `99) Задатак на komiti_academy пројекту за кандидата` и `Рјешења:`).
+Док читаш `komiti_academy` learning библиотеку, foundations/delivery mental model за све области добијаш из `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, главне Odoo task-ове из `04_ODOO_PLAN_UČENJA.md`, а KomITi-specific implementation, review и delivery task-ове из product/codex докумената.
 
 Кад желиш једним читањем да видиш све task-ове који воде ка готовом `komiti_academy`, користи ове референце:
 
 - `02_GIT_VSCODE_ОСНОВЕ_2h.md`: Git task-ови за feature branch, clean commit и push discipline, са упутом из workflow поглавља.
-- `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`: runtime/infra reasoning task-ови, локални Terraform + Docker Desktop lab за `komiti_academy` dev runtime и упута како да разликујеш infra enablement од application проблема и core product scope-а.
-- `04_ODOO_ОСНОВЕ_4h.md`: први стварни project task-ови за почетну структуру модула, model-е, relation-е, поља и UI, са упутом на foundations поглавља.
-- `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`: project-specific почетни задатак и како да га operationalно припремиш након што савладаш Odoo основе.
-- `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`: task-ови за module structure и упута која поглавља воде manifest, XML и security провјеру.
-- `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`: task-ови за читање властитог модула и упута којим редослиједом то радиш.
-- `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`: verification task-ови и јасна референца на testing, role-based testing и поглавља о провјери завршног пројекта.
-- `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`: сопствена review провјера и упута како да прођеш review checklist корак по корак.
-- `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`: planning/risk task-ови и директна упута на planning template и risk questions.
-- `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`: главни implementation task-ови и најдиректнији step-by-step пут кроз scope, rules, UI, security, checkpoints и DoD.
+- `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`: канонски foundations/delivery документ за цијели систем; ту учиш како да разликујеш product, project, infra, runtime и application reasoning, како AWS/Docker/Terraform/Odoo чине један flow и како да не мијешаш класе проблема.
+- `04_ODOO_PLAN_UČENJA.md`: канонски Odoo task-ови од setup-а и првог модула до testing-а, frontend-а, integration-а и OCA читања.
+- `00_ОПИС_ПРОИЗВОДА_2h.md`: product scope и функционални циљеви које `komiti_academy` мора покрити.
+- `../custom-addons/CODEX_ODOO.md`: implementation, security, testing и documentation discipline за стварни KomITi Odoo рад.
+- `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`: ORM/domain task-ови на стварном модулу.
+- `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`: view/UI task-ови на стварном модулу.
+- `../ENGINEERING_CODEX.md`: delivery, branch/promotion и hotfix discipline.
+- `../SESSION_NOTES.md`: handoff, verification note и operational evidence.
 
 ## 3) Фаза A — Foundations (седмице 1–4)
 
@@ -106,14 +111,12 @@ Business Context Input: Business Owner
 
 - Python основе: типови, функције, услови, петље, грешке
   - нема засебног Python-only документа у овој фази;
-  - Python основе се највише утврђују кроз `04_ODOO_ОСНОВЕ_4h.md`
+  - Python основе се највише утврђују кроз `04_ODOO_PLAN_UČENJA.md`
     - На `komiti_academy` skeleton-у именуј која су поља input, која су derived, а гдје очекујеш business rule Python логику
-  - `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
-    - У постојећем Odoo модулу пронађи једну Python model класу и објасни import-е, класу, метод и по један услов или петљу ако постоје
-  - `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
+    - Кроз `Server framework 101` пронађи једну Python model класу и објасни import-е, класу, метод и по један услов или петљу ако постоје
     - Прочитај једну једноставну Python методу у модулу и објасни шта у њој раде параметри, услови, recordset loop и повратна вриједност
 - Git основе: branch, commit, merge, pull request
-  - уводни operational контекст из `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
+  - operational контекст из `02_GIT_VSCODE_ОСНОВЕ_2h.md`
     - Клонирај repo `komiti_academy_ime_polaznika` локално
   - `02_GIT_VSCODE_ОСНОВЕ_2h.md`
     - Отвори свој налог на GitHub и претплати се на услугу GitCopilot
@@ -121,29 +124,33 @@ Business Context Input: Business Owner
     - Направити micro PR који мијења документацију
 - SQL основе: SELECT, JOIN, WHERE, GROUP BY
   - нема засебног SQL-only документа у овој фази; 
-  - SQL reasoning се вјежба уз `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
+  - SQL reasoning се вјежба уз `04_ODOO_PLAN_UČENJA.md`
     - Написати 5 SQL упита над локалном базом (уз објашњење резултата)
-  - data/model контекст из `04_ODOO_ОСНОВЕ_4h.md`
+  - data/model контекст из `04_ODOO_PLAN_UČENJA.md`
     - Објасни резултате тих SQL упита кроз Odoo data/model контекст
+- Project/Product foundations: scope, owner-и, sequencing, problem framing
+  - `01_УПРАВЉАЊЕ_ПРОЈЕКТОМ_И_ПРОИЗВОДОМ_2h.md`
+    - Објасни разлику између Product Manager, Business Owner, Project Manager и Service Owner
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Објасни зашто delivery problem није исто што и infra problem, и зашто runtime issue није аутоматски Odoo bug
 - AWS основе: EC2, security group, VPC, EIP, DNS thinking
   - документи: `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
     - Објасни на једном кратком примјеру како су EC2 host, security group, јавна IP адреса и DNS повезани у један runtime пут до Odoo сервиса
 - Docker основе: контејнер, image, `docker compose`
-  - `05_БРЗИ_ПОЧЕТАК_РАДА_1h.md`
-    - Подигни локално окружење из repo-а `komiti_academy_ime_polaznika`
   - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Подигни локално окружење из repo-а `komiti_academy_ime_polaznika`
+    - Објасни разлику између image, container, volume и compose wiring-а
 - Terraform основе: provider, resource, variables, state, `plan`/`apply`
   - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
     - Осмисли минимални Terraform lab за `komiti_academy` dev runtime и објасни улогу `provider`, `resource`, `variables`, `state`, `plan` и `apply` у том lab-у
 - Odoo основе: model, view, action, security, module upgrade
-  - `04_ODOO_ОСНОВЕ_4h.md`
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Објасни гдје Odoo сједа у system/runtime flow и како да разликујеш infra/runtime проблем од Odoo functional проблема
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `Setup guide`, `Server framework 101`, `Define module data`, `Restrict access to data` и `Safeguard your code with unit tests`
     - Направити skeleton за `komiti_academy`
-  - `06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md`
-    - Дорадити skeleton за `komiti_academy` према структури доброг Odoo модула
-  - `07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md`
     - Измјенити један label/field у Odoo view-у и пустити module upgrade
-  - `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
-    - напомена: касније служи као документ за сабирање и контролне тачке завршног пројекта
+    - напомена: исти документ касније служи као главни Odoo roadmap за контролне тачке завршног пројекта
 
 ### 3.3 Критеријум пролаза
 
@@ -161,20 +168,35 @@ Business Context Input: Business Owner
 ### 4.2 Теме
 
 - Odoo ORM (fields, compute, related)
-  - `08_KOMITI_МАПА_ДОМЕНСКОГ_МОДЕЛА_2h.md`
-    - Довести `komiti_academy` до installable MVP-а на нивоу model-а и основног flow-а
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Задржи `03_...` као канонску референцу да ORM промјену не помијешаш са runtime/infra слојем
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `ORM API`, `Server framework 101` и одговарајућа поглавља за relations, compute и onchange
   - `../custom-addons/komiti_timesheet/CODEX_ODOO_KOMITI_TIMESHEET.md`
+    - Довести `komiti_academy` до installable MVP-а на нивоу model-а и основног flow-а
     - Урадити једну ORM измјену на `komiti_timesheet` моделу и објаснити зашто је то `fields/compute/related` problem
 - XML view inheritance (xpath, стабилни anchor-и)
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Кад UI не ради, прво разликуј да ли је проблем runtime/startup, routing/proxy, или стварно XML/Odoo view problem
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `View records`, `View architectures` и backend/UI дијелове `Server framework 101`
   - `../custom-addons/komiti_gantt/CODEX_ODOO_KOMITI_GANTT.md`
     - Урадити једну измјену у list/form/calendar view-у уз стабилан xpath anchor
   - `../custom-addons/CODEX_ODOO.md`
     - Довести `komiti_academy` до installable MVP-а на нивоу view-ова, action-а и menu-а
 - Access rules / групе / security
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Знај да application security није исто што и network/security-group boundary
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `Access Rights`, `Record Rules`, `Field Access` и `Security Pitfalls`
   - `../custom-addons/CODEX_ODOO.md`
     - Исправити једно permission понашање у постојећем модулу
     - Довести `komiti_academy` до installable MVP-а на нивоу basic security
 - Тестирање UI flow-а по role-ама
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Прије role-based UI тестирања потврди да је runtime здрав и да проблем није у infra/startup слоју
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `Testing Python code` и `Integration Testing`
   - `../custom-addons/CODEX_ODOO.md`
     - Направити smoke test записник за `employee/manager/admin`
 - Документација након имплементације
@@ -196,7 +218,11 @@ Business Context Input: Business Owner
 ### 5.2 Теме
 
 - Root-cause debugging
-  - `09_ODOO_ПРИРУЧНИК_ЗА_ОТКЛАЊАЊЕ_ГРЕШАКА_3h.md`
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Користи га као први документ за класификацију проблема: infra, runtime, application, functional flow
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Користи `Reference`, `Profiling`, `Good practices` и релевантне backend/frontend reference странице као радни алат током дијагнозе
+  - `../custom-addons/CODEX_ODOO.md`
     - Самостално затвори 1 quickfix и укратко образложи root cause
 - Hotfix дисциплина
   - `../ENGINEERING_CODEX.md`
@@ -205,13 +231,19 @@ Business Context Input: Business Owner
   - `../SESSION_NOTES.md`
     - Напиши handoff note за испоручену измјену
 - Release checklist (pre/deploy/post)
-  - `10_ODOO_ПРИРУЧНИК_ЗА_ТЕСТИРАЊЕ_И_ПРОВЈЕРУ_3h.md`
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Користи га као канонску основу за reasoning о runtime-у, plan/apply циклусу и разликовању deploy проблема од Odoo verification проблема
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Ослањај се на testing/reference/how-to дијелове као основу за verification
+  - `../custom-addons/CODEX_ODOO.md`
     - Уради post-deploy smoke
     - Заврши verification note за `komiti_academy`
   - `../SESSION_NOTES.md`
     - Евидентирај резултат smoke-а и handoff
 - Анализа impact-а измјена
-  - `13_РАЗЛАГАЊЕ_ЗАДАТКА_И_РАЗМИШЉАЊЕ_О_ИСПОРУЦИ_2h.md`
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - У impact reasoning-у прво раздвоји system/runtime impact од чистог Odoo feature impact-а
+  - `../ENGINEERING_CODEX.md`
     - Самостално затвори 1 feature task уз јасан impact reasoning
     - Заврши business rules и docs delta за `komiti_academy`
 
@@ -230,9 +262,14 @@ Business Context Input: Business Owner
 ### 6.2 Теме
 
 - Напредни Odoo patterns
-  - `14_ODOO_ВЕБСАЈТ_И_КОРИСНИЧКИ_ИНТЕРФЕЈС_2h.md`
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - И у напредним Odoo измјенама задржи га као канонски документ за системски mental model и класификацију проблема
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `Discover the web framework`, `Master the web framework`, `Customize a field`, `Customize a view type`, `Create a client action`, `Website themes` и `Web Services`
     - Уради једну напреднију UI/website измјену и објасни зашто није само basic view change
-  - `16_ЗАВРШНИ_ПРОЈЕКАТ_НАПРАВИ_СВОЈ_ODOO_МОДУЛ_16h.md`
+  - `../custom-addons/CODEX_ODOO.md`
+    - Уради једну напреднију UI/website измјену и објасни зашто није само basic view change
+  - `04_ODOO_PLAN_UČENJA.md`
     - Прошири `komiti_academy` једним напреднијим Odoo pattern-ом који тражи самосталан design choice и review reasoning
 - Архитектура pipeline-а (Fabrick)
   - `../infra/aws/CODEX_TERRAFORM.md`
@@ -240,13 +277,16 @@ Business Context Input: Business Owner
   - `../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md`
     - Симулирај један operational scenario и опиши који би runbook кораци били први
 - Performance и data quality
-  - `11_ODOO_БЕЗБЈЕДНОСТ_ПОДАТАКА_И_МИГРАЦИЈЕ_3h.md`
+  - `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`
+    - Разликуј performance проблем host/container/runtime слоја од performance проблема у Odoo ORM/UI слоју
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Прођи `Profiling`, `Good practices`, `Upgrade a customized database` и `OpenUpgrade`
     - На једном примјеру објасни data quality risk, migration risk и како би то провјерио прије пуштања измјене
 - Incident response и техничко вођство мањих иницијатива
-  - `12_ODOO_ЛИСТА_ПРОВЈЕРЕ_ЗА_ПРЕГЛЕД_КОДА_1h.md`
+  - `../ENGINEERING_CODEX.md`
     - Самостално уради review једне сложеније измјене по checklist-и и запиши findings
-  - `15_ЉЕСТВИЦА_ПРАКСЕ_20_ВЈЕЖБИ_40h.md`
-    - Изабери неколико вјежби које воде ка техничком вођству и повежи их са наредним корацима на `komiti_academy`
+  - `04_ODOO_PLAN_UČENJA.md`
+    - Изабери неколико вјежби/практичних артефаката које воде ка техничком вођству и повежи их са наредним корацима на `komiti_academy`
 
 ### 6.3 Излазни исход
 
@@ -296,7 +336,7 @@ Business Context Input: Business Owner
 
 Овај plan је реалан и амбициозан. Кључ успеха: континуитет, менторски feedback и рад на стварним задачама, не само теорији.
 
-Learning документи у root-у `komiti_academy` repo-а нису генерички Odoo курс, него KomITi-centered curriculum. Нови члан тима кроз њих истовремено учи:
+Learning документи у root-у `komiti_academy` repo-а нису генерички Odoo курс, него KomITi-centered curriculum. Канонски foundations/delivery документ за цијели систем сада је `03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md`, канонски Odoo learning документ је `04_ODOO_PLAN_UČENJA.md`, док је `xxx_odoo_tutorijali_AI_pravio_arhiva/` само архивски материјал. Нови члан тима кроз овај сет истовремено учи:
 - Odoo основе,
 - KomITi модуле,
 - KomITi engineering дисциплину,
