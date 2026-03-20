@@ -62,17 +62,20 @@
 - `Git` и `GitHub` нису исто: `Git` је систем за version control, а `GitHub` је платформа на којој живи remote репо.
 - VS Code Explorer и Source Control углавном ти показују Git стање локалног workspace-а.
 - У KomITi workflow-у који сада користимо, типичан ток је: `feature` -> `staging` -> `main`.
+- `clone` и `fork` нису исто: `clone` је локална копија repo-а на твом рачунару, а `fork` је твоја лична remote копија туђег repo-а на GitHub-у.
+- `fork` се најчешће користи кад немаш write приступ на оригинални repo, па измјене радиш у свом GitHub fork-у и онда шаљеш `Pull Request` према оригиналном repo-у.
+- Практично: ако радиш у свом или тиму доступном repo-у, најчешће ти треба `clone`; ако радиш на туђем GitHub repo-у без директног write приступа, онда ти прво треба `fork`, па тек онда `clone` тог fork-а.
 
 ## 3.1) Локална и remote грана
 ```text
-REMOTE   [origin/feature]         [origin/staging]           [origin/main]
-			  ^                           |                         |
-			  | git push                  | git pull                | git pull
-			  |                           v                         v
+REMOTE   [origin/feature]         [origin/staging]             [origin/main]
+			  ^                           |                          |
+			  | git push                  | git pull                 | git pull
+			  |                           v                          v
 LOKALNO  [feature] ----git merge----> [staging] ----git merge----> [main]
-			  ^                                                       |
-			  |                                                       |
-			  +------- git checkout -b feature iz local main ---------+
+			  ^                                                        |
+			  |                                                        |
+			  +------- git checkout -b feature iz local main ----------+
 								(a local main je prethodno
 								osvježen iz origin/main)
 ```
@@ -321,6 +324,7 @@ git checkout 2026-03-12-features
 - `staged changes`: измјене спремљене за наредни commit,
 - `commit`: снимак једне логичке цјелине,
 - `branch`: изолована линија рада,
+- `fork`: твоја лична GitHub копија туђег repo-а, на којој можеш радити без директног мијењања оригинала,
 - `checkout`: прелазак на други branch или креирање новог branch-а,
 - `merge`: пренос садржаја из једног branch-а у други branch,
 - `origin`: default remote,
@@ -365,6 +369,7 @@ git push origin <branch>
 Кад завршиш овај документ, мораш знати да одговориш:
 - шта значи `M`, а шта `U` у VS Code-у,
 - која је разлика између save / commit / push,
+- која је разлика између `fork` и `clone`,
 - шта је branch,
 - шта ради `checkout`, а шта `merge`,
 - која је разлика између локалне `staging` и remote `origin/staging`,
