@@ -194,7 +194,7 @@ details summary {
 <ul>
     <li><code>Explorer</code> is the left panel in VS Code where you see folders and files.</li>
     <li>In Explorer you preview a file with a single click (its name will be in italics), and you open a file with a double click.</li>
-    <li>In Explorer you see files, directories, but only one workspace.</li>
+    <li>In Explorer you see files and directories of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
 </ul>
 
 <h3>Workspace is the VS Code context you work in; it can contain one folder or multiple folders</h3>
@@ -246,9 +246,9 @@ details summary {
 <h2 id="s3">3.1) Local and remote branch</h2>
 
 <div class="ascii-diagram">REMOTE   [origin/feature]         [origin/staging]             [origin/main]
-              ^                           |                          |
-              | git push                  | git pull                 | git pull
-              |                           v                          v
+              ^                           ^                          ^
+              | git push                  | git push                 | git push
+              |                           |                          |
 LOCAL    [feature] ----git merge----> [staging] ----git merge----> [main]
               ^                                                        |
               |                                                        |
@@ -291,9 +291,9 @@ LOCAL    [feature] ----git merge----> [staging] ----git merge----> [main]
         In real work you first stand on the main paper with the command <code>git checkout main</code>, refresh it with the command <code>git pull origin main</code>, and then create your working paper with the command <code>git checkout -b 2026-03-12-features</code>.</li>
     <li><strong>Working in the local feature branch</strong> (<code>git commit -m "Expand Git foundations workflow"</code>):
         After that you change files in VS Code, check what exactly you did with <code>git status --short</code> and <code>git diff --stat</code>, then locally save your state with the commands <code>git add 02_GIT_VSCODE_ОСНОВЕ_2h.md</code> and <code>git commit -m "Expand Git foundations workflow"</code>.</li>
-    <li><strong>pull and merge of the local feature branch into staging</strong> (<code>git pull origin staging</code> and <code>git merge 2026-03-12-features</code>) and main:
+    <li><strong>pull and merge of the local feature branch into staging, then staging into main</strong>:
         When you want others to see your work, you send your local working paper to GitHub with the command <code>git push -u origin 2026-03-12-features</code>, whereby your local <code>2026-03-12-features</code> also gets its remote copy <code>origin/2026-03-12-features</code>.
-        When the change is verified, you switch to <code>staging</code> with <code>git checkout staging</code>, refresh it with <code>git pull origin staging</code>, bring in the content of your working paper with the command <code>git merge 2026-03-12-features</code>, then send the result back to GitHub with <code>git push origin staging</code>; later you repeat the same logic for <code>main</code>, so Git practically serves to know exactly which paper you are working on, what you changed and how that change moves to the main version.</li>
+        When the change is verified, you switch to <code>staging</code> with <code>git checkout staging</code>, refresh it with <code>git pull origin staging</code>, bring in the content of your working paper with the command <code>git merge 2026-03-12-features</code>, then send the result back to GitHub with <code>git push origin staging</code>. After that you switch to <code>main</code>, refresh it, bring in the verified content from <code>staging</code> and send the result to GitHub, so Git practically serves to know exactly which paper you are working on, what you changed and how that change moves to the main version.</li>
 </ul>
 
 <p>Since this is a very important concept, let's repeat it enumeratively:</p>
@@ -555,18 +555,18 @@ git push origin staging</code></pre>
 
 <!-- Step 7 -->
 <h3>Step 7: promotion to <code>main</code></h3>
-<p>When <code>staging</code> or the feature change is verified, you go to <code>main</code>:</p>
+<p>When the change is verified on <code>staging</code>, you go to <code>main</code>:</p>
 <pre><code>git checkout main
 git pull origin main
-git merge 2026-03-12-features
+git merge staging
 git push origin main</code></pre>
 <ul>
     <li><code>git checkout main</code>: switches to the local branch <code>main</code>.</li>
     <li><code>git pull origin main</code>: refreshes the local <code>main</code> with the remote state from <code>origin/main</code>.</li>
-    <li><code>git merge 2026-03-12-features</code>: brings the content of the verified feature branch into <code>main</code>.</li>
+    <li><code>git merge staging</code>: brings the content of the verified <code>staging</code> branch into <code>main</code>.</li>
     <li><code>git push origin main</code>: sends the updated <code>main</code> to GitHub.</li>
 </ul>
-<p>In some flows <code>staging</code> is merged into <code>main</code>, and in some directly the feature branch. The essential logic is the same:</p>
+<p>In the workflow explained by this document, you merge <code>staging</code> into <code>main</code>, not the feature branch directly. The essential logic is the same:</p>
 <ul>
     <li>first you stand on the branch that receives the change,</li>
     <li>then you merge the verified branch into it,</li>
@@ -650,7 +650,7 @@ git push origin main</code></pre>
 <ul>
     <li>one commit = one logical unit,</li>
     <li>do not commit unrelated changes,</li>
-    <li>first read the <code>eng codex</code>,</li>
+    <li>first read <code>ENGINEERING_CODEX.md</code>,</li>
     <li>do not treat <code>main</code> as a playground,</li>
     <li><code>staging</code> is the integration branch, and <code>main</code> is the production branch,</li>
     <li>local Git proof is not the same as Odoo runtime proof.</li>
