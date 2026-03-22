@@ -207,11 +207,11 @@ details summary {
 
 <p>Imagine that:</p>
 <ul>
-    <li>a <strong>Git repo</strong> is a cabinet,</li>
-    <li>a <strong>branch</strong> is a separate folder inside that cabinet, and</li>
-    <li>each <strong>file</strong> is a sheet of paper inside that folder.</li>
+    <li><strong>Git repo</strong> is a cabinet,</li>
+    <li><strong>branch</strong> is a separate binder inside that cabinet, and</li>
+    <li><strong>file</strong> is a sheet of paper inside that binder.</li>
 </ul>
-<p>You can only have one folder open on your desk at a time; when you are done, you can copy sheets from one folder into another. Git keeps every version of every sheet, compressed, inside a hidden <code>.git/</code> directory — so nothing is ever lost.</p>
+<p>You can only have one binder open on your desk at a time; when you are done, you can copy sheets from one binder into another. Git keeps every version of every sheet, compressed, inside a hidden <code>.git/</code> directory — so nothing is ever lost.</p>
 
 <p><code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, and <code>GitHub</code> is a platform where the remote repo lives.</p>
 
@@ -222,48 +222,53 @@ details summary {
 
 <h3 id="s3">Local and remote branch</h3>
 
-<div class="ascii-diagram">REMOTE   [origin/feature]         [origin/staging]             [origin/main]
-              ^                           ^                          ^
-              | git push                  | git push                 | git push
-              |                           |                          |
-LOCAL    [feature] ----git merge----> [staging] ----git merge----> [main]
-              ^                                                        |
-              |                                                        |
-              +------- git checkout -b feature from local main --------+
-                                (local main was previously
-                                 refreshed from origin/main)</div>
+<div class="ascii-diagram">REMOTE BRANCHES   [origin/feature]         [origin/staging]             [origin/main]
+                       ^                           ^                          ^
+                       | git push                  | git push                 | git push
+                       |                           |                          |
+LOCAL BRANCHES    [feature] ----git merge----> [staging] ----git merge----> [main]
+                     ^                                                        |
+                     |                                                        |
+                     +------- git checkout -b feature from local main --------+
+                                       (local main was previously
+                                        refreshed from origin/main)</div>
 
-<p>Remember we imagined Git as a cabinet with folders? Now let's look at that diagram through the same analogy, using the KomITi workflow as a concrete example.</p>
+<p>Remember we imagined Git as a cabinet with binders? Now let's look at that diagram through the same analogy, using the KomITi workflow as a concrete example.</p>
 
-<p>Your local cabinet (e.g. <code>C:\dev\KomITi\komiti_academy</code>) contains three folders:</p>
+<p>Your local cabinet (e.g. <code>C:\dev\KomITi\komiti_academy</code>) contains three binders:</p>
 <ul>
-    <li><strong><code>main</code></strong> — the clean, published folder. Whatever sheets are in here is what the world sees.</li>
-    <li><strong><code>staging</code></strong> — the review folder. Before any sheets go into <code>main</code>, they are first copied here so someone can check them.</li>
-    <li><strong><code>feature</code></strong> (e.g. <code>2026-03-21-features</code>) — your personal working folder. This is where you actually write on sheets.</li>
+    <li><strong><code>main</code></strong> — the clean, published binder. Whatever sheets are in here is what the world sees.</li>
+    <li><strong><code>staging</code></strong> — the review binder. Before any sheets go into <code>main</code>, they are first copied here so someone can check them.</li>
+    <li><strong><code>feature</code></strong> (e.g. <code>2026-03-21-features</code>) — your personal working binder. This is where you actually write on sheets.</li>
 </ul>
 
-<p><code>git checkout</code> is you pulling one folder out of the cabinet and putting the others back, as you can only have one folder open on your desk at a time. Your desk always shows the sheets of whichever folder you currently have open.</p>
+<p><code>git checkout</code> is you pulling one binder out of the cabinet and putting the others back, as you can only have one binder open on your desk at a time. Your desk always shows the sheets of whichever binder you currently have open.</p>
 
-<p><strong>GitHub</strong> (the remote called <code>origin</code>) is a second cabinet on the remote side of the room. It keeps its own copies of the same three folders: <code>origin/main</code>, <code>origin/staging</code>, <code>origin/feature</code>. The diagram above shows exactly this: the bottom row is your desk (LOCAL), the top row is the remote cabinet (REMOTE).</p>
+<p><strong>GitHub</strong> (the remote called <code>origin</code>) is a second cabinet on the remote side of the room. It keeps its own copies (called REMOTE or <code>origin/</code>) of the same three binders: <code>origin/main</code>, <code>origin/staging</code>, <code>origin/feature</code>. The same branch can exist in two places: locally, on your computer and remote, on GitHub. The diagram above shows exactly this: the bottom row is your desk (LOCAL), the top row is the remote cabinet (REMOTE).</p>
 
 <p>The arrows in the diagram map to real actions:</p>
 <ul>
-    <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet and replace its copy of a folder with your updated version.</li>
-    <li><strong><code>git pull</code></strong> (not shown, but the reverse) = you walk to the remote cabinet, take the latest copy, and update the folder on your desk.</li>
-    <li><strong><code>git merge</code></strong> (arrow going right →) = you copy the sheets you wrote in one folder into another folder, on your desk.</li>
-    <li><strong><code>git checkout -b feature</code></strong> (arrow at the bottom going left ←) = you take a fresh empty folder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.</li>
+    <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet and replace its copy of a binder with your updated version.</li>
+    <li><strong><code>git pull</code></strong> (not shown, but the reverse) = you walk to the remote cabinet, take the latest copy, and update the binder on your desk.</li>
+    <li><strong><code>git merge</code></strong> (arrow going right →) = you copy the sheets you wrote in one binder into another binder, on your desk.</li>
+    <li><strong><code>git checkout -b feature</code></strong> (arrow at the bottom going left ←) = you take a fresh empty binder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.</li>
 </ul>
 
-<p>So the full KomITi flow in the cabinet analogy is: you start from the local <code>main</code> folder, create a new local <code>feature</code> folder (copy of local <code>main</code>), write on its sheets, then copy those sheets into the local <code>staging</code> folder for review, and finally copy the reviewed sheets into the local <code>main</code> folder. After each copy, you walk to the remote cabinet and replace the remote version — <code>origin/feature</code>, <code>origin/staging</code>, <code>origin/main</code> — with <code>git push</code>.</p>
+<p>So the full KomITi flow in the cabinet analogy is:</p>
+<div class="ascii-diagram">you start from the local [main] binder,
+  └─► create a new local [feature] binder (copy of local [main]) with git checkout -b,
+        write on its sheets,
+      └─► then copy those sheets into the local [staging] binder for review with git merge, and
+          └─► finally copy the reviewed sheets into the local [main] binder with git merge.
 
-<p>The same branch can exist in two places: locally, on your computer and remote, on GitHub.</p>
+After each copy, you walk to the remote cabinet and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push.</div>
 
 <p><strong>Important:</strong> Git <strong>does not create a separate directory on disk for each branch</strong>. You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
 <ul>
     <li><code>checkout</code> does not download anything from GitHub — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed,</li>
     <li>files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>,</li>
     <li>that is why it is so important to know which branch you are on before you delete or change something — because you are working in the only copy of the folder on disk,</li>
-    <li>in the cabinet analogy: you do not have a separate cabinet for each folder — you have one cabinet and Git always puts on your desk the folder you are currently working on; the other folders are "hidden" in <code>.git/</code> and waiting for you to call them.</li>
+    <li>in the cabinet analogy: you do not have a separate cabinet for each binder — you have one cabinet and Git always puts on your desk the binder you are currently working on; the other binders are "hidden" in <code>.git/</code> and waiting for you to call them.</li>
 </ul>
 
 <p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text — it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. When you run <code>git init</code> or <code>git clone</code>, Git creates that folder and stores literally everything in it: every commit, every version of every file, every branch. The structure looks roughly like this:</p>
@@ -288,19 +293,19 @@ LOCAL    [feature] ----git merge----> [staging] ----git merge----> [main]
 
 <ul>
     <li><strong>Creating a local feature branch</strong> (<code>git checkout -b 2026-03-12-features</code>):
-        In real work you first open the main folder with the command <code>git checkout main</code>, refresh it with the command <code>git pull origin main</code>, and then create your working folder with the command <code>git checkout -b 2026-03-12-features</code>.</li>
+        In real work you first open the main binder with the command <code>git checkout main</code>, refresh it with the command <code>git pull origin main</code>, and then create your working binder with the command <code>git checkout -b 2026-03-12-features</code>.</li>
     <li><strong>Working in the local feature branch</strong> (<code>git commit -m "Expand Git foundations workflow"</code>):
         After that you change sheets (files) in VS Code, check what exactly you did with <code>git status --short</code> and <code>git diff --stat</code>, then locally save your state with the commands <code>git add 02_GIT_VSCODE_ОСНОВЕ_2h.md</code> and <code>git commit -m "Expand Git foundations workflow"</code>.</li>
     <li><strong>pull and merge of the local feature branch into staging, then staging into main</strong>:
-        When you want others to see your work, you send your local working folder to GitHub with the command <code>git push -u origin 2026-03-12-features</code>, whereby your local <code>2026-03-12-features</code> also gets its remote copy <code>origin/2026-03-12-features</code>.
-        When the change is verified, you switch to <code>staging</code> with <code>git checkout staging</code>, refresh it with <code>git pull origin staging</code>, bring in the sheets from your working folder with the command <code>git merge 2026-03-12-features</code>, then send the result back to GitHub with <code>git push origin staging</code>. After that you switch to <code>main</code>, refresh it, bring in the verified content from <code>staging</code> and send the result to GitHub, so Git practically serves to know exactly which folder you are working in, what sheets you changed and how those changes move to the main version.</li>
+        When you want others to see your work, you send your local working binder to GitHub with the command <code>git push -u origin 2026-03-12-features</code>, whereby your local <code>2026-03-12-features</code> also gets its remote copy <code>origin/2026-03-12-features</code>.
+        When the change is verified, you switch to <code>staging</code> with <code>git checkout staging</code>, refresh it with <code>git pull origin staging</code>, bring in the sheets from your working binder with the command <code>git merge 2026-03-12-features</code>, then send the result back to GitHub with <code>git push origin staging</code>. After that you switch to <code>main</code>, refresh it, bring in the verified content from <code>staging</code> and send the result to GitHub, so Git practically serves to know exactly which binder you are working in, what sheets you changed and how those changes move to the main version.</li>
 </ul>
 
 <p>Since this is a very important concept, let's repeat it enumeratively:</p>
 <ul>
-    <li><code>main</code> = the main folder,</li>
-    <li><code>staging</code> = the verification folder,</li>
-    <li><code>2026-03-12-features</code> = your working folder.</li>
+    <li><code>main</code> = the main binder,</li>
+    <li><code>staging</code> = the verification binder,</li>
+    <li><code>2026-03-12-features</code> = your working binder.</li>
 </ul>
 <p>The same branch can exist in two places:</p>
 <ul>
@@ -316,11 +321,11 @@ LOCAL    [feature] ----git merge----> [staging] ----git merge----> [main]
 
 <p>In the cabinet analogy this means:</p>
 <ul>
-    <li><code>checkout</code> = you switch to another folder,</li>
-    <li><code>commit</code> = you take a snapshot of all the sheets in the current folder,</li>
-    <li><code>push</code> = you send your folder to the remote cabinet (GitHub),</li>
-    <li><code>pull</code> = you get a newer version of the folder from the remote cabinet,</li>
-    <li><code>merge</code> = you copy sheets from one folder into another folder.</li>
+    <li><code>checkout</code> = you switch to another binder,</li>
+    <li><code>commit</code> = you take a snapshot of all the sheets in the current binder,</li>
+    <li><code>push</code> = you send your binder to the remote cabinet (GitHub),</li>
+    <li><code>pull</code> = you get a newer version of the binder from the remote cabinet,</li>
+    <li><code>merge</code> = you copy sheets from one binder into another binder.</li>
 </ul>
 
 <p>Practically:</p>
@@ -438,8 +443,8 @@ LOCAL    [feature] ----git merge----> [staging] ----git merge----> [main]
 <p>In the cabinet analogy:</p>
 <ul>
     <li><code>odoo4komiti</code> = the cabinet (repo),</li>
-    <li><code>2026-03-11-features</code> = the folder you currently have open on your desk,</li>
-    <li><code>*</code> = you changed sheets in that folder, but you have not yet saved that version as a commit.</li>
+    <li><code>2026-03-11-features</code> = the binder you currently have open on your desk,</li>
+    <li><code>*</code> = you changed sheets in that binder, but you have not yet saved that version as a commit.</li>
 </ul>
 
 <!-- ============================================================ -->
@@ -484,7 +489,7 @@ git pull origin main</code></pre>
 <ul>
     <li>you switched to the local <code>main</code>,</li>
     <li>you pulled the latest state from the remote <code>origin/main</code>,</li>
-    <li>in the cabinet analogy: you opened the main folder and checked whether you have its latest sheets from the remote cabinet.</li>
+    <li>in the cabinet analogy: you opened the main binder and checked whether you have its latest sheets from the remote cabinet.</li>
 </ul>
 
 <!-- Step 2 -->
@@ -505,9 +510,9 @@ git pull origin main</code></pre>
 </ul>
 <p>Here <code>checkout -b</code> means:</p>
 <ul>
-    <li>create a new folder from the current folder,</li>
-    <li>and immediately open that new folder on your desk,</li>
-    <li>if you also do <code>push -u</code>, then that new folder immediately gets its copy in the remote cabinet (GitHub) too.</li>
+    <li>create a new binder from the current binder,</li>
+    <li>and immediately open that new binder on your desk,</li>
+    <li>if you also do <code>push -u</code>, then that new binder immediately gets its copy in the remote cabinet (GitHub) too.</li>
 </ul>
 
 <!-- Step 3 -->
@@ -524,7 +529,7 @@ git diff -- en/html/02_git_vscode_basics.html</code></pre>
     <li><code>--stat</code> is a long option; you are requesting a short statistical overview of changes per file.</li>
     <li>in the command <code>git diff -- en/html/02_git_vscode_basics.html</code>, the <code>--</code> is not a filename but a separator; it tells Git: treat everything after this as a path, not as an option.</li>
     <li><code>en/html/02_git_vscode_basics.html</code> is an argument, i.e. the file path for which you are requesting the diff.</li>
-    <li>in the cabinet analogy: now you are writing on sheets in your working folder and then looking at what you actually changed compared to the old state.</li>
+    <li>in the cabinet analogy: now you are writing on sheets in your working binder and then looking at what you actually changed compared to the old state.</li>
 </ul>
 
 <!-- Step 4 -->
@@ -555,7 +560,7 @@ git commit -m "Expand Git foundations workflow"</code></pre>
 </ul>
 <p>Additionally:</p>
 <ul>
-    <li><code>git add</code> means: you marked which sheets in the folder you want to enter the snapshot,</li>
+    <li><code>git add</code> means: you marked which sheets in the binder you want to enter the snapshot,</li>
     <li><code>git commit</code> means: you made a snapshot of those sheets at that moment,</li>
     <li>in the cabinet analogy: you don’t snapshot absolutely everything you ever scribbled, but only the sheets you consciously decided should enter this version.</li>
 </ul>
@@ -573,7 +578,7 @@ git commit -m "Expand Git foundations workflow"</code></pre>
 <ul>
     <li>local <code>2026-03-12-features</code> = on your machine,</li>
     <li>remote <code>origin/2026-03-12-features</code> = on GitHub,</li>
-    <li>in the cabinet analogy: you sent your working folder to the remote cabinet so that others can see that version too.</li>
+    <li>in the cabinet analogy: you sent your working binder to the remote cabinet so that others can see that version too.</li>
 </ul>
 
 <!-- Step 6 -->
@@ -599,7 +604,7 @@ git push origin staging</code></pre>
     <li>you refreshed <code>staging</code> from GitHub,</li>
     <li>into <code>staging</code> you brought the content from <code>2026-03-12-features</code>,</li>
     <li>then you sent the new <code>staging</code> back to GitHub,</li>
-    <li>in the cabinet analogy: you opened the verification folder, checked that it’s fresh, then copied the sheets from your working folder into it.</li>
+    <li>in the cabinet analogy: you opened the verification binder, checked that it's fresh, then copied the sheets from your working binder into it.</li>
 </ul>
 
 <!-- Step 7 -->
@@ -620,7 +625,7 @@ git push origin main</code></pre>
     <li>first you stand on the branch that receives the change,</li>
     <li>then you merge the verified branch into it,</li>
     <li>then you push to the remote,</li>
-    <li>in the cabinet analogy: now you open the main folder and copy into it the sheets that have already passed verification.</li>
+    <li>in the cabinet analogy: now you open the main binder and copy into it the sheets that have already passed verification.</li>
 </ul>
 
 <!-- Step 8 -->
@@ -631,7 +636,7 @@ git push origin main</code></pre>
 </ul>
 <p>If you understand this, then you practically also understand:</p>
 <ul>
-    <li>in the cabinet analogy: you returned to your working folder and continue writing on its sheets, not on the <code>staging</code> or <code>main</code> folder,</li>
+    <li>in the cabinet analogy: you returned to your working binder and continue writing on its sheets, not on the <code>staging</code> or <code>main</code> binder,</li>
     <li>what a local branch is,</li>
     <li>what a remote branch is,</li>
     <li>what <code>checkout</code> is,</li>
