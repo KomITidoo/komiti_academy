@@ -243,10 +243,14 @@ LOCAL BRANCHES    [feature] ----git merge----> [staging] ----git merge----> [mai
 
 <p>The arrows in the diagram map to real actions:</p>
 <ul>
-    <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet and replace its copy of a binder with your updated version.</li>
-    <li><strong><code>git pull</code></strong> (not shown, but the reverse) = you walk to the remote cabinet, take the latest copy, and update the binder on your desk.</li>
-    <li><strong><code>git merge</code></strong> (arrow going right →) = you copy the sheets you wrote in one binder into another binder, on your desk.</li>
-    <li><strong><code>git checkout -b feature</code></strong> (arrow at the bottom going left ←) = you take a fresh empty binder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.</li>
+    <li><strong><code>git checkout -b feature</code></strong> (arrow at the bottom going left ←) = you take a fresh empty binder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.<br>
+        In practice: <code>git checkout main</code> → <code>git pull origin main</code> → <code>git checkout -b 2026-03-12-features</code>.</li>
+    <li><strong><code>git add</code> + <code>git commit</code></strong> (working inside the binder) = you change sheets (files) in VS Code, check what you did with <code>git status --short</code> and <code>git diff --stat</code>, then save a snapshot with <code>git add &lt;file&gt;</code> and <code>git commit -m "your message"</code>.</li>
+    <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet and replace its copy of a binder with your updated version.<br>
+        In practice: <code>git push -u origin 2026-03-12-features</code> — your local branch now also has a remote copy <code>origin/2026-03-12-features</code>.</li>
+    <li><strong><code>git merge</code></strong> (arrow going right →) = you copy the sheets you wrote in one binder into another binder, on your desk.<br>
+        In practice: <code>git checkout staging</code> → <code>git pull origin staging</code> → <code>git merge 2026-03-12-features</code> → <code>git push origin staging</code>. Then repeat for <code>main</code>.</li>
+    <li><strong><code>git pull</code></strong> (not shown, but the reverse of push) = you walk to the remote cabinet, take the latest copy, and update the binder on your desk.</li>
 </ul>
 
 <p>So the full KomITi flow in the cabinet analogy is:</p>
@@ -315,34 +319,7 @@ git checkout f2   →  Explorer shows:
 
 <p><code>git show &lt;branch&gt;:&lt;path&gt;</code> lets you see the contents of a file from another branch without changing your working folder. For example, <code>git show main:README.md</code> extracts that version of the file from <code>.git/objects/</code> and displays it in the terminal, without overwriting anything on disk.</p>
 
-<ul>
-    <li><strong>Creating a local feature branch</strong> (<code>git checkout -b 2026-03-12-features</code>):
-        In real work you first open the main binder with the command <code>git checkout main</code>, refresh it with the command <code>git pull origin main</code>, and then create your working binder with the command <code>git checkout -b 2026-03-12-features</code>.</li>
-    <li><strong>Working in the local feature branch</strong> (<code>git commit -m "Expand Git foundations workflow"</code>):
-        After that you change sheets (files) in VS Code, check what exactly you did with <code>git status --short</code> and <code>git diff --stat</code>, then locally save your state with the commands <code>git add 02_GIT_VSCODE_ОСНОВЕ_2h.md</code> and <code>git commit -m "Expand Git foundations workflow"</code>.</li>
-    <li><strong>pull and merge of the local feature branch into staging, then staging into main</strong>:
-        When you want others to see your work, you send your local working binder to GitHub with the command <code>git push -u origin 2026-03-12-features</code>, whereby your local <code>2026-03-12-features</code> also gets its remote copy <code>origin/2026-03-12-features</code>.
-        When the change is verified, you switch to <code>staging</code> with <code>git checkout staging</code>, refresh it with <code>git pull origin staging</code>, bring in the sheets from your working binder with the command <code>git merge 2026-03-12-features</code>, then send the result back to GitHub with <code>git push origin staging</code>. After that you switch to <code>main</code>, refresh it, bring in the verified content from <code>staging</code> and send the result to GitHub, so Git practically serves to know exactly which binder you are working in, what sheets you changed and how those changes move to the main version.</li>
-</ul>
-
 <h3>Branches, locations and Git commands — quick-reference summary</h3>
-<p>Since this is a very important concept, let's repeat it enumeratively:</p>
-<ul>
-    <li><code>main</code> = the main binder,</li>
-    <li><code>staging</code> = the verification binder,</li>
-    <li><code>2026-03-12-features</code> = your working binder.</li>
-</ul>
-<p>The same branch can exist in two places:</p>
-<ul>
-    <li>locally, on your computer,</li>
-    <li>remote, on GitHub.</li>
-</ul>
-<p>That's why you can have:</p>
-<ul>
-    <li>local <code>staging</code>,</li>
-    <li>remote <code>origin/staging</code>.</li>
-</ul>
-<p>These are not literally the same branch, but a local and remote copy of the same line of work.</p>
 
 <p>In the cabinet analogy this means:</p>
 <ul>
@@ -373,7 +350,7 @@ git checkout f2   →  Explorer shows:
 <!-- ============================================================ -->
 <!-- 2) VS Code basics -->
 <!-- ============================================================ -->
-<h2 id="s2">2) VS Code basics you need to know</h2>
+<h2 id="s2"><img src="img/OIP.webp" alt="VS Code logo" style="height:1.2em; vertical-align:middle; margin-right:0.3em;">2) VS Code basics you need to know</h2>
 <p>Visual Studio Code (VS Code) is a free, open-source code editor made by Microsoft, and it is the editor we use at KomITi for all development work.</p>
 
 <h3>Explorer</h3>
@@ -443,7 +420,9 @@ git checkout f2   →  Explorer shows:
 <p>Whenever you are unsure, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
 
 <h3 id="s5-1">What the bottom-left corner in VS Code means: Git status indicator</h3>
-<p>In the Git status indicator you often see a short Git status for the active repo. Using an example like:</p>
+<p>In the Git status indicator you often see a short Git status for the active repo.</p>
+<img src="img/Git_Status_Indicator.png" alt="VS Code Git status indicator" style="max-width:216px; display:block; margin:0.5em 0;">
+<p>Using an example like:</p>
 <ul>
     <li><code>odoo4komiti</code> = the repo you are currently working in,</li>
     <li><code>2026-03-11-features</code> = the branch you are currently on,</li>
