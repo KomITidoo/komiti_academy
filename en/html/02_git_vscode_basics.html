@@ -180,13 +180,8 @@ details summary {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#s1">Git basics you need to know</a>
-            <ul><li><a href="#s3">Local and remote branch</a></li></ul>
-        </li>
+        <li><a href="#s1">Git basics you need to know</a></li>
         <li><a href="#s2">VS Code basics you need to know</a></li>
-        <li><a href="#s4">What the letters in VS Code Explorer mean</a></li>
-        <li><a href="#s5">Explorer is not the same as Source Control panel</a></li>
-        <li><a href="#s5-1">What the bottom-left corner in VS Code means: Git status indicator</a></li>
         <li><a href="#s6">Save is not the same as commit</a></li>
         <li><a href="#s7">Basic local workflow</a></li>
         <li><a href="#s8">Most common beginner mistakes</a></li>
@@ -272,6 +267,34 @@ After each copy, you walk to the remote cabinet and replace the remote version (
     <li>in the cabinet analogy: you do not have a separate cabinet for each binder — you have one cabinet and Git always puts on your desk the binder you are currently working on; the other binders are "hidden" in <code>.git/</code> and waiting for you to call them.</li>
 </ul>
 
+<p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>f1</code> and <code>f2</code> — each containing different files. VS Code Explorer always shows only the currently checked-out branch:</p>
+
+<div class="code-block"><pre>
+git checkout main  →  Explorer shows:
+  komiti_academy/
+    x.md
+
+git checkout f1   →  Explorer shows:
+  komiti_academy/
+    x.md
+    y.md
+
+git checkout f2   →  Explorer shows:
+  komiti_academy/
+    x.md
+    y.md
+    z.md</pre></div>
+
+<p>You never see files from all three branches at once. When you run <code>git checkout f1</code>, Git:</p>
+<ol>
+    <li>reads the state of branch <code>f1</code> from the <code>.git/objects/</code> database,</li>
+    <li><strong>physically overwrites</strong> files on disk to match that state,</li>
+    <li>files that <code>f1</code> does not have — <strong>physically deletes</strong> from disk,</li>
+    <li>files that <code>f1</code> has but the previous branch did not — <strong>physically creates</strong> on disk.</li>
+</ol>
+<p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost — they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
+
+<h3>Let's deep dive into .git/</h3>
 <p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text — it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. When you run <code>git init</code> or <code>git clone</code>, Git creates that folder and stores literally everything in it: every commit, every version of every file, every branch. The structure looks roughly like this:</p>
 <div class="code-block"><pre>
 .git/
@@ -351,6 +374,7 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 <!-- 2) VS Code basics -->
 <!-- ============================================================ -->
 <h2 id="s2">2) VS Code basics you need to know</h2>
+<p>Visual Studio Code (VS Code) is a free, open-source code editor made by Microsoft, and it is the editor we use at KomITi for all development work.</p>
 
 <h3>Explorer</h3>
 <ul>
@@ -359,7 +383,8 @@ After each copy, you walk to the remote cabinet and replace the remote version (
     <li>In Explorer you see files and folders of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
 </ul>
 
-<h3>Workspace is the VS Code context you work in; it can contain one folder or multiple folders</h3>
+<h3>Workspace</h3>
+<p>Workspace is the VS Code context you work in. It can contain one folder or multiple folders.</p>
 <ul>
     <li>If you do <code>Open Folder</code> in VS Code, you will open one folder as your working workspace and automatically one unnamed Workspace.</li>
     <li>If you do <code>Add Folder to Workspace</code> in an already open workspace, you get a <code>multi-root workspace</code>, i.e. a workspace with multiple top-level root folders.</li>
@@ -368,9 +393,10 @@ After each copy, you walk to the remote cabinet and replace the remote version (
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
 </ul>
 
-<h3>Search, Explorer, Source Control and Terminal are the 4 panels you must distinguish</h3>
+<h3>The 4 panels you must distinguish</h3>
+<p>Search, Explorer, Source Control and Terminal are the 4 panels you must distinguish.</p>
 <ul>
-    <li><code>Explorer</code> = folder and file structure.</li>
+    <li><code>Explorer</code> = already mentioned above, it is the panel where you see folders and files.</li>
     <li><code>Search</code> = text search across files.</li>
     <li><code>Source Control</code> = the panel that shows you the Git state of your repo: which files are staged, which are unstaged (modified but not yet added) and which are untracked. You open it from the Activity Bar on the left side of VS Code or with <kbd>Ctrl+Shift+G</kbd>.
         <br><img src="img/scode_source_control_panel.png" alt="VS Code Source Control panel" style="max-width:216px; margin-top:8px;"></li>
@@ -385,12 +411,7 @@ After each copy, you walk to the remote cabinet and replace the remote version (
     <li>not create files in the wrong root,</li>
     <li>know that <code>save</code> in the editor is not the same as <code>commit</code> in Git.</li>
 </ul>
-<p><em>These concepts are expanded in <a href="#s4">4) What the letters in VS Code Explorer mean</a> and <a href="#s5">5) Explorer is not the same as Source Control panel</a>.</em></p>
-
-<!-- ============================================================ -->
-<!-- 4) Letters in VS Code Explorer -->
-<!-- ============================================================ -->
-<h2 id="s4">4) What the letters in VS Code Explorer mean</h2>
+<h3 id="s4">What the letters in VS Code Explorer mean</h3>
 <p>The most common labels are:</p>
 
 <table>
@@ -414,20 +435,14 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 </ul>
 <p>Generally, the letters disappear when Git no longer sees that change as an "unresolved" local change.</p>
 
-<!-- ============================================================ -->
-<!-- 5) Explorer vs Source Control -->
-<!-- ============================================================ -->
-<h2 id="s5">5) Explorer is not the same as Source Control panel</h2>
+<h3 id="s5">Explorer is not the same as Source Control panel</h3>
 <ul>
     <li>Explorer gives a quick visual signal next to the file,</li>
     <li>Source Control panel shows you in more detail what is staged, what is unstaged and what goes into a commit.</li>
 </ul>
 <p>Whenever you are unsure, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
 
-<!-- ============================================================ -->
-<!-- 5.1) Git status indicator -->
-<!-- ============================================================ -->
-<h2 id="s5-1">5.1) What the bottom-left corner in VS Code means: Git status indicator</h2>
+<h3 id="s5-1">What the bottom-left corner in VS Code means: Git status indicator</h3>
 <p>In the Git status indicator you often see a short Git status for the active repo. Using an example like:</p>
 <ul>
     <li><code>odoo4komiti</code> = the repo you are currently working in,</li>
@@ -451,9 +466,9 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 </ul>
 
 <!-- ============================================================ -->
-<!-- 6) Save ≠ commit -->
+<!-- 3) Save ≠ commit -->
 <!-- ============================================================ -->
-<h2 id="s6">6) Save is not the same as commit</h2>
+<h2 id="s6">3) Save is not the same as commit</h2>
 <p>This is a key beginner distinction:</p>
 <ul>
     <li><code>save</code> writes the file to disk,</li>
@@ -473,7 +488,7 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 <!-- ============================================================ -->
 <!-- 7) Basic local workflow -->
 <!-- ============================================================ -->
-<h2 id="s7">7) Basic local workflow</h2>
+<h2 id="s7">4) Basic local workflow</h2>
 <p>This is one whole unit: how Git looks in the actual KomITi workflow, with concrete commands and the order we actually use.</p>
 <p>You will later have to carry out this same Git flow yourself for tasks on <code>komiti_academy</code>, so don't read it as an abstract rule but as a working procedure.</p>
 
@@ -651,7 +666,7 @@ git push origin main</code></pre>
 <!-- ============================================================ -->
 <!-- 8) Common mistakes -->
 <!-- ============================================================ -->
-<h2 id="s8">8) Most common beginner mistakes</h2>
+<h2 id="s8">5) Most common beginner mistakes</h2>
 <ul>
     <li>confusing <code>save</code> and <code>commit</code>,</li>
     <li>committing everything without reading the diff,</li>
@@ -664,7 +679,7 @@ git push origin main</code></pre>
 <!-- ============================================================ -->
 <!-- 9) Key concepts / cheat-sheet -->
 <!-- ============================================================ -->
-<h2 id="s9">9) Key concepts and Minimum commands you need to know</h2>
+<h2 id="s9">6) Key concepts and Minimum commands you need to know</h2>
 <ul>
     <li><code>working tree</code>: local changes that are not yet committed,</li>
     <li><code>staged changes</code>: changes prepared for the next commit,</li>
@@ -702,7 +717,7 @@ git push origin main</code></pre>
 <!-- ============================================================ -->
 <!-- 10) KomITi discipline -->
 <!-- ============================================================ -->
-<h2 id="s10">10) How this looks in KomITi</h2>
+<h2 id="s10">7) How this looks in KomITi</h2>
 <p>In this repo the following discipline applies:</p>
 <ul>
     <li>one commit = one logical unit,</li>
@@ -716,7 +731,7 @@ git push origin main</code></pre>
 <!-- ============================================================ -->
 <!-- 11) Self-check -->
 <!-- ============================================================ -->
-<h2 id="s11">11) Self-check</h2>
+<h2 id="s11">8) Self-check</h2>
 <p>When you finish this document, you must be able to answer:</p>
 <ul>
     <li>what <code>M</code> means and what <code>U</code> means in VS Code,</li>
@@ -734,7 +749,7 @@ git push origin main</code></pre>
 <!-- ============================================================ -->
 <!-- 12) What to read next -->
 <!-- ============================================================ -->
-<h2 id="s12">12) What to read next</h2>
+<h2 id="s12">9) What to read next</h2>
 <ul>
     <li><a href="https://komiti.eu/tutorials/doc/03_infra_terraform_docker_aws">Infrastructure: Terraform, Docker &amp; AWS Foundations</a></li>
     <li><a href="https://komiti.eu/tutorials/doc/05_Odoo_from_0_to_hero">Odoo Development from Scratch</a></li>
@@ -746,13 +761,13 @@ git push origin main</code></pre>
 <h2 id="s99">99) Task on the komiti_academy project for the candidate</h2>
 <ol>
     <li>Open your account on GitHub, create a repo <code>komiti_academy_ime_polaznika</code> and clone it locally, because that is the remote and local repo in which you do your candidate module.<br>
-        <em>Reference: This is explained in chapters <a href="#s1">1) Git basics you need to know</a> and <a href="#s7">7) Basic local workflow</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s1">1) Git basics you need to know</a> and <a href="#s7">4) Basic local workflow</a>.</em></li>
     <li>Determine what your first Git work for <code>komiti_academy</code> will look like: the feature branch name, the first logical unit for a commit and the rule of what must not go into the same commit.<br>
-        <em>Reference: This is explained in chapters <a href="#s7">7) Basic local workflow</a> and <a href="#s10">10) How this looks in KomITi</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s7">4) Basic local workflow</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
     <li>In your repo practice the full Git workflow on a simple file <code>1.txt</code>: create local and remote branches <code>main</code>, <code>staging</code> and <code>feature</code> (<code>feature</code> should conform to the <code>ENGINEERING_CODEX.md</code> in the company KomITi), then in the <code>feature</code> branch create <code>1.txt</code> with one line <code>prvi red</code>, commit and push that change.<br>
-        <em>Reference: This is explained in chapters <a href="#s3">3.1) Local and remote branch</a>, <a href="#s7">7) Basic local workflow</a> and <a href="#s10">10) How this looks in KomITi</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
     <li>After that, promote the same change from <code>feature</code> to <code>staging</code>, then from <code>staging</code> to <code>main</code>, then return to <code>feature</code>, add a second line <code>drugi red</code> to <code>1.txt</code> and repeat the same workflow all the way to <code>main</code>.<br>
-        <em>Reference: This is explained in chapters <a href="#s3">3.1) Local and remote branch</a>, <a href="#s7">7) Basic local workflow</a>, <a href="#s8">8) Most common beginner mistakes</a> and <a href="#s10">10) How this looks in KomITi</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow</a>, <a href="#s8">5) Most common beginner mistakes</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
 </ol>
 
 <footer>© KomITi · komiti.eu</footer>
