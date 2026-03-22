@@ -211,7 +211,7 @@ details summary {
     <li><strong>branch</strong> is a separate binder inside that cabinet, and</li>
     <li><strong>file</strong> is a sheet of paper inside that binder.</li>
 </ul>
-<p>You can only have one binder open on your desk at a time; when you are done, you can copy sheets from one binder into another. Git keeps every version of every sheet, compressed, inside a hidden <code>.git/</code> directory — so nothing is ever lost.</p>
+<p>You can only have one binder open on your desk at a time; when you are done, you can copy sheets from one binder into another. Git keeps every version of every sheet, compressed, inside a hidden <code>.git/</code> folder — so nothing is ever lost.</p>
 
 <p><code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, and <code>GitHub</code> is a platform where the remote repo lives.</p>
 
@@ -263,7 +263,8 @@ LOCAL BRANCHES    [feature] ----git merge----> [staging] ----git merge----> [mai
 
 After each copy, you walk to the remote cabinet and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push.</div>
 
-<p><strong>Important:</strong> Git <strong>does not create a separate directory on disk for each branch</strong>. You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
+<h3>Does Git create a separate folder on disk for each branch?</h3>
+<p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
 <ul>
     <li><code>checkout</code> does not download anything from GitHub — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed,</li>
     <li>files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>,</li>
@@ -281,7 +282,7 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 ├── index         ← staging area
 └── ...</pre></div>
 <ul>
-    <li><code>objects/</code> = every file, every commit and every directory structure you ever committed exists here as a compressed blob object; Git addresses them via SHA-1 hashes (that long string of letters and numbers),</li>
+    <li><code>objects/</code> = every file, every commit and every folder structure you ever committed exists here as a compressed blob object; Git addresses them via SHA-1 hashes (that long string of letters and numbers),</li>
     <li><code>refs/</code> = branches and tags; e.g. the file <code>refs/heads/main</code> contains only one line — the hash of the commit that <code>main</code> currently points to,</li>
     <li><code>HEAD</code> = a text file that says which branch you are on; open it and you will see something like <code>ref: refs/heads/main</code>,</li>
     <li><code>index</code> = the staging area; this is where Git remembers what you staged for the next commit.</li>
@@ -301,6 +302,7 @@ After each copy, you walk to the remote cabinet and replace the remote version (
         When the change is verified, you switch to <code>staging</code> with <code>git checkout staging</code>, refresh it with <code>git pull origin staging</code>, bring in the sheets from your working binder with the command <code>git merge 2026-03-12-features</code>, then send the result back to GitHub with <code>git push origin staging</code>. After that you switch to <code>main</code>, refresh it, bring in the verified content from <code>staging</code> and send the result to GitHub, so Git practically serves to know exactly which binder you are working in, what sheets you changed and how those changes move to the main version.</li>
 </ul>
 
+<h3>Branches, locations and Git commands — quick-reference summary</h3>
 <p>Since this is a very important concept, let's repeat it enumeratively:</p>
 <ul>
     <li><code>main</code> = the main binder,</li>
@@ -354,13 +356,13 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 <ul>
     <li><code>Explorer</code> is the left panel in VS Code where you see folders and files.</li>
     <li>In Explorer you preview a file with a single click (its name will be in italics), and you open a file with a double click.</li>
-    <li>In Explorer you see files and directories of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
+    <li>In Explorer you see files and folders of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
 </ul>
 
 <h3>Workspace is the VS Code context you work in; it can contain one folder or multiple folders</h3>
 <ul>
     <li>If you do <code>Open Folder</code> in VS Code, you will open one folder as your working workspace and automatically one unnamed Workspace.</li>
-    <li>If you do <code>Add Folder to Workspace</code> in an already open workspace, you get a <code>multi-root workspace</code>, i.e. a workspace with multiple top-level root directories.</li>
+    <li>If you do <code>Add Folder to Workspace</code> in an already open workspace, you get a <code>multi-root workspace</code>, i.e. a workspace with multiple top-level root folders.</li>
     <li><code>workspace</code> is not just a visual concept in VS Code, but a context boundary for search, file reading, terminal and agent work.</li>
     <li>Can you have multiple workspaces at the same time: Yes, you can, but not in a single VS Code window.</li>
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
@@ -370,14 +372,15 @@ After each copy, you walk to the remote cabinet and replace the remote version (
 <ul>
     <li><code>Explorer</code> = folder and file structure.</li>
     <li><code>Search</code> = text search across files.</li>
-    <li><code>Source Control</code> = Git state, staged and unstaged changes.</li>
+    <li><code>Source Control</code> = the panel that shows you the Git state of your repo: which files are staged, which are unstaged (modified but not yet added) and which are untracked. You open it from the Activity Bar on the left side of VS Code or with <kbd>Ctrl+Shift+G</kbd>.
+        <br><img src="img/scode_source_control_panel.png" alt="VS Code Source Control panel" style="max-width:216px; margin-top:8px;"></li>
     <li><code>Terminal</code> = where you type commands like <code>git</code>, <code>docker compose</code> and <code>rg</code>.</li>
 </ul>
 
 <h3>What a VS Code beginner must adopt immediately</h3>
 <ul>
     <li>know which workspace you are working in,</li>
-    <li>know which root directory you are currently in,</li>
+    <li>know which root folder you are currently in,</li>
     <li>distinguish Explorer from Source Control panel,</li>
     <li>not create files in the wrong root,</li>
     <li>know that <code>save</code> in the editor is not the same as <code>commit</code> in Git.</li>
