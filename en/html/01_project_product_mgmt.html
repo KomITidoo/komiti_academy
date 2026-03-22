@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project And Product Management Roles — KomITi Academy</title>
+<title>Four Roles a Developer Must Know — KomITi Academy</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -142,8 +142,8 @@ footer {
 
   <div class="book-meta">
     <div class="book-title">KomITi Academy</div>
-    <h1>Project And Product Management Roles</h1>
-    <div class="subtitle">Understanding key roles around project and product delivery</div>
+    <h1>Four Roles a Developer Must Know Before Writing Code</h1>
+    <div class="subtitle">Product Manager · Business Owner · Project Manager · Service Owner</div>
   </div>
 
   <p>This document briefly explains what the key roles around a project and product are, what their responsibilities are, and how those roles map to specific artifacts in the learning library.</p>
@@ -155,7 +155,7 @@ footer {
     <li>who drives delivery,</li>
     <li>who is the owner of operational stability and service governance,</li>
     <li>whom the developer addresses which type of question to,</li>
-    <li>how those questions are distributed across the new canonical learning path: <code>00_ОПИС_ПРОИЗВОДА_2h.md</code> for product shape, <code>03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md</code> for the overarching delivery/runtime mental model, and <code>04_ODOO_PLAN_UČENJA.md</code> for the Odoo-specific learning path.</li>
+    <li>how those questions are distributed across the learning path: <code>00_end2end_onboarding.html</code> for the umbrella plan, <code>03_infra_terraform_docker_aws.html</code> for the delivery/runtime mental model, and <code>05_Odoo_from_0_to_hero.html</code> for the Odoo learning path.</li>
   </ul>
 
   <!-- Table of Contents -->
@@ -167,258 +167,83 @@ footer {
       <li><a href="#s3">Business Owner</a></li>
       <li><a href="#s4">Project Manager</a></li>
       <li><a href="#s5">Service Owner</a></li>
-      <li><a href="#s6">How these roles appear in the <code>komiti_academy</code> example</a></li>
-      <li><a href="#s7">How roles map to documents</a>
-        <ul style="list-style: none; margin-left: 18px;">
-          <li><a href="#s7-00"><code>00_ОПИС_ПРОИЗВОДА_2h.md</code></a></li>
-          <li><a href="#s7-03"><code>03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md</code></a></li>
-          <li><a href="#s7-04"><code>04_ODOO_PLAN_UČENJA.md</code></a></li>
-          <li><a href="#s7-maint">maintenance / support operating model</a></li>
-        </ul>
-      </li>
+      <li><a href="#s6">How roles appear in the <code>library</code> module example</a></li>
+      <li><a href="#s7">How roles map to documents</a></li>
       <li><a href="#s8">What a developer should learn from this</a></li>
-      <li><a href="#s9">Roles in later maintenance</a></li>
-      <li><a href="#s10">Short version in one sentence</a></li>
+      <li><a href="#s9">Summary — one sentence per role</a></li>
     </ol>
   </div>
 
   <!-- Section 1 -->
   <h2 id="s1">1) Why these roles matter</h2>
 
-  <p>A junior developer often confuses:</p>
+  <p>A junior developer often confuses who decides what the product should do, who drives delivery, who owns business value, and who keeps the system running. Distinguishing four roles early prevents wasted work and misdirected questions:</p>
   <ul>
-    <li>who decides what the product should do,</li>
-    <li>who decides when and how something goes into delivery,</li>
-    <li>who is responsible for business value,</li>
-    <li>who is responsible for planning and coordination,</li>
-    <li>who is responsible for the system actually working in a production/service context.</li>
-  </ul>
-
-  <p>That is why it is important to distinguish at least these four roles early on:</p>
-  <ul>
-    <li>Product Manager,</li>
-    <li>Business Owner,</li>
-    <li>Project Manager,</li>
-    <li>Service Owner.</li>
-  </ul>
-
-  <p>Important: there is no single, universal, worldwide standard for these roles that everyone uses identically.</p>
-
-  <p>There are:</p>
-  <ul>
-    <li>formal standards,</li>
-    <li>body-of-knowledge sources,</li>
-    <li>widely accepted frameworks,</li>
-    <li>industry schools of practice.</li>
-  </ul>
-
-  <p>Therefore it is more accurate to say:</p>
-  <ul>
-    <li>for the Project Manager role the strongest formal standards exist,</li>
-    <li>for the Product Manager role frameworks and industry practice exist more than a single formal standard,</li>
-    <li>for the Business Owner role organizational, governance, and delivery practice most often exists rather than a single canonical global standard,</li>
-    <li>for the Service Owner role the strongest reference framework is the service management discipline, especially <code>ITIL</code>.</li>
+    <li><strong>Product Manager</strong> — owns product shape,</li>
+    <li><strong>Business Owner</strong> — owns business meaning and priorities,</li>
+    <li><strong>Project Manager</strong> — owns delivery coordination,</li>
+    <li><strong>Service Owner</strong> — owns operational stability after go-live.</li>
   </ul>
 
   <!-- Section 2 -->
   <h2 id="s2">2) Product Manager</h2>
 
-  <p>Product Manager is the owner of product shape.</p>
+  <p>Product Manager is the owner of product shape — which problem the product solves, who the users are, what is in/out of scope, and what acceptance criteria look like.</p>
 
-  <p>He/she typically defines:</p>
-  <ul>
-    <li>which problem the product solves,</li>
-    <li>who the users are,</li>
-    <li>what the scope of the first version is,</li>
-    <li>what is in-scope and what is out-of-scope,</li>
-    <li>what acceptance criteria a feature or module has.</li>
-  </ul>
+  <p>Product Manager does not have to know technical implementation details, but must know what the product should do, for whom, and what success looks like.</p>
 
-  <p>Product Manager does not have to be someone who knows the technical details of implementation, but must know:</p>
-  <ul>
-    <li>what the product should do,</li>
-    <li>for whom it is being built,</li>
-    <li>what success looks like from a user and functional perspective.</li>
-  </ul>
+  <p>Key references: <code>Scrum Guide</code> (Product Owner), <code>SAFe</code>, <code>SVPG</code>, <code>AIPMM</code>.</p>
 
-  <p>The most important reference sources are:</p>
-  <ul>
-    <li><code>Scrum Guide</code> — but it formally defines <code>Product Owner</code>, not <code>Product Manager</code>,</li>
-    <li><code>SAFe</code> — defines roles such as <code>Product Manager</code> and <code>Product Owner</code> in a scaling context,</li>
-    <li><code>AIPMM</code> body of knowledge / certification model,</li>
-    <li><code>Pragmatic Institute</code> and similar product schools,</li>
-    <li><code>SVPG</code> (<code>Silicon Valley Product Group</code>) as a strong industry reference, although it is not a formal standard.</li>
-  </ul>
-
-  <p>Practically:</p>
-  <ul>
-    <li>if you are looking for a formal agile reference text, you look at the <code>Scrum Guide</code>,</li>
-    <li>if you are looking for an enterprise/framework definition of the Product Manager role, you look at <code>SAFe</code>,</li>
-    <li>if you are looking for broader product management practice, you look at <code>AIPMM</code>, <code>Pragmatic</code>, <code>SVPG</code>.</li>
-  </ul>
-
-  <p>Questions that Product Manager answers:</p>
+  <p>Example questions a developer addresses to Product Manager:</p>
   <blockquote>"Should this flow even exist?"</blockquote>
-  <blockquote>"Should the attendee see X or is that only for the manager?"</blockquote>
   <blockquote>"Is calendar view a must-have or a nice-to-have?"</blockquote>
 
   <!-- Section 3 -->
   <h2 id="s3">3) Business Owner</h2>
 
-  <p>Business Owner is the owner of business meaning and business priorities.</p>
+  <p>Business Owner is the owner of business meaning and business priorities — why this module matters, what the real operational problem is, and which rules are genuine business obligations vs. technical ideas.</p>
 
-  <p>He/she typically knows:</p>
-  <ul>
-    <li>why this module is important for the organization,</li>
-    <li>what the real operational/business problem is,</li>
-    <li>what the business risk is if something does not work,</li>
-    <li>which rule is a real business obligation and what is just a technical idea.</li>
-  </ul>
+  <p>Business Owner does not write tickets, but is crucial for confirming the problem exists, the solution is meaningful, and priorities are correct.</p>
 
-  <p>Business Owner does not have to write tickets or a product spec personally, but is often crucial for:</p>
-  <ul>
-    <li>confirming that the problem actually exists,</li>
-    <li>confirming that the solution is business-meaningful,</li>
-    <li>setting priorities.</li>
-  </ul>
+  <p>Key references: <code>SAFe</code> (explicit Business Owner role), <code>BABOK</code>, governance practices.</p>
 
-  <p>The closest relevant sources are:</p>
-  <ul>
-    <li><code>SAFe</code> — has an explicit <code>Business Owner</code> role,</li>
-    <li><code>BABOK</code> (<code>Business Analysis Body of Knowledge</code>) — does not define exactly the same <code>Business Owner</code> role, but describes the stakeholder/business responsibility perspective very well,</li>
-    <li>governance and operating model practices in enterprise delivery environments,</li>
-    <li>sometimes <code>ITIL</code> / service governance context, when it concerns ownership of a business service.</li>
-  </ul>
-
-  <p>Practically:</p>
-  <ul>
-    <li>if someone asks where the <code>Business Owner</code> role is most explicitly named, a good answer is <code>SAFe</code>,</li>
-    <li>if they are looking for a broader business/stakeholder responsibility context, then <code>BABOK</code> and governance practices are a closer source.</li>
-  </ul>
-
-  <p>Questions that Business Owner answers:</p>
+  <p>Example questions a developer addresses to Business Owner:</p>
   <blockquote>"Is the instructor actually allowed to be an attendee?"</blockquote>
-  <blockquote>"Does the state <code>cancelled</code> have to exist?"</blockquote>
   <blockquote>"Is overbooking forbidden in all cases or are there exceptions?"</blockquote>
 
   <!-- Section 4 -->
   <h2 id="s4">4) Project Manager</h2>
 
-  <p>Project Manager is the owner of delivery coordination.</p>
+  <p>Project Manager is the owner of delivery coordination — planning, work sequencing, dependency management, communication, rollout, and handoff.</p>
 
-  <p>He/she typically drives:</p>
-  <ul>
-    <li>planning,</li>
-    <li>work sequencing,</li>
-    <li>dependency management,</li>
-    <li>who does what and when,</li>
-    <li>communication and handoff,</li>
-    <li>rollout/promotion coordination when needed.</li>
-  </ul>
+  <p>Project Manager does not define business rules, but ensures delivery has a realistic scope, an agreed sequence, status visibility, and a clear handoff.</p>
 
-  <p>Project Manager does not necessarily define business rules, but ensures that delivery has:</p>
-  <ul>
-    <li>a realistic scope,</li>
-    <li>an agreed sequence,</li>
-    <li>status visibility,</li>
-    <li>a clear handoff.</li>
-  </ul>
+  <p>Key references: <code>PMBOK</code> (PMI), <code>PRINCE2</code>, <code>ISO 21502</code>.</p>
 
-  <p>The most well-known sources are:</p>
-  <ul>
-    <li><code>PMBOK</code> (<code>Project Management Body of Knowledge</code>) from <code>PMI</code>,</li>
-    <li><code>PRINCE2</code>,</li>
-    <li><code>ISO 21502</code> for project, programme and portfolio management guidance.</li>
-  </ul>
-
-  <p>These sources typically clearly describe:</p>
-  <ul>
-    <li>planning, scope, risk, stakeholder, schedule, and governance responsibilities,</li>
-    <li>how delivery is driven through formal project management language.</li>
-  </ul>
-
-  <p>Practically:</p>
-  <ul>
-    <li>if someone is looking for the closest world standard for the <code>Project Manager</code> role, these are the strongest answers.</li>
-  </ul>
-
-  <p>Questions that Project Manager answers:</p>
+  <p>Example questions a developer addresses to Project Manager:</p>
   <blockquote>"What goes into this phase and what do we leave for phase 2?"</blockquote>
-  <blockquote>"Does this have to be in the same release?"</blockquote>
-  <blockquote>"What is the next checkpoint?"</blockquote>
   <blockquote>"When is the expected demo / verification / promotion?"</blockquote>
 
   <!-- Section 5 -->
   <h2 id="s5">5) Service Owner</h2>
 
-  <p>Service Owner is the owner of the operational service after the software is already in use.</p>
+  <p>Service Owner is the owner of the operational service after the software is live — service ownership in production, SLA/OLA tracking, incident/problem/request coordination, vendor management, and ensuring the support process works.</p>
 
-  <p>He/she typically drives:</p>
-  <ul>
-    <li>service ownership in production,</li>
-    <li>coordination with a 3rd party vendor or internal support team,</li>
-    <li>SLA / OLA tracking,</li>
-    <li>incident, problem, and request coordination,</li>
-    <li>ensuring tickets are collected, triaged, and tracked,</li>
-    <li>ensuring the service operates in accordance with ITIL/service management rules.</li>
-  </ul>
+  <p>Service Owner does not define product shape or the delivery plan, but is crucial when the system is live and it matters that a support model exists, escalations have an owner, and operational quality is not left to chance.</p>
 
-  <p>Service Owner does not define product shape like Product Manager, nor the delivery plan like Project Manager. But is crucial when the system is already live and when it matters:</p>
-  <ul>
-    <li>that a support model exists,</li>
-    <li>that the vendor fulfills contractual obligations,</li>
-    <li>that escalations have an owner,</li>
-    <li>that availability, support response, and operational quality are not left to chance.</li>
-  </ul>
+  <p>Key references: <code>ITIL</code>, <code>ISO/IEC 20000</code>, <code>COBIT</code>, <code>SIAM</code>, <code>SRE</code>/<code>DevOps</code> practices.</p>
 
-  <p>The most important reference points are:</p>
-  <ul>
-    <li><code>ITIL</code> service management practice model,</li>
-    <li><code>ISO/IEC 20000</code> as a formal service management standard,</li>
-    <li><code>COBIT</code> for IT governance, controls, and management objectives,</li>
-    <li><code>SIAM</code> (<code>Service Integration and Management</code>) for multi-vendor service coordination,</li>
-    <li>enterprise vendor/SLA governance practices,</li>
-    <li>incident, problem, change, service level, and supplier management discipline,</li>
-    <li><code>SRE</code> and <code>DevOps</code> practices as a strong operational model reference, even though they are not the same type of standard as <code>ITIL</code>.</li>
-  </ul>
-
-  <p>Practically:</p>
-  <ul>
-    <li>if someone is looking for the most well-known framework for this role, the first answer is <code>ITIL</code>,</li>
-    <li>if they are looking for a formal standard for a service management system, then it is <code>ISO/IEC 20000</code>,</li>
-    <li>if they are looking for a governance/control lens, then <code>COBIT</code> is important,</li>
-    <li>if they are looking for an operating model for multiple external vendors, then <code>SIAM</code> is very important,</li>
-    <li>if they are looking for modern operational reliability practice, then <code>SRE</code> and <code>DevOps</code> are relevant.</li>
-  </ul>
-
-  <p>Questions that Service Owner answers:</p>
-  <blockquote>"Who tracks whether the external vendor is actually meeting the SLA?"</blockquote>
+  <p>Example questions a developer addresses to Service Owner:</p>
   <blockquote>"Who owns incident coordination when production goes down?"</blockquote>
-  <blockquote>"Who runs the service review and recurring operational problems?"</blockquote>
-  <blockquote>"Who collects tickets and ensures the support process actually works?"</blockquote>
+  <blockquote>"Who tracks whether the external vendor is actually meeting the SLA?"</blockquote>
 
-  <!-- Section 6 -->
-  <h2 id="s6">6) How these roles appear in the <code>komiti_academy</code> example</h2>
+  <!-- Section 6 -->\n  <h2 id="s6">6) How roles appear in the <code>library</code> module example</h2>
 
-  <p>On the <code>komiti_academy</code> module it roughly looks like this:</p>
   <ul>
-    <li>Product Manager defines that the module should cover course + session flow, manager/instructor/attendee actors, and basic search/filter.</li>
-    <li>Business Owner confirms that seats, overbooking, instructor/attendee separation, and session lifecycle are truly important business rules.</li>
-    <li>Project Manager drives the work so that the skeleton is done first, then MVP, then business rules, then verification/documentation, instead of everything happening chaotically all at once.</li>
-    <li>Service Owner would, once the module enters production usage, own the support model, ticket intake, vendor/SLA coordination, and operational review.</li>
-  </ul>
-
-  <p>In the new learning path the candidate should also read documents this way:</p>
-  <ul>
-    <li><code>00_ОПИС_ПРОИЗВОДА_2h.md</code> tells you what <code>komiti_academy</code> should be as a product.</li>
-    <li><code>03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md</code> tells you in which system/runtime/delivery context that product actually lives and how not to confuse project, infra, runtime, and application problems.</li>
-    <li><code>04_ODOO_PLAN_UČENJA.md</code> tells you the Odoo sequence in which you learn backend, views, security, testing, frontend, and integration.</li>
-  </ul>
-
-  <p>The practical rule for the candidate is:</p>
-  <ul>
-    <li>if you do not understand what the problem is and where it lives, first look at the product description and <code>03_...</code>;</li>
-    <li>if you already know the question is purely about Odoo implementation learning, then look at <code>04_ODOO_PLAN_UČENJA.md</code>.</li>
+    <li><strong>Product Manager</strong> defines that the module should cover the library model, book/member actors, and basic search/filter.</li>
+    <li><strong>Business Owner</strong> confirms that ISBN validation, member limits, and book lifecycle are truly important business rules.</li>
+    <li><strong>Project Manager</strong> drives the work so that the skeleton is done first, then MVP, then business logic, then website UI — instead of everything happening at once.</li>
+    <li><strong>Service Owner</strong> would, once the module enters production, own the support model, ticket intake, and operational review.</li>
   </ul>
 
   <!-- Section 7 -->
@@ -426,47 +251,43 @@ footer {
 
   <p>This is the minimal mapping across learning artifacts:</p>
 
-  <h3 id="s7-00"><code>00_ОПИС_ПРОИЗВОДА_2h.md</code></h3>
+  <h3 id="s7-00"><code>00_end2end_onboarding.html</code></h3>
+  <ul>
+    <li>Document Owner: Mentor (Project Manager for on-boarding)</li>
+    <li>Product Scope Input: Product Manager</li>
+    <li>Business Context Input: Business Owner</li>
+  </ul>
+  <p>Why: umbrella document — defines the learning path, schedule, and exit criteria for the entire on-boarding.</p>
+
+  <h3 id="s7-01"><code>01_project_product_mgmt.html</code> (this document)</h3>
   <ul>
     <li>Document Owner: Product Manager</li>
     <li>Accountable for business correctness: Business Owner</li>
     <li>Consulted for delivery sequencing: Project Manager</li>
   </ul>
-  <p>Why:</p>
-  <ul>
-    <li>this is the document that describes what the product is, who uses it, and which problem it solves.</li>
-  </ul>
+  <p>Why: describes the four roles and why a developer must understand each one before writing code.</p>
 
-  <h3 id="s7-03"><code>03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md</code></h3>
+  <h3 id="s7-03"><code>03_infra_terraform_docker_aws.html</code></h3>
   <ul>
     <li>Document Owner: Project Manager (delivery/runtime mental model context)</li>
     <li>Product input: Product Manager (the functional flow must be understandable in delivery reasoning as well)</li>
     <li>Business context: Business Owner (when a runtime decision has business impact)</li>
   </ul>
-  <p>Why:</p>
-  <ul>
-    <li>this is the document that describes how the entire system works: which problem you classify where, how delivery is composed of AWS, Docker, Terraform, and Odoo together, and why you must distinguish product/project/infra/runtime/application reasoning.</li>
-  </ul>
+  <p>Why: describes how the entire system works — AWS, Docker, Terraform, problem-class separation (infra vs. runtime vs. application).</p>
 
-  <h3 id="s7-04"><code>04_ODOO_PLAN_UČENJA.md</code></h3>
+  <h3 id="s7-05"><code>05_Odoo_from_0_to_hero.html</code></h3>
   <ul>
     <li>Document Owner: Project Manager (Odoo learning path sequencing)</li>
     <li>Product input: Product Manager (functional requirements determine which Odoo topics are a priority)</li>
   </ul>
-  <p>Why:</p>
-  <ul>
-    <li>this is the canonical Odoo learning path document and serves as a roadmap for Odoo backend, views, security, testing, frontend, and integration.</li>
-  </ul>
+  <p>Why: step-by-step tutorial for building the <code>library</code> Odoo 19 module — models, views, security, business logic, tests, website UI.</p>
 
   <h3 id="s7-maint">maintenance / support operating model</h3>
   <ul>
     <li>Document Owner: Service Owner</li>
     <li>Input from: Product Manager, Business Owner, Project Manager</li>
   </ul>
-  <p>Why:</p>
-  <ul>
-    <li>when the software transitions to production, Service Owner is responsible for ticket intake, vendor coordination, SLA, and operational review.</li>
-  </ul>
+  <p>Why: when the software transitions to production, Service Owner is responsible for ticket intake, vendor coordination, SLA, and operational review.</p>
 
   <!-- Section 8 -->
   <h2 id="s8">8) What a developer should learn from this</h2>
@@ -476,24 +297,12 @@ footer {
     <li>When you are not sure whether something is truly a business rule, you address the question to Business Owner.</li>
     <li>When you are not sure whether the delivery should go out in this release, you address the question to Project Manager.</li>
     <li>When you are not sure whether an incident or ticket has an owner and whether the SLA process works, you address the question to Service Owner.</li>
-    <li>When you are not sure in which system or layer the problem lives, first read <code>03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md</code> to distinguish delivery/infra/runtime/application/functional domain.</li>
+    <li>When you are not sure in which system or layer the problem lives, first read <code>03_infra_terraform_docker_aws.html</code> to distinguish delivery/infra/runtime/application/functional domain.</li>
     <li>Do not assume scope or rules. Document what you know and what you assume.</li>
   </ul>
 
   <!-- Section 9 -->
-  <h2 id="s9">9) Roles in later maintenance</h2>
-
-  <p>When the module lives in production, the roles still make sense:</p>
-  <ul>
-    <li>Product Manager evaluates whether a new feature request makes sense.</li>
-    <li>Business Owner confirms business impact and priority.</li>
-    <li>Project Manager coordinates release and handoff.</li>
-    <li>Service Owner drives operational stability, incident response, and SLA.</li>
-    <li>Developer delivers changes per <code>ENGINEERING_CODEX.md</code> standards, with a verification note and clean handoff.</li>
-  </ul>
-
-  <!-- Section 10 -->
-  <h2 id="s10">10) Short version in one sentence</h2>
+  <h2 id="s9">9) Summary — one sentence per role</h2>
 
   <ul>
     <li><strong>Product Manager</strong>: defines what the product should do and for whom.</li>
@@ -501,6 +310,8 @@ footer {
     <li><strong>Project Manager</strong>: coordinates when, how, and in what sequence delivery happens.</li>
     <li><strong>Service Owner</strong>: ensures the system in production actually works, that a support model exists, and that SLA obligations are met.</li>
   </ul>
+
+  <p>When the module lives in production, these roles still apply: Product Manager evaluates new features, Business Owner confirms priorities, Project Manager coordinates releases, Service Owner drives operational stability, and the developer delivers per <code>ENGINEERING_CODEX.md</code> standards.</p>
 
   <footer>&copy; KomITi &middot; komiti.eu</footer>
 
