@@ -180,8 +180,8 @@ details summary {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#s1">VS Code basics you need to know</a></li>
-        <li><a href="#s2">Git basics you need to know</a></li>
+        <li><a href="#s1">Git basics you need to know</a></li>
+        <li><a href="#s2">VS Code basics you need to know</a></li>
         <li><a href="#s3">Local and remote branch</a></li>
         <li><a href="#s4">What the letters in VS Code Explorer mean</a></li>
         <li><a href="#s5">Explorer is not the same as Source Control panel</a></li>
@@ -198,9 +198,35 @@ details summary {
 </div>
 
 <!-- ============================================================ -->
-<!-- 1) VS Code basics -->
+<!-- 1) Git basics -->
 <!-- ============================================================ -->
-<h2 id="s1">1) VS Code basics you need to know</h2>
+<h2 id="s1">1) Git basics you need to know</h2>
+
+<p><code>Git</code> is a distributed version control system — a tool that tracks every change to every file in a project, keeps a complete history, and lets multiple people work on the same codebase without overwriting each other's work.</p>
+
+<p>Think of a Git repo as one folder with multiple papers, where each branch is one separate paper. You write on one paper at a time; when you are done, you can transfer what you wrote onto another paper. Git keeps every version of every paper, compressed, inside a hidden <code>.git/</code> folder — so nothing is ever lost.</p>
+
+<p><code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, and <code>GitHub</code> is a platform where the remote repo lives.</p>
+
+<ul>
+    <li>VS Code Explorer and Source Control mostly show you the Git state of the local workspace.</li>
+    <li>In the KomITi workflow we currently use, the typical flow is: <code>feature</code> → <code>staging</code> → <code>main</code>.</li>
+</ul>
+
+<h3>clone vs fork</h3>
+<p><code>clone</code> and <code>fork</code> are not the same: <code>clone</code> is a local copy of a repo on your computer, and <code>fork</code> is your personal remote copy of someone else's repo on GitHub.</p>
+<p><code>fork</code> is most commonly used when you don't have write access to the original repo, so you make changes in your own GitHub fork and then send a <code>Pull Request</code> to the original repo.</p>
+<p>Practically: if you work in your own or team-accessible repo, you usually need <code>clone</code>; if you work on someone else's GitHub repo without direct write access, then you first need <code>fork</code>, and only then <code>clone</code> that fork.</p>
+
+<h3>DevOps vs CI/CD</h3>
+<p><code>DevOps</code> is a broader way of working and collaborating between the development and operations sides, with the goal of delivering and maintaining software faster, more securely and more stably. <code>CI/CD</code> is a narrower, practical part of that: a set of automated pipelines and steps that build, test and deliver code.</p>
+<p>Both emerged as a response to a slow, manual and separated way of building, testing and releasing software, where development and operations long worked as separate worlds — they did not originate from a single author but gradually evolved in the software industry through agile, automation and DevOps practices.</p>
+<p>The difference: <code>DevOps</code> is a culture, operating model and work discipline; <code>CI/CD</code> is the concrete mechanism and tooling flow that implements that discipline. Practically: <code>DevOps</code> tells you how a team should work and what it wants to achieve, while <code>CI/CD</code> serves to automatically verify and move those changes from commit to deployment.</p>
+
+<!-- ============================================================ -->
+<!-- 2) VS Code basics -->
+<!-- ============================================================ -->
+<h2 id="s2">2) VS Code basics you need to know</h2>
 
 <h3>Explorer</h3>
 <ul>
@@ -233,23 +259,6 @@ details summary {
     <li>distinguish Explorer from Source Control panel,</li>
     <li>not create files in the wrong root,</li>
     <li>know that <code>save</code> in the editor is not the same as <code>commit</code> in Git.</li>
-</ul>
-
-<!-- ============================================================ -->
-<!-- 2) Git basics -->
-<!-- ============================================================ -->
-<h2 id="s2">2) Git basics you need to know</h2>
-<ul>
-    <li><code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, and <code>GitHub</code> is a platform where the remote repo lives.</li>
-    <li>VS Code Explorer and Source Control mostly show you the Git state of the local workspace.</li>
-    <li>In the KomITi workflow we currently use, the typical flow is: <code>feature</code> → <code>staging</code> → <code>main</code>.</li>
-    <li><code>clone</code> and <code>fork</code> are not the same: <code>clone</code> is a local copy of a repo on your computer, and <code>fork</code> is your personal remote copy of someone else's repo on GitHub.</li>
-    <li><code>fork</code> is most commonly used when you don't have write access to the original repo, so you make changes in your own GitHub fork and then send a <code>Pull Request</code> to the original repo.</li>
-    <li>Practically: if you work in your own or team-accessible repo, you usually need <code>clone</code>; if you work on someone else's GitHub repo without direct write access, then you first need <code>fork</code>, and only then <code>clone</code> that fork.</li>
-    <li><code>DevOps</code> is a broader way of working and collaborating between the development and operations sides, with the goal of delivering and maintaining software faster, more securely and more stably.</li>
-    <li><code>CI/CD</code> is a narrower, practical part of that: a set of automated pipelines and steps that build, test and deliver code.</li>
-    <li><code>DevOps</code> and <code>CI/CD</code> emerged as a response to a slow, manual and separated way of building, testing and releasing software, where development and operations long worked as separate worlds, and they did not originate from a single author but gradually evolved in the software industry through agile, automation and DevOps practices.</li>
-    <li>The difference is that <code>DevOps</code> is more of a culture, operating model and work discipline, while <code>CI/CD</code> is a concrete mechanism and tooling flow that implements that discipline. Practically: <code>DevOps</code> tells you how a team should work and what it wants to achieve, while <code>CI/CD</code> serves to automatically verify and move those changes from commit to deployment.</li>
 </ul>
 
 <!-- ============================================================ -->
@@ -478,24 +487,24 @@ git pull origin main</code></pre>
 <p>You change files in VS Code, then check the state:</p>
 <pre><code>git status --short
 git diff --stat
-git diff -- 02_GIT_VSCODE_ОСНОВЕ_2h.md</code></pre>
+git diff -- en/html/02_git_vscode_basics.html</code></pre>
 <ul>
     <li><code>git status --short</code>: shows a short, compact status of the working tree.</li>
     <li><code>git diff --stat</code>: shows a statistical overview of changes per file.</li>
-    <li><code>git diff -- 02_GIT_VSCODE_ОСНОВЕ_2h.md</code>: shows the exact diff for the specified file only.</li>
+    <li><code>git diff -- en/html/02_git_vscode_basics.html</code>: shows the exact diff for the specified file only.</li>
     <li><code>--short</code> is a long option; you are requesting a shorter, more compact display of the Git status.</li>
     <li><code>--stat</code> is a long option; you are requesting a short statistical overview of changes per file.</li>
-    <li>in the command <code>git diff -- 02_GIT_VSCODE_ОСНОВЕ_2h.md</code>, the <code>--</code> is not a filename but a separator; it tells Git: treat everything after this as a path, not as an option.</li>
-    <li><code>02_GIT_VSCODE_ОСНОВЕ_2h.md</code> is an argument, i.e. the file path for which you are requesting the diff.</li>
+    <li>in the command <code>git diff -- en/html/02_git_vscode_basics.html</code>, the <code>--</code> is not a filename but a separator; it tells Git: treat everything after this as a path, not as an option.</li>
+    <li><code>en/html/02_git_vscode_basics.html</code> is an argument, i.e. the file path for which you are requesting the diff.</li>
     <li>in the paper analogy: now you are writing on your working paper and then looking at what you actually changed on it compared to the old state.</li>
 </ul>
 
 <!-- Step 4 -->
 <h3>Step 4: stage and commit</h3>
-<pre><code>git add 02_GIT_VSCODE_ОСНОВЕ_2h.md   <span class="comment"># OR: git add --all</span>
+<pre><code>git add en/html/02_git_vscode_basics.html   <span class="comment"># OR: git add --all</span>
 git commit -m "Expand Git foundations workflow"</code></pre>
 <ul>
-    <li><code>git add 02_GIT_VSCODE_ОСНОВЕ_2h.md</code>: stages only that one file.</li>
+    <li><code>git add en/html/02_git_vscode_basics.html</code>: stages only that one file.</li>
     <li>When we say <code>staged</code>, it practically means: <em>you chose for that change to enter the next snapshot</em>, i.e. into the next commit.</li>
     <li><code>git add --all</code>: stages all detected changes in the working tree, including new, modified and deleted files.</li>
     <li><code>git commit -m "Expand Git foundations workflow"</code>: creates a commit from staged changes and immediately writes the commit message.</li>
@@ -676,12 +685,14 @@ git push origin main</code></pre>
 <ul>
     <li>what <code>M</code> means and what <code>U</code> means in VS Code,</li>
     <li>what the difference is between save / commit / push,</li>
+    <li>what the difference is between <code>Git</code> and <code>GitHub</code>,</li>
     <li>what the difference is between <code>fork</code> and <code>clone</code>,</li>
     <li>what a branch is,</li>
     <li>what <code>checkout</code> does and what <code>merge</code> does,</li>
     <li>what the difference is between local <code>staging</code> and remote <code>origin/staging</code>,</li>
     <li>why we check <code>git status --short</code> before a commit,</li>
-    <li>why we do not put unrelated files in the same commit.</li>
+    <li>why we do not put unrelated files in the same commit,</li>
+    <li>what the difference is between <code>DevOps</code> and <code>CI/CD</code>.</li>
 </ul>
 
 <!-- ============================================================ -->
@@ -689,11 +700,8 @@ git push origin main</code></pre>
 <!-- ============================================================ -->
 <h2 id="s12">12) What to read next</h2>
 <ul>
-    <li><code>03_ИНФРА_TERRAFORM_DOCKER_AWS_ОСНОВЕ_4h.md</code></li>
-    <li><code>04_ODOO_ОСНОВЕ_4h.md</code></li>
-    <li><code>05_БРЗИ_ПОЧЕТАК_РАДА_1h.md</code></li>
-    <li><code>06_АНАТОМИЈА_ДОБРОГ_ODOO_МОДУЛА_2h.md</code></li>
-    <li><code>07_КАКО_СЕ_ЧИТА_ODOO_МОДУЛ_3h.md</code></li>
+    <li><code>03_infra_terraform_docker_aws.html</code> — infrastructure, Terraform, Docker, AWS</li>
+    <li><code>05_Odoo_from_0_to_hero.html</code> — Odoo development from scratch</li>
 </ul>
 
 <!-- ============================================================ -->
@@ -702,7 +710,7 @@ git push origin main</code></pre>
 <h2 id="s99">99) Task on the komiti_academy project for the candidate</h2>
 <ol>
     <li>Open your account on GitHub, create a repo <code>komiti_academy_ime_polaznika</code> and clone it locally, because that is the remote and local repo in which you do your candidate module.<br>
-        <em>Reference: This is explained in chapters <a href="#s2">2) Git basics you need to know</a> and <a href="#s7">7) Basic local workflow</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s1">1) Git basics you need to know</a> and <a href="#s7">7) Basic local workflow</a>.</em></li>
     <li>Determine what your first Git work for <code>komiti_academy</code> will look like: the feature branch name, the first logical unit for a commit and the rule of what must not go into the same commit.<br>
         <em>Reference: This is explained in chapters <a href="#s7">7) Basic local workflow</a> and <a href="#s10">10) How this looks in KomITi</a>.</em></li>
     <li>In your repo practice the full Git workflow on a simple file <code>1.txt</code>: create local and remote branches <code>main</code>, <code>staging</code> and <code>feature</code> (<code>feature</code> should conform to the <code>ENGINEERING_CODEX.md</code> in the company KomITi), then in the <code>feature</code> branch create <code>1.txt</code> with one line <code>prvi red</code>, commit and push that change.<br>
