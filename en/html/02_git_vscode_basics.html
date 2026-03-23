@@ -180,10 +180,44 @@ details summary {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#s1">Git basics you need to know</a></li>
-        <li><a href="#s2">VS Code basics you need to know</a></li>
+        <li><a href="#s1">Git basics you need to know</a>
+            <ol>
+                <li><a href="#s3">Local and remote branch</a></li>
+                <li><a href="#s1-2">Does Git create a separate folder on disk for each branch?</a></li>
+                <li><a href="#s1-3">Let's deep dive into .git/</a></li>
+                <li><a href="#s1-4">Branches, locations and Git commands — quick-reference summary</a></li>
+                <li><a href="#s1-5">clone vs fork</a></li>
+                <li><a href="#s1-6">DevOps vs CI/CD</a></li>
+            </ol>
+        </li>
+        <li><a href="#s2">VS Code basics you need to know</a>
+            <ol>
+                <li><a href="#s2-1">Explorer</a></li>
+                <li><a href="#s2-2">Workspace</a></li>
+                <li><a href="#s2-3">The 4 panels you must distinguish</a></li>
+                <li><a href="#s2-4">What a VS Code beginner must adopt immediately</a></li>
+                <li><a href="#s4">What the letters in VS Code Explorer mean</a></li>
+                <li><a href="#s5">Explorer is not the same as Source Control panel</a></li>
+                <li><a href="#s5-1">What the bottom-left corner in VS Code means: Git status indicator</a></li>
+            </ol>
+        </li>
         <li><a href="#s6">Save is not the same as commit</a></li>
-        <li><a href="#s7">Basic local workflow – Hands-on</a></li>
+        <li><a href="#s7">Basic local workflow – Hands-on</a>
+            <ol>
+                <li><a href="#s7-1">Install Git</a></li>
+                <li><a href="#s7-2">Configure Git (first-time setup)</a></li>
+                <li><a href="#s7-3">Create a GitHub account</a></li>
+                <li><a href="#s7-4">Clone the repository</a></li>
+                <li><a href="#s7-5">Get the latest main</a></li>
+                <li><a href="#s7-6">Create a new feature branch from main</a></li>
+                <li><a href="#s7-7">Make local changes</a></li>
+                <li><a href="#s7-8">Stage and commit</a></li>
+                <li><a href="#s7-9">Push to GitHub</a></li>
+                <li><a href="#s7-10">Promotion to staging</a></li>
+                <li><a href="#s7-11">Promotion to main</a></li>
+                <li><a href="#s7-12">Return to your feature branch if you continue working</a></li>
+            </ol>
+        </li>
         <li><a href="#s8">Most common beginner mistakes</a></li>
         <li><a href="#s9">Key concepts and Minimum commands you need to know</a></li>
         <li><a href="#s10">How this looks in KomITi</a></li>
@@ -264,7 +298,7 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
             [main]: copy the reviewed sheets in                     — git merge yyyy-MM-dd-feature
             [main]: push main to the remote cabinet                 — git push origin main</div>
 After each copy (merge), you walk to the remote cabinet and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push
-<h3>1.2) Does Git create a separate folder on disk for each branch?</h3>
+<h3 id="s1-2">1.2) Does Git create a separate folder on disk for each branch?</h3>
 <p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
 <ul>
     <li>you have <strong>one single folder</strong> for all branches in your repo,</li>
@@ -304,7 +338,7 @@ PS KomITi\komiti_academy> ls
 </ol>
 <p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost — they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
 
-<h3>1.3) Let's deep dive into .git/</h3>
+<h3 id="s1-3">1.3) Let's deep dive into .git/</h3>
 <p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text — it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. When you run <code>git init</code> or <code>git clone</code>, Git creates that folder and stores literally everything in it: every commit, every version of every file, every branch. The structure looks roughly like this:</p>
 <div class="code-block"><pre>
 .git/
@@ -325,7 +359,7 @@ PS KomITi\komiti_academy> ls
 
 <p><code>git show &lt;branch&gt;:&lt;path&gt;</code> lets you see the contents of a file from another branch without changing your working folder. For example, <code>git show main:README.md</code> extracts that version of the file from <code>.git/objects/</code> and displays it in the terminal, without overwriting anything on disk.</p>
 
-<h3>1.4) Branches, locations and Git commands — quick-reference summary</h3>
+<h3 id="s1-4">1.4) Branches, locations and Git commands — quick-reference summary</h3>
 
 <p>In the cabinet analogy this means:</p>
 <ul>
@@ -343,12 +377,12 @@ PS KomITi\komiti_academy> ls
     <li><code>git push origin staging</code> means you sent your local <code>staging</code> to remote <code>origin/staging</code>.</li>
 </ul>
 
-<h3>1.5) clone vs fork</h3>
+<h3 id="s1-5">1.5) clone vs fork</h3>
 <p><code>clone</code> and <code>fork</code> are not the same: <code>clone</code> is a local copy of a repo on your computer, and <code>fork</code> is your personal remote copy of someone else's repo on GitHub.</p>
 <p><code>fork</code> is most commonly used when you don't have write access to the original repo, so you make changes in your own GitHub fork and then send a <code>Pull Request</code> to the original repo.</p>
 <p>Practically: if you work in your own or team-accessible repo, you usually need <code>clone</code>; if you work on someone else's GitHub repo without direct write access, then you first need <code>fork</code>, and only then <code>clone</code> that fork.</p>
 
-<h3>1.6) DevOps vs CI/CD</h3>
+<h3 id="s1-6">1.6) DevOps vs CI/CD</h3>
 <p><code>DevOps</code> is a broader way of working and collaborating between the development and operations sides, with the goal of delivering and maintaining software faster, more securely and more stably. <code>CI/CD</code> is a narrower, practical part of that: a set of automated pipelines and steps that build, test and deliver code.</p>
 <p>Both emerged as a response to a slow, manual and separated way of building, testing and releasing software, where development and operations long worked as separate worlds — they did not originate from a single author but gradually evolved in the software industry through agile, automation and DevOps practices.</p>
 <p>The difference: <code>DevOps</code> is a culture, operating model and work discipline; <code>CI/CD</code> is the concrete mechanism and tooling flow that implements that discipline. Practically: <code>DevOps</code> tells you how a team should work and what it wants to achieve, while <code>CI/CD</code> serves to automatically verify and move those changes from commit to deployment.</p>
@@ -359,14 +393,14 @@ PS KomITi\komiti_academy> ls
 <h2 id="s2"><img src="img/OIP.webp" alt="VS Code logo" style="height:1.2em; vertical-align:middle; margin-right:0.3em;">2) VS Code basics you need to know</h2>
 <p>Visual Studio Code (VS Code) is a free, open-source code editor made by Microsoft, and it is the editor we use at KomITi for all development work.</p>
 
-<h3>2.1) Explorer</h3>
+<h3 id="s2-1">2.1) Explorer</h3>
 <ul>
     <li><code>Explorer</code> is the left panel in VS Code where you see folders and files.</li>
     <li>In Explorer you preview a file with a single click (its name will be in italics), and you open a file with a double click.</li>
     <li>In Explorer you see files and folders of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
 </ul>
 
-<h3>2.2) Workspace</h3>
+<h3 id="s2-2">2.2) Workspace</h3>
 <p>Workspace is the VS Code context you work in. It can contain one folder or multiple folders.</p>
 <ul>
     <li>If you do <code>Open Folder</code> in VS Code, you will open one folder as your working workspace and automatically one unnamed Workspace.</li>
@@ -376,7 +410,7 @@ PS KomITi\komiti_academy> ls
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
 </ul>
 
-<h3>2.3) The 4 panels you must distinguish</h3>
+<h3 id="s2-3">2.3) The 4 panels you must distinguish</h3>
 <p>Search, Explorer, Source Control and Terminal are the 4 panels you must distinguish.</p>
 <ul>
     <li><code>Explorer</code> = already mentioned above, it is the panel where you see folders and files.</li>
@@ -386,7 +420,7 @@ PS KomITi\komiti_academy> ls
     <li><code>Terminal</code> = where you type commands like <code>git</code>, <code>docker compose</code> and <code>rg</code>.</li>
 </ul>
 
-<h3>2.4) What a VS Code beginner must adopt immediately</h3>
+<h3 id="s2-4">2.4) What a VS Code beginner must adopt immediately</h3>
 <ul>
     <li>know which workspace you are working in,</li>
     <li>know which root folder you are currently in,</li>
@@ -479,7 +513,7 @@ PS KomITi\komiti_academy> ls
 <p>Before you can follow the steps below, you need Git installed and a working connection to the remote repository on GitHub. The next sections walk you through that setup.</p>
 
 <!-- Prerequisites -->
-<h3>Install Git</h3>
+<h3 id="s7-1">4.1) Install Git</h3>
 <ol>
     <li>Go to <a href="https://git-scm.com/downloads" target="_blank">https://git-scm.com/downloads</a> and download the installer for your operating system (Windows, macOS, or Linux).</li>
     <li>Run the installer. On Windows, the default options are fine — just click <strong>Next</strong> through each screen.</li>
@@ -489,7 +523,7 @@ PS KomITi\komiti_academy> ls
 git version 2.47.1.windows.2</code></pre>
 <p>If the command prints a version number, Git is installed correctly.</p>
 
-<h3>Configure Git (first-time setup)</h3>
+<h3 id="s7-2">4.2) Configure Git (first-time setup)</h3>
 <p>Git needs to know who you are so it can label every commit with your name and e-mail. Run these two commands once — they are saved globally and apply to every repository on your machine:</p>
 <pre><code>PS C:\dev> git config --global user.name "Your Name"
 PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
@@ -497,7 +531,7 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <pre><code>PS C:\dev> git config --global --list</code></pre>
 <p>You should see <code>user.name</code> and <code>user.email</code> in the output.</p>
 
-<h3>Create a GitHub account</h3>
+<h3 id="s7-3">4.3) Create a GitHub account</h3>
 <p>GitHub is the remote service where KomITi repositories are hosted. If you don't have an account yet:</p>
 <ol>
     <li>Go to <a href="https://github.com/signup" target="_blank">https://github.com/signup</a> and follow the steps.</li>
@@ -505,7 +539,7 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 </ol>
 <p>Without collaborator access you will be able to read the repository but not push your branches.</p>
 
-<h3>Clone the repository</h3>
+<h3 id="s7-4">4.4) Clone the repository</h3>
 <p><code>git clone</code> downloads the entire repository (all branches, all history) from GitHub to your local machine. You only need to do this once per repository.</p>
 <ol>
     <li>Open PowerShell and navigate to the folder where you want the project to live:</li>
@@ -520,8 +554,8 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>From this point on, every <code>git</code> command you run inside this folder talks to the <code>KomITidoo/komiti_academy</code> repository on GitHub because <code>origin</code> is already set to that URL.</p>
 <p>You are now ready for the step-by-step workflow below.</p>
 
-<!-- Step 1 -->
-<h3>4.1) Get the latest <code>main</code></h3>
+<!-- Step 5 -->
+<h3 id="s7-5">4.5) Get the latest <code>main</code></h3>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git checkout main
 PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
 <ul>
@@ -538,8 +572,8 @@ PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
     <li>in the cabinet analogy: you opened the main binder and checked whether you have its latest sheets from the remote cabinet.</li>
 </ul>
 
-<!-- Step 2 -->
-<h3>4.2) Create a new feature branch from <code>main</code></h3>
+<!-- Step 6 -->
+<h3 id="s7-6">4.6) Create a new feature branch from <code>main</code></h3>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git checkout -b 2026-03-12-features</code></pre>
 <ul>
     <li><code>git checkout -b 2026-03-12-features</code>: creates a new branch from the current position and immediately switches to it.</li>
@@ -561,8 +595,8 @@ PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
     <li>if you also do <code>push -u</code>, then that new binder immediately gets its copy in the remote cabinet (GitHub) too.</li>
 </ul>
 
-<!-- Step 3 -->
-<h3>4.3) Make local changes</h3>
+<!-- Step 7 -->
+<h3 id="s7-7">4.7) Make local changes</h3>
 <p>You change files in VS Code, then check the state:</p>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git status --short
 PS C:\dev\KomITi\komiti_academy> git diff --stat
@@ -578,8 +612,8 @@ PS C:\dev\KomITi\komiti_academy> git diff -- en/html/02_git_vscode_basics.html</
     <li>in the cabinet analogy: now you are writing on sheets in your working binder and then looking at what you actually changed compared to the old state.</li>
 </ul>
 
-<!-- Step 4 -->
-<h3>4.4) Stage and commit</h3>
+<!-- Step 8 -->
+<h3 id="s7-8">4.8) Stage and commit</h3>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git add en/html/02_git_vscode_basics.html   <span class="comment"># OR: git add --all</span>
 PS C:\dev\KomITi\komiti_academy> git commit -m "Expand Git foundations workflow"</code></pre>
 <ul>
@@ -611,8 +645,8 @@ PS C:\dev\KomITi\komiti_academy> git commit -m "Expand Git foundations workflow"
     <li>in the cabinet analogy: you don’t snapshot absolutely everything you ever scribbled, but only the sheets you consciously decided should enter this version.</li>
 </ul>
 
-<!-- Step 5 -->
-<h3>4.5) Push to GitHub</h3>
+<!-- Step 9 -->
+<h3 id="s7-9">4.9) Push to GitHub</h3>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git push origin 2026-03-12-features</code></pre>
 <ul>
     <li><code>git push origin 2026-03-12-features</code>: sends local commits from that branch to GitHub.</li>
@@ -627,8 +661,8 @@ PS C:\dev\KomITi\komiti_academy> git commit -m "Expand Git foundations workflow"
     <li>in the cabinet analogy: you sent your working binder to the remote cabinet so that others can see that version too.</li>
 </ul>
 
-<!-- Step 6 -->
-<h3>4.6) Promotion to <code>staging</code></h3>
+<!-- Step 10 -->
+<h3 id="s7-10">4.10) Promotion to <code>staging</code></h3>
 <p>First you switch to <code>staging</code> and refresh it:</p>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git checkout staging
 PS C:\dev\KomITi\komiti_academy> git pull origin staging</code></pre>
@@ -653,8 +687,8 @@ PS C:\dev\KomITi\komiti_academy> git push origin staging</code></pre>
     <li>in the cabinet analogy: you opened the verification binder, checked that it's fresh, then copied the sheets from your working binder into it.</li>
 </ul>
 
-<!-- Step 7 -->
-<h3>4.7) Promotion to <code>main</code></h3>
+<!-- Step 11 -->
+<h3 id="s7-11">4.11) Promotion to <code>main</code></h3>
 <p>When the change is verified on <code>staging</code>, you go to <code>main</code>:</p>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git checkout main
 PS C:\dev\KomITi\komiti_academy> git pull origin main
@@ -674,8 +708,8 @@ PS C:\dev\KomITi\komiti_academy> git push origin main</code></pre>
     <li>in the cabinet analogy: now you open the main binder and copy into it the sheets that have already passed verification.</li>
 </ul>
 
-<!-- Step 8 -->
-<h3>4.8) Return to your feature branch if you continue working</h3>
+<!-- Step 12 -->
+<h3 id="s7-12">4.12) Return to your feature branch if you continue working</h3>
 <pre><code>PS C:\dev\KomITi\komiti_academy> git checkout 2026-03-12-features</code></pre>
 <ul>
     <li><code>git checkout 2026-03-12-features</code>: returns you to the local feature branch to continue working.</li>
