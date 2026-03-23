@@ -206,13 +206,14 @@ details summary {
             <ol>
                 <li><a href="#s7-1">Install Git</a></li>
                 <li><a href="#s7-2">Configure Git (first-time setup)</a></li>
-                <li><a href="#s7-3">Create a GitHub account</a></li>
+                <li><a href="#s7-3">Create a GitHub account and a new repository</a></li>
                 <li><a href="#s7-4">Clone the repository</a></li>
                 <li><a href="#s7-5">Get the latest main</a></li>
                 <li><a href="#s7-6">Create a new feature branch from main</a></li>
                 <li><a href="#s7-7">Make local changes</a></li>
                 <li><a href="#s7-8">Stage and commit</a></li>
                 <li><a href="#s7-9">Push to GitHub</a></li>
+                <li><a href="#s7-9a">See it with your own eyes — branch switching demo</a></li>
                 <li><a href="#s7-10">Promotion to staging</a></li>
                 <li><a href="#s7-11">Promotion to main</a></li>
                 <li><a href="#s7-12">Return to your feature branch if you continue working</a></li>
@@ -261,7 +262,7 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
 
 <p>The <code>feature → staging → main</code> promotion pattern is a widely adopted branching strategy. It originates from Vincent Driessen's <em>Git Flow</em> model (2010) and is documented in the official <a href="https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows">Git Book — Branching Workflows</a>. KomITi follows this pattern as defined in <code>ENGINEERING_HANDBOOK.md</code>.</p>
 
-<p>According to best practices and <code>ENGINEERING_HANDBOOK.md</code> of KomITi, your local cabinet (e.g. <code>C:\dev\KomITi\komiti_academy</code>) should contain three binders:</p>
+<p>According to best practices and <code>ENGINEERING_HANDBOOK.md</code> of KomITi, your local cabinet (e.g. <code>C:\dev\komiti_library</code>) should contain three binders:</p>
 <ul>
     <li><strong><code>main</code></strong> — the clean, published binder. Whatever sheets are in here is what the world sees.</li>
     <li><strong><code>staging</code></strong> — the review binder. Before any sheets go into <code>main</code>, they are first copied here so someone can check them.</li>
@@ -275,12 +276,12 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
 <p>The arrows in the diagram map to real actions (Workflow):</p>
 <ul>
     <li><strong><code>git checkout -b yyyy-MM-dd-feature</code></strong> (arrow at the bottom going left ←) = You, developer, starts by taking a fresh empty binder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.<br>
-        In practice: <code>git checkout main</code> → <code>git pull origin main</code> → <code>git checkout -b 2026-03-12-features</code>.</li>
+        In practice: <code>git checkout main</code> → <code>git pull origin main</code> → <code>git checkout -b 2026-03-23-play_xyz</code>.</li>
     <li><strong><code>git add</code> + <code>git commit</code></strong> (working inside the binder) = you change sheets (files) in VS Code, check what you did with <code>git status --short</code> and <code>git diff --stat</code>, then save a snapshot with <code>git add &lt;file&gt;</code> and <code>git commit -m "your message"</code>.</li>
     <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet and replace its copy of a binder with your updated version.<br>
-        In practice: <code>git push -u origin 2026-03-12-features</code> — your local branch now also has a remote copy <code>origin/2026-03-12-features</code>.</li>
+        In practice: <code>git push -u origin 2026-03-23-play_xyz</code> — your local branch now also has a remote copy <code>origin/2026-03-23-play_xyz</code>.</li>
     <li><strong><code>git merge</code></strong> (arrow going right →) = you copy the sheets you wrote in one binder into another binder, on your desk.<br>
-        In practice: <code>git checkout staging</code> → <code>git pull origin staging</code> → <code>git merge 2026-03-12-features</code> → <code>git push origin staging</code>. Then repeat for <code>main</code>.</li>
+        In practice: <code>git checkout staging</code> → <code>git pull origin staging</code> → <code>git merge 2026-03-23-play_xyz</code> → <code>git push origin staging</code>. Then repeat for <code>main</code>.</li>
     <li><strong><code>git pull</code></strong> (not shown, but the reverse of push) = you walk to the remote cabinet, take the latest copy, and update the binder on your desk.</li>
 </ul>
 
@@ -299,7 +300,7 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
             [main]: push main to the remote cabinet                 — git push origin main</div>
 After each copy (merge), you walk to the remote cabinet and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push
 <h3 id="s1-2">1.2) Does Git create a separate folder on disk for each branch?</h3>
-<p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
+<p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\komiti_library</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-23-play_xyz</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
 <ul>
     <li>you have <strong>one single folder</strong> for all branches in your repo,</li>
     <li>Git does <strong>not</strong> download anything from GitHub into this folder when you change (<code>checkout</code>) branches — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed (files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>).</li>
@@ -508,9 +509,8 @@ PS C:\dev\komiti_library> ls
 <!-- 7) Basic local workflow -->
 <!-- ============================================================ -->
 <h2 id="s7">4) Basic local workflow – Hands-on</h2>
-<p>This is one whole unit: how Git looks in the actual KomITi workflow, with concrete commands and the order we actually use.</p>
-<p>You will later have to carry out this same Git flow yourself for tasks on <code>komiti_academy</code>, so don't read it as an abstract rule but as a working procedure.</p>
-<p>Before you can follow the steps below, you need Git installed and a working connection to the remote repository on GitHub. The next sections walk you through that setup.</p>
+<p>In this section you will create your own GitHub repository, clone it to your machine and walk through the full KomITi <code>feature → staging → main</code> workflow with real commands. The repository you create here — <code>komiti_library</code> — is the same one you will use later in <a href="05_Odoo_from_0_to_hero.html">05 — Odoo from 0 to Hero</a> to build the <code>library</code> Odoo module.</p>
+<p>Before you can follow the steps below, you need Git installed and a working connection to GitHub. The next sections walk you through that setup.</p>
 
 <!-- Prerequisites -->
 <h3 id="s7-1">4.1) Install Git</h3>
@@ -519,9 +519,19 @@ PS C:\dev\komiti_library> ls
     <li>Run the installer. On Windows, the default options are fine — just click <strong>Next</strong> through each screen.</li>
     <li>After installation, open a terminal (PowerShell on Windows) and verify:</li>
 </ol>
-<pre><code>PS C:\dev> git --version
+<pre><code>PS C:\Users\you> git --version
 git version 2.47.1.windows.2</code></pre>
 <p>If the command prints a version number, Git is installed correctly.</p>
+
+<ol start="4">
+    <li>Create the working directory where all your development projects will live:</li>
+</ol>
+<pre><code>PS C:\Users\you> mkdir C:\dev
+PS C:\Users\you> cd C:\dev</code></pre>
+
+<div class="note">
+    <strong>Important:</strong> Do <strong>not</strong> place your development folder inside OneDrive, Dropbox or any other cloud-synced folder. Cloud sync services constantly lock and rewrite files in the background, which causes conflicts with Git and with AI coding agents (e.g. GitHub Copilot). Always use a plain local path like <code>C:\dev</code>.
+</div>
 
 <h3 id="s7-2">4.2) Configure Git (first-time setup)</h3>
 <p>Git needs to know who you are so it can label every commit with your name and e-mail. Run these two commands once — they are saved globally and apply to every repository on your machine:</p>
@@ -531,33 +541,64 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <pre><code>PS C:\dev> git config --global --list</code></pre>
 <p>You should see <code>user.name</code> and <code>user.email</code> in the output.</p>
 
-<h3 id="s7-3">4.3) Create a GitHub account</h3>
-<p>GitHub is the remote service where KomITi repositories are hosted. If you don't have an account yet:</p>
+<h3 id="s7-3">4.3) Create a GitHub account and a new repository</h3>
+<p>GitHub is the remote service where your repositories will be hosted.</p>
 <ol>
-    <li>Go to <a href="https://github.com/signup" target="_blank">https://github.com/signup</a> and follow the steps.</li>
-    <li>Once registered, ask the project lead to add you as a collaborator on the <code>KomITidoo/komiti_academy</code> repository.</li>
+    <li>If you don't have an account yet, go to <a href="https://github.com/signup" target="_blank">https://github.com/signup</a> and follow the steps.</li>
+    <li>Once logged in, click the <strong>+</strong> button in the top-right corner → <strong>New repository</strong>.</li>
+    <li>Fill in:
+        <ul>
+            <li><strong>Repository name:</strong> <code>komiti_library</code></li>
+            <li><strong>Description:</strong> <em>Odoo library module — KomITi Academy hands-on project</em></li>
+            <li><strong>Visibility:</strong> Public (or Private — your choice)</li>
+            <li><strong>Initialize this repository with:</strong> check <strong>Add a README file</strong></li>
+        </ul>
+    </li>
+    <li>Click <strong>Create repository</strong>. GitHub creates the repo with a <code>main</code> branch containing <code>README.md</code>.</li>
 </ol>
-<p>Without collaborator access you will be able to read the repository but not push your branches.</p>
+
+<h4>Seed <code>main</code> with a test file</h4>
+<p>While still on GitHub (web), add a small test file so you have something to see later when switching branches:</p>
+<ol>
+    <li>On the repo page, click <strong>Add file → Create new file</strong>.</li>
+    <li>Name it <code>x.md</code> and type: <code>This file exists on every branch.</code></li>
+    <li>Click <strong>Commit changes</strong> (commit directly to <code>main</code>).</li>
+</ol>
+<p>Your <code>main</code> branch now contains <code>README.md</code> and <code>x.md</code>.</p>
+
+<h4>Create the <code>staging</code> branch and add <code>y.md</code></h4>
+<ol>
+    <li>On the repo page, click the branch dropdown (it says <strong>main</strong>).</li>
+    <li>Type <code>staging</code> in the search box and click <strong>Create branch: staging from main</strong>.</li>
+    <li>You are now viewing the <code>staging</code> branch. Click <strong>Add file → Create new file</strong>.</li>
+    <li>Name it <code>y.md</code> and type: <code>This file exists on staging and feature branches.</code></li>
+    <li>Click <strong>Commit changes</strong> (commit directly to <code>staging</code>).</li>
+</ol>
+<p>Now your branches on GitHub look like this:</p>
+<ul>
+    <li><code>main</code>: <code>README.md</code>, <code>x.md</code></li>
+    <li><code>staging</code>: <code>README.md</code>, <code>x.md</code>, <code>y.md</code></li>
+</ul>
 
 <h3 id="s7-4">4.4) Clone the repository</h3>
 <p><code>git clone</code> downloads the entire repository (all branches, all history) from GitHub to your local machine. You only need to do this once per repository.</p>
 <ol>
-    <li>Open PowerShell and navigate to the folder where you want the project to live:</li>
+    <li>Open PowerShell and navigate to <code>C:\dev</code>:</li>
 </ol>
-<pre><code>PS C:\dev> cd C:\dev\KomITi</code></pre>
+<pre><code>PS C:\Users\you> cd C:\dev</code></pre>
 <ol start="2">
-    <li>Clone via HTTPS (recommended for beginners):</li>
+    <li>Clone via HTTPS (recommended for beginners). Replace <code>YOUR_GITHUB_USERNAME</code> with your actual GitHub username:</li>
 </ol>
-<pre><code>PS C:\dev\KomITi> git clone https://github.com/KomITidoo/komiti_academy.git</code></pre>
-<p>Git will create a folder <code>komiti_academy</code> containing the full repo. Enter it:</p>
-<pre><code>PS C:\dev\KomITi> cd komiti_academy</code></pre>
-<p>From this point on, every <code>git</code> command you run inside this folder talks to the <code>KomITidoo/komiti_academy</code> repository on GitHub because <code>origin</code> is already set to that URL.</p>
+<pre><code>PS C:\dev> git clone https://github.com/YOUR_GITHUB_USERNAME/komiti_library.git</code></pre>
+<p>Git will create a folder <code>komiti_library</code> containing the full repo. Enter it:</p>
+<pre><code>PS C:\dev> cd komiti_library</code></pre>
+<p>From this point on, every <code>git</code> command you run inside this folder talks to your <code>komiti_library</code> repository on GitHub because <code>origin</code> is already set to that URL.</p>
 <p>You are now ready for the step-by-step workflow below.</p>
 
 <!-- Step 5 -->
 <h3 id="s7-5">4.5) Get the latest <code>main</code></h3>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout main
-PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
+<pre><code>PS C:\dev\komiti_library> git checkout main
+PS C:\dev\komiti_library> git pull origin main</code></pre>
 <ul>
     <li><code>git checkout main</code>: switches to the local branch <code>main</code>.</li>
     <li><code>git pull origin main</code>: pulls the latest changes from the remote <code>origin</code> for the branch <code>main</code> and merges them into the local <code>main</code>.</li>
@@ -574,19 +615,19 @@ PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
 
 <!-- Step 6 -->
 <h3 id="s7-6">4.6) Create a new feature branch from <code>main</code></h3>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout -b 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\komiti_library> git checkout -b 2026-03-23-play_xyz</code></pre>
 <ul>
-    <li><code>git checkout -b 2026-03-12-features</code>: creates a new branch from the current position and immediately switches to it.</li>
+    <li><code>git checkout -b 2026-03-23-play_xyz</code>: creates a new branch from the current position and immediately switches to it.</li>
     <li><code>-b</code> means: create a new branch and immediately switch to it; it is a short option, i.e. a flag, and is an abbreviation of <code>branch</code>.</li>
-    <li><code>2026-03-12-features</code> is an argument; with it you specify what the new branch will be named.</li>
+    <li><code>2026-03-23-play_xyz</code> is an argument; with it you specify what the new branch will be named.</li>
 </ul>
 <p>If you want the branch to exist on GitHub right away:</p>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git push -u origin 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\komiti_library> git push -u origin 2026-03-23-play_xyz</code></pre>
 <ul>
-    <li><code>git push -u origin 2026-03-12-features</code>: sends the new branch to GitHub and remembers the upstream link.</li>
+    <li><code>git push -u origin 2026-03-23-play_xyz</code>: sends the new branch to GitHub and remembers the upstream link.</li>
     <li><code>-u</code> means <code>--set-upstream</code>; it is an option that tells Git to remember the link between the local branch and the remote branch of the same name.</li>
     <li><code>origin</code> is an argument and means: to which remote you are sending.</li>
-    <li><code>2026-03-12-features</code> is an argument and means: which branch you are sending.</li>
+    <li><code>2026-03-23-play_xyz</code> is an argument and means: which branch you are sending.</li>
 </ul>
 <p>Here <code>checkout -b</code> means:</p>
 <ul>
@@ -595,35 +636,37 @@ PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
     <li>if you also do <code>push -u</code>, then that new binder immediately gets its copy in the remote cabinet (GitHub) too.</li>
 </ul>
 
+<p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). Bring it in now:</p>
+<pre><code>PS C:\dev\komiti_library> git merge origin/staging</code></pre>
+<p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
+
 <!-- Step 7 -->
 <h3 id="s7-7">4.7) Make local changes</h3>
-<p>You change files in VS Code, then check the state:</p>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git status --short
-PS C:\dev\KomITi\komiti_academy> git diff --stat
-PS C:\dev\KomITi\komiti_academy> git diff -- en/html/02_git_vscode_basics.html</code></pre>
+<p>Now create a new file <code>z.md</code> that will exist only on your feature branch. Open VS Code, create the file, or do it straight from the terminal:</p>
+<pre><code>PS C:\dev\komiti_library> echo "This file exists only on the feature branch." > z.md</code></pre>
+<p>Then check the state:</p>
+<pre><code>PS C:\dev\komiti_library> git status --short
+PS C:\dev\komiti_library> git diff --stat</code></pre>
 <ul>
-    <li><code>git status --short</code>: shows a short, compact status of the working tree.</li>
+    <li><code>git status --short</code>: shows a short, compact status of the working tree. You should see <code>?? z.md</code> — a new untracked file.</li>
     <li><code>git diff --stat</code>: shows a statistical overview of changes per file.</li>
-    <li><code>git diff -- en/html/02_git_vscode_basics.html</code>: shows the exact diff for the specified file only.</li>
     <li><code>--short</code> is a long option; you are requesting a shorter, more compact display of the Git status.</li>
     <li><code>--stat</code> is a long option; you are requesting a short statistical overview of changes per file.</li>
-    <li>in the command <code>git diff -- en/html/02_git_vscode_basics.html</code>, the <code>--</code> is not a filename but a separator; it tells Git: treat everything after this as a path, not as an option.</li>
-    <li><code>en/html/02_git_vscode_basics.html</code> is an argument, i.e. the file path for which you are requesting the diff.</li>
     <li>in the cabinet analogy: now you are writing on sheets in your working binder and then looking at what you actually changed compared to the old state.</li>
 </ul>
 
 <!-- Step 8 -->
 <h3 id="s7-8">4.8) Stage and commit</h3>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git add en/html/02_git_vscode_basics.html   <span class="comment"># OR: git add --all</span>
-PS C:\dev\KomITi\komiti_academy> git commit -m "Expand Git foundations workflow"</code></pre>
+<pre><code>PS C:\dev\komiti_library> git add z.md
+PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre>
 <ul>
-    <li><code>git add en/html/02_git_vscode_basics.html</code>: stages only that one file.</li>
+    <li><code>git add z.md</code>: stages only that one file.</li>
     <li>When we say <code>staged</code>, it practically means: <em>you chose for that change to enter the next snapshot</em>, i.e. into the next commit.</li>
     <li><code>git add --all</code>: stages all detected changes in the working tree, including new, modified and deleted files.</li>
-    <li><code>git commit -m "Expand Git foundations workflow"</code>: creates a commit from staged changes and immediately writes the commit message.</li>
+    <li><code>git commit -m "Add z.md to feature branch"</code>: creates a commit from staged changes and immediately writes the commit message.</li>
     <li><code>--all</code>: flag that tells Git you are not picking individual files but all current changes.</li>
     <li><code>-m</code>: short option for <code>message</code>.</li>
-    <li><code>"Expand Git foundations workflow"</code>: argument of the <code>-m</code> option, i.e. the commit message text.</li>
+    <li><code>"Add z.md to feature branch"</code>: argument of the <code>-m</code> option, i.e. the commit message text.</li>
 </ul>
 <p>The <strong>short commit ID</strong> (e.g. <code>66bee36</code>) is the abbreviated commit hash that Git prints after a successful commit. That number and letters are not random: it is a short version of the unique identifier of that commit. The full commit hash is much longer, and Git in everyday work often shows only the abbreviated version, sufficient to clearly identify the commit in that repo. Practically, <code>66bee36</code> means: "this exact code snapshot". That's why you can say, for example: <em>look at commit <code>66bee36</code></em> or <em>this change entered <code>66bee36</code></em>.</p>
 
@@ -647,34 +690,46 @@ PS C:\dev\KomITi\komiti_academy> git commit -m "Expand Git foundations workflow"
 
 <!-- Step 9 -->
 <h3 id="s7-9">4.9) Push to GitHub</h3>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git push origin 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\komiti_library> git push origin 2026-03-23-play_xyz</code></pre>
 <ul>
-    <li><code>git push origin 2026-03-12-features</code>: sends local commits from that branch to GitHub.</li>
+    <li><code>git push origin 2026-03-23-play_xyz</code>: sends local commits from that branch to GitHub.</li>
     <li><code>origin</code>: argument that specifies to which remote you are sending.</li>
-    <li><code>2026-03-12-features</code>: argument that specifies which branch you are sending.</li>
+    <li><code>2026-03-23-play_xyz</code>: argument that specifies which branch you are sending.</li>
 </ul>
 <p>Now your local feature branch also exists as a remote branch on GitHub.</p>
 <p>This is an important distinction:</p>
 <ul>
-    <li>local <code>2026-03-12-features</code> = on your machine,</li>
-    <li>remote <code>origin/2026-03-12-features</code> = on GitHub,</li>
+    <li>local <code>2026-03-23-play_xyz</code> = on your machine,</li>
+    <li>remote <code>origin/2026-03-23-play_xyz</code> = on GitHub,</li>
     <li>in the cabinet analogy: you sent your working binder to the remote cabinet so that others can see that version too.</li>
 </ul>
+
+<h3 id="s7-9a">4.9a) See it with your own eyes — branch switching demo</h3>
+<p>Now comes the most tangible moment: you will switch between branches and <strong>watch files appear and disappear</strong> in both Windows Explorer and VS Code Explorer. Open a Windows Explorer window to <code>C:\dev\komiti_library</code> and keep it visible side-by-side with your terminal.</p>
+<pre><code>PS C:\dev\komiti_library> git checkout main
+PS C:\dev\komiti_library> ls</code></pre>
+<p>You should see only <code>README.md</code> and <code>x.md</code>. Look at Windows Explorer — <code>y.md</code> and <code>z.md</code> are <strong>gone</strong>.</p>
+<pre><code>PS C:\dev\komiti_library> git checkout staging
+PS C:\dev\komiti_library> ls</code></pre>
+<p>Now you see <code>README.md</code>, <code>x.md</code> and <code>y.md</code>. In Windows Explorer, <code>y.md</code> appeared but <code>z.md</code> is still gone.</p>
+<pre><code>PS C:\dev\komiti_library> git checkout 2026-03-23-play_xyz
+PS C:\dev\komiti_library> ls</code></pre>
+<p>All three: <code>x.md</code>, <code>y.md</code> and <code>z.md</code> are back. This is exactly the behaviour explained in <a href="#s1-2">section 1.2</a> — Git physically overwrites, creates and deletes files on disk when you switch branches. You just proved it to yourself.</p>
 
 <!-- Step 10 -->
 <h3 id="s7-10">4.10) Promotion to <code>staging</code></h3>
 <p>First you switch to <code>staging</code> and refresh it:</p>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout staging
-PS C:\dev\KomITi\komiti_academy> git pull origin staging</code></pre>
+<pre><code>PS C:\dev\komiti_library> git checkout staging
+PS C:\dev\komiti_library> git pull origin staging</code></pre>
 <ul>
     <li><code>git checkout staging</code>: switches to the local branch <code>staging</code>.</li>
     <li><code>git pull origin staging</code>: refreshes the local <code>staging</code> with the latest state from the remote <code>origin/staging</code>.</li>
 </ul>
 <p>Then you bring the feature content into <code>staging</code>:</p>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git merge 2026-03-12-features
-PS C:\dev\KomITi\komiti_academy> git push origin staging</code></pre>
+<pre><code>PS C:\dev\komiti_library> git merge 2026-03-23-play_xyz
+PS C:\dev\komiti_library> git push origin staging</code></pre>
 <ul>
-    <li><code>git merge 2026-03-12-features</code>: brings the content from the feature branch into the current branch <code>staging</code>.</li>
+    <li><code>git merge 2026-03-23-play_xyz</code>: brings the content from the feature branch into the current branch <code>staging</code>.</li>
     <li><code>git push origin staging</code>: sends the updated <code>staging</code> back to GitHub.</li>
 </ul>
 <p>This means the content from your feature branch has moved into <code>staging</code>.</p>
@@ -682,7 +737,7 @@ PS C:\dev\KomITi\komiti_academy> git push origin staging</code></pre>
 <ul>
     <li>you stood on <code>staging</code>,</li>
     <li>you refreshed <code>staging</code> from GitHub,</li>
-    <li>into <code>staging</code> you brought the content from <code>2026-03-12-features</code>,</li>
+    <li>into <code>staging</code> you brought the content from <code>2026-03-23-play_xyz</code>,</li>
     <li>then you sent the new <code>staging</code> back to GitHub,</li>
     <li>in the cabinet analogy: you opened the verification binder, checked that it's fresh, then copied the sheets from your working binder into it.</li>
 </ul>
@@ -690,10 +745,10 @@ PS C:\dev\KomITi\komiti_academy> git push origin staging</code></pre>
 <!-- Step 11 -->
 <h3 id="s7-11">4.11) Promotion to <code>main</code></h3>
 <p>When the change is verified on <code>staging</code>, you go to <code>main</code>:</p>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout main
-PS C:\dev\KomITi\komiti_academy> git pull origin main
-PS C:\dev\KomITi\komiti_academy> git merge staging
-PS C:\dev\KomITi\komiti_academy> git push origin main</code></pre>
+<pre><code>PS C:\dev\komiti_library> git checkout main
+PS C:\dev\komiti_library> git pull origin main
+PS C:\dev\komiti_library> git merge staging
+PS C:\dev\komiti_library> git push origin main</code></pre>
 <ul>
     <li><code>git checkout main</code>: switches to the local branch <code>main</code>.</li>
     <li><code>git pull origin main</code>: refreshes the local <code>main</code> with the remote state from <code>origin/main</code>.</li>
@@ -710,9 +765,9 @@ PS C:\dev\KomITi\komiti_academy> git push origin main</code></pre>
 
 <!-- Step 12 -->
 <h3 id="s7-12">4.12) Return to your feature branch if you continue working</h3>
-<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\komiti_library> git checkout 2026-03-23-play_xyz</code></pre>
 <ul>
-    <li><code>git checkout 2026-03-12-features</code>: returns you to the local feature branch to continue working.</li>
+    <li><code>git checkout 2026-03-23-play_xyz</code>: returns you to the local feature branch to continue working.</li>
 </ul>
 <p>If you understand this, then you practically also understand:</p>
 <ul>
