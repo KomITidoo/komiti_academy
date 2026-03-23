@@ -648,6 +648,7 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
 <h3 id="s7-7">4.7) Make local changes</h3>
 <p>Now create a new file <code>z.md</code> that will exist only on your feature branch. Open VS Code, create the file, or do it straight from the terminal:</p>
 <pre><code>PS C:\dev\komiti_library> echo "This file exists only on the feature branch." > z.md</code></pre>
+<p><code>echo</code> is a shell command (not a Git command) that prints text; the <code>&gt;</code> operator redirects that text into a file, creating it if it does not exist.</p>
 <p>Then check the state:</p>
 <pre><code>PS C:\dev\komiti_library> git status --short
 PS C:\dev\komiti_library> git diff --stat</code></pre>
