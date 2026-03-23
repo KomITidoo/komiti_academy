@@ -251,27 +251,26 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
 </ul>
 
 <p>So the full KomITi flow in the cabinet analogy is:</p>
-<div class="ascii-diagram">you switch to the local [main] binder                — git checkout main
-└─► pull the latest sheets from the remote cabinet    — git pull origin main
-    └─► create a new [yyyy-MM-dd-feature] binder      — git checkout -b yyyy-MM-dd-feature
-          write on its sheets (WiP), then commit       — git add . ; git commit
-        └─► switch to the [staging] binder             — git checkout staging
-            pull its latest sheets                     — git pull origin staging
-            copy your feature sheets in for review     — git merge yyyy-MM-dd-feature
-            push staging to the remote cabinet         — git push origin staging
-            └─► switch to the [main] binder            — git checkout main
-                pull its latest sheets                 — git pull origin main
-                copy the reviewed sheets in            — git merge yyyy-MM-dd-feature
-                push main to the remote cabinet        — git push origin main</div>
-
+<div class="ascii-diagram">[main]: you switch to the local [main] binder                       — git checkout main
+[main]: pull the latest sheets from the remote cabinet              — git pull origin main
+└─► [yyyy-MM-dd-feature]: create a new [yyyy-MM-dd-feature] binder  — git checkout -b yyyy-MM-dd-feature
+    [yyyy-MM-dd-feature]: write on its sheets (WiP), then commit    — git add . ; git commit
+    └─► [staging]: switch to the [staging] binder                   — git checkout staging
+        [staging]: pull its latest sheets                           — git pull origin staging
+        [staging]: copy your feature sheets in for review           — git merge yyyy-MM-dd-feature
+        [staging]: push staging to the remote cabinet               — git push origin staging
+        └─► [main]: switch to the [main] binder                     — git checkout main
+            [main]: pull its latest sheets                          — git pull origin main
+            [main]: copy the reviewed sheets in                     — git merge yyyy-MM-dd-feature
+            [main]: push main to the remote cabinet                 — git push origin main</div>
+After each copy (merge), you walk to the remote cabinet and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push
 <h3>1.2) Does Git create a separate folder on disk for each branch?</h3>
 <p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
 <ul>
-    <li><code>checkout</code> does not download anything from GitHub — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed,</li>
-    <li>files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>,</li>
-    <li>that is why it is so important to know which branch you are on before you delete or change something — because you are working in the only copy of the folder on disk,</li>
-    <li>in the cabinet analogy: you do not have a separate cabinet for each binder — you have one cabinet and Git always puts on your desk the binder you are currently working on; the other binders are "hidden" in <code>.git/</code> and waiting for you to call them.</li>
+    <li>you have <strong>one single folder</strong> for all branches in your repo,</li>
+    <li>Git does <strong>not</strong> download anything from GitHub into this folder when you change (<code>checkout</code>) branches — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed (files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>).</li>
 </ul>
+<p>That is why it is so important to know which branch you are on before you delete or change something — because you are working in the only copy of the folder on disk. In the cabinet analogy: you do not have a separate cabinet for each binder — you have one cabinet and Git always puts on your desk the binder you are currently working on; the other binders are "hidden" in <code>.git/</code> and waiting for you to call them.</p>
 
 <p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>f1</code> and <code>f2</code> — each containing different files. VS Code Explorer always shows only the currently checked-out branch:</p>
 
