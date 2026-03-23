@@ -251,13 +251,18 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
 </ul>
 
 <p>So the full KomITi flow in the cabinet analogy is:</p>
-<div class="ascii-diagram">you start from the local [main] binder,
-  └─► create a new local [feature] binder (copy of local [main]) with git checkout -b,
-        write on its sheets,
-      └─► then copy those sheets into the local [staging] binder for review with git merge, and
-          └─► finally copy the reviewed sheets into the local [main] binder with git merge.
-
-After each copy, you walk to the remote cabinet and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push.</div>
+<div class="ascii-diagram">you switch to the local [main] binder                — git checkout main
+└─► pull the latest sheets from the remote cabinet    — git pull origin main
+    └─► create a new [yyyy-MM-dd-feature] binder      — git checkout -b yyyy-MM-dd-feature
+          write on its sheets (WiP), then commit       — git add . ; git commit
+        └─► switch to the [staging] binder             — git checkout staging
+            pull its latest sheets                     — git pull origin staging
+            copy your feature sheets in for review     — git merge yyyy-MM-dd-feature
+            push staging to the remote cabinet         — git push origin staging
+            └─► switch to the [main] binder            — git checkout main
+                pull its latest sheets                 — git pull origin main
+                copy the reviewed sheets in            — git merge yyyy-MM-dd-feature
+                push main to the remote cabinet        — git push origin main</div>
 
 <h3>1.2) Does Git create a separate folder on disk for each branch?</h3>
 <p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\KomITi\komiti_academy</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-12-features</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
