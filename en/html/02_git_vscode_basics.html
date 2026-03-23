@@ -183,7 +183,7 @@ details summary {
         <li><a href="#s1">Git basics you need to know</a></li>
         <li><a href="#s2">VS Code basics you need to know</a></li>
         <li><a href="#s6">Save is not the same as commit</a></li>
-        <li><a href="#s7">Basic local workflow</a></li>
+        <li><a href="#s7">Basic local workflow – Hands-on</a></li>
         <li><a href="#s8">Most common beginner mistakes</a></li>
         <li><a href="#s9">Key concepts and Minimum commands you need to know</a></li>
         <li><a href="#s10">How this looks in KomITi</a></li>
@@ -473,9 +473,52 @@ PS KomITi\komiti_academy> ls
 <!-- ============================================================ -->
 <!-- 7) Basic local workflow -->
 <!-- ============================================================ -->
-<h2 id="s7">4) Basic local workflow</h2>
+<h2 id="s7">4) Basic local workflow – Hands-on</h2>
 <p>This is one whole unit: how Git looks in the actual KomITi workflow, with concrete commands and the order we actually use.</p>
 <p>You will later have to carry out this same Git flow yourself for tasks on <code>komiti_academy</code>, so don't read it as an abstract rule but as a working procedure.</p>
+<p>Before you can follow the steps below, you need Git installed and a working connection to the remote repository on GitHub. The next sections walk you through that setup.</p>
+
+<!-- Prerequisites -->
+<h3>Install Git</h3>
+<ol>
+    <li>Go to <a href="https://git-scm.com/downloads" target="_blank">https://git-scm.com/downloads</a> and download the installer for your operating system (Windows, macOS, or Linux).</li>
+    <li>Run the installer. On Windows, the default options are fine — just click <strong>Next</strong> through each screen.</li>
+    <li>After installation, open a terminal (PowerShell on Windows) and verify:</li>
+</ol>
+<pre><code>PS C:\dev> git --version
+git version 2.47.1.windows.2</code></pre>
+<p>If the command prints a version number, Git is installed correctly.</p>
+
+<h3>Configure Git (first-time setup)</h3>
+<p>Git needs to know who you are so it can label every commit with your name and e-mail. Run these two commands once — they are saved globally and apply to every repository on your machine:</p>
+<pre><code>PS C:\dev> git config --global user.name "Your Name"
+PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
+<p>To confirm the settings:</p>
+<pre><code>PS C:\dev> git config --global --list</code></pre>
+<p>You should see <code>user.name</code> and <code>user.email</code> in the output.</p>
+
+<h3>Create a GitHub account</h3>
+<p>GitHub is the remote service where KomITi repositories are hosted. If you don't have an account yet:</p>
+<ol>
+    <li>Go to <a href="https://github.com/signup" target="_blank">https://github.com/signup</a> and follow the steps.</li>
+    <li>Once registered, ask the project lead to add you as a collaborator on the <code>KomITidoo/komiti_academy</code> repository.</li>
+</ol>
+<p>Without collaborator access you will be able to read the repository but not push your branches.</p>
+
+<h3>Clone the repository</h3>
+<p><code>git clone</code> downloads the entire repository (all branches, all history) from GitHub to your local machine. You only need to do this once per repository.</p>
+<ol>
+    <li>Open PowerShell and navigate to the folder where you want the project to live:</li>
+</ol>
+<pre><code>PS C:\dev> cd C:\dev\KomITi</code></pre>
+<ol start="2">
+    <li>Clone via HTTPS (recommended for beginners):</li>
+</ol>
+<pre><code>PS C:\dev\KomITi> git clone https://github.com/KomITidoo/komiti_academy.git</code></pre>
+<p>Git will create a folder <code>komiti_academy</code> containing the full repo. Enter it:</p>
+<pre><code>PS C:\dev\KomITi> cd komiti_academy</code></pre>
+<p>From this point on, every <code>git</code> command you run inside this folder talks to the <code>KomITidoo/komiti_academy</code> repository on GitHub because <code>origin</code> is already set to that URL.</p>
+<p>You are now ready for the step-by-step workflow below.</p>
 
 <!-- Step 1 -->
 <h3>4.1) Get the latest <code>main</code></h3>
@@ -746,13 +789,13 @@ PS C:\dev\KomITi\komiti_academy> git push origin main</code></pre>
 <h2 id="s99">99) Task on the komiti_academy project for the candidate</h2>
 <ol>
     <li>Open your account on GitHub, create a repo <code>komiti_academy_ime_polaznika</code> and clone it locally, because that is the remote and local repo in which you do your candidate module.<br>
-        <em>Reference: This is explained in chapters <a href="#s1">1) Git basics you need to know</a> and <a href="#s7">4) Basic local workflow</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s1">1) Git basics you need to know</a> and <a href="#s7">4) Basic local workflow – Hands-on</a>.</em></li>
     <li>Determine what your first Git work for <code>komiti_academy</code> will look like: the feature branch name, the first logical unit for a commit and the rule of what must not go into the same commit.<br>
-        <em>Reference: This is explained in chapters <a href="#s7">4) Basic local workflow</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s7">4) Basic local workflow – Hands-on</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
     <li>In your repo practice the full Git workflow on a simple file <code>1.txt</code>: create local and remote branches <code>main</code>, <code>staging</code> and <code>feature</code> (<code>feature</code> should conform to the <code>ENGINEERING_CODEX.md</code> in the company KomITi), then in the <code>feature</code> branch create <code>1.txt</code> with one line <code>prvi red</code>, commit and push that change.<br>
-        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow – Hands-on</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
     <li>After that, promote the same change from <code>feature</code> to <code>staging</code>, then from <code>staging</code> to <code>main</code>, then return to <code>feature</code>, add a second line <code>drugi red</code> to <code>1.txt</code> and repeat the same workflow all the way to <code>main</code>.<br>
-        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow</a>, <a href="#s8">5) Most common beginner mistakes</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
+        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow – Hands-on</a>, <a href="#s8">5) Most common beginner mistakes</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
 </ol>
 
 <footer>© KomITi · komiti.eu</footer>
