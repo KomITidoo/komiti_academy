@@ -210,27 +210,24 @@ details summary {
 
 <p><code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, and <code>GitHub</code> is a platform where the remote repo lives.</p>
 
-<ul>
-    <li>VS Code Explorer and Source Control mostly show you the Git state of the local workspace.</li>
-    <li>In the KomITi workflow we currently use, the typical flow is: <code>feature</code> → <code>staging</code> → <code>main</code>.</li>
-</ul>
-
 <h3 id="s3">1.1) Local and remote branch</h3>
 
-<div class="ascii-diagram">REMOTE BRANCHES   [origin/feature]         [origin/staging]             [origin/main]
+<div class="ascii-diagram">REMOTE BRANCHES   [origin/yyyy-MM-dd-feature]   [origin/staging]           [origin/main]
                        ^                           ^                          ^
                        | git push                  | git push                 | git push
                        |                           |                          |
-LOCAL BRANCHES    [feature] ----git merge----> [staging] ----git merge----> [main]
+LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [main]
                      ^                                                        |
                      |                                                        |
-                     +------- git checkout -b feature from local main --------+
+                     +--- git checkout -b yyyy-MM-dd-feature from local main -+
                                        (local main was previously
                                         refreshed from origin/main)</div>
 
 <p>Remember we imagined Git as a cabinet with binders? Now let's look at that diagram through the same analogy, using the KomITi workflow as a concrete example.</p>
 
-<p>Your local cabinet (e.g. <code>C:\dev\KomITi\komiti_academy</code>) contains three binders:</p>
+<p>The <code>feature → staging → main</code> promotion pattern is a widely adopted branching strategy. It originates from Vincent Driessen's <em>Git Flow</em> model (2010) and is documented in the official <a href="https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows">Git Book — Branching Workflows</a>. KomITi follows this pattern as defined in <code>ENGINEERING_HANDBOOK.md</code>.</p>
+
+<p>According to best practices and <code>ENGINEERING_HANDBOOK.md</code> of KomITi, your local cabinet (e.g. <code>C:\dev\KomITi\komiti_academy</code>) should contain three binders:</p>
 <ul>
     <li><strong><code>main</code></strong> — the clean, published binder. Whatever sheets are in here is what the world sees.</li>
     <li><strong><code>staging</code></strong> — the review binder. Before any sheets go into <code>main</code>, they are first copied here so someone can check them.</li>
@@ -241,9 +238,9 @@ LOCAL BRANCHES    [feature] ----git merge----> [staging] ----git merge----> [mai
 
 <p><strong>GitHub</strong> (the remote called <code>origin</code>) is a second cabinet on the remote side of the room. It keeps its own copies (called REMOTE or <code>origin/</code>) of the same three binders: <code>origin/main</code>, <code>origin/staging</code>, <code>origin/feature</code>. The same branch can exist in two places: locally, on your computer and remote, on GitHub. The diagram above shows exactly this: the bottom row is your desk (LOCAL), the top row is the remote cabinet (REMOTE).</p>
 
-<p>The arrows in the diagram map to real actions:</p>
+<p>The arrows in the diagram map to real actions (Workflow):</p>
 <ul>
-    <li><strong><code>git checkout -b feature</code></strong> (arrow at the bottom going left ←) = you take a fresh empty binder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.<br>
+    <li><strong><code>git checkout -b yyyy-MM-dd-feature</code></strong> (arrow at the bottom going left ←) = You, developer, starts by taking a fresh empty binder, copy the current sheets from <code>main</code> into it, and label it <code>feature</code>.<br>
         In practice: <code>git checkout main</code> → <code>git pull origin main</code> → <code>git checkout -b 2026-03-12-features</code>.</li>
     <li><strong><code>git add</code> + <code>git commit</code></strong> (working inside the binder) = you change sheets (files) in VS Code, check what you did with <code>git status --short</code> and <code>git diff --stat</code>, then save a snapshot with <code>git add &lt;file&gt;</code> and <code>git commit -m "your message"</code>.</li>
     <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet and replace its copy of a binder with your updated version.<br>
