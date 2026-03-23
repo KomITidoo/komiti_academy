@@ -191,9 +191,8 @@ details summary {
                 <li><a href="#s3">Local and remote branch</a></li>
                 <li><a href="#s1-2">Does Git create a separate folder on disk for each branch?</a></li>
                 <li><a href="#s1-3">Let's deep dive into .git/</a></li>
-                <li><a href="#s1-4">Branches, locations and Git commands — quick-reference summary</a></li>
-                <li><a href="#s1-5">clone vs fork</a></li>
-                <li><a href="#s1-6">DevOps vs CI/CD</a></li>
+                <li><a href="#s1-4">clone vs fork</a></li>
+                <li><a href="#s1-5">DevOps vs CI/CD</a></li>
             </ol>
         </li>
         <li><a href="#s2">VS Code basics you need to know</a>
@@ -366,30 +365,12 @@ PS C:\dev\komiti_library> ls
 
 <p><code>git show &lt;branch&gt;:&lt;path&gt;</code> lets you see the contents of a file from another branch without changing your working folder. For example, <code>git show main:README.md</code> extracts that version of the file from <code>.git/objects/</code> and displays it in the terminal, without overwriting anything on disk.</p>
 
-<h3 id="s1-4">1.4) Branches, locations and Git commands — quick-reference summary</h3>
-
-<p>In the cabinet analogy this means:</p>
-<ul>
-    <li><code>checkout</code> = you switch to another binder,</li>
-    <li><code>commit</code> = you take a snapshot of all the sheets in the current binder,</li>
-    <li><code>push</code> = you send your binder to the remote cabinet (GitHub),</li>
-    <li><code>pull</code> = you get a newer version of the binder from the remote cabinet,</li>
-    <li><code>merge</code> = you copy sheets from one binder into another binder.</li>
-</ul>
-
-<p>Practically:</p>
-<ul>
-    <li><code>git checkout staging</code> means you switched to your local <code>staging</code>,</li>
-    <li><code>git pull origin staging</code> means you fetched the new state from remote <code>origin/staging</code>,</li>
-    <li><code>git push origin staging</code> means you sent your local <code>staging</code> to remote <code>origin/staging</code>.</li>
-</ul>
-
-<h3 id="s1-5">1.5) clone vs fork</h3>
+<h3 id="s1-4">1.4) clone vs fork</h3>
 <p><code>clone</code> and <code>fork</code> are not the same: <code>clone</code> is a local copy of a repo on your computer, and <code>fork</code> is your personal remote copy of someone else's repo on GitHub.</p>
 <p><code>fork</code> is most commonly used when you don't have write access to the original repo, so you make changes in your own GitHub fork and then send a <code>Pull Request</code> to the original repo.</p>
 <p>Practically: if you work in your own or team-accessible repo, you usually need <code>clone</code>; if you work on someone else's GitHub repo without direct write access, then you first need <code>fork</code>, and only then <code>clone</code> that fork.</p>
 
-<h3 id="s1-6">1.6) DevOps vs CI/CD</h3>
+<h3 id="s1-5">1.5) DevOps vs CI/CD</h3>
 <p><code>DevOps</code> is a broader way of working and collaborating between the development and operations sides, with the goal of delivering and maintaining software faster, more securely and more stably. <code>CI/CD</code> is a narrower, practical part of that: a set of automated pipelines and steps that build, test and deliver code.</p>
 <p>Both emerged as a response to a slow, manual and separated way of building, testing and releasing software, where development and operations long worked as separate worlds — they did not originate from a single author but gradually evolved in the software industry through agile, automation and DevOps practices.</p>
 <p>The difference: <code>DevOps</code> is a culture, operating model and work discipline; <code>CI/CD</code> is the concrete mechanism and tooling flow that implements that discipline. Practically: <code>DevOps</code> tells you how a team should work and what it wants to achieve, while <code>CI/CD</code> serves to automatically verify and move those changes from commit to deployment.</p>
@@ -632,13 +613,7 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
     <li><code>origin</code>: argument that specifies which remote you are pulling from.</li>
     <li><code>main</code>: argument that specifies which branch you are pulling.</li>
 </ul>
-<p>Here you are taking the latest main branch as a starting base.</p>
-<p>This means:</p>
-<ul>
-    <li>you switched to the local <code>main</code>,</li>
-    <li>you pulled the latest state from the remote <code>origin/main</code>,</li>
-    <li>in the cabinet analogy: you opened the main binder and checked whether you have its latest sheets from the remote cabinet.</li>
-</ul>
+<p>Here you are taking the latest main branch as a starting base. In the cabinet analogy: you opened the main binder and checked whether you have its latest sheets from the remote cabinet.</p>
 
 <div class="vscode-sc">
     <strong>VS Code Source Control:</strong> The panel stays clean — <strong>0 changes</strong>. If the pull brought new code, VS Code would automatically refresh the Explorer file tree with the updated files.<br>
@@ -665,13 +640,6 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
     <li><code>origin</code> is an argument and means: to which remote you are sending.</li>
     <li><code>2026-03-23-play_xyz</code> is an argument and means: which branch you are sending.</li>
 </ul>
-<p>Here <code>checkout -b</code> means:</p>
-<ul>
-    <li>create a new binder from the current binder,</li>
-    <li>and immediately open that new binder on your desk,</li>
-    <li>if you also do <code>push -u</code>, then that new binder immediately gets its copy in the remote cabinet (GitHub) too.</li>
-</ul>
-
 <p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). Bring it in now:</p>
 <pre><code>PS C:\dev\komiti_library> git merge origin/staging</code></pre>
 <p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
@@ -692,9 +660,7 @@ PS C:\dev\komiti_library> git diff --stat</code></pre>
 <ul>
     <li><code>git status --short</code>: shows a short, compact status of the working tree. You should see <code>?? z.md</code> — a new untracked file.</li>
     <li><code>git diff --stat</code>: shows a statistical overview of changes per file.</li>
-    <li><code>--short</code> is a long option; you are requesting a shorter, more compact display of the Git status.</li>
-    <li><code>--stat</code> is a long option; you are requesting a short statistical overview of changes per file.</li>
-    <li>in the cabinet analogy: now you are writing on sheets in your working binder and then looking at what you actually changed compared to the old state.</li>
+    <li><code>--short</code> and <code>--stat</code> are long options that request a compact display.</li>
 </ul>
 
 <div class="vscode-sc">
@@ -722,12 +688,7 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
 </div>
 
 <p>This means you locally saved the new state of your feature branch.</p>
-<p>This is the part where most beginners first truly see the difference between: <strong>save</strong>, <strong>add</strong>, <strong>commit</strong>.</p>
-<ul>
-    <li><strong>save</strong> writes the file to your local disk — nothing else happens; Git does not know about it yet.</li>
-    <li><code>git add</code> means: you marked which sheets in the binder you want to enter the snapshot.</li>
-    <li><code>git commit</code> means: you made a snapshot of those sheets at that moment (in the cabinet analogy: you don't snapshot absolutely everything you ever scribbled, but only the sheets you consciously decided should enter this version).</li>
-</ul>
+<p>This is the part where most beginners first truly see the difference between <strong>save</strong>, <strong>add</strong> and <strong>commit</strong> — revisit <a href="#s6">section 3</a> if you need a refresher.</p>
 
 <div class="vscode-sc">
     <strong>VS Code Source Control:</strong> After <code>git add z.md</code>, look at the Source Control panel: <code>z.md</code> moves from <strong>Changes</strong> to a new group called <strong>Staged Changes</strong>. The badge letter changes from <strong>U</strong> (Untracked) to <strong>A</strong> (Added). After <code>git commit</code>, the panel clears completely — <strong>0 pending changes</strong>. The badge on the Source Control icon disappears. You can also do all of this visually: click the <strong>+</strong> next to a file to stage it, type a commit message in the text box at the top, and click the <strong>✓ Commit</strong> button.<br>
@@ -737,11 +698,7 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
 <!-- Step 9 -->
 <h3 id="s7-9">4.9) Push to GitHub</h3>
 <pre><code>PS C:\dev\komiti_library> git push origin 2026-03-23-play_xyz</code></pre>
-<ul>
-    <li><code>git push origin 2026-03-23-play_xyz</code>: sends local commits from that branch to GitHub.</li>
-    <li><code>origin</code>: argument that specifies to which remote you are sending.</li>
-    <li><code>2026-03-23-play_xyz</code>: argument that specifies which branch you are sending.</li>
-</ul>
+<p><code>git push origin 2026-03-23-play_xyz</code> sends local commits from that branch to GitHub (the <code>origin</code> and branch arguments work the same as in <a href="#s7-5">4.5</a>).</p>
 <p>Now your local feature branch also exists as a remote branch on GitHub.</p>
 <p>This is an important distinction:</p>
 <ul>
@@ -769,29 +726,11 @@ PS C:\dev\komiti_library> ls</code></pre>
 
 <!-- Step 10 -->
 <h3 id="s7-10">4.10) Promotion to <code>staging</code></h3>
-<p>First you switch to <code>staging</code> and refresh it:</p>
 <pre><code>PS C:\dev\komiti_library> git checkout staging
-PS C:\dev\komiti_library> git pull origin staging</code></pre>
-<ul>
-    <li><code>git checkout staging</code>: switches to the local branch <code>staging</code>.</li>
-    <li><code>git pull origin staging</code>: refreshes the local <code>staging</code> with the latest state from the remote <code>origin/staging</code>.</li>
-</ul>
-<p>Then you bring the feature content into <code>staging</code>:</p>
-<pre><code>PS C:\dev\komiti_library> git merge 2026-03-23-play_xyz
+PS C:\dev\komiti_library> git pull origin staging
+PS C:\dev\komiti_library> git merge 2026-03-23-play_xyz
 PS C:\dev\komiti_library> git push origin staging</code></pre>
-<ul>
-    <li><code>git merge 2026-03-23-play_xyz</code>: brings the content from the feature branch into the current branch <code>staging</code>.</li>
-    <li><code>git push origin staging</code>: sends the updated <code>staging</code> back to GitHub.</li>
-</ul>
-<p>This means the content from your feature branch has moved into <code>staging</code>.</p>
-<p>Here <code>merge</code> works like this:</p>
-<ul>
-    <li>you stood on <code>staging</code>,</li>
-    <li>you refreshed <code>staging</code> from GitHub,</li>
-    <li>into <code>staging</code> you brought the content from <code>2026-03-23-play_xyz</code>,</li>
-    <li>then you sent the new <code>staging</code> back to GitHub,</li>
-    <li>in the cabinet analogy: you opened the verification binder, checked that it's fresh, then copied the sheets from your working binder into it.</li>
-</ul>
+<p>The pattern: stand on the receiving branch, pull the latest, merge the feature content in, push. In the cabinet analogy: you opened the verification binder, checked that it's fresh, then copied the sheets from your working binder into it and sent it back to the remote cabinet.</p>
 
 <!-- Step 11 -->
 <h3 id="s7-11">4.11) Promotion to <code>main</code></h3>
@@ -800,19 +739,7 @@ PS C:\dev\komiti_library> git push origin staging</code></pre>
 PS C:\dev\komiti_library> git pull origin main
 PS C:\dev\komiti_library> git merge staging
 PS C:\dev\komiti_library> git push origin main</code></pre>
-<ul>
-    <li><code>git checkout main</code>: switches to the local branch <code>main</code>.</li>
-    <li><code>git pull origin main</code>: refreshes the local <code>main</code> with the remote state from <code>origin/main</code>.</li>
-    <li><code>git merge staging</code>: brings the content of the verified <code>staging</code> branch into <code>main</code>.</li>
-    <li><code>git push origin main</code>: sends the updated <code>main</code> to GitHub.</li>
-</ul>
-<p>In the workflow explained by this document, you merge <code>staging</code> into <code>main</code>, not the feature branch directly. The essential logic is the same:</p>
-<ul>
-    <li>first you stand on the branch that receives the change,</li>
-    <li>then you merge the verified branch into it,</li>
-    <li>then you push to the remote,</li>
-    <li>in the cabinet analogy: now you open the main binder and copy into it the sheets that have already passed verification.</li>
-</ul>
+<p>Same pattern as 4.10. Note: in this workflow you merge <code>staging</code> into <code>main</code>, not the feature branch directly — the verified content comes from the intermediate branch. In the cabinet analogy: you open the main binder and copy into it the sheets that have already passed verification.</p>
 
 <!-- Step 12 -->
 <h3 id="s7-12">4.12) Return to your feature branch if you continue working</h3>
