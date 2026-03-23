@@ -201,8 +201,7 @@ details summary {
                 <li><a href="#s2-2">Workspace</a></li>
                 <li><a href="#s2-3">The 4 panels you must distinguish</a></li>
                 <li><a href="#s2-4">What a VS Code beginner must adopt immediately</a></li>
-                <li><a href="#s4">What the letters in VS Code Explorer mean</a></li>
-                <li><a href="#s5">Explorer is not the same as Source Control panel</a></li>
+                <li><a href="#s4">File status letters and the Source Control panel</a></li>
                 <li><a href="#s5-1">What the bottom-left corner in VS Code means: Git status indicator</a></li>
             </ol>
         </li>
@@ -416,8 +415,8 @@ PS C:\dev\komiti_library> ls
     <li>not create files in the wrong root,</li>
     <li>know that <code>save</code> in the editor is not the same as <code>commit</code> in Git.</li>
 </ul>
-<h3 id="s4">2.5) What the letters in VS Code Explorer mean</h3>
-<p>The most common labels are:</p>
+<h3 id="s4">2.5) File status letters and the Source Control panel</h3>
+<p>VS Code shows single-letter badges next to files in both Explorer and Source Control. The most common ones:</p>
 
 <table>
     <thead>
@@ -438,16 +437,9 @@ PS C:\dev\komiti_library> ls
     <li>if you see <code>U</code>, Git is not yet tracking that new file. <code>U</code> disappears when you add the file to Git with <code>git add</code> and later commit, or if you delete that new file.</li>
     <li>if you see <code>D</code>, the file has been deleted in the local workspace. <code>D</code> disappears when the deletion enters a commit, or if you restore the deleted file.</li>
 </ul>
-<p>Generally, the letters disappear when Git no longer sees that change as an "unresolved" local change.</p>
+<p>The letters disappear once Git no longer sees the change as an unresolved local difference (after a commit, revert or deletion of the new file). Explorer gives a quick visual signal next to the file name; the <strong>Source Control panel</strong> (<kbd>Ctrl+Shift+G</kbd>) shows more detail — what is staged, what is unstaged and what goes into the next commit. When in doubt, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
 
-<h3 id="s5">2.6) Explorer is not the same as Source Control panel</h3>
-<ul>
-    <li>Explorer gives a quick visual signal next to the file,</li>
-    <li>Source Control panel shows you in more detail what is staged, what is unstaged and what goes into a commit.</li>
-</ul>
-<p>Whenever you are unsure, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
-
-<h3 id="s5-1">2.7) What the bottom-left corner in VS Code means: Git status indicator</h3>
+<h3 id="s5-1">2.6) What the bottom-left corner in VS Code means: Git status indicator</h3>
 <p>In the Git status indicator you often see a short Git status for the active repo.</p>
 <img src="img/Git_Status_Indicator.png" alt="VS Code Git status indicator" style="max-width:216px; display:block; margin:0.5em 0;">
 <p>Using an example like:</p>
