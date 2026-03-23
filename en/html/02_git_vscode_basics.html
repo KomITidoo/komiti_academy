@@ -479,8 +479,8 @@ PS KomITi\komiti_academy> ls
 
 <!-- Step 1 -->
 <h3>4.1) Get the latest <code>main</code></h3>
-<pre><code>git checkout main
-git pull origin main</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout main
+PS C:\dev\KomITi\komiti_academy> git pull origin main</code></pre>
 <ul>
     <li><code>git checkout main</code>: switches to the local branch <code>main</code>.</li>
     <li><code>git pull origin main</code>: pulls the latest changes from the remote <code>origin</code> for the branch <code>main</code> and merges them into the local <code>main</code>.</li>
@@ -497,14 +497,14 @@ git pull origin main</code></pre>
 
 <!-- Step 2 -->
 <h3>4.2) Create a new feature branch from <code>main</code></h3>
-<pre><code>git checkout -b 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout -b 2026-03-12-features</code></pre>
 <ul>
     <li><code>git checkout -b 2026-03-12-features</code>: creates a new branch from the current position and immediately switches to it.</li>
     <li><code>-b</code> means: create a new branch and immediately switch to it; it is a short option, i.e. a flag, and is an abbreviation of <code>branch</code>.</li>
     <li><code>2026-03-12-features</code> is an argument; with it you specify what the new branch will be named.</li>
 </ul>
 <p>If you want the branch to exist on GitHub right away:</p>
-<pre><code>git push -u origin 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git push -u origin 2026-03-12-features</code></pre>
 <ul>
     <li><code>git push -u origin 2026-03-12-features</code>: sends the new branch to GitHub and remembers the upstream link.</li>
     <li><code>-u</code> means <code>--set-upstream</code>; it is an option that tells Git to remember the link between the local branch and the remote branch of the same name.</li>
@@ -521,9 +521,9 @@ git pull origin main</code></pre>
 <!-- Step 3 -->
 <h3>4.3) Make local changes</h3>
 <p>You change files in VS Code, then check the state:</p>
-<pre><code>git status --short
-git diff --stat
-git diff -- en/html/02_git_vscode_basics.html</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git status --short
+PS C:\dev\KomITi\komiti_academy> git diff --stat
+PS C:\dev\KomITi\komiti_academy> git diff -- en/html/02_git_vscode_basics.html</code></pre>
 <ul>
     <li><code>git status --short</code>: shows a short, compact status of the working tree.</li>
     <li><code>git diff --stat</code>: shows a statistical overview of changes per file.</li>
@@ -537,8 +537,8 @@ git diff -- en/html/02_git_vscode_basics.html</code></pre>
 
 <!-- Step 4 -->
 <h3>4.4) Stage and commit</h3>
-<pre><code>git add en/html/02_git_vscode_basics.html   <span class="comment"># OR: git add --all</span>
-git commit -m "Expand Git foundations workflow"</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git add en/html/02_git_vscode_basics.html   <span class="comment"># OR: git add --all</span>
+PS C:\dev\KomITi\komiti_academy> git commit -m "Expand Git foundations workflow"</code></pre>
 <ul>
     <li><code>git add en/html/02_git_vscode_basics.html</code>: stages only that one file.</li>
     <li>When we say <code>staged</code>, it practically means: <em>you chose for that change to enter the next snapshot</em>, i.e. into the next commit.</li>
@@ -570,7 +570,7 @@ git commit -m "Expand Git foundations workflow"</code></pre>
 
 <!-- Step 5 -->
 <h3>4.5) Push to GitHub</h3>
-<pre><code>git push origin 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git push origin 2026-03-12-features</code></pre>
 <ul>
     <li><code>git push origin 2026-03-12-features</code>: sends local commits from that branch to GitHub.</li>
     <li><code>origin</code>: argument that specifies to which remote you are sending.</li>
@@ -587,15 +587,15 @@ git commit -m "Expand Git foundations workflow"</code></pre>
 <!-- Step 6 -->
 <h3>4.6) Promotion to <code>staging</code></h3>
 <p>First you switch to <code>staging</code> and refresh it:</p>
-<pre><code>git checkout staging
-git pull origin staging</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout staging
+PS C:\dev\KomITi\komiti_academy> git pull origin staging</code></pre>
 <ul>
     <li><code>git checkout staging</code>: switches to the local branch <code>staging</code>.</li>
     <li><code>git pull origin staging</code>: refreshes the local <code>staging</code> with the latest state from the remote <code>origin/staging</code>.</li>
 </ul>
 <p>Then you bring the feature content into <code>staging</code>:</p>
-<pre><code>git merge 2026-03-12-features
-git push origin staging</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git merge 2026-03-12-features
+PS C:\dev\KomITi\komiti_academy> git push origin staging</code></pre>
 <ul>
     <li><code>git merge 2026-03-12-features</code>: brings the content from the feature branch into the current branch <code>staging</code>.</li>
     <li><code>git push origin staging</code>: sends the updated <code>staging</code> back to GitHub.</li>
@@ -613,10 +613,10 @@ git push origin staging</code></pre>
 <!-- Step 7 -->
 <h3>4.7) Promotion to <code>main</code></h3>
 <p>When the change is verified on <code>staging</code>, you go to <code>main</code>:</p>
-<pre><code>git checkout main
-git pull origin main
-git merge staging
-git push origin main</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout main
+PS C:\dev\KomITi\komiti_academy> git pull origin main
+PS C:\dev\KomITi\komiti_academy> git merge staging
+PS C:\dev\KomITi\komiti_academy> git push origin main</code></pre>
 <ul>
     <li><code>git checkout main</code>: switches to the local branch <code>main</code>.</li>
     <li><code>git pull origin main</code>: refreshes the local <code>main</code> with the remote state from <code>origin/main</code>.</li>
@@ -633,7 +633,7 @@ git push origin main</code></pre>
 
 <!-- Step 8 -->
 <h3>4.8) Return to your feature branch if you continue working</h3>
-<pre><code>git checkout 2026-03-12-features</code></pre>
+<pre><code>PS C:\dev\KomITi\komiti_academy> git checkout 2026-03-12-features</code></pre>
 <ul>
     <li><code>git checkout 2026-03-12-features</code>: returns you to the local feature branch to continue working.</li>
 </ul>
