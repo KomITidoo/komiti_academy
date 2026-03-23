@@ -306,7 +306,7 @@ After each copy (merge), you walk to the remote cabinet and replace the remote v
 </ul>
 <p>That is why it is so important to know which branch you are on before you delete or change something — because you are working in the only copy of the folder on disk. In the cabinet analogy: you do not have a separate cabinet for each binder — you have one cabinet and Git always puts on your desk the binder you are currently working on; the other binders are "hidden" in <code>.git/</code> and waiting for you to call them.</p>
 
-<p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>f1</code> and <code>f2</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
+<p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>staging</code> and <code>2026-03-23-play_xyz</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
 
 <div style="display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 20px 0;">
 <pre style="flex:1; min-width:180px; margin:0;">
@@ -315,13 +315,13 @@ git checkout main
 PS KomITi\komiti_academy> ls
   x.md</pre>
 <pre style="flex:1; min-width:180px; margin:0;">
-git checkout f1
+git checkout staging
 
 PS KomITi\komiti_academy> ls
   x.md
   y.md</pre>
-<pre style="flex:1; min-width:180px; margin:0;">
-git checkout f2
+<pre style="flex:1; min-width:220px; margin:0;">
+git checkout 2026-03-23-play_xyz
 
 PS KomITi\komiti_academy> ls
   x.md
@@ -329,12 +329,12 @@ PS KomITi\komiti_academy> ls
   z.md</pre>
 </div>
 
-<p>You never see files from all three branches at once. When you run <code>git checkout f1</code>, Git:</p>
+<p>You never see files from all three branches at once. When you run <code>git checkout staging</code>, Git:</p>
 <ol>
-    <li>reads the state of branch <code>f1</code> from the <code>.git/objects/</code> database,</li>
+    <li>reads the state of branch <code>staging</code> from the <code>.git/objects/</code> database,</li>
     <li><strong>physically overwrites</strong> files on disk to match that state,</li>
-    <li>files that <code>f1</code> does not have — <strong>physically deletes</strong> from disk,</li>
-    <li>files that <code>f1</code> has but the previous branch did not — <strong>physically creates</strong> on disk.</li>
+    <li>files that <code>staging</code> does not have — <strong>physically deletes</strong> from disk,</li>
+    <li>files that <code>staging</code> has but the previous branch did not — <strong>physically creates</strong> on disk.</li>
 </ol>
 <p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost — they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
 
