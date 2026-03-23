@@ -272,24 +272,24 @@ After each copy (merge), you walk to the remote cabinet and replace the remote v
 </ul>
 <p>That is why it is so important to know which branch you are on before you delete or change something — because you are working in the only copy of the folder on disk. In the cabinet analogy: you do not have a separate cabinet for each binder — you have one cabinet and Git always puts on your desk the binder you are currently working on; the other binders are "hidden" in <code>.git/</code> and waiting for you to call them.</p>
 
-<p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>f1</code> and <code>f2</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch (<code>komiti_academy/</code> below is the repo root folder, not a PowerShell prompt):</p>
+<p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>f1</code> and <code>f2</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
 
 <div style="display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 20px 0;">
 <pre style="flex:1; min-width:180px; margin:0;">
-git checkout main
+PS KomITi\komiti_academy> git checkout main
 
-komiti_academy/
+PS KomITi\komiti_academy> ls
   x.md</pre>
 <pre style="flex:1; min-width:180px; margin:0;">
-git checkout f1
+PS KomITi\komiti_academy> git checkout f1
 
-komiti_academy/
+PS KomITi\komiti_academy> ls
   x.md
   y.md</pre>
 <pre style="flex:1; min-width:180px; margin:0;">
-git checkout f2
+PS KomITi\komiti_academy> git checkout f2
 
-komiti_academy/
+PS KomITi\komiti_academy> ls
   x.md
   y.md
   z.md</pre>
