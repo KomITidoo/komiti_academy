@@ -41,11 +41,11 @@
   - `li { margin-bottom: 6px; }`
   - `.toc ol { margin-top: 10px; }`
   - `.toc li { margin-bottom: 4px; }`
-- Нови target за 20% мањи bullet spacing је:
+- Нови target за bullet spacing (усвојен 2026-03-23):
   - `ul, ol { margin: 8px 0 11.2px 28px; }`
-  - `li { margin-bottom: 4.8px; }`
+  - `li { margin-bottom: 0; }` — размак између bullet-а мора бити једнак размаку између редова у параграфу (одређен само `line-height`-ом, без додатног margin-а)
   - `.toc ol { margin-top: 8px; }`
-  - `.toc li { margin-bottom: 3.2px; }`
+  - `.toc li { margin-bottom: 3.2px; }` — ToC задржава мали додатни размак ради визуелне прегледности
 - Claude не смије слободно процјењивати bullet spacing ако већ постоји договорени target; мора испоручити ове вриједности или експлицитно рећи зашто одступа.
 - Ако се spacing мијења у једном tutorial-у из layout разлога, исти pattern треба провјерити и у осталим tutorial HTML фајловима, не само локално у једном документу.
 
