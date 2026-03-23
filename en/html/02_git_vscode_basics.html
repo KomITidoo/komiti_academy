@@ -274,21 +274,26 @@ After each copy (merge), you walk to the remote cabinet and replace the remote v
 
 <p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>f1</code> and <code>f2</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
 
-<div class="code-block"><pre>
-git checkout main  →  Explorer shows:
-  komiti_academy/
-    x.md
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 20px 0;">
+<pre style="flex:1; min-width:180px; margin:0;">
+git checkout main
 
-git checkout f1   →  Explorer shows:
-  komiti_academy/
-    x.md
-    y.md
+komiti_academy/
+  x.md</pre>
+<pre style="flex:1; min-width:180px; margin:0;">
+git checkout f1
 
-git checkout f2   →  Explorer shows:
-  komiti_academy/
-    x.md
-    y.md
-    z.md</pre></div>
+komiti_academy/
+  x.md
+  y.md</pre>
+<pre style="flex:1; min-width:180px; margin:0;">
+git checkout f2
+
+komiti_academy/
+  x.md
+  y.md
+  z.md</pre>
+</div>
 
 <p>You never see files from all three branches at once. When you run <code>git checkout f1</code>, Git:</p>
 <ol>
