@@ -854,16 +854,26 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
 <!-- 99) Candidate task -->
 <!-- ============================================================ -->
 <h2 id="s99">99) Task on the komiti_academy project for the candidate</h2>
+<p>You already have the <code>komiti_library</code> repo with <code>main</code>, <code>staging</code> and a feature branch from section 4. Now repeat the same workflow independently — this time with three new files whose names hint at which branch introduced them: <code>m.md</code>, <code>s.md</code> and <code>f.md</code>.</p>
 <ol>
-    <li>Open your account on GitHub, create a repo <code>komiti_academy_ime_polaznika</code> and clone it locally, because that is the remote and local repo in which you do your candidate module.<br>
-        <em>Reference: This is explained in chapters <a href="#s1">1) Git basics you need to know</a> and <a href="#s7">4) Basic local workflow – Hands-on</a>.</em></li>
-    <li>Determine what your first Git work for <code>komiti_academy</code> will look like: the feature branch name, the first logical unit for a commit and the rule of what must not go into the same commit.<br>
-        <em>Reference: This is explained in chapters <a href="#s7">4) Basic local workflow – Hands-on</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
-    <li>In your repo practice the full Git workflow on a simple file <code>1.txt</code>: create local and remote branches <code>main</code>, <code>staging</code> and <code>feature</code> (<code>feature</code> should conform to the <code>ENGINEERING_CODEX.md</code> in the company KomITi), then in the <code>feature</code> branch create <code>1.txt</code> with one line <code>prvi red</code>, commit and push that change.<br>
-        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow – Hands-on</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
-    <li>After that, promote the same change from <code>feature</code> to <code>staging</code>, then from <code>staging</code> to <code>main</code>, then return to <code>feature</code>, add a second line <code>drugi red</code> to <code>1.txt</code> and repeat the same workflow all the way to <code>main</code>.<br>
-        <em>Reference: This is explained in chapters <a href="#s3">1.1) Local and remote branch</a>, <a href="#s7">4) Basic local workflow – Hands-on</a>, <a href="#s8">5) Most common beginner mistakes</a> and <a href="#s10">7) How this looks in KomITi</a>.</em></li>
+    <li><strong>Seed <code>main</code> with <code>m.md</code></strong> — on GitHub (web), switch to the <code>main</code> branch, create <code>m.md</code> with one line <code>This file was seeded on main.</code> and commit directly to <code>main</code>.<br>
+        <em>Reference: same as <a href="#s7-3">4.3</a> where you created <code>x.md</code>.</em></li>
+    <li><strong>Seed <code>staging</code> with <code>s.md</code></strong> — on GitHub (web), switch to <code>staging</code>, create <code>s.md</code> with one line <code>This file was seeded on staging.</code> and commit directly to <code>staging</code>.<br>
+        <em>Reference: same as <a href="#s7-3">4.3</a> where you created <code>y.md</code> on <code>staging</code>.</em></li>
+    <li><strong>Get the latest <code>main</code></strong> — locally, <code>git checkout main</code> and <code>git pull origin main</code>. Confirm <code>m.md</code> is now on disk.<br>
+        <em>Reference: <a href="#s7-5">4.5</a>.</em></li>
+    <li><strong>Create a new feature branch</strong> — pick a name that follows the <code>ENGINEERING_CODEX.md</code> convention (e.g. <code>2026-03-24-play_msf</code>). Push it with <code>-u</code>, then merge <code>origin/staging</code> so you also get <code>s.md</code>.<br>
+        <em>Reference: <a href="#s7-6">4.6</a>.</em></li>
+    <li><strong>Create <code>f.md</code> on the feature branch</strong> — add one line <code>This file exists only on the feature branch.</code>, then stage, commit and push.<br>
+        <em>Reference: <a href="#s7-7">4.7</a>, <a href="#s7-8">4.8</a> and <a href="#s7-9">4.9</a>.</em></li>
+    <li><strong>Branch switching demo</strong> — switch between <code>main</code>, <code>staging</code> and your feature branch, running <code>ls</code> after each checkout. Verify that <code>m.md</code> appears on all three, <code>s.md</code> appears on <code>staging</code> and the feature branch only, and <code>f.md</code> appears only on the feature branch.<br>
+        <em>Reference: <a href="#s7-9a">4.9a</a>.</em></li>
+    <li><strong>Promote</strong> — merge your feature branch into <code>staging</code>, then <code>staging</code> into <code>main</code>, pushing after each merge.<br>
+        <em>Reference: <a href="#s7-10">4.10</a> and <a href="#s7-11">4.11</a>.</em></li>
+    <li><strong>Return to your feature branch</strong> — confirm you are back on it and ready for the next piece of work.<br>
+        <em>Reference: <a href="#s7-12">4.12</a>.</em></li>
 </ol>
+<p>When you are done, every branch should contain <code>m.md</code>, <code>s.md</code> and <code>f.md</code>. If it does — you have proven you can run the full KomITi Git workflow on your own.</p>
 
 <footer>© KomITi · komiti.eu</footer>
 
