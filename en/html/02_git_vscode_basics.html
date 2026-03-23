@@ -127,6 +127,12 @@ tbody tr:hover { background: #f0eaf4; }
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
 .tip strong { color: #2e7d32; }
+.vscode-sc {
+    background: #e3f2fd; border-left: 4px solid #1976d2;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.vscode-sc strong { color: #0d47a1; }
 hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
 a { color: #875A7B; text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -523,6 +529,10 @@ PS C:\dev\komiti_library> ls
 git version 2.47.1.windows.2</code></pre>
 <p>If the command prints a version number, Git is installed correctly.</p>
 
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> Once Git is installed, VS Code detects it automatically. The Source Control icon (the branch/fork icon in the left Activity Bar) becomes active. If Git were missing, VS Code would show a warning there instead.
+</div>
+
 <ol start="4">
     <li>Create the working directory where all your development projects will live:</li>
 </ol>
@@ -540,6 +550,10 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>To confirm the settings:</p>
 <pre><code>PS C:\dev> git config --global --list</code></pre>
 <p>You should see <code>user.name</code> and <code>user.email</code> in the output.</p>
+
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> No visible change in the Source Control panel. The name and email you set here will appear in your future commits, but they do not affect the VS Code UI.
+</div>
 
 <h3 id="s7-3">4.3) Create a GitHub account and a new repository</h3>
 <p>GitHub is the remote service where your repositories will be hosted.</p>
@@ -565,6 +579,10 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
     <li>Click <strong>Commit changes</strong> (commit directly to <code>main</code>).</li>
 </ol>
 <p>Your <code>main</code> branch now contains <code>README.md</code> and <code>x.md</code>.</p>
+
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> Everything in this step happens in the browser on GitHub — nothing changes in VS Code yet.
+</div>
 
 <h4>Create the <code>staging</code> branch and add <code>y.md</code></h4>
 <ol>
@@ -593,6 +611,11 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>Git will create a folder <code>komiti_library</code> containing the full repo. Enter it:</p>
 <pre><code>PS C:\dev> cd komiti_library</code></pre>
 <p>From this point on, every <code>git</code> command you run inside this folder talks to your <code>komiti_library</code> repository on GitHub because <code>origin</code> is already set to that URL.</p>
+
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> Open the <code>komiti_library</code> folder in VS Code (<strong>File → Open Folder</strong>). The Source Control panel now recognises the repo and shows <strong>0 changes</strong>. Look at the bottom-left corner of the status bar — it displays the current branch name: <code>main</code>.
+</div>
+
 <p>You are now ready for the step-by-step workflow below.</p>
 
 <!-- Step 5 -->
@@ -612,6 +635,10 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
     <li>you pulled the latest state from the remote <code>origin/main</code>,</li>
     <li>in the cabinet analogy: you opened the main binder and checked whether you have its latest sheets from the remote cabinet.</li>
 </ul>
+
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> The panel stays clean — <strong>0 changes</strong>. The status bar still shows <code>main</code>. If the pull brought new code, VS Code would automatically refresh the Explorer file tree with the updated files.
+</div>
 
 <!-- Step 6 -->
 <h3 id="s7-6">4.6) Create a new feature branch from <code>main</code></h3>
@@ -644,6 +671,10 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
 <pre><code>PS C:\dev\komiti_library> git merge origin/staging</code></pre>
 <p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
 
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> Look at the bottom-left status bar: it now says <code>2026-03-23-play_xyz</code> instead of <code>main</code>. You can also click on the branch name in the status bar to see and switch between branches — this is the VS Code equivalent of <code>git checkout</code>. After the <code>git merge origin/staging</code>, VS Code Explorer instantly shows <code>y.md</code> appearing in the file tree. The Source Control panel still shows <strong>0 changes</strong> because the merge was clean and already committed.
+</div>
+
 <!-- Step 7 -->
 <h3 id="s7-7">4.7) Make local changes</h3>
 <p>Now create a new file <code>z.md</code> that will exist only on your feature branch. Open VS Code, create the file, or do it straight from the terminal:</p>
@@ -659,6 +690,10 @@ PS C:\dev\komiti_library> git diff --stat</code></pre>
     <li><code>--stat</code> is a long option; you are requesting a short statistical overview of changes per file.</li>
     <li>in the cabinet analogy: now you are writing on sheets in your working binder and then looking at what you actually changed compared to the old state.</li>
 </ul>
+
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> Open the Source Control panel in the sidebar (<strong>Ctrl+Shift+G</strong>). You will see <code>z.md</code> listed under <strong>Changes</strong> with a green <strong>U</strong> badge — <strong>U</strong> stands for <em>Untracked</em> (Git has never seen this file before). The Source Control icon in the Activity Bar also shows a badge with the number <strong>1</strong>, telling you there is one pending change.
+</div>
 
 <!-- Step 8 -->
 <h3 id="s7-8">4.8) Stage and commit</h3>
@@ -687,6 +722,10 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
     <li><code>git commit</code> means: you made a snapshot of those sheets at that moment (in the cabinet analogy: you don't snapshot absolutely everything you ever scribbled, but only the sheets you consciously decided should enter this version).</li>
 </ul>
 
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> After <code>git add z.md</code>, look at the Source Control panel: <code>z.md</code> moves from <strong>Changes</strong> to a new group called <strong>Staged Changes</strong>. The badge letter changes from <strong>U</strong> (Untracked) to <strong>A</strong> (Added). After <code>git commit</code>, the panel clears completely — <strong>0 pending changes</strong>. The badge on the Source Control icon disappears. You can also do all of this visually: click the <strong>+</strong> next to a file to stage it, type a commit message in the text box at the top, and click the <strong>✓ Commit</strong> button.
+</div>
+
 <!-- Step 9 -->
 <h3 id="s7-9">4.9) Push to GitHub</h3>
 <pre><code>PS C:\dev\komiti_library> git push origin 2026-03-23-play_xyz</code></pre>
@@ -702,6 +741,10 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
     <li>remote <code>origin/2026-03-23-play_xyz</code> = on GitHub,</li>
     <li>in the cabinet analogy: you sent your working binder to the remote cabinet so that others can see that version too.</li>
 </ul>
+
+<div class="vscode-sc">
+    <strong>VS Code Source Control:</strong> Before the push, you may notice a small <strong>↑1</strong> indicator in the status bar next to the branch name — it means your local branch is 1 commit ahead of the remote. After <code>git push</code>, this indicator disappears: your local branch and the remote branch are now in sync. You can also push by clicking the <strong>⋯</strong> menu in the Source Control panel and selecting <strong>Push</strong>.
+</div>
 
 <h3 id="s7-9a">4.9a) See it with your own eyes — branch switching demo</h3>
 <p>Now comes the most tangible moment: you will switch between branches and <strong>watch files appear and disappear</strong> in both Windows Explorer and VS Code Explorer. Open a Windows Explorer window to <code>C:\dev\komiti_library</code> and keep it visible side-by-side with your terminal.</p>
