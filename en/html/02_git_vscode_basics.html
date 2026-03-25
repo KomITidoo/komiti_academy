@@ -338,8 +338,8 @@ PS C:\dev\komiti_library> ls
     <li>reads the state of branch <code>staging</code> from the <code>.git/objects/</code> database,</li>
     <li><strong>physically overwrites</strong> files on disk to match that state:
         <ol style="list-style-type: none; padding-left: 1.2em;">
-            <li>2.1. files that <code>staging</code> does not have — <strong>physically deletes</strong> from disk,</li>
-            <li>2.2. files that <code>staging</code> has but the previous branch did not — <strong>physically creates</strong> on disk.</li>
+            <li>2.1. <strong>physically deletes</strong> from disk files that <code>staging</code> does not have,</li>
+            <li>2.2. <strong>physically creates</strong> on disk files that <code>staging</code> has but the previous branch did not.</li>
         </ol>
     </li>
 </ol>
