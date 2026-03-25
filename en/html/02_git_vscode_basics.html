@@ -199,8 +199,9 @@ details summary {
             <ol>
                 <li><a href="#s2-1">Explorer</a></li>
                 <li><a href="#s2-2">Workspace</a></li>
-                <li><a href="#s2-3">The 4 panels you must distinguish</a></li>
-                <li><a href="#s2-4">What a VS Code beginner must adopt immediately</a></li>
+                <li><a href="#s2-3">Source Control</a></li>
+                <li><a href="#s2-4">The 4 panels you must distinguish</a></li>
+                <li><a href="#s2-5">What a VS Code beginner must adopt immediately</a></li>
                 <li><a href="#s5-1">What the bottom-left corner in VS Code means: Git status indicator</a></li>
             </ol>
         </li>
@@ -409,18 +410,26 @@ PS C:\dev\komiti_library> ls
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
 </ul>
 
-<h3 id="s2-3">2.3) The 4 panels you must distinguish</h3>
+<h3 id="s2-3">2.3) Source Control</h3>
+<p><code>Source Control</code> is the VS Code panel that shows you the Git state of your repo. You open it from the Activity Bar on the left side or with <kbd>Ctrl+Shift+G</kbd>.</p>
+<img src="img/scode_source_control_panel.png" alt="VS Code Source Control panel" style="max-width:216px; display:block; margin:0.5em 0;">
+<ul>
+    <li>It shows which files are <strong>staged</strong> (ready for the next commit), which are <strong>unstaged</strong> (modified but not yet added) and which are <strong>untracked</strong> (new files Git has never seen).</li>
+    <li>You can stage a file by clicking the <strong>+</strong> next to it, type a commit message in the text box at the top, and click <strong>✓ Commit</strong>.</li>
+    <li>Explorer gives a quick visual signal next to the file name; the Source Control panel shows more detail — what is staged, what is unstaged and what goes into the next commit.</li>
+    <li>When in doubt, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</li>
+</ul>
+
+<h3 id="s2-4">2.4) The 4 panels you must distinguish</h3>
 <p>Search, Explorer, Source Control and Terminal are the 4 panels you must distinguish.</p>
 <ul>
     <li><code>Explorer</code> = already mentioned above, it is the panel where you see folders and files.</li>
     <li><code>Search</code> = text search across files.</li>
-    <li><code>Source Control</code> = the panel that shows you the Git state of your repo: which files are staged, which are unstaged (modified but not yet added) and which are untracked. You open it from the Activity Bar on the left side of VS Code or with <kbd>Ctrl+Shift+G</kbd>.
-        <br><img src="img/scode_source_control_panel.png" alt="VS Code Source Control panel" style="max-width:216px; margin-top:8px;"></li>
+    <li><code>Source Control</code> = the panel dedicated to Git — see <a href="#s2-3">section 2.3</a> above for details.</li>
     <li><code>Terminal</code> = where you type commands like <code>git</code>, <code>docker compose</code> and <code>rg</code>.</li>
 </ul>
-<p>Explorer gives a quick visual signal next to the file name; the <strong>Source Control panel</strong> (<kbd>Ctrl+Shift+G</kbd>) shows more detail — what is staged, what is unstaged and what goes into the next commit. When in doubt, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
 
-<h3 id="s2-4">2.4) What a VS Code beginner must adopt immediately</h3>
+<h3 id="s2-5">2.5) What a VS Code beginner must adopt immediately</h3>
 <ul>
     <li>know which workspace you are working in,</li>
     <li>know which root folder you are currently in,</li>
@@ -428,7 +437,7 @@ PS C:\dev\komiti_library> ls
     <li>not create files in the wrong root,</li>
     <li>know that <code>save</code> in the editor is not the same as <code>commit</code> in Git.</li>
 </ul>
-<h3 id="s5-1">2.5) What the bottom-left corner in VS Code means: Git status indicator</h3>
+<h3 id="s5-1">2.6) What the bottom-left corner in VS Code means: Git status indicator</h3>
 <p>In the Git status indicator you often see a short Git status for the active repo.</p>
 <img src="img/Git_Status_Indicator.png" alt="VS Code Git status indicator" style="max-width:216px; display:block; margin:0.5em 0;">
 <p>Using an example like:</p>
