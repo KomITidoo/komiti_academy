@@ -408,6 +408,7 @@ PS C:\dev\komiti_library> ls
     <li>Can you have multiple workspaces at the same time? Yes, you can, but not in a single VS Code window.</li>
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
 </ul>
+<p>In a multi-root workspace each root folder has its own <code>.git/</code> directory and its own branch — they are completely independent repositories that just happen to be open in the same VS Code window. VS Code tracks them separately in the Source Control panel and the Status Bar switches context depending on which file is active.</p>
 
 <h3 id="s2-3">2.3) Source Control</h3>
 <p><code>Source Control</code> is the VS Code panel that shows you the Git state of your repo. You open it from the Activity Bar on the left side or with <kbd>Ctrl+Shift+G</kbd>.</p>
