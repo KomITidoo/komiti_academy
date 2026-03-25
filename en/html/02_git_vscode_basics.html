@@ -201,7 +201,6 @@ details summary {
                 <li><a href="#s2-2">Workspace</a></li>
                 <li><a href="#s2-3">The 4 panels you must distinguish</a></li>
                 <li><a href="#s2-4">What a VS Code beginner must adopt immediately</a></li>
-                <li><a href="#s4">File status letters and the Source Control panel</a></li>
                 <li><a href="#s5-1">What the bottom-left corner in VS Code means: Git status indicator</a></li>
             </ol>
         </li>
@@ -391,11 +390,11 @@ PS C:\dev\komiti_library> ls
     <li>In Explorer you see files and folders of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
     <li>Explorer also shows the Git status of each file with a coloured letter next to the file name:
         <ul>
-            <li><strong>M</strong> — Modified: the file has been changed locally.</li>
-            <li><strong>U</strong> — Untracked: a new file not yet added to Git; in a merge conflict it can also mean unresolved/unmerged state.</li>
-            <li><strong>A</strong> — Added: a new file that has been staged.</li>
-            <li><strong>D</strong> — Deleted: the file has been deleted in the local workspace.</li>
-            <li><strong>R</strong> — Renamed: the file has been renamed.</li>
+            <li><strong>M</strong> — Modified: the file has been changed locally. <code>M</code> typically disappears after a commit or if you revert the file to its original state.</li>
+            <li><strong>U</strong> — Untracked: a new file not yet added to Git; in a merge conflict it can also mean unresolved/unmerged state. <code>U</code> disappears when you add the file with <code>git add</code> and commit, or if you delete that new file.</li>
+            <li><strong>A</strong> — Added: a new file that has been staged. <code>A</code> disappears after the commit that includes it.</li>
+            <li><strong>D</strong> — Deleted: the file has been deleted in the local workspace. <code>D</code> disappears when the deletion enters a commit, or if you restore the deleted file.</li>
+            <li><strong>R</strong> — Renamed: the file has been renamed. <code>R</code> disappears after the rename is committed.</li>
         </ul>
     </li>
 </ul>
@@ -419,6 +418,7 @@ PS C:\dev\komiti_library> ls
         <br><img src="img/scode_source_control_panel.png" alt="VS Code Source Control panel" style="max-width:216px; margin-top:8px;"></li>
     <li><code>Terminal</code> = where you type commands like <code>git</code>, <code>docker compose</code> and <code>rg</code>.</li>
 </ul>
+<p>Explorer gives a quick visual signal next to the file name; the <strong>Source Control panel</strong> (<kbd>Ctrl+Shift+G</kbd>) shows more detail — what is staged, what is unstaged and what goes into the next commit. When in doubt, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
 
 <h3 id="s2-4">2.4) What a VS Code beginner must adopt immediately</h3>
 <ul>
@@ -428,31 +428,7 @@ PS C:\dev\komiti_library> ls
     <li>not create files in the wrong root,</li>
     <li>know that <code>save</code> in the editor is not the same as <code>commit</code> in Git.</li>
 </ul>
-<h3 id="s4">2.5) File status letters and the Source Control panel</h3>
-<p>VS Code shows single-letter badges next to files in both Explorer and Source Control. The most common ones:</p>
-
-<table>
-    <thead>
-        <tr><th>Letter</th><th>Meaning</th><th>Details</th></tr>
-    </thead>
-    <tbody>
-        <tr><td><code>M</code></td><td>Modified</td><td>The file has been changed locally.</td></tr>
-        <tr><td><code>U</code></td><td>Untracked</td><td>A new file not yet added to Git; in a merge conflict it can also mean unresolved/unmerged state.</td></tr>
-        <tr><td><code>A</code></td><td>Added</td><td>A new file that has been staged.</td></tr>
-        <tr><td><code>D</code></td><td>Deleted</td><td>The file has been deleted in the local workspace.</td></tr>
-        <tr><td><code>R</code></td><td>Renamed</td><td>The file has been renamed.</td></tr>
-    </tbody>
-</table>
-
-<p>Practically:</p>
-<ul>
-    <li>if you see <code>M</code> next to an <code>.md</code> file, you changed it locally. <code>M</code> typically disappears after a commit or if you revert the file to its original state.</li>
-    <li>if you see <code>U</code>, Git is not yet tracking that new file. <code>U</code> disappears when you add the file to Git with <code>git add</code> and later commit, or if you delete that new file.</li>
-    <li>if you see <code>D</code>, the file has been deleted in the local workspace. <code>D</code> disappears when the deletion enters a commit, or if you restore the deleted file.</li>
-</ul>
-<p>The letters disappear once Git no longer sees the change as an unresolved local difference (after a commit, revert or deletion of the new file). Explorer gives a quick visual signal next to the file name; the <strong>Source Control panel</strong> (<kbd>Ctrl+Shift+G</kbd>) shows more detail — what is staged, what is unstaged and what goes into the next commit. When in doubt, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</p>
-
-<h3 id="s5-1">2.6) What the bottom-left corner in VS Code means: Git status indicator</h3>
+<h3 id="s5-1">2.5) What the bottom-left corner in VS Code means: Git status indicator</h3>
 <p>In the Git status indicator you often see a short Git status for the active repo.</p>
 <img src="img/Git_Status_Indicator.png" alt="VS Code Git status indicator" style="max-width:216px; display:block; margin:0.5em 0;">
 <p>Using an example like:</p>
