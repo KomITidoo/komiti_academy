@@ -201,7 +201,7 @@ details summary {
                 <li><a href="#s2-2">Workspace</a></li>
                 <li><a href="#s2-3">Source Control</a></li>
                 <li><a href="#s2-4">Terminal</a></li>
-                <li><a href="#s5-1">Git status indicator</a></li>
+                <li><a href="#s5-1">VS Code Status Bar</a></li>
             </ol>
         </li>
         <li><a href="#s6">Save is not the same as commit</a></li>
@@ -428,7 +428,10 @@ PS C:\dev\komiti_library> ls
     <li>Everything you can do in an external terminal you can do here — the advantage is that it lives inside VS Code, next to your files and Source Control panel.</li>
 </ul>
 
-<h3 id="s5-1">2.5) Git status indicator</h3>
+<h3 id="s5-1">2.5) VS Code Status Bar</h3>
+<p>The <strong>Status Bar</strong> is the thin horizontal strip at the very bottom of the VS Code window. Its left side shows Git information (current branch, sync status, errors/warnings), while the right side shows editor context: cursor line and column, file encoding (UTF-8), language mode (HTML, Python…), and indentation (Spaces/Tabs). Whenever something looks wrong — wrong branch, wrong language highlighting — glance at the Status Bar first.</p>
+
+<h4>Git status indicator</h4>
 <p>In the Git status indicator you often see a short Git status for the active repo.</p>
 <img src="img/Git_Status_Indicator.png" alt="VS Code Git status indicator" style="max-width:216px; display:block; margin:0.5em 0;">
 <p>Using an example like:</p>
@@ -438,7 +441,7 @@ PS C:\dev\komiti_library> ls
     <li><code>*</code> = you have local changes that are not yet committed,</li>
     <li>the circular arrows icon = Git sync/refresh zone; here VS Code shows or offers fetch/pull/push/sync, and if the icon is spinning, a Git operation is usually in progress.</li>
 </ul>
-<p>The <strong>VS Code status bar</strong> shows the Git context of the active repo in the current workspace — it is not some special "Copilot workspace" or separate agent context.</p>
+<p>The indicator shows the Git context of the active repo in the current workspace — it is not some special "Copilot workspace" or separate agent context.</p>
 <p>You, the agent, and every tool in that workspace all share <strong>one working tree and one checked-out branch</strong> at any given moment. That means:</p>
 <ul>
     <li>If the indicator shows <code>2026-03-11-features</code>, then you and the agent are both working on <code>2026-03-11-features</code> <em>right now</em>. However, the agent <strong>can</strong> run <code>git checkout</code> and switch the branch — the indicator will update accordingly. But as we said: agents cannot work on different branches in the same clone. Here is why:
