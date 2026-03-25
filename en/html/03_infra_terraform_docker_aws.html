@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infrastructure: Terraform, Docker &amp; AWS Foundations — KomITi Academy</title>
+<title>Infrastructure: Terraform, Docker &amp; AWS Foundations â€” KomITi Academy</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -23,13 +23,13 @@ body {
 }
 .book-meta {
     text-align: center;
-    border-bottom: 3px solid #875A7B;
+    border-bottom: 3px solid #A65949;
     padding-bottom: 28px;
     margin-bottom: 40px;
 }
 .book-meta .book-title {
     font-size: 13px;
-    color: #875A7B;
+    color: #A65949;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 8px;
@@ -38,8 +38,8 @@ h1 { font-size: 32px; color: #1a1a2e; margin-bottom: 6px; }
 .book-meta .subtitle { font-size: 16px; color: #666; font-style: italic; }
 h2 {
     font-size: 22px;
-    color: #875A7B;
-    border-left: 5px solid #875A7B;
+    color: #A65949;
+    border-left: 5px solid #A65949;
     padding-left: 14px;
     margin: 48px 0 16px 0;
 }
@@ -57,7 +57,7 @@ li { margin-bottom: 0; }
 p, li, td, blockquote { line-height: 1.225; }
 code {
     background: #f0eaf4;
-    color: #875A7B;
+    color: #A65949;
     padding: 2px 6px;
     border-radius: 3px;
     font-family: 'Consolas', 'Courier New', monospace;
@@ -75,7 +75,7 @@ pre {
     font-size: 13.5px;
     line-height: 1.6;
     margin: 14px 0 20px 0;
-    border-left: 4px solid #875A7B;
+    border-left: 4px solid #A65949;
 }
 pre .comment { color: #6c7086; }
 pre code {
@@ -89,16 +89,16 @@ pre code {
 }
 blockquote {
     background: #fdf6ff;
-    border-left: 4px solid #875A7B;
+    border-left: 4px solid #A65949;
     padding: 14px 18px;
     margin: 16px 0;
     border-radius: 0 6px 6px 0;
     color: #555;
     font-style: italic;
 }
-blockquote strong { color: #875A7B; font-style: normal; }
+blockquote strong { color: #A65949; font-style: normal; }
 table { width: 100%; border-collapse: collapse; margin: 16px 0 24px 0; font-size: 14px; }
-thead tr { background: #875A7B; color: #fff; }
+thead tr { background: #A65949; color: #fff; }
 th { padding: 10px 14px; text-align: left; font-weight: 600; }
 td { padding: 9px 14px; border-bottom: 1px solid #e8e8e8; vertical-align: top; }
 tbody tr:nth-child(even) { background: #faf7fc; }
@@ -110,10 +110,10 @@ tbody tr:hover { background: #f0eaf4; }
     padding: 24px 28px;
     margin-bottom: 40px;
 }
-.toc h3 { border: none; color: #875A7B; margin-top: 0; font-size: 16px; }
+.toc h3 { border: none; color: #A65949; margin-top: 0; font-size: 16px; }
 .toc ol { margin-top: 8px; list-style-type: decimal; }
 .toc li { margin-bottom: 3.2px; }
-.toc a { color: #875A7B; text-decoration: none; }
+.toc a { color: #A65949; text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
 .note {
     background: #fffbe6; border-left: 4px solid #f0b429;
@@ -128,13 +128,13 @@ tbody tr:hover { background: #f0eaf4; }
 }
 .tip strong { color: #2e7d32; }
 hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
-a { color: #875A7B; text-decoration: none; }
+a { color: #A65949; text-decoration: none; }
 a:hover { text-decoration: underline; }
 .ascii-diagram {
     background: #1e1e2e;
     color: #cdd6f4;
     border: 1px solid rgba(205, 214, 244, 0.15);
-    border-left: 4px solid #875A7B;
+    border-left: 4px solid #A65949;
     border-radius: 6px;
     padding: 20px 24px;
     font-family: 'Consolas', 'Courier New', monospace;
@@ -160,12 +160,12 @@ footer {
 .checklist { list-style: none; margin-left: 0; padding-left: 0; }
 .checklist li { padding: 6px 0 6px 32px; position: relative; margin-bottom: 4px; }
 .checklist li::before {
-    content: '☐';
+    content: 'â˜';
     position: absolute;
     left: 6px;
     top: 6px;
     font-size: 16px;
-    color: #875A7B;
+    color: #A65949;
 }
 .task-list { list-style: none; margin-left: 0; padding-left: 4px; }
 .task-list > li { margin-bottom: 12px; }
@@ -174,7 +174,7 @@ footer {
 <body>
 <div class="page-wrapper">
 
-<!-- ───────── HEADER ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="book-meta">
     <div class="book-title">KomITi Academy</div>
     <h1>Infrastructure: Terraform, Docker &amp; AWS Foundations</h1>
@@ -191,7 +191,7 @@ footer {
     <li>and how these three layers connect into a single system.</li>
 </ul>
 
-<!-- ───────── TABLE OF CONTENTS ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ TABLE OF CONTENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="toc">
     <h3>Table of Contents</h3>
     <ol>
@@ -227,7 +227,7 @@ footer {
     </ol>
 </div>
 
-<!-- ───────── 1 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 1 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s1">1) What is the infra stack in KomITi</h2>
 
 <p>When we say &ldquo;infra&rdquo; in this repo, we don&rsquo;t mean a single tool, but multiple layers working together:</p>
@@ -246,7 +246,7 @@ footer {
     <li>each layer has its own purpose, its own risk, and its own operational vocabulary.</li>
 </ul>
 
-<!-- ───────── 2 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s2">2) AWS fundamentals you need to know</h2>
 
 <p>In this learning context, you don&rsquo;t study AWS as a catalog of 200 services, but as a minimal operational set.</p>
@@ -273,7 +273,7 @@ footer {
     <li><strong>EIP/DNS</strong> = how other systems reach the host as a stable public endpoint.</li>
 </ul>
 
-<!-- ───────── 3 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 3 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s3">3) Docker and container fundamentals you need to know</h2>
 
 <p>A container is not a virtual machine. It is an isolated runtime process with its own filesystem view, network namespace, and agreed-upon entrypoint.</p>
@@ -298,7 +298,7 @@ footer {
 
 
 
-<!-- ───────── 4 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 4 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s4">4) Terraform</h2>
 
 <h3 id="s4-1">4.1) Terraform mental model</h3>
@@ -525,14 +525,14 @@ footer {
 
 <div class="ascii-diagram">Dependency graph  (arrows read "depends on")
 
-docker_container.odoo ──────┬──▶ docker_container.postgres
-                            │         │
-                            │         ├──▶ docker_image.postgres
-                            │         ├──▶ docker_network.odoo
-                            │         └──▶ docker_volume.postgres_data
-                            │
-                            ├──▶ docker_image.odoo
-                            └──▶ docker_volume.odoo_data</div>
+docker_container.odoo â”€â”€â”€â”€â”€â”€â”¬â”€â”€â–¶ docker_container.postgres
+                            â”‚         â”‚
+                            â”‚         â”œâ”€â”€â–¶ docker_image.postgres
+                            â”‚         â”œâ”€â”€â–¶ docker_network.odoo
+                            â”‚         â””â”€â”€â–¶ docker_volume.postgres_data
+                            â”‚
+                            â”œâ”€â”€â–¶ docker_image.odoo
+                            â””â”€â”€â–¶ docker_volume.odoo_data</div>
 
 <p>The diagram is self-explanatory: arrows read &ldquo;depends on&rdquo;. A junior mistake is to look file by file, rather than graph by graph.</p>
 
@@ -705,7 +705,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     </tbody>
 </table>
 
-<!-- ───────── 5 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 5 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s5">5) How to turn Terraform files into action and materialize artifacts (Docker containers, AWS resources, Odoo)</h2>
 
 <h3 id="s5-1">5.1) Plan is not a formality</h3>
@@ -759,7 +759,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>One more important command: <code>terraform destroy</code> tears down all resources Terraform manages. In a lab, it is how you cleanly remove everything. In production, it is irreversible and must never be run without explicit intent and backup.</p>
 
-<!-- ───────── 6 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 6 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s6">6) Minimal safe workflow in KomITi</h2>
 
 <p>When making a Terraform change, the minimum safe sequence is:</p>
@@ -777,7 +777,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>This is not bureaucracy; it is basic production discipline.</p>
 
-<!-- ───────── 7 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 7 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s7">7) KomITi infra checklist</h2>
 
 <p>When you finish this document, you must be able to explain:</p>
@@ -795,7 +795,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     <li>how to distinguish an AWS problem, a Docker/runtime problem, and an Odoo functional problem.</li>
 </ul>
 
-<!-- ───────── 8 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 8 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s8">8) Foundations practical drill</h2>
 
 <p>After this document, do at least the following:</p>
@@ -814,7 +814,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>This infra drill is not directly a module implementation task, but it&rsquo;s preparation so that later for <code>komiti_academy</code> you can distinguish a code problem, a runtime problem, and an infra problem.</p>
 
-<!-- ───────── 9 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 9 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s9">9) Local Terraform + Docker Desktop lab for candidates</h2>
 
 <p>If the candidate doesn&rsquo;t have an AWS/Azure lab budget, it makes sense to do the first Terraform lab locally via Docker Desktop. This lab is not part of the core product scope of the <code>komiti_academy</code> module, but a learning/support exercise so the candidate can locally bring up the runtime on which they&rsquo;ll later develop and verify the Odoo module.</p>
@@ -877,7 +877,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>If the candidate successfully completes this lab, then they&rsquo;ve truly practiced the Terraform shape and lifecycle discipline, even if they haven&rsquo;t yet done real cloud provisioning.</p>
 
-<!-- ───────── 10 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 10 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s10">10) What to read next</h2>
 
 <ul>
@@ -890,7 +890,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <hr>
 
-<!-- ───────── 99 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 99 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s99">99) Task on the komiti_academy project for candidates</h2>
 
 <ol class="task-list">
@@ -914,7 +914,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p><strong>Solutions:</strong></p>
 
-<!-- ───────── FOOTER ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <footer>&copy; KomITi &middot; komiti.eu</footer>
 
 </div><!-- .page-wrapper -->
