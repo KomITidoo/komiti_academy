@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Git &amp; VS Code Basics — KomITi Academy</title>
+<title>Git &amp; VS Code Basics â€” KomITi Academy</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -23,13 +23,13 @@ body {
 }
 .book-meta {
     text-align: center;
-    border-bottom: 3px solid #875A7B;
+    border-bottom: 3px solid #A65949;
     padding-bottom: 28px;
     margin-bottom: 40px;
 }
 .book-meta .book-title {
     font-size: 13px;
-    color: #875A7B;
+    color: #A65949;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 8px;
@@ -38,8 +38,8 @@ h1 { font-size: 32px; color: #1a1a2e; margin-bottom: 6px; }
 .book-meta .subtitle { font-size: 16px; color: #666; font-style: italic; }
 h2 {
     font-size: 22px;
-    color: #875A7B;
-    border-left: 5px solid #875A7B;
+    color: #A65949;
+    border-left: 5px solid #A65949;
     padding-left: 14px;
     margin: 48px 0 16px 0;
 }
@@ -57,7 +57,7 @@ li { margin-bottom: 0; }
 p, li, td, blockquote { line-height: 1.225; }
 code {
     background: #f0eaf4;
-    color: #875A7B;
+    color: #A65949;
     padding: 2px 6px;
     border-radius: 3px;
     font-family: 'Consolas', 'Courier New', monospace;
@@ -75,7 +75,7 @@ pre {
     font-size: 13.5px;
     line-height: 1.6;
     margin: 14px 0 20px 0;
-    border-left: 4px solid #875A7B;
+    border-left: 4px solid #A65949;
 }
 pre .comment { color: #6c7086; }
 pre code {
@@ -89,16 +89,16 @@ pre code {
 }
 blockquote {
     background: #fdf6ff;
-    border-left: 4px solid #875A7B;
+    border-left: 4px solid #A65949;
     padding: 14px 18px;
     margin: 16px 0;
     border-radius: 0 6px 6px 0;
     color: #555;
     font-style: italic;
 }
-blockquote strong { color: #875A7B; font-style: normal; }
+blockquote strong { color: #A65949; font-style: normal; }
 table { width: 100%; border-collapse: collapse; margin: 16px 0 24px 0; font-size: 14px; }
-thead tr { background: #875A7B; color: #fff; }
+thead tr { background: #A65949; color: #fff; }
 th { padding: 10px 14px; text-align: left; font-weight: 600; }
 td { padding: 9px 14px; border-bottom: 1px solid #e8e8e8; vertical-align: top; }
 tbody tr:nth-child(even) { background: #faf7fc; }
@@ -110,10 +110,10 @@ tbody tr:hover { background: #f0eaf4; }
     padding: 24px 28px;
     margin-bottom: 40px;
 }
-.toc h3 { border: none; color: #875A7B; margin-top: 0; font-size: 16px; }
+.toc h3 { border: none; color: #A65949; margin-top: 0; font-size: 16px; }
 .toc ol { margin-top: 8px; }
 .toc li { margin-bottom: 3.2px; }
-.toc a { color: #875A7B; text-decoration: none; }
+.toc a { color: #A65949; text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
 .note {
     background: #fffbe6; border-left: 4px solid #f0b429;
@@ -134,13 +134,13 @@ tbody tr:hover { background: #f0eaf4; }
 }
 .vscode-sc strong { color: #0d47a1; }
 hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
-a { color: #875A7B; text-decoration: none; }
+a { color: #A65949; text-decoration: none; }
 a:hover { text-decoration: underline; }
 .ascii-diagram {
     background: #1e1e2e;
     color: #cdd6f4;
     border: 1px solid rgba(205, 214, 244, 0.15);
-    border-left: 4px solid #875A7B;
+    border-left: 4px solid #A65949;
     border-radius: 6px;
     padding: 20px 24px;
     font-family: 'Consolas', 'Courier New', monospace;
@@ -167,7 +167,7 @@ details { margin: 14px 0; }
 details summary {
     cursor: pointer;
     font-weight: 600;
-    color: #875A7B;
+    color: #A65949;
     padding: 8px 0;
 }
 </style>
@@ -206,7 +206,7 @@ details summary {
             </ol>
         </li>
         <li><a href="#s6">Save is not the same as commit</a></li>
-        <li><a href="#s7">Basic local workflow – Hands-on</a>
+        <li><a href="#s7">Basic local workflow â€“ Hands-on</a>
             <ol>
                 <li><a href="#s7-1">Install Git</a></li>
                 <li><a href="#s7-2">Configure Git (first-time setup)</a></li>
@@ -217,7 +217,7 @@ details summary {
                 <li><a href="#s7-7">Make local changes</a></li>
                 <li><a href="#s7-8">Stage and commit</a></li>
                 <li><a href="#s7-9">Push to GitHub</a></li>
-                <li><a href="#s7-9a">See it with your own eyes — branch switching demo</a></li>
+                <li><a href="#s7-9a">See it with your own eyes â€” branch switching demo</a></li>
                 <li><a href="#s7-10">Promotion to staging</a></li>
                 <li><a href="#s7-11">Promotion to main</a></li>
                 <li><a href="#s7-12">Return to your feature branch if you continue working</a></li>
@@ -237,7 +237,7 @@ details summary {
 <!-- ============================================================ -->
 <h2 id="s1">1) Git basics you need to know</h2>
 
-<p><code>Git</code> is a distributed version control system — a tool that tracks every change to every file in a project, keeps a complete history, and lets multiple people work on the same codebase without overwriting each other's work.</p>
+<p><code>Git</code> is a distributed version control system â€” a tool that tracks every change to every file in a project, keeps a complete history, and lets multiple people work on the same codebase without overwriting each other's work.</p>
 
 <p>Imagine that:</p>
 <ul>
@@ -245,7 +245,7 @@ details summary {
     <li><strong>branch</strong> is a separate <strong>binder</strong> inside that cabinet, and</li>
     <li><strong>file</strong> is a <strong>sheet of paper</strong> inside that binder.</li>
 </ul>
-<p>You can only have one binder (branch) open (<code>checkout</code>) on your desk at a time; when you are done, you can copy (<code>merge</code>) sheets (files) from one binder (branch) into another. Git keeps every version of every sheet (file), compressed, inside a hidden <code>.git/</code> folder — so nothing is ever lost.</p>
+<p>You can only have one binder (branch) open (<code>checkout</code>) on your desk at a time; when you are done, you can copy (<code>merge</code>) sheets (files) from one binder (branch) into another. Git keeps every version of every sheet (file), compressed, inside a hidden <code>.git/</code> folder â€” so nothing is ever lost.</p>
 
 <h3 id="s3">1.1) Local and remote (GitHub) branch</h3>
 
@@ -264,13 +264,13 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
 
 <p>Remember we imagined Git as a cabinet (repo) with binders (branches)? Now let's look at that diagram through the same analogy, using the KomITi workflow as a concrete example.</p>
 
-<p>The <code>feature → staging → main</code> promotion pattern is a widely adopted branching strategy. It originates from Vincent Driessen's <em>Git Flow</em> model (2010) and is documented in the official <a href="https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows">Git Book — Branching Workflows</a>. KomITi follows this pattern as defined in <code>ENGINEERING_HANDBOOK.md</code>.</p>
+<p>The <code>feature â†’ staging â†’ main</code> promotion pattern is a widely adopted branching strategy. It originates from Vincent Driessen's <em>Git Flow</em> model (2010) and is documented in the official <a href="https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows">Git Book â€” Branching Workflows</a>. KomITi follows this pattern as defined in <code>ENGINEERING_HANDBOOK.md</code>.</p>
 
 <p>According to best practices and <code>ENGINEERING_HANDBOOK.md</code> of KomITi, your local cabinet (repo; e.g. <code>C:\dev\komiti_library</code>) and remote cabinet (repo; e.g. <code>https://github.com/your_name/komiti_library</code>) should each contain three binders (branches):</p>
 <ul>
-    <li><strong><code>main</code></strong> — the clean, published binder (branch). Whatever sheets (files) are in here is what the world sees.</li>
-    <li><strong><code>staging</code></strong> — the review binder (branch). Before any sheets (files) go into <code>main</code>, they are first copied here so someone can check them.</li>
-    <li><strong><code>feature</code></strong> (e.g. <code>2026-03-21-features</code>) — your personal working binder (branch). This is where you actually write on sheets (files).</li>
+    <li><strong><code>main</code></strong> â€” the clean, published binder (branch). Whatever sheets (files) are in here is what the world sees.</li>
+    <li><strong><code>staging</code></strong> â€” the review binder (branch). Before any sheets (files) go into <code>main</code>, they are first copied here so someone can check them.</li>
+    <li><strong><code>feature</code></strong> (e.g. <code>2026-03-21-features</code>) â€” your personal working binder (branch). This is where you actually write on sheets (files).</li>
 </ul>
 
 <p><code>git checkout</code> is you pulling one binder (branch) out of the cabinet (repo) and putting the others back, as you can only have one binder (branch) open on your desk (working tree) at a time. Your desk (working tree) always shows the sheets (files) of whichever binder (branch) you currently have open.</p>
@@ -279,38 +279,38 @@ LOCAL BRANCHES    [yyyy-MM-dd-feature] -merge-> [staging] ----git merge----> [ma
 
 <p>The arrows in the diagram map to real actions (Workflow):</p>
 <ul>
-    <li><strong><code>git checkout -b yyyy-MM-dd-feature</code></strong> (arrow at the bottom going left ←) = You, developer, starts by taking a fresh empty binder (branch), copy the current sheets (files) from <code>main</code> into it, and label it <code>feature</code>.<br>
-        In practice: <code>git checkout main</code> → <code>git pull origin main</code> → <code>git checkout -b 2026-03-23-play_xyz</code>.</li>
+    <li><strong><code>git checkout -b yyyy-MM-dd-feature</code></strong> (arrow at the bottom going left â†) = You, developer, starts by taking a fresh empty binder (branch), copy the current sheets (files) from <code>main</code> into it, and label it <code>feature</code>.<br>
+        In practice: <code>git checkout main</code> â†’ <code>git pull origin main</code> â†’ <code>git checkout -b 2026-03-23-play_xyz</code>.</li>
     <li><strong><code>git add</code> + <code>git commit</code></strong> (working inside the binder (branch)) = you change sheets (files) in VS Code, check what you did with <code>git status --short</code> and <code>git diff --stat</code>, then save a snapshot with <code>git add &lt;file&gt;</code> and <code>git commit -m "your message"</code>.</li>
-    <li><strong><code>git push</code></strong> (arrow going up ↑) = you walk to the remote cabinet (repo) and replace its copy of a binder (branch) with your updated version.<br>
-        In practice: <code>git push -u origin 2026-03-23-play_xyz</code> — your local branch now also has a remote copy <code>origin/2026-03-23-play_xyz</code>.</li>
-    <li><strong><code>git merge</code></strong> (arrow going right →) = you copy the sheets (files) you wrote in one binder (branch) into another binder (branch), on your desk.<br>
-        In practice: <code>git checkout staging</code> → <code>git pull origin staging</code> → <code>git merge 2026-03-23-play_xyz</code> → <code>git push origin staging</code>. Then repeat for <code>main</code>.</li>
+    <li><strong><code>git push</code></strong> (arrow going up â†‘) = you walk to the remote cabinet (repo) and replace its copy of a binder (branch) with your updated version.<br>
+        In practice: <code>git push -u origin 2026-03-23-play_xyz</code> â€” your local branch now also has a remote copy <code>origin/2026-03-23-play_xyz</code>.</li>
+    <li><strong><code>git merge</code></strong> (arrow going right â†’) = you copy the sheets (files) you wrote in one binder (branch) into another binder (branch), on your desk.<br>
+        In practice: <code>git checkout staging</code> â†’ <code>git pull origin staging</code> â†’ <code>git merge 2026-03-23-play_xyz</code> â†’ <code>git push origin staging</code>. Then repeat for <code>main</code>.</li>
     <li><strong><code>git pull</code></strong> (not shown, but the reverse of push) = you walk to the remote cabinet (repo), take the latest copy, and update the binder (branch) on your desk.</li>
 </ul>
 
 <p>So the full KomITi flow in the cabinet analogy is:</p>
-<div class="ascii-diagram">[main]: you switch to the local [main] binder                       — git checkout main
-[main]: pull the latest sheets from the remote cabinet              — git pull origin main
-└─► [yyyy-MM-dd-feature]: create a new [yyyy-MM-dd-feature] binder  — git checkout -b yyyy-MM-dd-feature
-    [yyyy-MM-dd-feature]: write on its sheets (WiP), then commit    — git add . ; git commit
-    └─► [staging]: switch to the [staging] binder                   — git checkout staging
-        [staging]: pull its latest sheets                           — git pull origin staging
-        [staging]: copy your feature sheets in for review           — git merge yyyy-MM-dd-feature
-        [staging]: push staging to the remote cabinet               — git push origin staging
-        └─► [main]: switch to the [main] binder                     — git checkout main
-            [main]: pull its latest sheets                          — git pull origin main
-            [main]: copy the reviewed sheets in                     — git merge yyyy-MM-dd-feature
-            [main]: push main to the remote cabinet                 — git push origin main</div>
+<div class="ascii-diagram">[main]: you switch to the local [main] binder                       â€” git checkout main
+[main]: pull the latest sheets from the remote cabinet              â€” git pull origin main
+â””â”€â–º [yyyy-MM-dd-feature]: create a new [yyyy-MM-dd-feature] binder  â€” git checkout -b yyyy-MM-dd-feature
+    [yyyy-MM-dd-feature]: write on its sheets (WiP), then commit    â€” git add . ; git commit
+    â””â”€â–º [staging]: switch to the [staging] binder                   â€” git checkout staging
+        [staging]: pull its latest sheets                           â€” git pull origin staging
+        [staging]: copy your feature sheets in for review           â€” git merge yyyy-MM-dd-feature
+        [staging]: push staging to the remote cabinet               â€” git push origin staging
+        â””â”€â–º [main]: switch to the [main] binder                     â€” git checkout main
+            [main]: pull its latest sheets                          â€” git pull origin main
+            [main]: copy the reviewed sheets in                     â€” git merge yyyy-MM-dd-feature
+            [main]: push main to the remote cabinet                 â€” git push origin main</div>
 After each copy (merge), you walk to the remote cabinet (repo) and replace the remote version ([origin/feature], [origin/staging], [origin/main]) with git push
 <h3 id="s1-2">1.2) Does Git create a separate folder on disk for each branch?</h3>
 <p><strong>NO.</strong> You have one single folder (e.g. <code>C:\dev\komiti_library</code>), and Git changes the contents of that same folder when you switch from branch to branch. When you run <code>git checkout main</code>, Git replaces the files in that folder with the state of the <code>main</code> branch from the local <code>.git/</code> database. When you run <code>git checkout 2026-03-23-play_xyz</code>, Git replaces the files in the same folder with the state of that feature branch. Therefore:</p>
 <ul>
     <li>you have <strong>one single folder</strong> for all branches in your repo,</li>
-    <li>Git does <strong>not</strong> download anything from GitHub into this folder when you change (<code>checkout</code>) branches — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed (files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>).</li>
+    <li>Git does <strong>not</strong> download anything from GitHub into this folder when you change (<code>checkout</code>) branches â€” it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed (files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>).</li>
 </ul>
 
-<p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>staging</code> and <code>2026-03-23-play_xyz</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
+<p>Concrete example: imagine a repo with three branches â€” <code>main</code>, <code>staging</code> and <code>2026-03-23-play_xyz</code> â€” each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
 
 <div style="display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 20px 0;">
 <pre style="flex:1; min-width:180px; margin:0;">
@@ -343,28 +343,28 @@ PS C:\dev\komiti_library> ls
         </ol>
     </li>
 </ol>
-<p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost — they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
+<p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost â€” they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
 
 <h3 id="s1-3">1.3) Let's deep dive into .git/</h3>
-<p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text — it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. The structure looks roughly like this:</p>
+<p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text â€” it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. The structure looks roughly like this:</p>
 <div class="code-block"><pre>
 .git/
-├── objects/      ← all snapshots (commits, files, trees) — compressed
-├── refs/         ← "pointers" (branches, tags) — text files
-├── HEAD          ← text file that says which branch you are on
-├── config        ← repo settings (remote URL etc.)
-├── index         ← staging area
-└── ...</pre></div>
+â”œâ”€â”€ objects/      â† all snapshots (commits, files, trees) â€” compressed
+â”œâ”€â”€ refs/         â† "pointers" (branches, tags) â€” text files
+â”œâ”€â”€ HEAD          â† text file that says which branch you are on
+â”œâ”€â”€ config        â† repo settings (remote URL etc.)
+â”œâ”€â”€ index         â† staging area
+â””â”€â”€ ...</pre></div>
 <ul>
     <li><code>objects/</code> = every file, every commit and every folder structure you ever committed exists here as a compressed blob object; Git addresses them via SHA-1 hashes (that long string of letters and numbers),</li>
-    <li><code>refs/</code> = branches and tags; e.g. the file <code>refs/heads/main</code> contains only one line — the hash of the commit that <code>main</code> currently points to,</li>
+    <li><code>refs/</code> = branches and tags; e.g. the file <code>refs/heads/main</code> contains only one line â€” the hash of the commit that <code>main</code> currently points to,</li>
     <li><code>HEAD</code> = a text file that says which branch you are on; open it and you will see something like <code>ref: refs/heads/main</code>,</li>
     <li><code>index</code> = the staging area; this is where Git remembers what you staged for the next commit.</li>
 </ul>
 
-<p>When you run <code>git clone</code>, Git creates this folder and downloads every object from the remote into it — every commit, every version of every file, every branch. (If you start a brand-new repo with <code>git init</code>, the folder is created empty.) From that point on, every <code>git checkout</code> reads only from this local <code>.git/</code> folder — no download from GitHub.</p>
+<p>When you run <code>git clone</code>, Git creates this folder and downloads every object from the remote into it â€” every commit, every version of every file, every branch. (If you start a brand-new repo with <code>git init</code>, the folder is created empty.) From that point on, every <code>git checkout</code> reads only from this local <code>.git/</code> folder â€” no download from GitHub.</p>
 
-<p>Practical consequence: when you run <code>git checkout main</code>, Git looks at <code>refs/heads/main</code>, finds the hash of the last commit, extracts the compressed versions of files from <code>objects/</code> and overwrites them in your working folder. That is why <code>checkout</code> does not download anything from GitHub — everything is already there, on your disk, in the <code>.git/</code> folder.</p>
+<p>Practical consequence: when you run <code>git checkout main</code>, Git looks at <code>refs/heads/main</code>, finds the hash of the last commit, extracts the compressed versions of files from <code>objects/</code> and overwrites them in your working folder. That is why <code>checkout</code> does not download anything from GitHub â€” everything is already there, on your disk, in the <code>.git/</code> folder.</p>
 
 <p><code>git show &lt;branch&gt;:&lt;path&gt;</code> lets you see the contents of a file from another branch without changing your working folder. For example, <code>git show main:README.md</code> extracts that version of the file from <code>.git/objects/</code> and displays it in the terminal, without overwriting anything on disk.</p>
 
@@ -375,7 +375,7 @@ PS C:\dev\komiti_library> ls
 
 <h3 id="s1-5">1.5) DevOps vs CI/CD</h3>
 <p><code>DevOps</code> is a broader way of working and collaborating between the development and operations sides, with the goal of delivering and maintaining software faster, more securely and more stably. <code>CI/CD</code> is a narrower, practical part of that: a set of automated pipelines and steps that build, test and deliver code.</p>
-<p>Both emerged as a response to a slow, manual and separated way of building, testing and releasing software, where development and operations long worked as separate worlds — they did not originate from a single author but gradually evolved in the software industry through agile, automation and DevOps practices.</p>
+<p>Both emerged as a response to a slow, manual and separated way of building, testing and releasing software, where development and operations long worked as separate worlds â€” they did not originate from a single author but gradually evolved in the software industry through agile, automation and DevOps practices.</p>
 <p>The difference: <code>DevOps</code> is a culture, operating model and work discipline; <code>CI/CD</code> is the concrete mechanism and tooling flow that implements that discipline. Practically: <code>DevOps</code> tells you how a team should work and what it wants to achieve, while <code>CI/CD</code> serves to automatically verify and move those changes from commit to deployment.</p>
 
 <h3 id="s1-6">1.6) Git commands that you must know</h3>
@@ -414,11 +414,11 @@ PS C:\dev\komiti_library> ls
     <li>In Explorer you see files and folders of the active workspace; if the workspace is multi-root, you see multiple top-level root folders in the same panel.</li>
     <li>Explorer also shows the Git status of each file with a coloured letter next to the file name:
         <ul>
-            <li><strong>M</strong> — Modified: the file has been changed locally. Typically disappears after a commit or if you revert the file to its original state.</li>
-            <li><strong>U</strong> — Untracked: a new file not yet added to Git; in a merge conflict it can also mean unresolved/unmerged state. Typically disappears when you add the file with <code>git add</code> and commit, or if you delete that new file.</li>
-            <li><strong>A</strong> — Added: a new file that has been staged. Typically disappears after the commit that includes it.</li>
-            <li><strong>D</strong> — Deleted: the file has been deleted in the local workspace. Typically disappears when the deletion enters a commit, or if you restore the deleted file.</li>
-            <li><strong>R</strong> — Renamed: the file has been renamed. Typically disappears after the rename is committed.</li>
+            <li><strong>M</strong> â€” Modified: the file has been changed locally. Typically disappears after a commit or if you revert the file to its original state.</li>
+            <li><strong>U</strong> â€” Untracked: a new file not yet added to Git; in a merge conflict it can also mean unresolved/unmerged state. Typically disappears when you add the file with <code>git add</code> and commit, or if you delete that new file.</li>
+            <li><strong>A</strong> â€” Added: a new file that has been staged. Typically disappears after the commit that includes it.</li>
+            <li><strong>D</strong> â€” Deleted: the file has been deleted in the local workspace. Typically disappears when the deletion enters a commit, or if you restore the deleted file.</li>
+            <li><strong>R</strong> â€” Renamed: the file has been renamed. Typically disappears after the rename is committed.</li>
         </ul>
     </li>
 </ul>
@@ -432,33 +432,33 @@ PS C:\dev\komiti_library> ls
     <li>Can you have multiple workspaces at the same time? Yes, you can, but not in a single VS Code window.</li>
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
 </ul>
-<p>In a multi-root workspace each root folder has its own <code>.git/</code> directory and its own branch — they are completely independent repositories that just happen to be open in the same VS Code window. VS Code tracks them separately in the Source Control panel and the Status Bar switches context depending on which file is active.</p>
+<p>In a multi-root workspace each root folder has its own <code>.git/</code> directory and its own branch â€” they are completely independent repositories that just happen to be open in the same VS Code window. VS Code tracks them separately in the Source Control panel and the Status Bar switches context depending on which file is active.</p>
 
 <h3 id="s2-3">2.3) Source Control</h3>
 <p><code>Source Control</code> is the VS Code panel that shows you the Git state of your repo. You open it from the Activity Bar on the left side or with <kbd>Ctrl+Shift+G</kbd>.</p>
 <img src="img/scode_source_control_panel.png" alt="VS Code Source Control panel" style="max-width:216px; display:block; margin:0.5em 0;">
 <ul>
     <li>It shows which files are <strong>staged</strong> (ready for the next commit), which are <strong>unstaged</strong> (modified but not yet added) and which are <strong>untracked</strong> (new files Git has never seen).</li>
-    <li>You can stage a file by clicking the <strong>+</strong> next to it, type a commit message in the text box at the top, and click <strong>✓ Commit</strong>.</li>
-    <li>Explorer gives a quick visual signal next to the file name; the Source Control panel shows more detail — what is staged, what is unstaged and what goes into the next commit.</li>
+    <li>You can stage a file by clicking the <strong>+</strong> next to it, type a commit message in the text box at the top, and click <strong>âœ“ Commit</strong>.</li>
+    <li>Explorer gives a quick visual signal next to the file name; the Source Control panel shows more detail â€” what is staged, what is unstaged and what goes into the next commit.</li>
     <li>When in doubt, Source Control panel and <code>git status --short</code> are more reliable than guessing by icons.</li>
 </ul>
 
 <h3 id="s2-4">2.4) Terminal</h3>
-<p><code>Terminal</code> is the built-in command line inside VS Code. You open it with <kbd>Ctrl+`</kbd> (backtick) or from the menu <strong>Terminal → New Terminal</strong>.</p>
+<p><code>Terminal</code> is the built-in command line inside VS Code. You open it with <kbd>Ctrl+`</kbd> (backtick) or from the menu <strong>Terminal â†’ New Terminal</strong>.</p>
 <ul>
     <li>The terminal opens in the root of your current workspace folder, so <code>git</code> commands run against the correct repo automatically.</li>
-    <li>You can have multiple terminal tabs open at the same time — useful when you need one for <code>git</code> and another for <code>docker compose</code>.</li>
+    <li>You can have multiple terminal tabs open at the same time â€” useful when you need one for <code>git</code> and another for <code>docker compose</code>.</li>
     <li>On Windows the default shell is PowerShell; on macOS/Linux it is typically Bash or Zsh.</li>
-    <li>Everything you can do in an external terminal you can do here — the advantage is that it lives inside VS Code, next to your files and Source Control panel.</li>
+    <li>Everything you can do in an external terminal you can do here â€” the advantage is that it lives inside VS Code, next to your files and Source Control panel.</li>
 </ul>
 
 <h3 id="s5-1">2.5) VS Code Status Bar</h3>
 <p>The <strong>Status Bar</strong> is the thin horizontal strip at the very bottom of the VS Code window. At a glance you can see:</p>
 <ul>
-    <li><strong>Git status indicator</strong> (left) — current branch, sync status, errors/warnings.</li>
-    <li><strong>Editor context</strong> (right) — cursor line and column, file encoding (UTF-8), language mode (HTML, Python…), indentation (Spaces/Tabs).</li>
-    <li>Something looks wrong — wrong branch, wrong language highlighting? Glance at the Status Bar first.</li>
+    <li><strong>Git status indicator</strong> (left) â€” current branch, sync status, errors/warnings.</li>
+    <li><strong>Editor context</strong> (right) â€” cursor line and column, file encoding (UTF-8), language mode (HTML, Pythonâ€¦), indentation (Spaces/Tabs).</li>
+    <li>Something looks wrong â€” wrong branch, wrong language highlighting? Glance at the Status Bar first.</li>
 </ul>
 
 <h4>Git status indicator</h4>
@@ -471,16 +471,16 @@ PS C:\dev\komiti_library> ls
     <li><code>*</code> = you have local changes that are not yet committed,</li>
     <li>the circular arrows icon = Git sync/refresh zone; here VS Code shows or offers fetch/pull/push/sync, and if the icon is spinning, a Git operation is usually in progress.</li>
 </ul>
-<p>The indicator shows the Git context of the active repo in the current workspace — it is not some special "Copilot workspace" or separate agent context.</p>
-<p><strong>You, the agent, and every tool in that workspace share one working tree and one checked-out branch.</strong> There is one <code>.git/HEAD</code> file per clone — when anyone (you, agent A, agent B) runs <code>git checkout other-branch</code>, HEAD changes on disk, files are physically overwritten, and everyone in that workspace immediately sees the new branch. There is no mechanism for two agents to be on different branches in the same clone.</p>
+<p>The indicator shows the Git context of the active repo in the current workspace â€” it is not some special "Copilot workspace" or separate agent context.</p>
+<p><strong>You, the agent, and every tool in that workspace share one working tree and one checked-out branch.</strong> There is one <code>.git/HEAD</code> file per clone â€” when anyone (you, agent A, agent B) runs <code>git checkout other-branch</code>, HEAD changes on disk, files are physically overwritten, and everyone in that workspace immediately sees the new branch. There is no mechanism for two agents to be on different branches in the same clone.</p>
 <ul>
-    <li>If the indicator shows <code>2026-03-11-features</code>, you and the agent are both on <code>2026-03-11-features</code> right now. The agent <strong>can</strong> run <code>git checkout</code> and switch — the indicator updates accordingly.</li>
-    <li>If the indicator does not match what you expect, run <code>git status</code> and <code>git branch --show-current</code> — you might be looking at a different repo in a multi-root workspace.</li>
+    <li>If the indicator shows <code>2026-03-11-features</code>, you and the agent are both on <code>2026-03-11-features</code> right now. The agent <strong>can</strong> run <code>git checkout</code> and switch â€” the indicator updates accordingly.</li>
+    <li>If the indicator does not match what you expect, run <code>git status</code> and <code>git branch --show-current</code> â€” you might be looking at a different repo in a multi-root workspace.</li>
     <li>In a multi-root workspace, VS Code shows Git context for the <strong>active file's repo</strong>, so pay attention to which file is active and in which root you are working.</li>
 </ul>
 
 <!-- ============================================================ -->
-<!-- 3) Save ≠ commit -->
+<!-- 3) Save â‰  commit -->
 <!-- ============================================================ -->
 <h2 id="s6">3) Save is not the same as commit</h2>
 <p>This is a key beginner distinction:</p>
@@ -502,16 +502,16 @@ PS C:\dev\komiti_library> ls
 <!-- ============================================================ -->
 <!-- 7) Basic local workflow -->
 <!-- ============================================================ -->
-<h2 id="s7">4) Basic local workflow – Hands-on</h2>
-<p>In this section you will create your own GitHub repository, clone it to your machine and walk through the full KomITi <code>feature → staging → main</code> workflow with real commands. The repository you create here — <code>komiti_library</code> — is the same one you will use later in <a href="05_Odoo_from_0_to_hero.html">Odoo from 0 to Hero</a> to build the <code>library</code> Odoo module.</p>
+<h2 id="s7">4) Basic local workflow â€“ Hands-on</h2>
+<p>In this section you will create your own GitHub repository, clone it to your machine and walk through the full KomITi <code>feature â†’ staging â†’ main</code> workflow with real commands. The repository you create here â€” <code>komiti_library</code> â€” is the same one you will use later in <a href="05_Odoo_from_0_to_hero.html">Odoo from 0 to Hero</a> to build the <code>library</code> Odoo module.</p>
 <p>Before you can follow the steps below, you need Git installed and a working connection to GitHub. The next sections walk you through that setup.</p>
 
 <!-- Prerequisites -->
 <h3 id="s7-1">4.1) Install Git</h3>
 <ol>
     <li>Go to <a href="https://git-scm.com/downloads" target="_blank">https://git-scm.com/downloads</a> and download the installer for your operating system (Windows, macOS, or Linux).</li>
-    <li>Run the installer. On Windows, the default options are fine — just click <strong>Next</strong> through each screen.</li>
-    <li>After installation, open a terminal in VS Code (<strong>View → Terminal</strong>) and verify:</li>
+    <li>Run the installer. On Windows, the default options are fine â€” just click <strong>Next</strong> through each screen.</li>
+    <li>After installation, open a terminal in VS Code (<strong>View â†’ Terminal</strong>) and verify:</li>
 </ol>
 <pre><code>PS C:\Users\you> git --version
 git version 2.47.1.windows.2</code></pre>
@@ -519,7 +519,7 @@ git version 2.47.1.windows.2</code></pre>
 
 <div class="vscode-sc">
     <strong>VS Code Source Control:</strong> Once Git is installed, VS Code detects it automatically. The Source Control icon (the branch/fork icon in the left Activity Bar) becomes active. If Git were missing, VS Code would show a warning there instead.<br>
-    <strong>Git status indicator:</strong> No indicators are visible yet — you need to open a Git repository first. The status bar at the bottom of VS Code does not show any branch name or sync status at this point.
+    <strong>Git status indicator:</strong> No indicators are visible yet â€” you need to open a Git repository first. The status bar at the bottom of VS Code does not show any branch name or sync status at this point.
 </div>
 
 <ol start="4">
@@ -533,7 +533,7 @@ PS C:\Users\you> cd C:\dev</code></pre>
 </div>
 
 <h3 id="s7-2">4.2) Configure Git (first-time setup)</h3>
-<p>Git needs to know who you are so it can label every commit with your name and e-mail. Run these two commands once — they are saved globally and apply to every repository on your machine:</p>
+<p>Git needs to know who you are so it can label every commit with your name and e-mail. Run these two commands once â€” they are saved globally and apply to every repository on your machine:</p>
 <pre><code>PS C:\dev> git config --global user.name "Your Name"
 PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>To confirm the settings:</p>
@@ -542,19 +542,19 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 
 <div class="vscode-sc">
     <strong>VS Code Source Control:</strong> No visible change in the Source Control panel. The name and email you set here will appear in your future commits, but they do not affect the VS Code UI.<br>
-    <strong>Git status indicator:</strong> No change. These settings are stored globally in your Git config — VS Code does not display them anywhere in the UI.
+    <strong>Git status indicator:</strong> No change. These settings are stored globally in your Git config â€” VS Code does not display them anywhere in the UI.
 </div>
 
 <h3 id="s7-3">4.3) Create a GitHub account and a new repository</h3>
 <p>GitHub is the remote service where your repositories will be hosted.</p>
 <ol>
     <li>If you don't have an account yet, go to <a href="https://github.com/signup" target="_blank">https://github.com/signup</a> and follow the steps.</li>
-    <li>Once logged in, click the <strong>+</strong> button in the top-right corner → <strong>New repository</strong>.</li>
+    <li>Once logged in, click the <strong>+</strong> button in the top-right corner â†’ <strong>New repository</strong>.</li>
     <li>Fill in:
         <ul>
             <li><strong>Repository name:</strong> <code>komiti_library</code></li>
-            <li><strong>Description:</strong> <em>Odoo library module — KomITi Academy hands-on project</em></li>
-            <li><strong>Visibility:</strong> Public (or Private — your choice)</li>
+            <li><strong>Description:</strong> <em>Odoo library module â€” KomITi Academy hands-on project</em></li>
+            <li><strong>Visibility:</strong> Public (or Private â€” your choice)</li>
             <li><strong>Initialize this repository with:</strong> check <strong>Add a README file</strong></li>
         </ul>
     </li>
@@ -564,22 +564,22 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <h4>Seed <code>main</code> with a test file</h4>
 <p>While still on GitHub (web), add a small test file so you have something to see later when switching branches:</p>
 <ol>
-    <li>On the repo page, click <strong>Add file → Create new file</strong>.</li>
+    <li>On the repo page, click <strong>Add file â†’ Create new file</strong>.</li>
     <li>Name it <code>x.md</code> and type: <code>This file exists on every branch.</code></li>
     <li>Click <strong>Commit changes</strong> (commit directly to <code>main</code>).</li>
 </ol>
 <p>Your <code>main</code> branch now contains <code>README.md</code> and <code>x.md</code>.</p>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> Everything in this step happens in the browser on GitHub — nothing changes in VS Code yet.<br>
-    <strong>Git status indicator:</strong> No change — all actions are on the GitHub website. Local VS Code is unaware of the remote repository until you clone it.
+    <strong>VS Code Source Control:</strong> Everything in this step happens in the browser on GitHub â€” nothing changes in VS Code yet.<br>
+    <strong>Git status indicator:</strong> No change â€” all actions are on the GitHub website. Local VS Code is unaware of the remote repository until you clone it.
 </div>
 
 <h4>Create the <code>staging</code> branch and add <code>y.md</code></h4>
 <ol>
     <li>On the repo page, click the branch dropdown (it says <strong>main</strong>).</li>
-    <li>Type <code>staging</code> in the search box and click <strong>Create branch: staging from main</strong>. Notice that <code>x.md</code> is already there — it was inherited from <code>main</code>.</li>
-    <li>You are now viewing the <code>staging</code> branch. Click <strong>Add file → Create new file</strong>.</li>
+    <li>Type <code>staging</code> in the search box and click <strong>Create branch: staging from main</strong>. Notice that <code>x.md</code> is already there â€” it was inherited from <code>main</code>.</li>
+    <li>You are now viewing the <code>staging</code> branch. Click <strong>Add file â†’ Create new file</strong>.</li>
     <li>Name it <code>y.md</code> and type: <code>This file exists on staging and feature branches.</code></li>
     <li>Click <strong>Commit changes</strong> (commit directly to <code>staging</code>).</li>
 </ol>
@@ -604,8 +604,8 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>From this point on, every <code>git</code> command you run inside this folder talks to your <code>komiti_library</code> repository on GitHub because <code>origin</code> is already set to that URL.</p>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> Open the <code>komiti_library</code> folder in VS Code (<strong>File → Open Folder</strong>). The Source Control panel now recognises the repo and shows <strong>0 changes</strong>.<br>
-    <strong>Git status indicator:</strong> Look at the bottom-left corner of the status bar — it displays the current branch name: <code>main</code>. In the Explorer file tree, none of the files (<code>README.md</code>, <code>x.md</code>) have any coloured letter decorations — they are all clean and tracked.
+    <strong>VS Code Source Control:</strong> Open the <code>komiti_library</code> folder in VS Code (<strong>File â†’ Open Folder</strong>). The Source Control panel now recognises the repo and shows <strong>0 changes</strong>.<br>
+    <strong>Git status indicator:</strong> Look at the bottom-left corner of the status bar â€” it displays the current branch name: <code>main</code>. In the Explorer file tree, none of the files (<code>README.md</code>, <code>x.md</code>) have any coloured letter decorations â€” they are all clean and tracked.
 </div>
 
 <p>You are now ready for the step-by-step workflow below.</p>
@@ -623,8 +623,8 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
 <p>Here you are taking the latest main branch as a starting base. In the cabinet analogy: you opened the main binder (branch) and checked whether you have its latest sheets (files) from the remote cabinet (repo).</p>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> The panel stays clean — <strong>0 changes</strong>. If the pull brought new code, VS Code would automatically refresh the Explorer file tree with the updated files.<br>
-    <strong>Git status indicator:</strong> The status bar still shows <code>main</code>. No sync arrows appear — your local <code>main</code> is in sync with <code>origin/main</code>. No file decorations in the Explorer tree — everything is clean.
+    <strong>VS Code Source Control:</strong> The panel stays clean â€” <strong>0 changes</strong>. If the pull brought new code, VS Code would automatically refresh the Explorer file tree with the updated files.<br>
+    <strong>Git status indicator:</strong> The status bar still shows <code>main</code>. No sync arrows appear â€” your local <code>main</code> is in sync with <code>origin/main</code>. No file decorations in the Explorer tree â€” everything is clean.
 </div>
 
 <!-- Step 6 -->
@@ -647,13 +647,13 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
     <li><code>origin</code> is an argument and means: to which remote you are sending.</li>
     <li><code>2026-03-23-play_xyz</code> is an argument and means: which branch you are sending.</li>
 </ul>
-<p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). Bring it in now:</p>
+<p>But wait â€” your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). Bring it in now:</p>
 <pre><code>PS C:\dev\komiti_library> git merge origin/staging</code></pre>
-<p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
+<p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> â€” the same as <code>staging</code>.</p>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> The Source Control panel still shows <strong>0 changes</strong> because the merge was clean and already committed. You can also click on the branch name in the status bar to see and switch between branches — this is the VS Code equivalent of <code>git checkout</code>. After the <code>git merge origin/staging</code>, VS Code Explorer instantly shows <code>y.md</code> appearing in the file tree.<br>
-    <strong>Git status indicator:</strong> The status bar branch name switches from <code>main</code> to <code>2026-03-23-play_xyz</code>. If you ran <code>git push -u</code>, a sync icon with <strong>0↑ 0↓</strong> appears, meaning local and remote are in sync. No coloured file decorations — all files are cleanly committed.
+    <strong>VS Code Source Control:</strong> The Source Control panel still shows <strong>0 changes</strong> because the merge was clean and already committed. You can also click on the branch name in the status bar to see and switch between branches â€” this is the VS Code equivalent of <code>git checkout</code>. After the <code>git merge origin/staging</code>, VS Code Explorer instantly shows <code>y.md</code> appearing in the file tree.<br>
+    <strong>Git status indicator:</strong> The status bar branch name switches from <code>main</code> to <code>2026-03-23-play_xyz</code>. If you ran <code>git push -u</code>, a sync icon with <strong>0â†‘ 0â†“</strong> appears, meaning local and remote are in sync. No coloured file decorations â€” all files are cleanly committed.
 </div>
 
 <!-- Step 7 -->
@@ -665,14 +665,14 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
 <pre><code>PS C:\dev\komiti_library> git status --short
 PS C:\dev\komiti_library> git diff --stat</code></pre>
 <ul>
-    <li><code>git status --short</code>: shows a short, compact status of the working tree. You should see <code>?? z.md</code> — a new untracked file.</li>
+    <li><code>git status --short</code>: shows a short, compact status of the working tree. You should see <code>?? z.md</code> â€” a new untracked file.</li>
     <li><code>git diff --stat</code>: shows a statistical overview of changes per file.</li>
     <li><code>--short</code> and <code>--stat</code> are long options that request a compact display.</li>
 </ul>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> Open the Source Control panel in the sidebar (<strong>Ctrl+Shift+G</strong>). You will see <code>z.md</code> listed under <strong>Changes</strong> with a green <strong>U</strong> badge — <strong>U</strong> stands for <em>Untracked</em> (Git has never seen this file before). The Source Control icon in the Activity Bar also shows a badge with the number <strong>1</strong>, telling you there is one pending change.<br>
-    <strong>Git status indicator:</strong> In the Explorer file tree, <code>z.md</code> appears with a green <strong>U</strong> letter to the right of the file name. This is the same <strong>U</strong> (Untracked) you see in the Source Control panel — VS Code decorates files in the Explorer too, so you can spot changes at a glance without opening the SC panel.
+    <strong>VS Code Source Control:</strong> Open the Source Control panel in the sidebar (<strong>Ctrl+Shift+G</strong>). You will see <code>z.md</code> listed under <strong>Changes</strong> with a green <strong>U</strong> badge â€” <strong>U</strong> stands for <em>Untracked</em> (Git has never seen this file before). The Source Control icon in the Activity Bar also shows a badge with the number <strong>1</strong>, telling you there is one pending change.<br>
+    <strong>Git status indicator:</strong> In the Explorer file tree, <code>z.md</code> appears with a green <strong>U</strong> letter to the right of the file name. This is the same <strong>U</strong> (Untracked) you see in the Source Control panel â€” VS Code decorates files in the Explorer too, so you can spot changes at a glance without opening the SC panel.
 </div>
 
 <!-- Step 8 -->
@@ -695,11 +695,11 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
 </div>
 
 <p>This means you locally saved the new state of your feature branch.</p>
-<p>This is the part where most beginners first truly see the difference between <strong>save</strong>, <strong>add</strong> and <strong>commit</strong> — revisit <a href="#s6">section 3</a> if you need a refresher.</p>
+<p>This is the part where most beginners first truly see the difference between <strong>save</strong>, <strong>add</strong> and <strong>commit</strong> â€” revisit <a href="#s6">section 3</a> if you need a refresher.</p>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> After <code>git add z.md</code>, look at the Source Control panel: <code>z.md</code> moves from <strong>Changes</strong> to a new group called <strong>Staged Changes</strong>. The badge letter changes from <strong>U</strong> (Untracked) to <strong>A</strong> (Added). After <code>git commit</code>, the panel clears completely — <strong>0 pending changes</strong>. The badge on the Source Control icon disappears. You can also do all of this visually: click the <strong>+</strong> next to a file to stage it, type a commit message in the text box at the top, and click the <strong>✓ Commit</strong> button.<br>
-    <strong>Git status indicator:</strong> After <code>git add</code>, the Explorer decoration on <code>z.md</code> changes from green <strong>U</strong> to green <strong>A</strong> (Index Added) — the file is now staged. After <code>git commit</code>, all decorations disappear: the file is tracked and clean. The status bar sync indicator now shows <strong>↑1</strong> — one commit ahead of the remote, waiting to be pushed.
+    <strong>VS Code Source Control:</strong> After <code>git add z.md</code>, look at the Source Control panel: <code>z.md</code> moves from <strong>Changes</strong> to a new group called <strong>Staged Changes</strong>. The badge letter changes from <strong>U</strong> (Untracked) to <strong>A</strong> (Added). After <code>git commit</code>, the panel clears completely â€” <strong>0 pending changes</strong>. The badge on the Source Control icon disappears. You can also do all of this visually: click the <strong>+</strong> next to a file to stage it, type a commit message in the text box at the top, and click the <strong>âœ“ Commit</strong> button.<br>
+    <strong>Git status indicator:</strong> After <code>git add</code>, the Explorer decoration on <code>z.md</code> changes from green <strong>U</strong> to green <strong>A</strong> (Index Added) â€” the file is now staged. After <code>git commit</code>, all decorations disappear: the file is tracked and clean. The status bar sync indicator now shows <strong>â†‘1</strong> â€” one commit ahead of the remote, waiting to be pushed.
 </div>
 
 <!-- Step 9 -->
@@ -715,21 +715,21 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
 </ul>
 
 <div class="vscode-sc">
-    <strong>VS Code Source Control:</strong> The Source Control panel still shows <strong>0 changes</strong> (nothing has changed locally). You can also push by clicking the <strong>⋯</strong> menu in the Source Control panel and selecting <strong>Push</strong>.<br>
-    <strong>Git status indicator:</strong> Before the push, the status bar shows <strong>↑1</strong> next to the branch name — your local branch is 1 commit ahead of the remote. After <code>git push</code>, the <strong>↑1</strong> disappears and the sync indicator shows <strong>0↑ 0↓</strong>: your local branch and the remote branch are now fully in sync.
+    <strong>VS Code Source Control:</strong> The Source Control panel still shows <strong>0 changes</strong> (nothing has changed locally). You can also push by clicking the <strong>â‹¯</strong> menu in the Source Control panel and selecting <strong>Push</strong>.<br>
+    <strong>Git status indicator:</strong> Before the push, the status bar shows <strong>â†‘1</strong> next to the branch name â€” your local branch is 1 commit ahead of the remote. After <code>git push</code>, the <strong>â†‘1</strong> disappears and the sync indicator shows <strong>0â†‘ 0â†“</strong>: your local branch and the remote branch are now fully in sync.
 </div>
 
-<h3 id="s7-9a">4.9a) See it with your own eyes — branch switching demo</h3>
+<h3 id="s7-9a">4.9a) See it with your own eyes â€” branch switching demo</h3>
 <p>Now comes the most tangible moment: you will switch between branches and <strong>watch files appear and disappear</strong> in both Windows Explorer and VS Code Explorer. Open a Windows Explorer window to <code>C:\dev\komiti_library</code> and keep it visible side-by-side with your terminal.</p>
 <pre><code>PS C:\dev\komiti_library> git checkout main
 PS C:\dev\komiti_library> ls</code></pre>
-<p>You should see only <code>README.md</code> and <code>x.md</code>. Look at Windows Explorer — <code>y.md</code> and <code>z.md</code> are <strong>gone</strong>.</p>
+<p>You should see only <code>README.md</code> and <code>x.md</code>. Look at Windows Explorer â€” <code>y.md</code> and <code>z.md</code> are <strong>gone</strong>.</p>
 <pre><code>PS C:\dev\komiti_library> git checkout staging
 PS C:\dev\komiti_library> ls</code></pre>
 <p>Now you see <code>README.md</code>, <code>x.md</code> and <code>y.md</code>. In Windows Explorer, <code>y.md</code> appeared but <code>z.md</code> is still gone.</p>
 <pre><code>PS C:\dev\komiti_library> git checkout 2026-03-23-play_xyz
 PS C:\dev\komiti_library> ls</code></pre>
-<p>All three: <code>x.md</code>, <code>y.md</code> and <code>z.md</code> are back. This is exactly the behaviour explained in <a href="#s1-2">section 1.2</a> — Git physically overwrites, creates and deletes files on disk when you switch branches. You just proved it to yourself.</p>
+<p>All three: <code>x.md</code>, <code>y.md</code> and <code>z.md</code> are back. This is exactly the behaviour explained in <a href="#s1-2">section 1.2</a> â€” Git physically overwrites, creates and deletes files on disk when you switch branches. You just proved it to yourself.</p>
 
 <!-- Step 10 -->
 <h3 id="s7-10">4.10) Promotion to <code>staging</code></h3>
@@ -746,7 +746,7 @@ PS C:\dev\komiti_library> git push origin staging</code></pre>
 PS C:\dev\komiti_library> git pull origin main
 PS C:\dev\komiti_library> git merge staging
 PS C:\dev\komiti_library> git push origin main</code></pre>
-<p>Same pattern as 4.10. Note: in this workflow you merge <code>staging</code> into <code>main</code>, not the feature branch directly — the verified content comes from the intermediate branch. In the cabinet analogy: you open the main binder (branch) and copy into it the sheets (files) that have already passed verification.</p>
+<p>Same pattern as 4.10. Note: in this workflow you merge <code>staging</code> into <code>main</code>, not the feature branch directly â€” the verified content comes from the intermediate branch. In the cabinet analogy: you open the main binder (branch) and copy into it the sheets (files) that have already passed verification.</p>
 
 <!-- Step 12 -->
 <h3 id="s7-12">4.12) Return to your feature branch if you continue working</h3>
@@ -861,28 +861,28 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
 <!-- 99) Candidate task -->
 <!-- ============================================================ -->
 <h2 id="s99">99) Task on the komiti_academy project for the candidate</h2>
-<p>You already have the <code>komiti_library</code> repo with <code>main</code>, <code>staging</code> and a feature branch from section 4. Now repeat the same workflow independently — this time with three new files whose names hint at which branch introduced them: <code>m.md</code>, <code>s.md</code> and <code>f.md</code>.</p>
+<p>You already have the <code>komiti_library</code> repo with <code>main</code>, <code>staging</code> and a feature branch from section 4. Now repeat the same workflow independently â€” this time with three new files whose names hint at which branch introduced them: <code>m.md</code>, <code>s.md</code> and <code>f.md</code>.</p>
 <ol>
-    <li><strong>Seed <code>main</code> with <code>m.md</code></strong> — on GitHub (web), switch to the <code>main</code> branch, create <code>m.md</code> with one line <code>This file was seeded on main.</code> and commit directly to <code>main</code>.<br>
+    <li><strong>Seed <code>main</code> with <code>m.md</code></strong> â€” on GitHub (web), switch to the <code>main</code> branch, create <code>m.md</code> with one line <code>This file was seeded on main.</code> and commit directly to <code>main</code>.<br>
         <em>Reference: same as <a href="#s7-3">4.3</a> where you created <code>x.md</code>.</em></li>
-    <li><strong>Seed <code>staging</code> with <code>s.md</code></strong> — on GitHub (web), switch to <code>staging</code>, create <code>s.md</code> with one line <code>This file was seeded on staging.</code> and commit directly to <code>staging</code>.<br>
+    <li><strong>Seed <code>staging</code> with <code>s.md</code></strong> â€” on GitHub (web), switch to <code>staging</code>, create <code>s.md</code> with one line <code>This file was seeded on staging.</code> and commit directly to <code>staging</code>.<br>
         <em>Reference: same as <a href="#s7-3">4.3</a> where you created <code>y.md</code> on <code>staging</code>.</em></li>
-    <li><strong>Get the latest <code>main</code></strong> — locally, <code>git checkout main</code> and <code>git pull origin main</code>. Confirm <code>m.md</code> is now on disk.<br>
+    <li><strong>Get the latest <code>main</code></strong> â€” locally, <code>git checkout main</code> and <code>git pull origin main</code>. Confirm <code>m.md</code> is now on disk.<br>
         <em>Reference: <a href="#s7-5">4.5</a>.</em></li>
-    <li><strong>Create a new feature branch</strong> — pick a name that follows the <code>ENGINEERING_CODEX.md</code> convention (e.g. <code>2026-03-24-play_msf</code>). Push it with <code>-u</code>, then merge <code>origin/staging</code> so you also get <code>s.md</code>.<br>
+    <li><strong>Create a new feature branch</strong> â€” pick a name that follows the <code>ENGINEERING_CODEX.md</code> convention (e.g. <code>2026-03-24-play_msf</code>). Push it with <code>-u</code>, then merge <code>origin/staging</code> so you also get <code>s.md</code>.<br>
         <em>Reference: <a href="#s7-6">4.6</a>.</em></li>
-    <li><strong>Create <code>f.md</code> on the feature branch</strong> — add one line <code>This file exists only on the feature branch.</code>, then stage, commit and push.<br>
+    <li><strong>Create <code>f.md</code> on the feature branch</strong> â€” add one line <code>This file exists only on the feature branch.</code>, then stage, commit and push.<br>
         <em>Reference: <a href="#s7-7">4.7</a>, <a href="#s7-8">4.8</a> and <a href="#s7-9">4.9</a>.</em></li>
-    <li><strong>Branch switching demo</strong> — switch between <code>main</code>, <code>staging</code> and your feature branch, running <code>ls</code> after each checkout. Verify that <code>m.md</code> appears on all three, <code>s.md</code> appears on <code>staging</code> and the feature branch only, and <code>f.md</code> appears only on the feature branch.<br>
+    <li><strong>Branch switching demo</strong> â€” switch between <code>main</code>, <code>staging</code> and your feature branch, running <code>ls</code> after each checkout. Verify that <code>m.md</code> appears on all three, <code>s.md</code> appears on <code>staging</code> and the feature branch only, and <code>f.md</code> appears only on the feature branch.<br>
         <em>Reference: <a href="#s7-9a">4.9a</a>.</em></li>
-    <li><strong>Promote</strong> — merge your feature branch into <code>staging</code>, then <code>staging</code> into <code>main</code>, pushing after each merge.<br>
+    <li><strong>Promote</strong> â€” merge your feature branch into <code>staging</code>, then <code>staging</code> into <code>main</code>, pushing after each merge.<br>
         <em>Reference: <a href="#s7-10">4.10</a> and <a href="#s7-11">4.11</a>.</em></li>
-    <li><strong>Return to your feature branch</strong> — confirm you are back on it and ready for the next piece of work.<br>
+    <li><strong>Return to your feature branch</strong> â€” confirm you are back on it and ready for the next piece of work.<br>
         <em>Reference: <a href="#s7-12">4.12</a>.</em></li>
 </ol>
-<p>When you are done, every branch should contain <code>m.md</code>, <code>s.md</code> and <code>f.md</code>. If it does — you have proven you can run the full KomITi Git workflow on your own.</p>
+<p>When you are done, every branch should contain <code>m.md</code>, <code>s.md</code> and <code>f.md</code>. If it does â€” you have proven you can run the full KomITi Git workflow on your own.</p>
 
-<footer>© KomITi · komiti.eu</footer>
+<footer>Â© KomITi Â· komiti.eu</footer>
 
 </div><!-- /page-wrapper -->
 </body>
