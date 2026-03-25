@@ -362,7 +362,7 @@ PS C:\dev\komiti_library> ls
     <li><code>index</code> = the staging area; this is where Git remembers what you staged for the next commit.</li>
 </ul>
 
-<p>When you run <code>git init</code>, Git creates that folder empty; when you run <code>git clone</code>, Git creates it <strong>and downloads every object from the remote</strong>. Either way, it stores literally everything in it: every commit, every version of every file, every branch.</p>
+<p>When you run <code>git clone</code>, Git creates this folder and downloads every object from the remote into it — every commit, every version of every file, every branch. (If you start a brand-new repo with <code>git init</code>, the folder is created empty.)</p>
 
 <p>Practical consequence: when you run <code>git checkout main</code>, Git looks at <code>refs/heads/main</code>, finds the hash of the last commit, extracts the compressed versions of files from <code>objects/</code> and overwrites them in your working folder. That is why <code>checkout</code> does not download anything from GitHub — everything is already there, on your disk, in the <code>.git/</code> folder.</p>
 
