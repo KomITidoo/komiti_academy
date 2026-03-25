@@ -346,7 +346,7 @@ PS C:\dev\komiti_library> ls
 <p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost — they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
 
 <h3 id="s1-3">1.3) Let's deep dive into .git/</h3>
-<p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text — it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. When you run <code>git init</code> or <code>git clone</code>, Git creates that folder and stores literally everything in it: every commit, every version of every file, every branch. The structure looks roughly like this:</p>
+<p>What is the <code>.git/</code> database actually? It is not an SQL database nor plain text — it is a folder-based object store, i.e. a structure of folders and compressed files that Git maintains in the hidden <code>.git/</code> folder inside your repo. When you run <code>git init</code>, Git creates that folder empty; when you run <code>git clone</code>, Git creates it <strong>and downloads every object from the remote</strong>. Either way, it stores literally everything in it: every commit, every version of every file, every branch. The structure looks roughly like this:</p>
 <div class="code-block"><pre>
 .git/
 ├── objects/      ← all snapshots (commits, files, trees) — compressed
