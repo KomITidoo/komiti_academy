@@ -447,21 +447,12 @@ PS C:\dev\komiti_library> ls
     <li>the circular arrows icon = Git sync/refresh zone; here VS Code shows or offers fetch/pull/push/sync, and if the icon is spinning, a Git operation is usually in progress.</li>
 </ul>
 <p>The indicator shows the Git context of the active repo in the current workspace — it is not some special "Copilot workspace" or separate agent context.</p>
-<p>You, the agent, and every tool in that workspace all share <strong>one working tree and one checked-out branch</strong> at any given moment. That means:</p>
+<p><strong>You, the agent, and every tool in that workspace share one working tree and one checked-out branch.</strong> There is one <code>.git/HEAD</code> file per clone — when anyone (you, agent A, agent B) runs <code>git checkout other-branch</code>, HEAD changes on disk, files are physically overwritten, and everyone in that workspace immediately sees the new branch. There is no mechanism for two agents to be on different branches in the same clone.</p>
 <ul>
-    <li>If the indicator shows <code>2026-03-11-features</code>, then you and the agent are both working on <code>2026-03-11-features</code> <em>right now</em>. However, the agent <strong>can</strong> run <code>git checkout</code> and switch the branch — the indicator will update accordingly. But as we said: agents cannot work on different branches in the same clone. Here is why:
-        <ul>
-            <li>There is <strong>one</strong> working tree and <strong>one</strong> <code>.git/HEAD</code> file per clone. When anyone (you, agent A, agent B) runs <code>git checkout other-branch</code>:</li>
-            <li><code>HEAD</code> physically changes on disk,</li>
-            <li>files in the working tree are physically overwritten,</li>
-            <li>everyone in that workspace (you + all agents) immediately sees the new files because they share the same file system.</li>
-            <li>Agent B does not receive a "notification" — but the next time it reads a file or runs a <code>git</code> command, it will see the new branch. There is no mechanism for two agents to be on different branches in the same clone — it is physically impossible.</li>
-        </ul>
-    </li>
-    <li>Multiple agents in the same workspace share the same checked-out branch and working tree; if one switches, everyone sees the change.</li>
-    <li>If the indicator does not match what you expect, run <code>git status</code> and <code>git branch --show-current</code> — you might be looking at a different repo in a multi-root workspace or a different clone.</li>
+    <li>If the indicator shows <code>2026-03-11-features</code>, you and the agent are both on <code>2026-03-11-features</code> right now. The agent <strong>can</strong> run <code>git checkout</code> and switch — the indicator updates accordingly.</li>
+    <li>If the indicator does not match what you expect, run <code>git status</code> and <code>git branch --show-current</code> — you might be looking at a different repo in a multi-root workspace.</li>
+    <li>In a multi-root workspace, VS Code shows Git context for the <strong>active file's repo</strong>, so pay attention to which file is active and in which root you are working.</li>
 </ul>
-<p>If you have multiple root folders in the same workspace, VS Code usually still shows the relevant Git context for the active file or active repo, so you must pay attention to which file is active and in which root you are actually working.</p>
 <p>In the cabinet analogy:</p>
 <ul>
     <li><code>odoo4komiti</code> = the cabinet (repo),</li>
