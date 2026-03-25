@@ -194,6 +194,7 @@ details summary {
                 <li><a href="#s1-4">clone vs fork</a></li>
                 <li><a href="#s1-5">DevOps vs CI/CD</a></li>
                 <li><a href="#s1-6">Git commands that you must know</a></li>
+                <li><a href="#s1-7">.gitignore — telling Git what to ignore</a></li>
             </ol>
         </li>
         <li><a href="#s2">VS Code basics you need to know</a>
@@ -400,6 +401,38 @@ PS C:\dev\komiti_library> ls
     <tr><td><code>git stash pop</code></td><td>Restores the most recently stashed changes back into your working tree.</td></tr>
 </tbody>
 </table>
+
+<h3 id="s1-7">1.7) .gitignore — telling Git what to ignore</h3>
+<p><code>.gitignore</code> is a plain text file in the root of your repository that tells Git which files and folders to completely ignore — never track them, never show them in <code>git status</code>, and never allow them to be committed.</p>
+
+<p><strong>Why do you need it?</strong> Not everything belongs in a repository. Typical things you want to keep out:</p>
+<ul>
+    <li><strong>Build output</strong> — <code>__pycache__/</code>, <code>*.pyc</code>, <code>node_modules/</code></li>
+    <li><strong>IDE / editor config</strong> — <code>.vscode/</code>, <code>.idea/</code></li>
+    <li><strong>OS junk</strong> — <code>Thumbs.db</code>, <code>.DS_Store</code></li>
+    <li><strong>Credentials and secrets</strong> — <code>.env</code>, <code>*.key</code>, <code>*.pem</code></li>
+    <li><strong>Large binary files and dumps</strong> — <code>*.dump</code>, <code>*.pgdump</code></li>
+</ul>
+
+<p><strong>How it works — one pattern per line:</strong></p>
+<table>
+<thead>
+    <tr><th>Pattern</th><th>What it ignores</th></tr>
+</thead>
+<tbody>
+    <tr><td><code>*.pyc</code></td><td>Every file ending in <code>.pyc</code>, in any folder.</td></tr>
+    <tr><td><code>__pycache__/</code></td><td>The entire <code>__pycache__/</code> folder and everything inside it.</td></tr>
+    <tr><td><code>/build/</code></td><td>The <code>build/</code> folder only in the repository root (leading <code>/</code> = root-relative).</td></tr>
+    <tr><td><code>!important.log</code></td><td>Negation — do <strong>not</strong> ignore this file, even if another rule covers <code>*.log</code>.</td></tr>
+    <tr><td><code># comment</code></td><td>Lines starting with <code>#</code> are comments and have no effect.</td></tr>
+</tbody>
+</table>
+
+<p><strong>Two important notes:</strong></p>
+<ul>
+    <li>The <code>.gitignore</code> file <strong>itself is tracked</strong> — it gets committed and shared with the team, so everyone has the same ignore rules.</li>
+    <li><code>.gitignore</code> only affects <strong>untracked</strong> files. If a file has already been committed, adding it to <code>.gitignore</code> will not remove it — you must first run <code>git rm --cached &lt;file&gt;</code> to stop tracking it, then commit that change.</li>
+</ul>
 
 <!-- ============================================================ -->
 <!-- 2) VS Code basics -->
