@@ -336,9 +336,12 @@ PS C:\dev\komiti_library> ls
 <p>You never see files from all three branches at once. When you run <code>git checkout staging</code>, Git:</p>
 <ol>
     <li>reads the state of branch <code>staging</code> from the <code>.git/objects/</code> database,</li>
-    <li><strong>physically overwrites</strong> files on disk to match that state,</li>
-    <li>files that <code>staging</code> does not have — <strong>physically deletes</strong> from disk,</li>
-    <li>files that <code>staging</code> has but the previous branch did not — <strong>physically creates</strong> on disk.</li>
+    <li><strong>physically overwrites</strong> files on disk to match that state:
+        <ol style="list-style-type: none; padding-left: 1.2em;">
+            <li>2.1. files that <code>staging</code> does not have — <strong>physically deletes</strong> from disk,</li>
+            <li>2.2. files that <code>staging</code> has but the previous branch did not — <strong>physically creates</strong> on disk.</li>
+        </ol>
+    </li>
 </ol>
 <p>When you switch back to <code>main</code>, Git deletes <code>y.md</code> because <code>main</code> only has <code>x.md</code>. The original files are not lost — they are stored compressed in <code>.git/objects/</code>. You can verify this outside VS Code: open Windows File Explorer, switch branches in the terminal, and you will see files physically appear and disappear.</p>
 
