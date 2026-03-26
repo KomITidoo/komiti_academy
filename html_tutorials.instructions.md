@@ -4,53 +4,49 @@ applyTo: "en/html/**/*.html"
 
 # HTML Tutorial Rules
 
-## Document Shape
-- Deliver a complete standalone HTML document with `<!DOCTYPE html>`, `html`, `head`, and `body`.
-- Inline CSS must be sufficient for correct rendering inside Odoo Tutorials runtime.
-- Use a single `.page-wrapper` container.
-- Keep a consistent structure with `h1`, `h2`, `h3`, `p`, `ul`, `ol`, `table`, `blockquote`, `pre`, and `code`.
+These rules apply whenever you create or edit a file matching `en/html/**/*.html`.
 
-## Layout And Spacing
-- HTML must be visually compact and readable without downstream Odoo CSS patching.
-- Do not use excessive wrapper spacing.
-- Use these spacing values unless there is an explicit reason to deviate:
-  - `ul, ol { margin: 8px 0 11.2px 28px; }`
-  - `li { margin-bottom: 0; }`
-  - `.toc ol { margin-top: 8px; }`
-  - `.toc li { margin-bottom: 3.2px; }`
-- If a spacing change is needed in one tutorial for layout reasons, verify whether the same pattern should be applied to the other tutorial HTML files.
+## Shape
+Every tutorial is a **complete, standalone HTML document**: `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`. No external CSS, no JavaScript dependency. Inline `<style>` must be enough for the page to render correctly inside the Odoo Tutorials runtime.
 
-## Code And Prompt Formatting
-- `pre` blocks must use a dark background and sufficient contrast.
-- `.ascii-diagram` blocks must visually match the code-block style.
-- Inline `code` must remain visually aligned, including at the start of a line.
-- Explicitly verify prompt and path lines such as:
-  - `C:\dev\KomITi\...`
-  - `git init`
-  - `git clone`
-  - `git checkout ...`
+Use a single `.page-wrapper` container. Structure content with `h1` → `h2` → `h3`, `p`, `ul`/`ol`, `table`, `blockquote`, `pre`, `code`.
 
-## Content Fidelity
-- Keep HTML content aligned with the Serbian markdown source.
-- If the source says `feature -> staging -> main`, do not output another branch model.
-- Do not omit explicitly important filenames or terms from the source.
+## Spacing baseline
+Keep the layout compact. These are the agreed values — do not deviate without a stated reason:
 
-## Runtime And Responsiveness
-- HTML must remain readable inside Odoo Tutorials layout.
-- Do not depend on iframe-specific behavior.
-- Do not require JavaScript for basic readability.
-- Horizontal overflow is acceptable only for `pre` and `.ascii-diagram`, not for normal body text.
+```css
+ul, ol   { margin: 8px 0 11.2px 28px; }
+li       { margin-bottom: 0; }          /* gap between bullets = line-height only */
+.toc ol  { margin-top: 8px; }
+.toc li  { margin-bottom: 3.2px; }       /* TOC gets a small extra gap for readability */
+```
 
-## Avoid
-- Do not introduce a new visual language per tutorial without a reason.
-- Do not create different spacing systems across tutorials.
-- Do not rely on downstream Odoo CSS patches for basic readability.
+If you change spacing in one tutorial, check whether the same change is needed in the others. Do not create per-tutorial spacing systems.
 
-## Required Self-Check
-- Verify source fidelity.
-- Verify branch and workflow correctness.
-- Verify `pre` and `.ascii-diagram` consistency.
-- Verify inline `code` alignment.
-- Verify wrapper spacing.
-- Verify readability without runtime CSS patching.
-- Verify stable filename and slug.
+## Code blocks
+- `pre` blocks: dark background, strong contrast.
+- `.ascii-diagram` blocks: must look like code blocks, not like body text on a light background.
+- Inline `code`: must stay visually aligned even at the start of a line.
+- After any `line-height` change, re-check that inline `code` does not visually "drop" or break the baseline.
+- Pay extra attention to lines that start with paths or commands: `C:\dev\KomITi\...`, `git clone`, `git checkout`.
+
+## Content fidelity
+- The Serbian markdown is the source of truth. The HTML must match it.
+- If the source says `feature → staging → main`, do not output a different branch model.
+- Do not drop filenames, terms, or references that the source treats as important.
+
+## Odoo runtime fit
+- The HTML will be rendered inline inside Odoo, not in an iframe.
+- It must be readable without any downstream CSS patch. If Odoo has to patch your HTML to make it look normal, the HTML was not delivered well enough.
+- No JavaScript for basic readability.
+- Horizontal overflow is fine for `pre` and `.ascii-diagram`. Not fine for body text.
+
+## Self-check before delivery
+Before you hand off any HTML, verify:
+1. Content matches the Serbian source.
+2. Branch/workflow terminology is correct.
+3. `pre` and `.ascii-diagram` are visually consistent.
+4. Inline `code` alignment is intact.
+5. `.page-wrapper` spacing is not excessive.
+6. Page is readable without runtime CSS patching.
+7. Filename and slug are unchanged (unless explicitly requested).

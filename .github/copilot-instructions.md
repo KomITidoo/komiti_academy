@@ -1,23 +1,24 @@
-# KomITi Academy Copilot Instructions
+# KomITi Academy — Global Rules
 
-## Communication
-- By default, respond to the user in Serbian Cyrillic unless the user explicitly asks for another language or script.
-- Use professional terminology and correct unclear phrasing constructively.
+## Language
+- Respond in Serbian Cyrillic by default.
+- Switch language or script only if the user explicitly asks.
+- Use professional terminology; if the user's phrasing is unclear, correct it constructively so they learn.
 
-## Source Of Truth
-- For tutorial work, the Serbian markdown document is the canonical source of truth.
-- English HTML in `en/html/` is a deploy artifact.
-- Do not invent a new content flow that is not aligned with the Serbian source document.
+## Source of truth
+- The Serbian markdown document is the canonical source for all tutorial content.
+- English HTML files in `en/html/` are deploy artifacts derived from that source.
+- Never invent content, reorder sections, or change the flow unless the Serbian source supports it.
 
-## File Stability
-- Delivered tutorial HTML files live in `en/html/`.
-- Existing tutorial slugs and filenames must stay stable unless explicitly requested otherwise.
+## Filenames and slugs
+- Tutorial HTML lives in `en/html/`. Do not move it elsewhere.
+- Never rename an existing file or change its slug without an explicit request and a stated reason.
 
-## Handoff For HTML Tutorial Changes
-- When delivering an updated HTML artifact, state:
-  - which Serbian markdown was the source
-  - which HTML file was updated
-  - which content changes were made
-  - whether styling changed
-  - whether `pre`, `.ascii-diagram`, and inline `code` alignment were checked
-  - whether any downstream runtime override is still needed
+## Handoff after every HTML change
+Every time you deliver or update an HTML tutorial, include a handoff block that states:
+1. Which Serbian markdown was the source.
+2. Which HTML file was created or changed.
+3. What content changed.
+4. Whether styling changed.
+5. Whether `pre`, `.ascii-diagram`, and inline `code` alignment were verified.
+6. Whether a downstream Odoo runtime override is still needed (ideally: no).
