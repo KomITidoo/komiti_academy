@@ -188,15 +188,16 @@ details summary {
         <li><a href="#s2">What are skills?</a></li>
         <li><a href="#s3">Instructions vs instructions vs skills — when to use which</a></li>
         <li><a href="#s4">Multi-root workspaces</a></li>
-        <li><a href="#s5">Instructions and skills in <code>odoo4komiti</code></a>
+        <li><a href="#s-video">Other ways to customise agents</a></li>
+        <li><a href="#s6">Instructions and skills in <code>odoo4komiti</code></a>
             <ol>
-                <li><a href="#s5-1">Visual overview — file tree</a></li>
-                <li><a href="#s5-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
-                <li><a href="#s5-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
-                <li><a href="#s5-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
-                <li><a href="#s5-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
-                <li><a href="#s5-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
-                <li><a href="#s5-7"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
+                <li><a href="#s6-1">Visual overview — file tree</a></li>
+                <li><a href="#s6-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
+                <li><a href="#s6-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
+                <li><a href="#s6-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
+                <li><a href="#s6-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
+                <li><a href="#s6-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+                <li><a href="#s6-7"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
             </ol>
         </li>
     </ol>
@@ -333,11 +334,25 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s5">5) Instructions and skills in <code>odoo4komiti</code></h2>
+<h2 id="s-video">5) Other ways to customise agents</h2>
+
+<p>In the chapters above we covered <strong>instructions</strong> (global and scoped) and <strong>skills</strong> — two of the most important customisation mechanisms. However, VS Code offers many other ways to shape how your AI agent behaves: custom agents, prompt files, MCP servers, tool restrictions, and more. The following video gives you a broad overview of all available options:</p>
+
+<div style="text-align:center; margin: 32px 0 8px 0;">
+    <a href="https://www.youtube.com/watch?v=flpKLkZla2Q" target="_blank" rel="noopener" style="display:inline-block; position:relative;">
+        <img src="https://img.youtube.com/vi/flpKLkZla2Q/hqdefault.jpg" alt="Watch video on YouTube" style="max-width:560px; width:100%; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:68px; height:48px; background:rgba(255,0,0,0.85); border-radius:12px; display:flex; align-items:center; justify-content:center;">
+            <span style="display:inline-block; width:0; height:0; border-style:solid; border-width:10px 0 10px 20px; border-color:transparent transparent transparent #fff; margin-left:4px;"></span>
+        </span>
+    </a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s6">6) Instructions and skills in <code>odoo4komiti</code></h2>
 
 <p>The <code>odoo4komiti</code> repository uses a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
 
-<h3 id="s5-1">5.1) Visual overview — file tree</h3>
+<h3 id="s6-1">6.1) Visual overview — file tree</h3>
 
 <div class="ascii-diagram">odoo4komiti/
 ├── .github/
@@ -375,7 +390,7 @@ applyTo: "custom-addons/**"
 └── (skills — currently referenced via the
      agent-customization skill at VS Code level)</div>
 
-<h3 id="s5-2">5.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
+<h3 id="s6-2">6.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
 
 <p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
 
@@ -398,7 +413,7 @@ applyTo: "custom-addons/**"
 </tbody>
 </table>
 
-<h3 id="s5-3">5.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
+<h3 id="s6-3">6.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
 
@@ -410,7 +425,7 @@ applyTo: "custom-addons/**"
     <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
 </ul>
 
-<h3 id="s5-4">5.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
+<h3 id="s6-4">6.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
 
 <p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
 
@@ -422,7 +437,7 @@ applyTo: "custom-addons/**"
     <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
 </ul>
 
-<h3 id="s5-5">5.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
+<h3 id="s6-5">6.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
 
@@ -435,7 +450,7 @@ applyTo: "custom-addons/**"
     <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
 </ul>
 
-<h3 id="s5-6">5.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
+<h3 id="s6-6">6.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
 
@@ -448,7 +463,7 @@ applyTo: "custom-addons/**"
     <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
 </ul>
 
-<h3 id="s5-7">5.7) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
+<h3 id="s6-7">6.7) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
 
 <p>Scope: <code>applyTo: "crewai_orchestration/**"</code> + <code>description</code> (also loads on-demand when agent detects a handoff task).</p>
 
