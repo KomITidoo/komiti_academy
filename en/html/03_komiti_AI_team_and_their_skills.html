@@ -196,6 +196,7 @@ details summary {
                 <li><a href="#s4-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
                 <li><a href="#s4-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
                 <li><a href="#s4-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+                <li><a href="#s4-7"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
             </ol>
         </li>
     </ol>
@@ -293,19 +294,33 @@ applyTo: "custom-addons/**"
 
 <table>
 <thead>
-    <tr><th></th><th>Instructions</th><th>Skills</th></tr>
+    <tr><th>Filename</th><th>What it does</th><th>When loaded</th><th>Example</th></tr>
 </thead>
 <tbody>
-    <tr><td><strong>Purpose</strong></td><td>Policy, constraints, conventions</td><td>Procedures, workflows, playbooks</td></tr>
-    <tr><td><strong>Loading</strong></td><td>Automatic (always or by glob match)</td><td>On demand (agent reads when task matches)</td></tr>
-    <tr><td><strong>Tone</strong></td><td>"Always do X / never do Y"</td><td>"Step 1… Step 2… Step 3…"</td></tr>
-    <tr><td><strong>Example</strong></td><td>"Respond in Serbian Cyrillic"</td><td>"How to deploy to PROD EC2"</td></tr>
-    <tr><td><strong>File pattern</strong></td><td><code>*.instructions.md</code></td><td><code>SKILL.md</code> (inside skill folder)</td></tr>
+    <tr>
+        <td><code>.github/copilot-instructions.md</code></td>
+        <td>Global policy</td>
+        <td><strong>Always</strong> — every conversation</td>
+        <td>"Git workflow: feature → PR → main. Deploy staging first, then prod."</td>
+    </tr>
+    <tr>
+        <td><code>*.instructions.md</code></td>
+        <td>Contextual rules</td>
+        <td><strong>On-demand</strong> — applyTo glob or by description match</td>
+        <td><code>applyTo: "infra/**"</code> — "Always <code>plan</code> before <code>apply</code>. Backup state before import."</td>
+    </tr>
+    <tr>
+        <td><code>SKILL.md</code></td>
+        <td>On-demand procedure</td>
+        <td><strong>Only when agent recognizes the task</strong> from description</td>
+        <td>"Use when deploying to production" — 1) smoke test, 2) merge, 3) pull, 4) verify</td>
+    </tr>
 </tbody>
 </table>
 
 <div class="tip">
-    <strong>Rule of thumb:</strong> If the agent should know a rule at all times — use instructions. If the agent only needs a procedure when you ask for a specific task — use a skill.
+    <strong>Rule of thumb:</strong> If the agent should know a rule at all times — use instructions. If the agent only needs a procedure when you ask for a specific task — use a skill.<br>
+    <strong>Tone difference:</strong> Instructions sound like <em>"Always do X / never do Y"</em>. Skills sound like <em>"Step 1… Step 2… Step 3…"</em>.
 </div>
 
 <hr>
@@ -344,6 +359,12 @@ applyTo: "custom-addons/**"
 │                                                 custom view type, OWL controller,
 │                                                 resize behavior, cross-module sync
 │
+├── crewai_orchestration/
+│   └── INTER_AGENT_HANDOFF.instructions.md    ← applyTo: "crewai_orchestration/**"
+│                                                 + description (on-demand)
+│                                                 inter-agent handoff format,
+│                                                 ACTION field rules, direction matrix
+│
 └── (skills — currently referenced via the
      agent-customization skill at VS Code level)</div>
 
@@ -359,12 +380,13 @@ applyTo: "custom-addons/**"
     <tr><td>Agent ownership</td><td>Only the <code>odoo4komiti</code> agent may push to <code>staging</code> and <code>main</code>; others work in feature branches only.</td></tr>
     <tr><td>Language</td><td>Respond in Serbian Cyrillic by default.</td></tr>
     <tr><td>Communication</td><td>Short, direct answers; status updates every 3–5 actions; final report = outcome + delta + next step.</td></tr>
+    <tr><td>Command formatting</td><td>Single-line with prompt and a comment indicating where commands run (Windows PowerShell vs EC2 bash).</td></tr>
     <tr><td>Git and promotion</td><td><code>main</code> is protected; feature branches from <code>origin/main</code>; standard local workflow sequence; <code>staging</code> is the integration branch.</td></tr>
     <tr><td>Code changes</td><td>Fix root cause; one commit = one logical unit; retry/rollback matrix (repo-only, runtime, deploy/infra).</td></tr>
     <tr><td>Testing and rollout</td><td>Functional test before merge; post-deploy smoke test; merge ≠ deploy.</td></tr>
     <tr><td>Definition of Done</td><td>6-point checklist (root cause, verification, runtime state, documentation, report, no artifacts).</td></tr>
     <tr><td>Documentation</td><td>Every significant change updates <code>SESSION_NOTES.md</code> + relevant instruction file.</td></tr>
-    <tr><td>komiti_academy submodule</td><td>Two local copies; submodule refresh procedure; runtime artifact sync path.</td></tr>
+    <tr><td>komiti_academy submodule</td><td>Two local copies; submodule refresh procedure; runtime artifact sync path; inter-agent handoff block format.</td></tr>
     <tr><td>Navigation index</td><td>Pointers to all scoped instruction files and operational runbooks.</td></tr>
 </tbody>
 </table>
@@ -417,6 +439,18 @@ applyTo: "custom-addons/**"
     <li><strong>Behavior rules</strong> — no hardcoded hiding of done/cancelled in JS; default search filter via action context.</li>
     <li><strong>UI smoke test</strong> — 4-step verification (switcher, search bar, navigation, bar interactions).</li>
     <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
+</ul>
+
+<h3 id="s4-7">4.7) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
+
+<p>Scope: <code>applyTo: "crewai_orchestration/**"</code> + <code>description</code> (also loads on-demand when agent detects a handoff task).</p>
+
+<p>Key sections:</p>
+<ul>
+    <li><strong>Handoff format</strong> — mandatory block format: FROM, TO, BRANCH, COMMIT, FILES, DELTA, ACTION.</li>
+    <li><strong>ACTION field rules</strong> — ACTION must be a complete, ordered checklist covering git ops, file sync, runtime verification, promotion/deploy, and downstream notification.</li>
+    <li><strong>Direction matrix</strong> — who hands off to whom and what the typical ACTION steps are (komiti_academy → odoo4komiti, odoo4komiti → komiti_academy, either → user).</li>
+    <li><strong>Rules</strong> — agents do not push to each other's repos; handoffs go through the user; receiving agent confirms each step.</li>
 </ul>
 
 <hr>
