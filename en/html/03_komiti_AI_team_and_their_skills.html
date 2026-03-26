@@ -274,6 +274,8 @@ applyTo: "custom-addons/**"
 
 <p>Example: a skill for creating VS Code customization files knows the exact YAML syntax, file naming conventions, and validation steps — but the agent only reads that procedure when you actually ask it to create or debug an instruction file.</p>
 
+<p>A real example from this project: <code>komiti_academy/.github/skills/pedagogy/SKILL.md</code> is a pedagogy skill that defines how to write and review tutorial content — voice and tone, section structure, observation blocks, analogies, and numbering conventions. When you ask the agent to "review section 3 of tutorial 04", it matches the skill description, loads the full body, and applies those rules. When you ask it to fix a Terraform config, the skill stays unloaded.</p>
+
 <p>Agent Skills are an <a href="https://agentskills.io/">open standard</a> — they work across GitHub Copilot in VS Code, Copilot CLI, and the Copilot coding agent. Claude Code also supports <code>SKILL.md</code> files (stored in <code>.claude/skills/</code>). Amazon Kiro does not have an on-demand procedure equivalent; in Kiro, everything goes into the steering documents.</p>
 
 <hr>

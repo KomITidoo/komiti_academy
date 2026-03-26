@@ -268,24 +268,26 @@ footer {
 <!-- ───────── 3 ───────── -->
 <h2 id="s3">3) Docker and container fundamentals you need to know</h2>
 
-<p>A container is not a virtual machine. It is an isolated runtime process with its own filesystem view, network namespace, and agreed-upon entrypoint.</p>
+<p><strong>Docker</strong> is a platform for building, shipping, and running applications inside containers. Solomon Hykes created it in 2013 at dotCloud to solve the "works on my machine" problem by packaging an application with everything it needs to run.</p>
 
-<p>The most important concepts are:</p>
+<p>A <strong>container</strong> is an isolated runtime process with its own filesystem view, network namespace, and agreed-upon entrypoint — not a virtual machine. Containers build on Linux kernel features (cgroups and namespaces) that date back to 2006&ndash;2008, but Docker made them practical and accessible.</p>
+
+<p>You need to know these concepts:</p>
 <ul>
-    <li><strong>image</strong>: the template from which a container is created,</li>
-    <li><strong>container</strong>: a running instance of that image,</li>
-    <li><strong>volume</strong>: persistent data you don&rsquo;t want to lose when the container is re-created,</li>
-    <li><strong>port mapping</strong>: how a service inside a container becomes accessible to the host,</li>
-    <li><strong>environment variables</strong>: runtime configuration,</li>
-    <li><code>docker compose</code>: a declarative description of multiple services working together.</li>
+    <li><strong>image</strong> &mdash; the template from which a container is created.</li>
+    <li><strong>container</strong> &mdash; a running instance of that image.</li>
+    <li><strong>volume</strong> &mdash; persistent data you don&rsquo;t want to lose when the container is re-created.</li>
+    <li><strong>port mapping</strong> &mdash; how a service inside a container becomes accessible to the host.</li>
+    <li><strong>environment variables</strong> &mdash; runtime configuration injected at startup.</li>
+    <li><code>docker compose</code> &mdash; a declarative YAML description of multiple services working together.</li>
 </ul>
 
-<p>In the KomITi context, it&rsquo;s important to adopt early:</p>
+<p>In the KomITi stack you will encounter these patterns early:</p>
 <ul>
-    <li>Odoo often doesn&rsquo;t run alone, but with Postgres, a reverse proxy, and other helper layers,</li>
-    <li><code>docker compose</code> is the agreement on how these services live together,</li>
-    <li>restarting a container is not the same as rebuilding an image,</li>
-    <li>ephemeral container filesystem is not the same as persistent data.</li>
+    <li>Odoo rarely runs alone &mdash; it needs Postgres, a reverse proxy, and other helper layers.</li>
+    <li><code>docker compose</code> is the contract that defines how these services live together.</li>
+    <li>Restarting a container is not the same as rebuilding an image.</li>
+    <li>Ephemeral container filesystem is not the same as persistent volume data.</li>
 </ul>
 
 
@@ -295,23 +297,22 @@ footer {
 
 <h3 id="s4-1">4.1) Terraform mental model</h3>
 
-<p>Terraform is an infrastructure-as-code tool.</p>
+<p><strong>Terraform</strong> is an infrastructure-as-code (IaC) tool &mdash; you describe the infrastructure you want in code, and the tool builds it for you. HashiCorp released it in 2014 to give teams a single declarative language for provisioning resources across any cloud provider.</p>
 
-<p>Its essence is not &ldquo;create me one EC2&rdquo;, but:</p>
-<ul>
-    <li>describe the desired state of infrastructure as code,</li>
-    <li>compare that state with what actually exists,</li>
-    <li>get a plan of changes,</li>
-    <li>apply those changes in a controlled manner.</li>
-</ul>
+<p>The core loop has four steps:</p>
+<ol>
+    <li>You <strong>describe</strong> the desired state of infrastructure in <code>.tf</code> files.</li>
+    <li>Terraform <strong>compares</strong> that state with what actually exists.</li>
+    <li>You get a <strong>plan</strong> of changes (<code>terraform plan</code>).</li>
+    <li>You <strong>apply</strong> those changes in a controlled manner (<code>terraform apply</code>).</li>
+</ol>
 
-<p>In the KomITi context, this means:</p>
+<p>In the KomITi stack you will see this in practice:</p>
 <ul>
-    <li>DEV and PROD AWS environments are described with Terraform code,</li>
-    <li>EC2, networking, security groups, and EIP are not manual clicks in the AWS console,</li>
-    <li><code>terraform plan</code> is proof of what will change,</li>
-    <li><code>terraform apply</code> is a controlled application,</li>
-    <li>the state file <code>terraform.tfstate</code> is Terraform&rsquo;s runtime truth about the resources it manages; on your local disk (not in git) you will find it at, for example, <code>infra/aws/odoo-dev-ec2-compose/terraform.tfstate</code>.</li>
+    <li>DEV and PROD AWS environments are described with Terraform code &mdash; not manual clicks in the AWS console.</li>
+    <li><code>terraform plan</code> is your proof of what will change before anything touches production.</li>
+    <li><code>terraform apply</code> is the controlled execution.</li>
+    <li><code>terraform.tfstate</code> is Terraform&rsquo;s runtime truth about the resources it manages. You will find it on your local disk (not in git), for example at <code>infra/aws/odoo-dev-ec2-compose/terraform.tfstate</code>.</li>
 </ul>
 
 <h3 id="s4-2">4.2) What is a provider</h3>
@@ -328,28 +329,15 @@ footer {
 
 <h3 id="s4-3">4.3) What are resource, data source, and output</h3>
 
-<p><code>resource</code> describes something that Terraform creates or modifies. Examples from our AWS context:</p>
+<p><code>resource</code> describes something that Terraform creates or modifies, such as an EC2 instance, security group, elastic IP, route table etc.</p>
+
+<p><code>data</code> reads something that already exists without creating or modifying it. For example, you might use a <code>data</code> block to look up the latest Ubuntu AMI ID so your EC2 resource can reference it. The key difference:</p>
 <ul>
-    <li>EC2 instance,</li>
-    <li>security group,</li>
-    <li>elastic IP,</li>
-    <li>route table,</li>
-    <li>key pair.</li>
+    <li><strong>resource</strong> &mdash; Terraform owns the lifecycle (create, update, destroy).</li>
+    <li><strong>data source</strong> &mdash; Terraform only reads. If you delete the <code>data</code> block, nothing gets destroyed in AWS &mdash; the thing it referenced still exists.</li>
 </ul>
 
-<p><code>data</code> reads something that already exists, without ownership over that resource. Practically:</p>
-<ul>
-    <li><strong>resource</strong> = Terraform manages the lifecycle,</li>
-    <li><strong>data source</strong> = Terraform only reads.</li>
-</ul>
-
-<p><code>output</code> exposes an important value outward. In the KomITi context, these are often:</p>
-<ul>
-    <li>public IP,</li>
-    <li>SSH command,</li>
-    <li>HTTP/HTTPS URL,</li>
-    <li>other runtime identifiers you need after <code>apply</code>.</li>
-</ul>
+<p><code>output</code> exposes a value to your terminal so you can use it after <code>terraform apply</code> finishes. Without outputs, Terraform creates the infrastructure but you have to dig through the AWS console to find what you need. In the KomITi stack, typical outputs are the server&rsquo;s public IP, the SSH command to connect, and the HTTP/HTTPS URL &mdash; everything you need to start working with the environment immediately.</p>
 
 <h3 id="s4-4">4.4) Directory structure: general and KomITi-specific</h3>
 
@@ -357,13 +345,10 @@ footer {
 
 <p>The KomITi-specific layout looks roughly like this:</p>
 
-<div class="ascii-diagram">KOMITI LAYOUT
-
-[infra/]
+<div class="ascii-diagram">[infra/]
     |
     +-- [aws/]
          |
-         +-- CODEX_TERRAFORM.md                          -&gt; KomITi policy/discipline document
          +-- [modules/]                                  -&gt; reusable Terraform modules
          |    |
          |    +-- [odoo_ec2_compose/]                    -&gt; shared module that root stacks reuse
