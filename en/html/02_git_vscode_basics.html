@@ -958,8 +958,19 @@ PS C:\dev\komiti_library> git branch -d 2026-03-23-play_xyz</code></pre>
         <em>Reference: <a href="#s7-13">4.13</a>.</em></li>
     <li><strong>Clean up</strong> — delete your feature branch locally (<code>git branch -d</code>) and on GitHub (<code>git push origin --delete</code>), then run <code>git fetch --prune</code> and confirm with <code>git branch -a</code> that the feature branch is gone from both local and remote-tracking lists.<br>
         <em>Reference: <a href="#s7-14">4.14</a>.</em></li>
+    <li><strong>Remove practice files</strong> — you no longer need the <code>.md</code> files created during the tutorial. On <code>main</code>, delete all of them, commit, and push:
+<pre><code>PS C:\dev\komiti_library> git checkout main
+PS C:\dev\komiti_library> git rm x.md y.md z.md m.md s.md f.md
+PS C:\dev\komiti_library> git commit -m "clean up: remove tutorial practice files"
+PS C:\dev\komiti_library> git push origin main</code></pre>
+        Then propagate the deletion to <code>staging</code>:
+<pre><code>PS C:\dev\komiti_library> git checkout staging
+PS C:\dev\komiti_library> git pull origin staging
+PS C:\dev\komiti_library> git merge main
+PS C:\dev\komiti_library> git push origin staging</code></pre>
+        After this, only <code>README.md</code> should remain on both branches. Verify with <code>ls</code>.</li>
 </ol>
-<p>When you are done, every branch should contain <code>m.md</code>, <code>s.md</code> and <code>f.md</code>, and the feature branch should no longer exist. If so — you have proven you can run the full KomITi Git workflow on your own, including proper cleanup.</p>
+<p>When you are done, both branches should contain only <code>README.md</code>, the feature branch should no longer exist, and the repo is clean and ready for real work.</p>
 
 <h3>Self-check</h3>
 <p>Before you consider this tutorial complete, make sure you can explain these key concepts and answer the questions below.</p>
