@@ -292,7 +292,7 @@ applyTo: "custom-addons/**"
 
 <p>Example: a skill for creating VS Code customization files knows the exact YAML syntax, file naming conventions, and validation steps — but the agent only reads that procedure when you actually ask it to create or debug an instruction file.</p>
 
-<p>Skills are a VS Code Copilot-specific concept — neither Amazon Kiro nor Anthropic's Claude Code have an on-demand procedure equivalent; in those tools, everything goes into the instruction/steering files.</p>
+<p>Skills are a VS Code Copilot and Claude Code concept — both use <code>SKILL.md</code> files (Claude Code stores them in <code>.claude/skills/</code>). Amazon Kiro does not have an on-demand procedure equivalent; in Kiro, everything goes into the steering documents.</p>
 
 <hr>
 
