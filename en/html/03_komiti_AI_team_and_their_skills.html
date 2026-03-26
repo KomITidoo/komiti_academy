@@ -183,6 +183,7 @@ details summary {
                 <li><a href="#s1-1">Global instructions — <code>copilot-instructions.md</code></a></li>
                 <li><a href="#s1-2">Scoped instructions — <code>*.instructions.md</code></a></li>
                 <li><a href="#s1-3">How VS Code decides which instructions to load</a></li>
+                <li><a href="#s1-4">Multi-root workspaces</a></li>
             </ol>
         </li>
         <li><a href="#s2">What are skills?</a></li>
@@ -252,6 +253,26 @@ applyTo: "custom-addons/**"
 
 <div class="note">
     <strong>Key point:</strong> The filename does not determine scope — only the <code>applyTo</code> frontmatter does. A file named <code>custom-addons/odoo.instructions.md</code> with <code>applyTo: "infra/**"</code> would activate for infrastructure files, not for custom-addons.
+</div>
+
+<h3 id="s1-4">1.4) Multi-root workspaces</h3>
+
+<p>VS Code supports <strong>multi-root workspaces</strong> — a single window that contains folders from multiple repositories at the same time. When you work in a multi-root workspace, Copilot loads <code>.github/copilot-instructions.md</code> from <strong>every</strong> repository folder in the workspace, not just the one you are editing.</p>
+
+<p>Practical example: if your workspace contains <code>odoo4komiti/</code> and <code>komiti_academy/</code>, the agent sees instructions from both repos simultaneously:</p>
+
+<pre><code># What the agent receives at the start of every conversation:
+
+┌─ odoo4komiti/.github/copilot-instructions.md   (engineering rules)
+│   → agent ownership, Git workflow, rollback matrix, Definition of Done…
+│
+└─ komiti_academy/.github/copilot-instructions.md (tutorial rules)
+    → source of truth, filename conventions, handoff template…</code></pre>
+
+<p>Scoped <code>*.instructions.md</code> files still activate by <code>applyTo</code> glob — but the glob is evaluated relative to the repo root, not the workspace root. This means an <code>applyTo: "custom-addons/**"</code> in <code>odoo4komiti/</code> will only match files inside <code>odoo4komiti/custom-addons/</code>, never files in <code>komiti_academy/</code>.</p>
+
+<div class="tip">
+    <strong>Why this matters:</strong> You can place engineering rules in one repo and tutorial/content rules in another. The agent sees both sets of rules in every conversation, and there is no need to duplicate instructions across repos.
 </div>
 
 <hr>
