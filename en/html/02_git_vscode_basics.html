@@ -101,6 +101,7 @@ table { width: 100%; border-collapse: collapse; margin: 16px 0 24px 0; font-size
 thead tr { background: #A65949; color: #fff; }
 th { padding: 5px 10px; text-align: left; font-weight: 600; }
 td { padding: 4px 10px; border-bottom: 1px solid #e8e8e8; vertical-align: top; }
+td:first-child code { white-space: nowrap; }
 tbody tr:nth-child(even) { background: #faf7fc; }
 tbody tr:hover { background: #f0eaf4; }
 .toc {
@@ -418,21 +419,21 @@ PS C:\dev\komiti_library> ls
     <tr><th>Command</th><th>What it does</th></tr>
 </thead>
 <tbody>
-    <tr><td><code>git clone &lt;url&gt;</code></td><td>Downloads a remote repository to your machine and creates a local copy.</td></tr>
-    <tr><td><code>git status</code></td><td>Shows which files are modified, staged or untracked in your working tree.</td></tr>
     <tr><td><code>git add &lt;file&gt;</code></td><td>Stages a file so it will be included in the next commit.</td></tr>
-    <tr><td><code>git commit -m "msg"</code></td><td>Saves all staged changes as a new snapshot in the local repo history.</td></tr>
-    <tr><td><code>git push</code></td><td>Uploads your local commits to the remote repository (GitHub).</td></tr>
-    <tr><td><code>git pull</code></td><td>Downloads new commits from the remote and merges them into your current branch.</td></tr>
+    <tr><td><code>git branch</code></td><td>Lists all local branches. The current branch is marked with <code>*</code> and shown in a different colour, so you always know which branch you are on.</td></tr>
     <tr><td><code>git checkout &lt;branch&gt;</code></td><td>Switches your working tree to another branch.</td></tr>
     <tr><td><code>git checkout -b &lt;name&gt;</code></td><td>Creates a new branch and switches to it in one step.</td></tr>
-    <tr><td><code>git branch</code></td><td>Lists all local branches; the current one is marked with <code>*</code>.</td></tr>
-    <tr><td><code>git log --oneline</code></td><td>Shows a compact list of recent commits (hash + message).</td></tr>
+    <tr><td><code>git clone &lt;url&gt;</code></td><td>Downloads a remote repository to your machine and creates a local copy.</td></tr>
+    <tr><td><code>git commit -m "msg"</code></td><td>Saves all staged changes as a new snapshot in the local repo history.</td></tr>
     <tr><td><code>git diff</code></td><td>Shows line-by-line changes between your working tree and the last commit.</td></tr>
+    <tr><td><code>git log --oneline</code></td><td>Shows a compact list of recent commits (hash + message).</td></tr>
     <tr><td><code>git merge &lt;branch&gt;</code></td><td>Merges another branch into the one you are currently on.</td></tr>
+    <tr><td><code>git pull</code></td><td>Downloads new commits from the remote and merges them into your current branch.</td></tr>
+    <tr><td><code>git push</code></td><td>Uploads your local commits to the remote repository (GitHub).</td></tr>
+    <tr><td><code>git rm --cached &lt;file&gt;</code></td><td>Stops tracking a file (removes it from the index) but keeps it on disk. Use this when a file was committed by mistake and you now want <code>.gitignore</code> to cover it.</td></tr>
     <tr><td><code>git stash</code></td><td>Temporarily shelves uncommitted changes so you can switch branches cleanly.</td></tr>
     <tr><td><code>git stash pop</code></td><td>Restores the most recently stashed changes back into your working tree.</td></tr>
-    <tr><td><code>git rm --cached &lt;file&gt;</code></td><td>Stops tracking a file (removes it from the index) but keeps it on disk. Use this when a file was committed by mistake and you now want <code>.gitignore</code> to cover it.</td></tr>
+    <tr><td><code>git status</code></td><td>Shows which files are modified, staged or untracked in your working tree.</td></tr>
 </tbody>
 </table>
 
@@ -620,6 +621,20 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 </ul>
 <p>At the top of the GitHub repository page you may also see a yellow notice that says <code>staging had recent pushes</code> together with a <code>Compare &amp; pull request</code> button. That is GitHub suggesting that you compare the branch you just updated against another branch and optionally open a pull request.</p>
 <img src="img/github_recent_push_banner.png" alt="GitHub banner showing that staging had recent pushes and offering Compare and pull request" style="max-width:100%; display:block; margin:0.5em 0 1em 0; border:1px solid #e5e7eb; border-radius:8px;">
+<p>Clicking <code>Compare &amp; pull request</code> would start this workflow:</p>
+<pre class="ascii-diagram">
+   [origin/staging] ----pull request----&gt; [origin/main]
+                     (GitHub suggests merging staging
+                      into main because staging was
+                      created from main)
+</pre>
+<p>If you clicked <code>Compare &amp; pull request</code>, this is what would happen step by step:</p>
+<ol>
+    <li><strong>Compare (diff).</strong> GitHub opens a page showing a side-by-side comparison of exactly which lines were added, changed, or removed on <code>staging</code> compared to <code>main</code> (GitHub picks <code>main</code> automatically because you created <code>staging</code> from it).</li>
+    <li><strong>Create a pull request (PR).</strong> On that same page there is a form to create a <strong>pull request</strong> — a formal proposal that says <em>"I want to merge these changes from <code>staging</code> into <code>main</code>."</em> A PR does <strong>not</strong> merge anything automatically; it opens a conversation where teammates can review the diff, leave comments, and request changes.</li>
+    <li><strong>Merge.</strong> Once reviewers approve, someone clicks <strong>Merge pull request</strong> and GitHub merges <code>staging</code> into <code>main</code> on the server — no local commands needed.</li>
+</ol>
+<p>For now, <strong>do not click the button</strong> — we will use pull requests later. Just know that the banner is normal and will disappear on its own after a while.</p>
 
 <h3 id="s7-4">4.4) Clone the repository</h3>
 <p><code>git clone</code> downloads the entire repository (all branches, all history) from GitHub to your local machine. You only need to do this once per repository.</p>
