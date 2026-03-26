@@ -31,9 +31,9 @@ If you change spacing in one tutorial, check whether the same change is needed i
 - Pay extra attention to lines that start with paths or commands: `C:\dev\KomITi\...`, `git clone`, `git checkout`.
 
 ## Content fidelity
-- The Serbian markdown is the source of truth. The HTML must match it.
-- If the source says `feature → staging → main`, do not output a different branch model.
-- Do not drop filenames, terms, or references that the source treats as important.
+- HTML tutorials in `en/html/` are the canonical source. There is no separate Serbian markdown to sync against.
+- If a tutorial says `feature → staging → main`, do not output a different branch model.
+- Do not drop filenames, terms, or references that the tutorial treats as important.
 
 ## Odoo runtime fit
 - The HTML will be rendered inline inside Odoo, not in an iframe.
@@ -41,12 +41,17 @@ If you change spacing in one tutorial, check whether the same change is needed i
 - No JavaScript for basic readability.
 - Horizontal overflow is fine for `pre` and `.ascii-diagram`. Not fine for body text.
 
+## Styling conventions
+- Use the existing CSS classes: `note` (yellow), `tip` (green), `ascii-diagram` (dark terminal block).
+- Terminal commands use `<pre><code>PS C:\dev\path> command</code></pre>`.
+- Inline code uses `<code>term</code>`.
+- YouTube videos: use clickable thumbnail with play button overlay (not iframe — iframes break on `file:///`).
+
 ## Self-check before delivery
 Before you hand off any HTML, verify:
-1. Content matches the Serbian source.
-2. Branch/workflow terminology is correct.
-3. `pre` and `.ascii-diagram` are visually consistent.
-4. Inline `code` alignment is intact.
-5. `.page-wrapper` spacing is not excessive.
-6. Page is readable without runtime CSS patching.
-7. Filename and slug are unchanged (unless explicitly requested).
+1. Branch/workflow terminology is correct.
+2. `pre` and `.ascii-diagram` are visually consistent.
+3. Inline `code` alignment is intact.
+4. `.page-wrapper` spacing is not excessive.
+5. Page is readable without runtime CSS patching.
+6. Filename and slug are unchanged (unless explicitly requested).

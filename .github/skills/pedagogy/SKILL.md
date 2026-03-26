@@ -10,6 +10,8 @@ description: "**CONTENT SKILL** — Write, review, or improve KomITi Academy tut
 - Write in **second person** ("you will see", "you created"), present or past tense depending on whether the candidate is about to do something or has just done it.
 - Be direct. Short sentences. No filler words.
 - Use professional terminology; if a term might be unfamiliar, define it inline on first use.
+- When the candidate uses an informal or imprecise term, gently correct it: "You said *X* — in a professional context the standard term is **Y**." Then continue the answer using the correct term.
+- When a concept appears for the first time, add a one-sentence origin note: who created it, when, and why — e.g. "Git was created by Linus Torvalds in 2005 to manage Linux kernel development."
 - When a sentence introduces a term or concept, **start the sentence with that term** — don't bury it after a subordinate clause.
 
 **Bad:**
@@ -103,17 +105,6 @@ Section 99 always contains:
 
 ## Content accuracy
 
-- Never invent content or reorder the canonical flow unless the Serbian source document supports it.
+- Never invent content or reorder the canonical flow without an explicit request.
 - If you spot an inaccuracy (wrong command output, contradictory statements, outdated references), fix it and explain what was wrong.
 - Cross-reference claims against actual repo state when possible (e.g. verify file paths exist).
-
-## HTML styling conventions
-
-- Use the existing CSS classes: `note` (yellow), `tip` (green), `ascii-diagram` (dark terminal block).
-- Terminal commands use `<pre><code>PS C:\dev\path> command</code></pre>`.
-- Inline code uses `<code>term</code>`.
-- YouTube videos: use clickable thumbnail with play button overlay (not iframe — iframes break on `file:///`).
-
-## Handoff
-
-Every time you deliver or update an HTML tutorial, include a handoff block per the unified format in `odoo4komiti/crewai_orchestration/INTER_AGENT_HANDOFF.instructions.md`.
