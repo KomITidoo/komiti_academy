@@ -187,15 +187,14 @@ details summary {
         </li>
         <li><a href="#s2">What are skills?</a></li>
         <li><a href="#s3">Instructions vs skills — when to use which</a></li>
-        <li><a href="#s4">Comparison with Amazon Kiro steering documents</a></li>
-        <li><a href="#s5">Instructions and skills in <code>odoo4komiti</code></a>
+        <li><a href="#s4">Instructions and skills in <code>odoo4komiti</code></a>
             <ol>
-                <li><a href="#s5-1">Visual overview — file tree</a></li>
-                <li><a href="#s5-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
-                <li><a href="#s5-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
-                <li><a href="#s5-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
-                <li><a href="#s5-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
-                <li><a href="#s5-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+                <li><a href="#s4-1">Visual overview — file tree</a></li>
+                <li><a href="#s4-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
+                <li><a href="#s4-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
+                <li><a href="#s4-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
+                <li><a href="#s4-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
+                <li><a href="#s4-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
             </ol>
         </li>
     </ol>
@@ -205,6 +204,8 @@ details summary {
 <h2 id="s1">1) What are instructions?</h2>
 
 <p>Instructions are markdown files that <strong>automatically load into the AI agent's context</strong> when it works in your repository. They replace the need to repeat the same rules in every chat message. Think of them as a permanent briefing document the agent reads before it starts working.</p>
+
+<p>Instruction <code>.md</code> files, introduced with the <code>.github/copilot-instructions.md</code> convention in 2024, are a <strong>GitHub Copilot feature</strong>. Other tools have equivalents: Amazon Kiro uses <code>.kiro/steering/</code> documents, Anthropic's Claude Code uses <code>CLAUDE.md</code>, Cursor uses <code>.cursor/rules/</code>, and Cline uses <code>.clinerules</code>.</p>
 
 <p>There are two kinds:</p>
 
@@ -270,6 +271,8 @@ applyTo: "custom-addons/**"
 
 <p>Example: a skill for creating VS Code customization files knows the exact YAML syntax, file naming conventions, and validation steps — but the agent only reads that procedure when you actually ask it to create or debug an instruction file.</p>
 
+<p>Skills are a VS Code Copilot-specific concept — neither Amazon Kiro nor Anthropic's Claude Code have an on-demand procedure equivalent; in those tools, everything goes into the instruction/steering files.</p>
+
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
@@ -295,37 +298,11 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s4">4) Comparison with Amazon Kiro steering documents</h2>
-
-<p>Amazon Kiro uses a <strong>steering directory</strong> (<code>.kiro/</code>) containing structured documents — <code>product.md</code>, <code>tech.md</code>, <code>steering.md</code> — that tell the agent about the project's purpose, tech stack, and rules.</p>
-
-<p>VS Code instructions are the <strong>direct counterpart</strong> of Kiro steering documents. The key differences:</p>
-
-<table>
-<thead>
-    <tr><th>Aspect</th><th>Kiro steering</th><th>VS Code instructions</th></tr>
-</thead>
-<tbody>
-    <tr><td><strong>Location</strong></td><td>All files inside <code>.kiro/</code> directory</td><td>Any <code>*.instructions.md</code> in the repo + <code>.github/copilot-instructions.md</code></td></tr>
-    <tr><td><strong>Discovery</strong></td><td>Directory-based (agent scans <code>.kiro/</code>)</td><td>Filename-based (VS Code finds <code>*.instructions.md</code> anywhere)</td></tr>
-    <tr><td><strong>Scoping</strong></td><td>Implicit (all docs apply globally)</td><td>Explicit via <code>applyTo</code> glob in YAML frontmatter</td></tr>
-    <tr><td><strong>Format</strong></td><td>Free-form markdown</td><td>Free-form markdown + optional YAML frontmatter</td></tr>
-    <tr><td><strong>Concept map</strong></td><td><code>product.md</code> ≈ project overview</td><td>Global <code>copilot-instructions.md</code> ≈ same purpose</td></tr>
-    <tr><td><strong></strong></td><td><code>tech.md</code> ≈ tech decisions</td><td>Scoped <code>*.instructions.md</code> ≈ same purpose</td></tr>
-    <tr><td><strong></strong></td><td><code>steering.md</code> ≈ workflow rules</td><td>Global <code>copilot-instructions.md</code> ≈ same purpose</td></tr>
-</tbody>
-</table>
-
-<p>In summary: <strong>instructions = Kiro steering</strong>, just with a different file discovery mechanism (filename pattern instead of a fixed directory).</p>
-
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s5">5) Instructions and skills in <code>odoo4komiti</code></h2>
+<h2 id="s4">4) Instructions and skills in <code>odoo4komiti</code></h2>
 
 <p>The <code>odoo4komiti</code> repository uses a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
 
-<h3 id="s5-1">5.1) Visual overview — file tree</h3>
+<h3 id="s4-1">4.1) Visual overview — file tree</h3>
 
 <div class="ascii-diagram">odoo4komiti/
 ├── .github/
@@ -357,7 +334,7 @@ applyTo: "custom-addons/**"
 └── (skills — currently referenced via the
      agent-customization skill at VS Code level)</div>
 
-<h3 id="s5-2">5.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
+<h3 id="s4-2">4.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
 
 <p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
 
@@ -379,7 +356,7 @@ applyTo: "custom-addons/**"
 </tbody>
 </table>
 
-<h3 id="s5-3">5.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
+<h3 id="s4-3">4.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
 
@@ -391,7 +368,7 @@ applyTo: "custom-addons/**"
     <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
 </ul>
 
-<h3 id="s5-4">5.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
+<h3 id="s4-4">4.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
 
 <p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
 
@@ -403,7 +380,7 @@ applyTo: "custom-addons/**"
     <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
 </ul>
 
-<h3 id="s5-5">5.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
+<h3 id="s4-5">4.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
 
@@ -416,7 +393,7 @@ applyTo: "custom-addons/**"
     <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
 </ul>
 
-<h3 id="s5-6">5.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
+<h3 id="s4-6">4.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
 
