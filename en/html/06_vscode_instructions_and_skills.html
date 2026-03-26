@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VS Code Instructions &amp; Skills — KomITi Academy</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.225;
+    color: #2c2c2c;
+    background: #f4f6f9;
+}
+.page-wrapper {
+    max-width: 980px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    padding: 30px 36px;
+}
+.book-meta {
+    text-align: center;
+    border-bottom: 3px solid #A65949;
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+}
+.book-meta .book-title {
+    font-size: 13px;
+    color: #A65949;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+h1 { font-size: 32px; color: #1a1a2e; margin-bottom: 6px; }
+.book-meta .subtitle { font-size: 16px; color: #666; font-style: italic; }
+h2 {
+    font-size: 22px;
+    color: #A65949;
+    border-left: 5px solid #A65949;
+    padding-left: 14px;
+    margin: 48px 0 16px 0;
+}
+h3 {
+    font-size: 17px;
+    color: #1a1a2e;
+    margin: 32px 0 10px 0;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 5px;
+}
+h4 { font-size: 15px; color: #444; margin: 20px 0 8px 0; }
+p  { margin-bottom: 14px; }
+ul, ol { margin: 8px 0 11.2px 28px; }
+li { margin-bottom: 0; }
+p, li, td, blockquote { line-height: 1.225; }
+code {
+    background: #f0eaf4;
+    color: #A65949;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    line-height: 1.225;
+    vertical-align: baseline;
+}
+pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 20px 24px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 14px 0 20px 0;
+    border-left: 4px solid #A65949;
+}
+pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+}
+blockquote {
+    background: #fdf6ff;
+    border-left: 4px solid #A65949;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    color: #555;
+    font-style: italic;
+}
+blockquote strong { color: #A65949; font-style: normal; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0 24px 0; font-size: 13px; line-height: 1.3; }
+thead tr { background: #A65949; color: #fff; }
+th { padding: 5px 10px; text-align: left; font-weight: 600; }
+td { padding: 4px 10px; border-bottom: 1px solid #e8e8e8; vertical-align: top; }
+tbody tr:nth-child(even) { background: #faf7fc; }
+tbody tr:hover { background: #f0eaf4; }
+.toc {
+    background: #faf7fc;
+    border: 1px solid #e0d0e8;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+}
+.toc h3 { border: none; color: #A65949; margin-top: 0; font-size: 16px; }
+.toc ol { margin-top: 8px; list-style-type: decimal; }
+.toc ol ol { list-style-type: decimal; }
+.toc li { margin-bottom: 3.2px; }
+.toc a { color: #A65949; text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.note {
+    background: #fffbe6; border-left: 4px solid #f0b429;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.note strong { color: #b07d00; }
+.tip {
+    background: #e8f5e9; border-left: 4px solid #43a047;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.tip strong { color: #2e7d32; }
+hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
+a { color: #A65949; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.ascii-diagram {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border: 1px solid rgba(205, 214, 244, 0.15);
+    border-left: 4px solid #A65949;
+    border-radius: 6px;
+    padding: 20px 24px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre;
+    overflow-x: auto;
+    margin: 14px 0 20px 0;
+}
+@media (max-width: 991.98px) {
+    .page-wrapper { padding: 24px 18px; }
+}
+footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e8e8e8;
+    color: #999;
+    font-size: 13px;
+}
+details { margin: 14px 0; }
+details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #A65949;
+    padding: 8px 0;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+<!-- Header -->
+<div class="book-meta">
+    <div class="book-title">KomITi Academy</div>
+    <h1>VS Code Instructions &amp; Skills</h1>
+    <div class="subtitle">How to teach your AI agent the rules, and how we use it in odoo4komiti</div>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc">
+    <h3>Contents</h3>
+    <ol>
+        <li><a href="#s1">What are instructions?</a>
+            <ol>
+                <li><a href="#s1-1">Global instructions — <code>copilot-instructions.md</code></a></li>
+                <li><a href="#s1-2">Scoped instructions — <code>*.instructions.md</code></a></li>
+                <li><a href="#s1-3">How VS Code decides which instructions to load</a></li>
+            </ol>
+        </li>
+        <li><a href="#s2">What are skills?</a></li>
+        <li><a href="#s3">Instructions vs skills — when to use which</a></li>
+        <li><a href="#s4">Comparison with Amazon Kiro steering documents</a></li>
+        <li><a href="#s5">Instructions and skills in <code>odoo4komiti</code></a>
+            <ol>
+                <li><a href="#s5-1">Visual overview — file tree</a></li>
+                <li><a href="#s5-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
+                <li><a href="#s5-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
+                <li><a href="#s5-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
+                <li><a href="#s5-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
+                <li><a href="#s5-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+            </ol>
+        </li>
+    </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s1">1) What are instructions?</h2>
+
+<p>Instructions are markdown files that <strong>automatically load into the AI agent's context</strong> when it works in your repository. They replace the need to repeat the same rules in every chat message. Think of them as a permanent briefing document the agent reads before it starts working.</p>
+
+<p>There are two kinds:</p>
+
+<h3 id="s1-1">1.1) Global instructions — <code>copilot-instructions.md</code></h3>
+
+<p>Place a file at <code>.github/copilot-instructions.md</code> in the root of your repository. VS Code loads this file <strong>automatically in every conversation</strong>, regardless of which files the agent is working on.</p>
+
+<p>Use it for rules that apply everywhere:</p>
+<ul>
+    <li>Language preference (e.g. respond in Serbian Cyrillic).</li>
+    <li>Git workflow (branch promotion, commit discipline).</li>
+    <li>Definition of Done.</li>
+    <li>Agent ownership (who may push to which branches).</li>
+    <li>Navigation index (pointers to scoped files).</li>
+</ul>
+
+<h3 id="s1-2">1.2) Scoped instructions — <code>*.instructions.md</code></h3>
+
+<p>Any file ending with <code>.instructions.md</code> can contain a YAML frontmatter block with an <code>applyTo</code> glob pattern. VS Code loads this file <strong>only when the agent opens or edits files matching that pattern</strong>.</p>
+
+<pre><code>---
+applyTo: "custom-addons/**"
+---
+
+# Odoo Development Discipline
+- Module upgrade mandatory for every changed module.
+- View inheritance must use stable inherit_id references.
+...</code></pre>
+
+<p>The <code>applyTo</code> pattern determines scope — not the filename or location. You can place the file anywhere in the repo.</p>
+
+<h3 id="s1-3">1.3) How VS Code decides which instructions to load</h3>
+
+<table>
+<thead>
+    <tr><th>File</th><th>When loaded</th></tr>
+</thead>
+<tbody>
+    <tr><td><code>.github/copilot-instructions.md</code></td><td>Always (every conversation)</td></tr>
+    <tr><td><code>*.instructions.md</code> with <code>applyTo</code></td><td>Only when opened/edited files match the glob</td></tr>
+    <tr><td><code>*.instructions.md</code> without <code>applyTo</code></td><td>Always (treated as global)</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+    <strong>Key point:</strong> The filename does not determine scope — only the <code>applyTo</code> frontmatter does. A file named <code>custom-addons/odoo.instructions.md</code> with <code>applyTo: "infra/**"</code> would activate for infrastructure files, not for custom-addons.
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s2">2) What are skills?</h2>
+
+<p>Skills are <strong>procedure files</strong> that the agent can invoke on demand. Unlike instructions (which are policy/constraints that load automatically), skills are step-by-step playbooks that the agent reads when it recognizes a matching task.</p>
+
+<p>A skill is defined in a <code>SKILL.md</code> file with a description of what it does. The agent sees the description in every conversation, but only reads the full skill content when the task matches.</p>
+
+<p>Think of it this way:</p>
+<ul>
+    <li><strong>Instructions</strong> = "always follow these rules" (loaded automatically).</li>
+    <li><strong>Skills</strong> = "here is how to do X step by step" (loaded on demand).</li>
+</ul>
+
+<p>Example: a skill for creating VS Code customization files knows the exact YAML syntax, file naming conventions, and validation steps — but the agent only reads that procedure when you actually ask it to create or debug an instruction file.</p>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s3">3) Instructions vs skills — when to use which</h2>
+
+<table>
+<thead>
+    <tr><th></th><th>Instructions</th><th>Skills</th></tr>
+</thead>
+<tbody>
+    <tr><td><strong>Purpose</strong></td><td>Policy, constraints, conventions</td><td>Procedures, workflows, playbooks</td></tr>
+    <tr><td><strong>Loading</strong></td><td>Automatic (always or by glob match)</td><td>On demand (agent reads when task matches)</td></tr>
+    <tr><td><strong>Tone</strong></td><td>"Always do X / never do Y"</td><td>"Step 1… Step 2… Step 3…"</td></tr>
+    <tr><td><strong>Example</strong></td><td>"Respond in Serbian Cyrillic"</td><td>"How to deploy to PROD EC2"</td></tr>
+    <tr><td><strong>File pattern</strong></td><td><code>*.instructions.md</code></td><td><code>SKILL.md</code> (inside skill folder)</td></tr>
+</tbody>
+</table>
+
+<div class="tip">
+    <strong>Rule of thumb:</strong> If the agent should know a rule at all times — use instructions. If the agent only needs a procedure when you ask for a specific task — use a skill.
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s4">4) Comparison with Amazon Kiro steering documents</h2>
+
+<p>Amazon Kiro uses a <strong>steering directory</strong> (<code>.kiro/</code>) containing structured documents — <code>product.md</code>, <code>tech.md</code>, <code>steering.md</code> — that tell the agent about the project's purpose, tech stack, and rules.</p>
+
+<p>VS Code instructions are the <strong>direct counterpart</strong> of Kiro steering documents. The key differences:</p>
+
+<table>
+<thead>
+    <tr><th>Aspect</th><th>Kiro steering</th><th>VS Code instructions</th></tr>
+</thead>
+<tbody>
+    <tr><td><strong>Location</strong></td><td>All files inside <code>.kiro/</code> directory</td><td>Any <code>*.instructions.md</code> in the repo + <code>.github/copilot-instructions.md</code></td></tr>
+    <tr><td><strong>Discovery</strong></td><td>Directory-based (agent scans <code>.kiro/</code>)</td><td>Filename-based (VS Code finds <code>*.instructions.md</code> anywhere)</td></tr>
+    <tr><td><strong>Scoping</strong></td><td>Implicit (all docs apply globally)</td><td>Explicit via <code>applyTo</code> glob in YAML frontmatter</td></tr>
+    <tr><td><strong>Format</strong></td><td>Free-form markdown</td><td>Free-form markdown + optional YAML frontmatter</td></tr>
+    <tr><td><strong>Concept map</strong></td><td><code>product.md</code> ≈ project overview</td><td>Global <code>copilot-instructions.md</code> ≈ same purpose</td></tr>
+    <tr><td><strong></strong></td><td><code>tech.md</code> ≈ tech decisions</td><td>Scoped <code>*.instructions.md</code> ≈ same purpose</td></tr>
+    <tr><td><strong></strong></td><td><code>steering.md</code> ≈ workflow rules</td><td>Global <code>copilot-instructions.md</code> ≈ same purpose</td></tr>
+</tbody>
+</table>
+
+<p>In summary: <strong>instructions = Kiro steering</strong>, just with a different file discovery mechanism (filename pattern instead of a fixed directory).</p>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s5">5) Instructions and skills in <code>odoo4komiti</code></h2>
+
+<p>The <code>odoo4komiti</code> repository uses a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
+
+<h3 id="s5-1">5.1) Visual overview — file tree</h3>
+
+<div class="ascii-diagram">odoo4komiti/
+├── .github/
+│   └── copilot-instructions.md               ← global (always loaded)
+│                                                 agent ownership, Git workflow,
+│                                                 rollback matrix, Definition of Done,
+│                                                 submodule topology, navigation index
+│
+├── odoo.instructions.md                       ← applyTo: "custom-addons/**"
+│                                                 Odoo engineering rules,
+│                                                 change type matrix,
+│                                                 post-change discipline
+│
+├── terraform.instructions.md                  ← applyTo: "infra/**"
+│                                                 plan-before-apply, state/secrets
+│                                                 policy, DEV/PROD workflows
+│
+├── custom-addons/
+│   ├── komiti_timesheet/
+│   │   └── komiti_timesheet.instructions.md   ← applyTo: "custom-addons/komiti_timesheet/**"
+│   │                                             From/To fields, lock date,
+│   │                                             file map, upgrade + smoke test
+│   │
+│   └── komiti_gantt/
+│       └── komiti_gantt.instructions.md       ← applyTo: "custom-addons/komiti_gantt/**"
+│                                                 custom view type, OWL controller,
+│                                                 resize behavior, cross-module sync
+│
+└── (skills — currently referenced via the
+     agent-customization skill at VS Code level)</div>
+
+<h3 id="s5-2">5.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
+
+<p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
+
+<table>
+<thead>
+    <tr><th>Section</th><th>What it defines</th></tr>
+</thead>
+<tbody>
+    <tr><td>Agent ownership</td><td>Only the <code>odoo4komiti</code> agent may push to <code>staging</code> and <code>main</code>; others work in feature branches only.</td></tr>
+    <tr><td>Language</td><td>Respond in Serbian Cyrillic by default.</td></tr>
+    <tr><td>Communication</td><td>Short, direct answers; status updates every 3–5 actions; final report = outcome + delta + next step.</td></tr>
+    <tr><td>Git and promotion</td><td><code>main</code> is protected; feature branches from <code>origin/main</code>; standard local workflow sequence; <code>staging</code> is the integration branch.</td></tr>
+    <tr><td>Code changes</td><td>Fix root cause; one commit = one logical unit; retry/rollback matrix (repo-only, runtime, deploy/infra).</td></tr>
+    <tr><td>Testing and rollout</td><td>Functional test before merge; post-deploy smoke test; merge ≠ deploy.</td></tr>
+    <tr><td>Definition of Done</td><td>6-point checklist (root cause, verification, runtime state, documentation, report, no artifacts).</td></tr>
+    <tr><td>Documentation</td><td>Every significant change updates <code>SESSION_NOTES.md</code> + relevant instruction file.</td></tr>
+    <tr><td>komiti_academy submodule</td><td>Two local copies; submodule refresh procedure; runtime artifact sync path.</td></tr>
+    <tr><td>Navigation index</td><td>Pointers to all scoped instruction files and operational runbooks.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s5-3">5.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
+
+<p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
+
+<p>Key sections:</p>
+<ul>
+    <li><strong>Change type matrix</strong> — what verification is required for each type of change (docs-only, XML, JS, Python, DB restore, multi-module).</li>
+    <li><strong>Localhost vs remote runtime diff</strong> — a 5-step diagnostic order when behavior differs between environments.</li>
+    <li><strong>Post-change discipline</strong> — the exact sequence after model/view changes: pull → upgrade → restart → hard refresh → confirm.</li>
+    <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
+</ul>
+
+<h3 id="s5-4">5.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
+
+<p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
+
+<p>Key sections:</p>
+<ul>
+    <li><strong>Policy</strong> — <code>terraform plan</code> before every <code>apply</code>; state and secrets never in git.</li>
+    <li><strong>DEV workflow</strong> — prerequisites (AWS CLI, Terraform install, SSO login), tfvars setup, init/validate/plan/apply sequence.</li>
+    <li><strong>PROD workflow</strong> — same structure but with the explicit rule: do not put DB/Odoo passwords in Terraform to avoid them ending up in <code>tfstate</code>.</li>
+    <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
+</ul>
+
+<h3 id="s5-5">5.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
+
+<p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
+
+<p>Key sections:</p>
+<ul>
+    <li><strong>Purpose</strong> — From/To time entry, auto-calculated Hours, Timesheet Lock Date.</li>
+    <li><strong>File map</strong> — table of every file in the module and what it does.</li>
+    <li><strong>Design decisions</strong> — defensive logic (checks if line is "timesheet-like"), lock-date consistency through UI and server-side write path.</li>
+    <li><strong>Upgrade command</strong> — exact Docker Compose command to run.</li>
+    <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
+</ul>
+
+<h3 id="s5-6">5.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
+
+<p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
+
+<p>Key sections:</p>
+<ul>
+    <li><strong>Purpose</strong> — native Gantt view in Dispatching → Orders, bar resize, no 3rd-party dependency.</li>
+    <li><strong>File map</strong> — table covering Python models, OWL JS controller, QWeb templates, SCSS styles.</li>
+    <li><strong>Behavior rules</strong> — no hardcoded hiding of done/cancelled in JS; default search filter via action context.</li>
+    <li><strong>UI smoke test</strong> — 4-step verification (switcher, search bar, navigation, bar interactions).</li>
+    <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
+</ul>
+
+<hr>
+
+<footer>&copy; KomITi &middot; komiti.eu</footer>
+</div>
+</body>
+</html>
