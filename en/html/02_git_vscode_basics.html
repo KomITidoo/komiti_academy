@@ -224,12 +224,10 @@ details summary {
                 <li><a href="#s7-11">Promotion to staging</a></li>
                 <li><a href="#s7-12">Promotion to main</a></li>
                 <li><a href="#s7-13">Return to your feature branch if you continue working</a></li>
+                <li><a href="#s7-14">Clean up: delete the branch and prune stale references</a></li>
             </ol>
         </li>
         <li><a href="#s8">Most common beginner mistakes</a></li>
-        <li><a href="#s9">Key concepts and Minimum commands you need to know</a></li>
-        <li><a href="#s10">How this looks in KomITi</a></li>
-        <li><a href="#s11">Self-check</a></li>
         <li><a href="#s12">What to read next</a></li>
         <li><a href="#s99">Task on the komiti_academy project for the candidate</a></li>
     </ol>
@@ -889,6 +887,31 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
     <li>what promotion between branches is.</li>
 </ul>
 
+<!-- Step 13 -->
+<h3 id="s7-14">4.14) Clean up: delete the branch and prune stale references</h3>
+<p>Once your feature branch has been promoted all the way to <code>main</code>, it has served its purpose. Keeping it around only clutters the branch list. Good practice is to delete it — both locally and on GitHub.</p>
+
+<h4>Delete the local branch</h4>
+<pre><code>PS C:\dev\komiti_library> git checkout main
+PS C:\dev\komiti_library> git branch -d 2026-03-23-play_xyz</code></pre>
+<p>You switched to <code>main</code> first because Git does not allow you to delete the branch you are currently on. Then <code>git branch -d</code> deletes the local branch — but only if it has already been fully merged. If the branch contains unmerged work, Git refuses and warns you.</p>
+<p>If you are absolutely sure you want to discard unmerged work, use the uppercase flag:</p>
+<pre><code>PS C:\dev\komiti_library> git branch -D 2026-03-23-play_xyz</code></pre>
+<p><code>-D</code> is a force-delete — it removes the local branch regardless of merge status. Use it with caution.</p>
+
+<h4>Delete the remote branch on GitHub</h4>
+<pre><code>PS C:\dev\komiti_library> git push origin --delete 2026-03-23-play_xyz</code></pre>
+<p>This tells GitHub to remove the branch from the remote repository. After this, the branch no longer appears on GitHub.</p>
+
+<h4>Prune stale remote-tracking references</h4>
+<pre><code>PS C:\dev\komiti_library> git fetch --prune</code></pre>
+<p>When someone else (or you, from another machine) deletes a remote branch, your local Git still remembers it as <code>origin/branch-name</code>. Over time these stale references accumulate. <code>git fetch --prune</code> contacts the remote, compares the list, and removes any local remote-tracking references that no longer exist on GitHub.</p>
+<p>You can verify everything is clean:</p>
+<pre><code>PS C:\dev\komiti_library> git branch -a</code></pre>
+<p>The <code>-a</code> flag shows all branches — both local and remote-tracking. After deleting and pruning, <code>2026-03-23-play_xyz</code> should no longer appear anywhere in this list.</p>
+
+<p>In the cabinet analogy: you finished with the working binder (feature branch), the sheets (files) have been copied to the verification binder (<code>staging</code>) and the main binder (<code>main</code>), so you throw away the empty working binder — both from your desk (local) and from the remote cabinet (GitHub). Pruning is checking the cabinet list and crossing off binders that no longer physically exist.</p>
+
 <!-- ============================================================ -->
 <!-- 8) Common mistakes -->
 <!-- ============================================================ -->
@@ -903,79 +926,9 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
 </ul>
 
 <!-- ============================================================ -->
-<!-- 9) Key concepts / cheat-sheet -->
+<!-- 6) What to read next -->
 <!-- ============================================================ -->
-<h2 id="s9">6) Key concepts and Minimum commands you need to know</h2>
-<ul>
-    <li><code>working tree</code>: local changes that are not yet committed,</li>
-    <li><code>staged changes</code>: changes prepared for the next commit,</li>
-    <li><code>commit</code>: a snapshot of one logical unit,</li>
-    <li><code>branch</code>: an isolated line of work,</li>
-    <li><code>fork</code>: your personal GitHub copy of someone else's repo, on which you can work without directly modifying the original,</li>
-    <li><code>checkout</code>: switching to another branch or creating a new branch,</li>
-    <li><code>merge</code>: transferring content from one branch to another branch,</li>
-    <li><code>origin</code>: default remote,</li>
-    <li><code>push</code>: sending local commits to the remote,</li>
-    <li><code>pull</code>: fetching remote changes.</li>
-</ul>
-
-<p>These are the same commands from the workflow above, just as a short cheat-sheet list:</p>
-
-<table>
-    <thead>
-        <tr><th>Command</th><th>What it does</th></tr>
-    </thead>
-    <tbody>
-        <tr><td><code>git checkout main</code></td><td>Switch to the existing local <code>main</code> branch.</td></tr>
-        <tr><td><code>git checkout staging</code></td><td>Switch to the existing local <code>staging</code> branch.</td></tr>
-        <tr><td><code>git checkout -b &lt;new-branch&gt;</code></td><td>Create a new branch and switch to it; <code>-b</code> = branch.</td></tr>
-        <tr><td><code>git status --short</code></td><td>Short status of the working tree; <code>--short</code> = compact display.</td></tr>
-        <tr><td><code>git diff --stat</code></td><td>Statistical overview of the diff; <code>--stat</code> = summary per file.</td></tr>
-        <tr><td><code>git diff -- path/to/file</code></td><td>Diff for a single file only; <code>--</code> separates options from the path.</td></tr>
-        <tr><td><code>git add path/to/file</code></td><td>Stage one specific file.</td></tr>
-        <tr><td><code>git commit -m "Short message"</code></td><td>Create a commit; <code>-m</code> = provide the message inline.</td></tr>
-        <tr><td><code>git merge &lt;source-branch&gt;</code></td><td>Bring the content of the source branch into the current branch.</td></tr>
-        <tr><td><code>git pull origin &lt;branch&gt;</code></td><td>Pull the remote state from <code>origin</code> for the given branch and merge locally.</td></tr>
-        <tr><td><code>git push origin &lt;branch&gt;</code></td><td>Send local commits to the remote <code>origin</code> for the given branch.</td></tr>
-    </tbody>
-</table>
-
-<!-- ============================================================ -->
-<!-- 10) KomITi discipline -->
-<!-- ============================================================ -->
-<h2 id="s10">7) How this looks in KomITi</h2>
-<p>In this repo the following discipline applies:</p>
-<ul>
-    <li>one commit = one logical unit,</li>
-    <li>do not commit unrelated changes,</li>
-    <li>first read the repository rules and workflow instructions,</li>
-    <li>do not treat <code>main</code> as a playground,</li>
-    <li><code>staging</code> is the integration branch, and <code>main</code> is the production branch,</li>
-    <li>local Git proof is not the same as Odoo runtime proof.</li>
-</ul>
-
-<!-- ============================================================ -->
-<!-- 11) Self-check -->
-<!-- ============================================================ -->
-<h2 id="s11">8) Self-check</h2>
-<p>When you finish this document, you must be able to answer:</p>
-<ul>
-    <li>what <code>M</code> means and what <code>U</code> means in VS Code,</li>
-    <li>what the difference is between save / commit / push,</li>
-    <li>what the difference is between <code>Git</code> and <code>GitHub</code>,</li>
-    <li>what the difference is between <code>fork</code> and <code>clone</code>,</li>
-    <li>what a branch is,</li>
-    <li>what <code>checkout</code> does and what <code>merge</code> does,</li>
-    <li>what the difference is between local <code>staging</code> and remote <code>origin/staging</code>,</li>
-    <li>why we check <code>git status --short</code> before a commit,</li>
-    <li>why we do not put unrelated files in the same commit,</li>
-    <li>what the difference is between <code>DevOps</code> and <code>CI/CD</code>.</li>
-</ul>
-
-<!-- ============================================================ -->
-<!-- 12) What to read next -->
-<!-- ============================================================ -->
-<h2 id="s12">9) What to read next</h2>
+<h2 id="s12">6) What to read next</h2>
 <ul>
     <li><a href="https://komiti.eu/tutorials/doc/04_infra_terraform_docker_aws">Infrastructure: Terraform, Docker &amp; AWS Foundations</a></li>
     <li><a href="https://komiti.eu/tutorials/doc/05_Odoo_from_0_to_hero">Odoo Development from Scratch</a></li>
@@ -1003,8 +956,35 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
         <em>Reference: <a href="#s7-11">4.11</a> and <a href="#s7-12">4.12</a>.</em></li>
     <li><strong>Return to your feature branch</strong> — confirm you are back on it and ready for the next piece of work.<br>
         <em>Reference: <a href="#s7-13">4.13</a>.</em></li>
+    <li><strong>Clean up</strong> — delete your feature branch locally (<code>git branch -d</code>) and on GitHub (<code>git push origin --delete</code>), then run <code>git fetch --prune</code> and confirm with <code>git branch -a</code> that the feature branch is gone from both local and remote-tracking lists.<br>
+        <em>Reference: <a href="#s7-14">4.14</a>.</em></li>
 </ol>
-<p>When you are done, every branch should contain <code>m.md</code>, <code>s.md</code> and <code>f.md</code>. If it does — you have proven you can run the full KomITi Git workflow on your own.</p>
+<p>When you are done, every branch should contain <code>m.md</code>, <code>s.md</code> and <code>f.md</code>, and the feature branch should no longer exist. If so — you have proven you can run the full KomITi Git workflow on your own, including proper cleanup.</p>
+
+<h3>Self-check</h3>
+<p>Before you consider this tutorial complete, make sure you can explain these key concepts and answer the questions below.</p>
+<p><strong>Key concepts — explain in your own words:</strong></p>
+<ul>
+    <li><code>working tree</code>, <code>staged changes</code>, <code>commit</code>,</li>
+    <li><code>branch</code>, <code>checkout</code>, <code>merge</code>,</li>
+    <li><code>fork</code>, <code>clone</code>, <code>origin</code>,</li>
+    <li><code>push</code>, <code>pull</code>.</li>
+</ul>
+<p><strong>You must be able to answer:</strong></p>
+<ul>
+    <li>what <code>M</code> means and what <code>U</code> means in VS Code,</li>
+    <li>what the difference is between save / commit / push,</li>
+    <li>what the difference is between <code>Git</code> and <code>GitHub</code>,</li>
+    <li>what the difference is between <code>fork</code> and <code>clone</code>,</li>
+    <li>what a branch is,</li>
+    <li>what <code>checkout</code> does and what <code>merge</code> does,</li>
+    <li>what the difference is between local <code>staging</code> and remote <code>origin/staging</code>,</li>
+    <li>why we check <code>git status --short</code> before a commit,</li>
+    <li>why we do not put unrelated files in the same commit,</li>
+    <li>what the difference is between <code>DevOps</code> and <code>CI/CD</code>,</li>
+    <li>how to delete a local branch and a remote branch,</li>
+    <li>what branch pruning is and when you need it.</li>
+</ul>
 
 <footer>© KomITi · komiti.eu</footer>
 
