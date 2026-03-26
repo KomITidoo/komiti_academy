@@ -204,7 +204,7 @@ details summary {
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <h2 id="s1">1) What are instructions?</h2>
 
-<p>Instructions are markdown files that <strong>automatically load into the AI agent's context</strong> when it works in your repository. They replace the need to repeat the same rules in every chat message. Think of them as a permanent briefing document the agent reads before it starts working.</p>
+<p>Think of instructions as a <strong>permanent briefing document</strong> the agent reads before it starts working. They replace the need to repeat the same rules in every prompt. Instructions are <code>.md</code> files — saved at a specific location and/or with a specific filename convention — that <strong>automatically load into the AI agent's context</strong> when it works in your workspace.</p>
 
 <p>Instruction <code>.md</code> files, introduced with the <code>.github/copilot-instructions.md</code> convention in 2024, are a <strong>GitHub Copilot feature</strong>. Other tools have equivalents: Amazon Kiro uses <code>.kiro/steering/</code> documents, Anthropic's Claude Code uses <code>CLAUDE.md</code>, Cursor uses <code>.cursor/rules/</code>, and Cline uses <code>.clinerules</code>.</p>
 
@@ -247,7 +247,7 @@ applyTo: "custom-addons/**"
 <tbody>
     <tr><td><code>.github/copilot-instructions.md</code></td><td>Always (every conversation)</td></tr>
     <tr><td><code>*.instructions.md</code> with <code>applyTo</code></td><td>Only when opened/edited files match the glob</td></tr>
-    <tr><td><code>*.instructions.md</code> without <code>applyTo</code></td><td>Always (treated as global)</td></tr>
+    <tr><td><code>*.instructions.md</code> without <code>applyTo</code></td><td>On-demand (agent reads when the task matches the <code>description</code>)</td></tr>
 </tbody>
 </table>
 
@@ -259,15 +259,7 @@ applyTo: "custom-addons/**"
 
 <p>In a <strong>multi-root workspace</strong> (covered in <a href="02_git_vscode_basics.html">Git &amp; VS Code Basics</a>), Copilot loads <code>.github/copilot-instructions.md</code> from <strong>every</strong> repository folder in the workspace, not just the one you are editing.</p>
 
-<p>Practical example: if your workspace contains <code>odoo4komiti/</code> and <code>komiti_academy/</code>, the agent sees instructions from both repos simultaneously:</p>
-
-<pre><code># What the agent receives at the start of every conversation:
-
-┌─ odoo4komiti/.github/copilot-instructions.md   (engineering rules)
-│   → agent ownership, Git workflow, rollback matrix, Definition of Done…
-│
-└─ komiti_academy/.github/copilot-instructions.md (tutorial rules)
-    → source of truth, filename conventions, handoff template…</code></pre>
+<p>Practical example: if your workspace contains <code>odoo4komiti/</code> and <code>komiti_academy/</code>, the agent sees instructions from both repos simultaneously.</p>
 
 <p>Scoped <code>*.instructions.md</code> files still activate by <code>applyTo</code> glob — but the glob is evaluated relative to the repo root, not the workspace root. This means an <code>applyTo: "custom-addons/**"</code> in <code>odoo4komiti/</code> will only match files inside <code>odoo4komiti/custom-addons/</code>, never files in <code>komiti_academy/</code>.</p>
 
