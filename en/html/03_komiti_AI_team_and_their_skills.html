@@ -262,7 +262,7 @@ applyTo: "custom-addons/**"
 
 <p>Skills are <strong>folders</strong> of instructions, scripts, and resources that the agent can load on demand. Unlike instructions (which are policy/constraints that load automatically), skills are step-by-step playbooks the agent reads when it recognizes a matching task. A skill folder can also contain scripts, templates, examples, and other assets alongside the main instruction file.</p>
 
-<p>A skill is defined by a <code>SKILL.md</code> file inside a named folder — for example <code>.github/skills/deploy-prod/SKILL.md</code>. Project skills live in <code>.github/skills/</code>, <code>.agents/skills/</code>, or <code>.claude/skills/</code>. Personal skills (not shared with the team) live in <code>~/.copilot/skills/</code>. The <code>SKILL.md</code> file has a <code>description</code> in its frontmatter. The agent sees all skill descriptions in every conversation (~100 tokens each), but only reads the full skill body when the task matches.</p>
+<p>A skill is defined by a <code>SKILL.md</code> file inside a named folder — for example <code>.github/skills/deploy-prod/SKILL.md</code>. In VS Code (GitHub Copilot), project skills live in <code>.github/skills/</code>. Personal skills (not shared with the team) live in <code>~/.copilot/skills/</code>. The <code>SKILL.md</code> file has a <code>description</code> in its frontmatter. The agent sees all skill descriptions in every conversation (~100 tokens each), but only reads the full skill body when the task matches.</p>
 
 <p>Skills are also available as <strong>slash commands</strong> — type <code>/</code> in the chat input to see a list of available skills and invoke one directly (e.g. <code>/deploy-prod</code>).</p>
 

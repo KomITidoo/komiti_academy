@@ -181,7 +181,7 @@ footer {
     <div class="subtitle">Delivery mental model for the entire KomITi system</div>
 </div>
 
-<p>This is a foundation document for candidates and every new KomITi engineer learning the infrastructure layer from scratch, but through the real KomITi AWS/Terraform/Docker context, not through abstract toy examples.</p>
+<p>This is a foundation document for candidates and every new KomITi engineer. It teaches the infrastructure layer from scratch — not through abstract toy examples, but through the real KomITi AWS/Terraform/Docker context.</p>
 
 <p>The purpose is not to turn you into a cloud/platform specialist in 4 hours, but to give you an operational mental model:</p>
 <ul>
@@ -190,6 +190,8 @@ footer {
     <li>what Terraform and its terminal commands do,</li>
     <li>and how these three layers connect into a single system.</li>
 </ul>
+
+<p>By the end of this document you will understand the full infra stack, and in the hands-on lab (section 9) you will set up a local Terraform + Docker Desktop environment as a foundation for all future tutorials.</p>
 
 <!-- ───────── TABLE OF CONTENTS ───────── -->
 <div class="toc">
@@ -249,28 +251,18 @@ footer {
 <!-- ───────── 2 ───────── -->
 <h2 id="s2">2) AWS fundamentals you need to know</h2>
 
-<p>In this learning context, you don&rsquo;t study AWS as a catalog of 200 services, but as a minimal operational set.</p>
+<p><code>AWS</code> (Amazon Web Services) is a cloud platform — a collection of on-demand computing services (servers, storage, networking, databases, and more) hosted in Amazon's data centres worldwide. Instead of buying and maintaining physical hardware, you rent exactly the resources you need and pay only for what you use.</p>
 
-<p>The most important concepts are:</p>
+<p>In this learning context, you don&rsquo;t study AWS as a catalog of 200 services, but as a minimal operational set which is:</p>
 <ul>
     <li><strong>region</strong>: the geographic/operational context in which resources live, and in which you must consistently reason about latency, availability, and resource locality,</li>
-    <li><code>EC2</code>: the virtual machine where the runtime actually lives,</li>
-    <li><code>VPC</code> / subnet: network space and segmentation,</li>
-    <li><strong>security group</strong>: inbound/outbound firewall boundary,</li>
-    <li><code>EIP</code> (<code>Elastic IP</code>): a stable public IP address,</li>
-    <li><code>S3</code>: the object storage layer where backups and other artifacts that don&rsquo;t belong to the VM&rsquo;s own filesystem are often kept,</li>
+    <li><code>EC2</code>: the virtual machine where the runtime actually lives — in KomITi, a single host carries the entire runtime layer,</li>
+    <li><code>VPC</code> / subnet: network space and segmentation — part of production safety, not a side detail,</li>
+    <li><strong>security group</strong>: inbound/outbound firewall boundary that controls who is allowed to talk to your compute (SSH/HTTP/HTTPS),</li>
+    <li><code>EIP</code> (<code>Elastic IP</code>): a stable public IP address — how other systems reach the host as a stable endpoint,</li>
+    <li><code>S3</code>: the object storage layer for backups and operational artifacts, decoupled from the VM lifecycle,</li>
     <li><code>Route 53</code> / DNS thinking: how a domain reaches the right host,</li>
     <li><strong>disk/volume reasoning</strong>: runtime is not just CPU and RAM but also storage.</li>
-</ul>
-
-<p>A junior mistake is to view AWS as &ldquo;just a server&rdquo;. In the KomITi mental model, think of it as:</p>
-<ul>
-    <li><strong>region</strong> = where your compute and other resources actually live,</li>
-    <li><strong>EC2</strong> = compute (a single host carries the runtime layer),</li>
-    <li><strong>security group</strong> = who is allowed to talk to that compute (SSH/HTTP/HTTPS boundary),</li>
-    <li><strong>S3</strong> = durable storage for backups and operational artifacts, decoupled from the VM lifecycle,</li>
-    <li><strong>subnet/VPC</strong> = where that compute lives (network + security boundary are part of production safety, not a side detail),</li>
-    <li><strong>EIP/DNS</strong> = how other systems reach the host as a stable public endpoint.</li>
 </ul>
 
 <!-- ───────── 3 ───────── -->
@@ -319,7 +311,7 @@ footer {
     <li>EC2, networking, security groups, and EIP are not manual clicks in the AWS console,</li>
     <li><code>terraform plan</code> is proof of what will change,</li>
     <li><code>terraform apply</code> is a controlled application,</li>
-    <li>the state file <code>terraform.tfstate</code> is Terraform&rsquo;s runtime truth about the resources it manages; in the odoo4komiti repo you can see it, for example, at <code>infra/aws/odoo-dev-ec2-compose/terraform.tfstate</code>.</li>
+    <li>the state file <code>terraform.tfstate</code> is Terraform&rsquo;s runtime truth about the resources it manages; on your local disk (not in git) you will find it at, for example, <code>infra/aws/odoo-dev-ec2-compose/terraform.tfstate</code>.</li>
 </ul>
 
 <h3 id="s4-2">4.2) What is a provider</h3>
@@ -880,12 +872,13 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 <!-- ───────── 10 ───────── -->
 <h2 id="s10">10) What to read next</h2>
 
+<p>The following files live in the <code>odoo4komiti</code> repository. Open them from your local clone:</p>
 <ul>
-    <li><code>../infra/aws/CODEX_TERRAFORM.md</code></li>
-    <li><code>../infra/aws/odoo-dev-ec2-compose/README.md</code></li>
-    <li><code>../infra/aws/odoo-dev-ec2-compose/RUNBOOK.md</code></li>
-    <li><code>../infra/aws/odoo-prod-ec2-compose/README.md</code></li>
-    <li><code>../infra/aws/odoo-prod-ec2-compose/RUNBOOK.md</code></li>
+    <li><code>odoo4komiti/infra/aws/CODEX_TERRAFORM.md</code></li>
+    <li><code>odoo4komiti/infra/aws/odoo-dev-ec2-compose/README.md</code></li>
+    <li><code>odoo4komiti/infra/aws/odoo-dev-ec2-compose/RUNBOOK.md</code></li>
+    <li><code>odoo4komiti/infra/aws/odoo-prod-ec2-compose/README.md</code></li>
+    <li><code>odoo4komiti/infra/aws/odoo-prod-ec2-compose/RUNBOOK.md</code></li>
 </ul>
 
 <hr>
