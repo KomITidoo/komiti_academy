@@ -132,6 +132,12 @@ tbody tr:hover { background: #f0eaf4; }
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
 .tip strong { color: #2e7d32; }
+.info {
+    background: #e3f2fd; border-left: 4px solid #1976d2;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.info strong { color: #0d47a1; }
 hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
 a { color: #A65949; text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -965,6 +971,10 @@ PS C:\dev\komiti_library&gt; mkdir infra/local/odoo-dev-docker-desktop
 PS C:\dev\komiti_library&gt; mkdir custom-addons
 PS C:\dev\komiti_library&gt; echo $null &gt; custom-addons/.gitkeep</code></pre>
 
+<div class="info">
+    <strong>Note:</strong> <code>echo $null &gt; custom-addons/.gitkeep</code> creates an empty file called <code>.gitkeep</code>. Git does not track empty directories, so without at least one file inside <code>custom-addons/</code> the folder would not appear in the repository. The name <code>.gitkeep</code> is a widely used convention &mdash; Git itself does not treat it specially.
+</div>
+
 <p>Now create the <strong>prod</strong> compose file at <code>infra/local/odoo-prod-docker-desktop/docker-compose.yml</code>:</p>
 
 <pre><code>name: komiti-library-prod
@@ -1016,6 +1026,10 @@ volumes:
 
 networks:
   library-prod:</code></pre>
+
+<div class="info">
+    <strong>Note:</strong> the line <code>../../../custom-addons:/mnt/extra-addons:rw</code> is a <em>bind mount</em>. It tells Docker: &ldquo;take the <code>custom-addons/</code> folder from the repo root on your Windows disk and make it appear inside the container at <code>/mnt/extra-addons</code>.&rdquo; The path starts with <code>../../../</code> because the compose file lives three directories deep (<code>infra/local/odoo-prod-docker-desktop/</code>). The dev compose file will have the same line, so both environments see the exact same folder on disk.
+</div>
 
 <p>Then create the <strong>dev</strong> compose file at <code>infra/local/odoo-dev-docker-desktop/docker-compose.yml</code>:</p>
 
@@ -1069,7 +1083,9 @@ volumes:
 networks:
   library-dev:</code></pre>
 
-<p>Notice the key differences between prod and dev: the project name, database name, password, network name, and the host port (<code>8069</code> for prod, <code>8067</code> for dev). Each environment gets its own Docker volumes and network, so their data is fully isolated.</p>
+<div class="info">
+    <strong>Note:</strong> the key differences between prod and dev are the project name, database name, password, network name, and the host port (<code>8069</code> for prod, <code>8067</code> for dev). Each environment gets its own Docker volumes and network, so their data is fully isolated.
+</div>
 
 <p><strong>Step 3 &mdash; commit the infrastructure files to <code>main</code>.</strong></p>
 
@@ -1103,22 +1119,39 @@ PS C:\dev\komiti_library&gt; git push -u origin 2026-04-01-library-module</code>
 <pre><code>PS C:\dev\komiti_library&gt; cd infra/local/odoo-dev-docker-desktop
 PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose up -d</code></pre>
 
+<div class="info">
+    <strong>Note:</strong> in the <code>cd</code> command above we used forward slashes (<code>/</code>). PowerShell accepts both <code>/</code> and <code>\</code> when navigating directories, so <code>cd infra/local/odoo-dev-docker-desktop</code> and <code>cd infra\local\odoo-dev-docker-desktop</code> do the same thing. However, inside files like <code>docker-compose.yml</code>, YAML, Linux paths, and URLs <strong>always</strong> use forward slashes &mdash; backslashes will break them. Rule of thumb: use <code>\</code> only when Windows requires it (e.g. full absolute paths like <code>C:\dev\...</code>); everywhere else, forward slashes are safer and more portable.
+</div>
+
 <p>Verify with <code>docker compose ps</code>, then open <a href="http://localhost:8067">http://localhost:8067</a>. Create a database here too &mdash; this is your development instance where you will install and test your module as you build it.</p>
 
 <p><strong>Step 7 &mdash; understand what you now have.</strong></p>
 
-<p>At this point, two independent Odoo instances are running on your machine:</p>
+<p>At this point, two independent Odoo instances are running on your machine, but they differ in two important ways:</p>
 <ul>
-    <li><strong>prod</strong> at <code>localhost:8069</code> &mdash; clean baseline, no custom module installed.</li>
-    <li><strong>dev</strong> at <code>localhost:8067</code> &mdash; your development playground, tied to the feature branch.</li>
+    <li><strong>Ports are different:</strong>
+        <ul>
+            <li><strong>prod</strong> runs at <code>localhost:8069</code> &mdash; clean baseline, no custom module installed.</li>
+            <li><strong>dev</strong> runs at <code>localhost:8067</code> &mdash; your development playground, tied to the feature branch.</li>
+        </ul>
+    </li>
+    <li><strong>The addon folder is shared on disk, but module installation is per database:</strong>
+        <ul>
+            <li><strong>prod</strong> sees the same <code>custom-addons/</code> files because it mounts the same folder, but you keep the module uninstalled there until you intentionally install a stable, released version.</li>
+            <li><strong>dev</strong> also sees the same files, and this is the instance where you install, upgrade, and test the module while you develop it. The installed state lives in the <em>dev database</em>, not in the folder itself.</li>
+        </ul>
+    </li>
 </ul>
-<p>Both mount the same <code>custom-addons/</code> folder on disk. When you later add your <code>library</code> module there, the files will be visible to both instances &mdash; but only the dev database will have the module <em>installed</em>. The prod database stays clean until you deliberately install a released version. This mirrors real-world discipline: code on disk is not the same as a running, installed module.</p>
+
+<div class="info">
+    <strong>Note:</strong> this is why &ldquo;code exists on disk&rdquo; and &ldquo;module is installed in Odoo&rdquo; are not the same thing. Both containers can read the same addon files from <code>custom-addons/</code>, but each database decides independently which modules are actually installed and active.
+</div>
 
 <p><strong>Stopping and restarting.</strong> When you are done working:</p>
 <ul>
-    <li>To stop containers but keep data: <code>docker compose stop</code> (run from the respective directory)</li>
-    <li>To stop and remove containers but keep volumes (data survives): <code>docker compose down</code></li>
-    <li>To remove everything including data: <code>docker compose down -v</code></li>
+    <li><code>docker compose stop</code> &mdash; stops containers but keeps data (run from the respective directory).</li>
+    <li><code>docker compose down</code> &mdash; stops and removes containers but keeps volumes (data survives).</li>
+    <li><code>docker compose down -v</code> &mdash; removes everything including data.</li>
 </ul>
 <p>Next time you resume, navigate to the compose directory and run <code>docker compose up -d</code>. As long as you haven&rsquo;t removed the volumes, your database and filestore will still be there.</p>
 
