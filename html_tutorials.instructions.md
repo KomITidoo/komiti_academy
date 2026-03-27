@@ -43,6 +43,11 @@ If you change spacing in one tutorial, check whether the same change is needed i
 
 ## Styling conventions
 - Use the existing CSS classes: `note` (yellow), `tip` (green), `ascii-diagram` (dark terminal block).
+- Use the standard tutorial typography baseline from the existing `en/html/` files:
+	`body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 15px; line-height: 1.225; color: #2c2c2c; background: #f4f6f9; }`
+	`.page-wrapper { max-width: 980px; margin: 20px auto; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.1); padding: 30px 36px; }`
+	`code`, `pre`, and `.ascii-diagram` use `font-family: 'Consolas', 'Courier New', monospace;`.
+- Do not invent a per-tutorial body font, background, or wrapper system unless explicitly requested.
 - Terminal commands use `<pre><code>PS C:\dev\path> command</code></pre>`.
 - Inline code uses `<code>term</code>`.
 - YouTube videos: use clickable thumbnail with play button overlay (not iframe — iframes break on `file:///`).

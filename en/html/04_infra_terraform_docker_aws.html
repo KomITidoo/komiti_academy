@@ -199,7 +199,14 @@ footer {
     <ol>
         <li><a href="#s1">What is the infra stack in KomITi</a></li>
         <li><a href="#s2">AWS fundamentals you need to know</a></li>
-        <li><a href="#s3">Docker and container fundamentals you need to know</a></li>
+        <li><a href="#s3">Docker and container fundamentals you need to know</a>
+            <ol>
+                <li><a href="#s3-1">Docker file map in odoo4komiti</a></li>
+                <li><a href="#s3-2">docker-compose.yml</a></li>
+                <li><a href="#s3-3">Dockerfile.odoo</a></li>
+                <li><a href="#s3-4">.env and config/*.conf</a></li>
+            </ol>
+        </li>
         <li><a href="#s4">Terraform</a>
             <ol>
                 <li><a href="#s4-1">Terraform mental model</a></li>
@@ -288,6 +295,64 @@ footer {
     <li>Restarting a container is not the same as rebuilding an image.</li>
     <li>Ephemeral container filesystem is not the same as persistent volume data.</li>
 </ul>
+
+<h3 id="s3-1">3.1) Docker file map in odoo4komiti</h3>
+
+<p>Once you understand the Docker concepts, the next question is: where do those decisions live in the <code>odoo4komiti</code> repo?</p>
+
+<div class="ascii-diagram">[odoo4komiti/]
+    |
+    +-- docker-compose.yml                 -&gt; service topology: odoo-web + db + volumes + ports
+    +-- Dockerfile.odoo                    -&gt; custom Odoo image build
+    +-- .env                               -&gt; local-only environment variables (ignored by git)
+    +-- [config/]
+         |
+         +-- odoo.conf                     -&gt; shared/default Odoo config
+         +-- odoo.local.conf               -&gt; local override config
+         +-- odoo.local.conf.example       -&gt; example local config</div>
+
+<p>This is the Docker equivalent of the Terraform file map in section 4: you do not read the repo as a random folder dump; you read it by responsibility.</p>
+
+<h3 id="s3-2">3.2) <code>docker-compose.yml</code></h3>
+
+<p><code>docker-compose.yml</code> is the entry point of the local Docker stack. Docker Compose was introduced by Docker in 2014 so teams could define a multi-container application in one YAML file.</p>
+
+<p>In <code>odoo4komiti</code>, this file answers the practical runtime questions:</p>
+<ul>
+    <li>which services exist &mdash; here: <code>odoo-web</code> and <code>db</code>,</li>
+    <li>which image each service uses or builds,</li>
+    <li>which ports are exposed to the host,</li>
+    <li>which volumes persist data,</li>
+    <li>which environment variables are injected,</li>
+    <li>which service depends on which other service.</li>
+</ul>
+
+<p>If you want to understand why Odoo appears on <code>localhost:8069</code>, why Postgres is on <code>5432</code>, why the filestore survives a container restart, or why Odoo waits for the database healthcheck, <code>docker-compose.yml</code> is the first file you should read.</p>
+
+<h3 id="s3-3">3.3) <code>Dockerfile.odoo</code></h3>
+
+<p><code>Dockerfile.odoo</code> defines the custom image for the Odoo service. A Dockerfile was introduced with Docker itself in 2013 so an image build could be described as code instead of manual shell steps.</p>
+
+<p>In this repo, <code>Dockerfile.odoo</code> starts from the official <code>odoo:19.0</code> base image, switches to <code>root</code>, installs <code>python3-boto3</code>, and then switches back to the <code>odoo</code> user. That tells you something important about responsibility:</p>
+<ul>
+    <li><code>docker-compose.yml</code> says <em>how services run together</em>,</li>
+    <li><code>Dockerfile.odoo</code> says <em>what the Odoo image contains before the container starts</em>.</li>
+</ul>
+
+<p>If a Python package is missing inside the Odoo container, that is usually a <code>Dockerfile.odoo</code> question, not a Compose question.</p>
+
+<h3 id="s3-4">3.4) <code>.env</code> and <code>config/*.conf</code></h3>
+
+<p><code>.env</code> provides local environment variables for Docker Compose. In this repo it selects which Odoo config file to mount and can also provide AWS-related variables needed by the local runtime. Because these values can be sensitive and machine-specific, <code>.env</code> is local-only and must not be treated like normal committed source code.</p>
+
+<p>The <code>config/</code> directory holds the Odoo application configuration itself:</p>
+<ul>
+    <li><code>odoo.conf</code> &mdash; the shared/default config,</li>
+    <li><code>odoo.local.conf</code> &mdash; your local override,</li>
+    <li><code>odoo.local.conf.example</code> &mdash; the template you copy when setting up a machine.</li>
+</ul>
+
+<p>The short mental model is: <code>.env</code> decides <em>which config and variables the container receives</em>; <code>config/*.conf</code> decides <em>how Odoo behaves after it starts</em>.</p>
 
 
 
