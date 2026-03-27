@@ -36,8 +36,8 @@ variable "odoo_port" {
 
 variable "postgres_db" {
   type        = string
-  description = "Application database name initialized in Postgres for the local Odoo lab."
-  default     = "komiti_academy_odoo"
+  description = "Initial Postgres database used for bootstrap and health checks; keep this as 'postgres' so the Odoo app database is created later through the UI."
+  default     = "postgres"
 }
 
 variable "postgres_user" {
