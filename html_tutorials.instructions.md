@@ -29,6 +29,9 @@ If you change spacing in one tutorial, check whether the same change is needed i
 - Inline `code`: must stay visually aligned even at the start of a line.
 - After any `line-height` change, re-check that inline `code` does not visually "drop" or break the baseline.
 - Pay extra attention to lines that start with paths or commands: `C:\dev\KomITi\...`, `git clone`, `git checkout`.
+- For short YAML/config/code excerpts embedded inside explanatory prose, prefer a more compact snippet variant instead of full-sized terminal blocks. Use a generic `.snippet` class:
+	`padding: 10px 18px; margin: 8px 0 14px 0; line-height: 1.45;`
+	Keep the same dark theme and monospace font as `pre`, but reduce vertical whitespace so short excerpts do not create large empty areas.
 
 ## Content fidelity
 - HTML tutorials in `en/html/` are the canonical source. There is no separate Serbian markdown to sync against.
@@ -47,6 +50,11 @@ If you change spacing in one tutorial, check whether the same change is needed i
 	`body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 15px; line-height: 1.225; color: #2c2c2c; background: #f4f6f9; }`
 	`.page-wrapper { max-width: 980px; margin: 20px auto; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.1); padding: 30px 36px; }`
 	`code`, `pre`, and `.ascii-diagram` use `font-family: 'Consolas', 'Courier New', monospace;`.
+- Standard font sizes:
+	body text = `15px`
+	inline `code` = `13.5px`
+	`pre` / compact snippets = `13.5px`
+	`.ascii-diagram` = `13px`
 - Do not invent a per-tutorial body font, background, or wrapper system unless explicitly requested.
 - Terminal commands use `<pre><code>PS C:\dev\path> command</code></pre>`.
 - Inline code uses `<code>term</code>`.

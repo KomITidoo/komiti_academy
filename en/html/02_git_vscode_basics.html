@@ -77,6 +77,11 @@ pre {
     margin: 14px 0 20px 0;
     border-left: 4px solid #A65949;
 }
+.snippet {
+    padding: 10px 18px;
+    margin: 8px 0 14px 0;
+    line-height: 1.45;
+}
 pre .comment { color: #6c7086; }
 pre code {
     background: none;
@@ -547,7 +552,7 @@ PS C:\dev\komiti_library> ls
     <li>Run the installer. On Windows, the default options are fine — just click <strong>Next</strong> through each screen.</li>
     <li>After installation, open a terminal in VS Code (<strong>View → Terminal</strong>) and verify:</li>
 </ol>
-<pre><code>PS C:\Users\you> git --version</code></pre>
+<pre class="snippet"><code>PS C:\Users\you> git --version</code></pre>
 <p>Expected output is similar to <code>git version 2.47.1.windows.2</code>. If the command prints a version number, Git is installed correctly.</p>
 
 <p>What you should notice:</p>
@@ -573,7 +578,7 @@ PS C:\Users\you> cd C:\dev</code></pre>
 <pre><code>PS C:\dev> git config --global user.name "Your Name"
 PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>To confirm the settings:</p>
-<pre><code>PS C:\dev> git config --global --list</code></pre>
+<pre class="snippet"><code>PS C:\dev> git config --global --list</code></pre>
 <p>You should see <code>user.name</code> and <code>user.email</code> in the output.</p>
 <p>These two values are used for commit authorship. They are not necessarily the same as your GitHub username.</p>
 
@@ -645,14 +650,14 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <ol>
     <li>Open PowerShell and navigate to <code>C:\dev</code>:</li>
 </ol>
-<pre><code>PS C:\Users\you> cd C:\dev</code></pre>
+<pre class="snippet"><code>PS C:\Users\you> cd C:\dev</code></pre>
 <ol start="2">
     <li>Clone via HTTPS (recommended for beginners). Replace <code>YOUR_GITHUB_USERNAME</code> with your actual GitHub username (if you already created <code>komiti_library</code>, open it in the browser; in a URL, between <code>https://github.com/</code> and <code>/komiti_library</code>, is where you can see your GitHub username):</li>
 </ol>
-<pre><code>PS C:\dev> git clone https://github.com/YOUR_GITHUB_USERNAME/komiti_library.git</code></pre>
+<pre class="snippet"><code>PS C:\dev> git clone https://github.com/YOUR_GITHUB_USERNAME/komiti_library.git</code></pre>
 <p>Git will create a folder <code>komiti_library</code> containing the full repo. You can verify it exists:</p>
 <p>Now enter the folder:</p>
-<pre><code>PS C:\dev> cd komiti_library</code></pre>
+<pre class="snippet"><code>PS C:\dev> cd komiti_library</code></pre>
 <p>And list its contents, including hidden items:</p>
 <pre><code>PS C:\dev\komiti_library> ls -Force
 
@@ -713,14 +718,14 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
 <pre><code>PS C:\dev\komiti_library> git branch
 * main</code></pre>
 <p><code>git branch</code> lists all local branches; the asterisk (<code>*</code>) marks the one you are currently on. You should see <code>* main</code>. Notice that <code>staging</code> does not appear — <code>git branch</code> only shows branches that exist locally. The <code>staging</code> branch lives on GitHub (<code>origin/staging</code>), but you have never checked it out on your machine, so Git has no local copy of it yet.</p>
-<pre><code>PS C:\dev\komiti_library> git checkout -b 2026-03-23-play_xyz</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git checkout -b 2026-03-23-play_xyz</code></pre>
 <p>You created a new branch from the current position and immediately switched to it.</p>
 <ul>
     <li><code>-b</code> means: create a new branch and immediately switch to it; it is a short option, i.e. a flag, and is an abbreviation of <code>branch</code>.</li>
     <li><code>2026-03-23-play_xyz</code> is an argument; with it you specify what the new branch will be named.</li>
 </ul>
 <p>If you want the branch to exist on GitHub right away:</p>
-<pre><code>PS C:\dev\komiti_library> git push -u origin 2026-03-23-play_xyz</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git push -u origin 2026-03-23-play_xyz</code></pre>
 <p>You sent the new branch to GitHub and remembered the upstream link.</p>
 <ul>
     <li><code>-u</code> means <code>--set-upstream</code>; it is an option that tells Git to remember the link between the local branch and the remote branch of the same name.</li>
@@ -728,7 +733,7 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
     <li><code>2026-03-23-play_xyz</code> is an argument and means: which branch you are sending.</li>
 </ul>
 <p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). Bring it in now:</p>
-<pre><code>PS C:\dev\komiti_library> git merge origin/staging</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git merge origin/staging</code></pre>
 <p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
 
 <p>What you should notice:</p>
@@ -749,7 +754,7 @@ PS C:\dev\komiti_library> git pull origin main</code></pre>
 <!-- Step 7 -->
 <h3 id="s7-7">4.7) Make local changes</h3>
 <p>Now create a new file <code>z.md</code> that will exist only on your feature branch. Open VS Code, create the file, or do it straight from the terminal:</p>
-<pre><code>PS C:\dev\komiti_library> echo "This file exists only on the feature branch." > z.md</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> echo "This file exists only on the feature branch." > z.md</code></pre>
 <p><code>echo</code> is a shell command (not a Git command) that prints text; the <code>&gt;</code> operator redirects that text into a file, creating it if it does not exist.</p>
 <p>Then check the state:</p>
 <pre><code>PS C:\dev\komiti_library> git status --short
@@ -814,7 +819,7 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
 
 <!-- Step 9 -->
 <h3 id="s7-9">4.9) Push to GitHub</h3>
-<pre><code>PS C:\dev\komiti_library> git push origin 2026-03-23-play_xyz</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git push origin 2026-03-23-play_xyz</code></pre>
 <p><code>git push origin 2026-03-23-play_xyz</code> sends local commits from that branch to GitHub (the <code>origin</code> and branch arguments work the same as in <a href="#s7-5">4.5</a>).</p>
 <p>Now the latest commit from your local feature branch also exists on GitHub, so the remote branch contains <code>z.md</code> too.</p>
 <p>This is an important distinction:</p>
@@ -872,7 +877,7 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
 
 <!-- Step 12 -->
 <h3 id="s7-13">4.13) Return to your feature branch if you continue working</h3>
-<pre><code>PS C:\dev\komiti_library> git checkout 2026-03-23-play_xyz</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git checkout 2026-03-23-play_xyz</code></pre>
 <ul>
     <li><code>git checkout 2026-03-23-play_xyz</code>: returns you to the local feature branch to continue working.</li>
 </ul>
@@ -896,18 +901,18 @@ PS C:\dev\komiti_library> git push origin main</code></pre>
 PS C:\dev\komiti_library> git branch -d 2026-03-23-play_xyz</code></pre>
 <p>You switched to <code>main</code> first because Git does not allow you to delete the branch you are currently on. Then <code>git branch -d</code> deletes the local branch — but only if it has already been fully merged. If the branch contains unmerged work, Git refuses and warns you.</p>
 <p>If you are absolutely sure you want to discard unmerged work, use the uppercase flag:</p>
-<pre><code>PS C:\dev\komiti_library> git branch -D 2026-03-23-play_xyz</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git branch -D 2026-03-23-play_xyz</code></pre>
 <p><code>-D</code> is a force-delete — it removes the local branch regardless of merge status. Use it with caution.</p>
 
 <h4>Delete the remote branch on GitHub</h4>
-<pre><code>PS C:\dev\komiti_library> git push origin --delete 2026-03-23-play_xyz</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git push origin --delete 2026-03-23-play_xyz</code></pre>
 <p>This tells GitHub to remove the branch from the remote repository. After this, the branch no longer appears on GitHub.</p>
 
 <h4>Prune stale remote-tracking references</h4>
-<pre><code>PS C:\dev\komiti_library> git fetch --prune</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git fetch --prune</code></pre>
 <p>When someone else (or you, from another machine) deletes a remote branch, your local Git still remembers it as <code>origin/branch-name</code>. Over time these stale references accumulate. <code>git fetch --prune</code> contacts the remote, compares the list, and removes any local remote-tracking references that no longer exist on GitHub.</p>
 <p>You can verify everything is clean:</p>
-<pre><code>PS C:\dev\komiti_library> git branch -a</code></pre>
+<pre class="snippet"><code>PS C:\dev\komiti_library> git branch -a</code></pre>
 <p>The <code>-a</code> flag shows all branches — both local and remote-tracking. After deleting and pruning, <code>2026-03-23-play_xyz</code> should no longer appear anywhere in this list.</p>
 
 <p>In the cabinet analogy: you finished with the working binder (feature branch), the sheets (files) have been copied to the verification binder (<code>staging</code>) and the main binder (<code>main</code>), so you throw away the empty working binder — both from your desk (local) and from the remote cabinet (GitHub). Pruning is checking the cabinet list and crossing off binders that no longer physically exist.</p>
