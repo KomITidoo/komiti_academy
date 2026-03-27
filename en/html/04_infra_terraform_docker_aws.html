@@ -203,15 +203,14 @@ footer {
         <li><a href="#s4">Terraform</a>
             <ol>
                 <li><a href="#s4-1">Terraform mental model</a></li>
-                <li><a href="#s4-2">What is a provider</a></li>
-                <li><a href="#s4-3">What are resource, data source, and output</a></li>
-                <li><a href="#s4-4">Directory structure: general and KomITi-specific</a></li>
-                <li><a href="#s4-5">Terraform files in [modules/]</a></li>
-                <li><a href="#s4-6">Terraform files in [root stack/]</a></li>
-                <li><a href="#s4-7">Dependency reasoning</a></li>
-                <li><a href="#s4-8">Summarizing what Terraform code typically means in this repo</a></li>
-                <li><a href="#s4-9">How AWS, Docker, and Terraform connect into a single flow</a></li>
-                <li><a href="#s4-10">Terraform vs Docker Compose: same information, different place of record</a></li>
+                <li><a href="#s4-2">What are provider, resource, data source, and output</a></li>
+                <li><a href="#s4-3">Directory structure: general and KomITi-specific</a></li>
+                <li><a href="#s4-4">Terraform files in [modules/]</a></li>
+                <li><a href="#s4-5">Terraform files in [root stack/]</a></li>
+                <li><a href="#s4-6">Dependency reasoning</a></li>
+                <li><a href="#s4-7">Summarizing what Terraform code typically means in this repo</a></li>
+                <li><a href="#s4-8">How AWS, Docker, and Terraform connect into a single flow</a></li>
+                <li><a href="#s4-9">Terraform vs Docker Compose: same information, different place of record</a></li>
             </ol>
         </li>
         <li><a href="#s5">How to turn Terraform files into action and materialize artifacts</a>
@@ -299,35 +298,18 @@ footer {
 
 <p><strong>Terraform</strong> is an infrastructure-as-code (IaC) tool &mdash; you describe the infrastructure you want in code, and the tool builds it for you. HashiCorp released it in 2014 to give teams a single declarative language for provisioning resources across any cloud provider.</p>
 
-<p>The core loop has four steps:</p>
-<ol>
-    <li>You <strong>describe</strong> the desired state of infrastructure in <code>.tf</code> files.</li>
-    <li>Terraform <strong>compares</strong> that state with what actually exists.</li>
-    <li>You get a <strong>plan</strong> of changes (<code>terraform plan</code>).</li>
-    <li>You <strong>apply</strong> those changes in a controlled manner (<code>terraform apply</code>).</li>
-</ol>
-
-<p>In the KomITi stack you will see this in practice:</p>
+<p>The core loop:</p>
 <ul>
-    <li>DEV and PROD AWS environments are described with Terraform code &mdash; not manual clicks in the AWS console.</li>
-    <li><code>terraform plan</code> is your proof of what will change before anything touches production.</li>
-    <li><code>terraform apply</code> is the controlled execution.</li>
-    <li><code>terraform.tfstate</code> is Terraform&rsquo;s runtime truth about the resources it manages. You will find it on your local disk (not in git), for example at <code>infra/aws/odoo-dev-ec2-compose/terraform.tfstate</code>.</li>
+    <li><strong>Describe</strong> &mdash; you write the desired state in <code>.tf</code> files. In the KomITi stack, both DEV and PROD environments are defined this way, not through the AWS console.</li>
+    <li><strong>Compare</strong> &mdash; Terraform diffs your code against what actually exists in AWS.</li>
+    <li><strong>Plan</strong> &mdash; <code>terraform plan</code> shows exactly what will change before anything touches production.</li>
+    <li><strong>Apply</strong> &mdash; <code>terraform apply</code> executes the plan.</li>
+    <li><strong>State</strong> &mdash; <code>terraform.tfstate</code> records what Terraform owns. You will find it on your local disk (not in git), e.g. <code>infra/aws/odoo-dev-ec2-compose/terraform.tfstate</code>.</li>
 </ul>
 
-<h3 id="s4-2">4.2) What is a provider</h3>
+<h3 id="s4-2">4.2) What are provider, resource, data source, and output</h3>
 
-<p>A provider is a plugin that enables Terraform to communicate with a given system.</p>
-
-<p>In this repo, the most important one is: the AWS provider. Practically:</p>
-<ul>
-    <li>Terraform by itself doesn&rsquo;t know what EC2, VPC, or Elastic IP is,</li>
-    <li>the AWS provider gives it that vocabulary and API bridge.</li>
-</ul>
-
-<p>If you look at Terraform code, the <code>provider</code> layer is what connects Terraform to the actual cloud.</p>
-
-<h3 id="s4-3">4.3) What are resource, data source, and output</h3>
+<p>A <strong>provider</strong> is a plugin that enables Terraform to communicate with a given system. In this repo, the most important one is the AWS provider &mdash; Terraform by itself doesn&rsquo;t know what EC2, VPC, or Elastic IP is; the AWS provider gives it that vocabulary and API bridge.</p>
 
 <p><code>resource</code> describes something that Terraform creates or modifies, such as an EC2 instance, security group, elastic IP, route table etc.</p>
 
@@ -339,7 +321,7 @@ footer {
 
 <p><code>output</code> exposes a value to your terminal so you can use it after <code>terraform apply</code> finishes. Without outputs, Terraform creates the infrastructure but you have to dig through the AWS console to find what you need. In the KomITi stack, typical outputs are the server&rsquo;s public IP, the SSH command to connect, and the HTTP/HTTPS URL &mdash; everything you need to start working with the environment immediately.</p>
 
-<h3 id="s4-4">4.4) Directory structure: general and KomITi-specific</h3>
+<h3 id="s4-3">4.3) Directory structure: general and KomITi-specific</h3>
 
 <p>When you first read a Terraform repo, it&rsquo;s not enough to know what a <code>resource</code> is; you also need to know where things live.</p>
 
@@ -387,7 +369,7 @@ footer {
     <li>Terraform <code>.tf</code> files = the infrastructure description that creates that host and its boundary.</li>
 </ul>
 
-<h3 id="s4-5">4.5) Terraform files in [modules/]</h3>
+<h3 id="s4-4">4.4) Terraform files in [modules/]</h3>
 
 <p>Once you see that <code>odoo_ec2_compose/</code> exists in <code>modules/</code>, it&rsquo;s important not to think of it as just a helper folder. It is a reusable Terraform building block that root stacks call.</p>
 
@@ -405,7 +387,7 @@ footer {
 
 <p><code>outputs.tf</code> in the module defines what the module returns back to the root stack. In our case, these are important operational values such as public IP, elastic IP, or backup bucket name. This matters because the root stack often doesn&rsquo;t just want to &ldquo;fire up&rdquo; the module, but also to take some of its results and show them to the operator or pass them further.</p>
 
-<h3 id="s4-6">4.6) Terraform files in [root stack/]</h3>
+<h3 id="s4-5">4.5) Terraform files in [root stack/]</h3>
 
 <p>Once you understand the directory structure, it makes sense to also read what the key Terraform files inside that stack do.</p>
 
@@ -461,7 +443,7 @@ footer {
 
 <h4>4.6.3) <code>main.tf</code></h4>
 
-<p><code>main.tf</code> is the entry point of a root stack: which modules are used, how they are called, and with which values. Compared to the module <code>main.tf</code> from <strong>4.5.1)</strong>, the difference is in level of responsibility: module <code>main.tf</code> = internal implementation; root stack <code>main.tf</code> = environment-level orchestration of that module.</p>
+<p><code>main.tf</code> is the entry point of a root stack: which modules are used, how they are called, and with which values. Both this file and the module <code>main.tf</code> from <a href="#s4-4">4.4.1)</a> are called <code>main.tf</code>, but they operate at different levels: the module one is internal implementation, this one is environment-level orchestration.</p>
 
 <h4>4.6.4) <code>network.tf</code></h4>
 
@@ -473,7 +455,7 @@ footer {
 
 <p>That&rsquo;s why <code>outputs.tf</code> is important: it&rsquo;s the bridge between infra code and operator work. Without it, Terraform can successfully create resources while the person doing the deploy still can&rsquo;t quickly see what their most important next entry point into the system is.</p>
 
-<h3 id="s4-7">4.7) Dependency reasoning</h3>
+<h3 id="s4-6">4.6) Dependency reasoning</h3>
 
 <p>One of the most important Terraform concepts is the dependency graph.</p>
 
@@ -492,13 +474,11 @@ footer {
     <li>an output often depends on a resource that was just created.</li>
 </ul>
 
-<p>On the local <code>komiti_academy</code> Docker Desktop lab, that dependency graph looks roughly like this:</p>
-
-<p>If the candidate has Graphviz <code>dot</code> installed, the graph can be generated from the terminal like this:</p>
+<p>On the local <code>komiti_academy</code> Docker Desktop lab, that dependency graph looks roughly like this. If you have Graphviz <code>dot</code> installed, you can generate it from the terminal:</p>
 
 <pre><code>terraform graph | dot -Tpng &gt; graph.png</code></pre>
 
-<p>Below is also a diagram of the same dependency relationship, useful when you want to read the graph directly:</p>
+<p>Here is the same relationship as an ASCII diagram:</p>
 
 <div class="ascii-diagram">Dependency graph  (arrows read "depends on")
 
@@ -511,9 +491,11 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
                             ├──▶ docker_image.odoo
                             └──▶ docker_volume.odoo_data</div>
 
-<p>The diagram is self-explanatory: arrows read &ldquo;depends on&rdquo;. A junior mistake is to look file by file, rather than graph by graph.</p>
+<p>Read the arrows as &ldquo;depends on&rdquo;: <code>docker_container.odoo</code> depends on <code>docker_container.postgres</code> because Odoo cannot start without a running database. Postgres in turn depends on its image, a shared network, and a persistent volume for data. Odoo also needs its own image and a volume for the filestore. Terraform reads this graph and creates resources in the right order &mdash; volumes and images first, then postgres, then odoo.</p>
 
-<h3 id="s4-8">4.8) Summarizing what Terraform code typically means in this repo</h3>
+<p>A common junior mistake is to read Terraform file by file. The dependency graph is a better starting point &mdash; it shows you the actual creation order and which resources are connected.</p>
+
+<h3 id="s4-7">4.7) Summarizing what Terraform code typically means in this repo</h3>
 
 <p>When reading AWS Terraform directories, think like this:</p>
 
@@ -535,7 +517,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     <li>runtime upgrade &rarr; plan/apply cycle</li>
 </ul>
 
-<h3 id="s4-9">4.9) How AWS, Docker, and Terraform connect into a single flow</h3>
+<h3 id="s4-8">4.8) How AWS, Docker, and Terraform connect into a single flow</h3>
 
 <p>The most useful foundations mental model for this repo is the following sequence:</p>
 
@@ -552,7 +534,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     <li>if a container won&rsquo;t start a service, that&rsquo;s not necessarily a Terraform bug,</li>
     <li>if Odoo is up but a functional flow doesn&rsquo;t work, that&rsquo;s no longer a pure infra problem.</li>
 </ul>
-<h3 id="s4-10">4.10) Terraform vs Docker Compose: same information, different place of record</h3>
+<h3 id="s4-9">4.9) Terraform vs Docker Compose: same information, different place of record</h3>
 
 <p>Below is a mapping of the local <code>komiti_academy</code> lab so you can clearly see where the same runtime information is recorded in the Terraform variant versus the Compose variant. In a real scenario, Terraform files and Docker Compose complement each other, since you use each for what it does best. But in this <code>komiti_academy</code> lab, you should view these two approaches as mutually exclusive variants (you use either Terraform or Docker Compose, not both simultaneously for the same runtime).</p>
 
