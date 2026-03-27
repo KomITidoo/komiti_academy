@@ -869,6 +869,13 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>In this lab the candidate will bring up the runtime on which you will &mdash; from zero to hero &mdash; develop the Odoo module. This lab is not part of the core product scope of the <code>komiti_academy</code> module, but a learning/support exercise so you can locally run and verify everything you build in the later tutorials.</p>
 
+<p>During this lab you will bring up <strong>two separate Odoo instances</strong> on your machine:</p>
+<ul>
+    <li><strong>prod</strong> &mdash; tied to the <code>main</code> branch, running on port <code>8069</code>. This represents your production-equivalent baseline: only released, verified code is installed here.</li>
+    <li><strong>dev</strong> &mdash; tied to your feature branch, running on port <code>8067</code>. This is where you actively develop, install your in-progress module, and test before merging.</li>
+</ul>
+<p>For simplicity we skip the <code>staging</code> branch in this lab. Your workflow will be <code>feature &rarr; main</code> (with a PR in between). Both instances share the same <code>custom-addons/</code> folder on disk, but their databases are completely independent &mdash; so the prod database won&rsquo;t have your half-finished module installed, even though the files are visible on the filesystem.</p>
+
 <p>There are two options depending on your available resources:</p>
 
 <!-- ── Option A ── -->
@@ -933,35 +940,52 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 <!-- ── Option B ── -->
 <h3 id="s8-b">Option B &mdash; for candidates WITHOUT an AWS/Azure lab budget</h3>
 
-<p>Don&rsquo;t worry &mdash; you can still do everything needed to continue learning. In this option you skip Terraform entirely and use Docker Compose to bring up Odoo directly on Docker Desktop. The result is the same running Odoo you need for the module development tutorials; the only difference is that infrastructure management is not part of your exercise.</p>
+<p>Don&rsquo;t worry &mdash; you can still do everything needed to continue learning. In this option you skip Terraform entirely and use Docker Compose to bring up Odoo directly on Docker Desktop. The result is the same two running Odoo instances (prod + dev) you need for the module development tutorials; the only difference is that Terraform infrastructure management is not part of your exercise.</p>
 
 <p><strong>Prerequisites:</strong></p>
 <ul>
     <li>Docker Desktop installed and running (Windows, macOS, or Linux).</li>
-    <li>Your <code>komiti_library</code> repo cloned locally.</li>
+    <li>Your <code>komiti_library</code> repo cloned locally (you did this in <a href="02_git_vscode_basics.html#s7-4">tutorial 02, section 4.4</a>).</li>
 </ul>
 
-<p><strong>Step 1 &mdash; create the Compose file.</strong> In your repo, create the directory <code>infra/local/odoo-dev-docker-desktop/</code> and inside it create a file called <code>docker-compose.yml</code>:</p>
+<p><strong>Step 1 &mdash; open a terminal and make sure you are on <code>main</code>.</strong></p>
 
-<pre><code>name: komiti-academy-dev
+<pre><code>PS C:\Users\you&gt; cd C:\dev\komiti_library
+PS C:\dev\komiti_library&gt; git checkout main
+PS C:\dev\komiti_library&gt; git pull origin main</code></pre>
+
+<p>You start on <code>main</code> because infrastructure files belong to all branches &mdash; they are not feature-specific. By committing them to <code>main</code> first, every future feature branch will inherit them automatically.</p>
+
+<p><strong>Step 2 &mdash; create the directory structure and compose files.</strong></p>
+
+<p>You need two directories &mdash; one for each environment. You also need a <code>custom-addons/</code> folder at the repo root (this is where your Odoo modules will live later). Create them:</p>
+
+<pre><code>PS C:\dev\komiti_library&gt; mkdir infra/local/odoo-prod-docker-desktop
+PS C:\dev\komiti_library&gt; mkdir infra/local/odoo-dev-docker-desktop
+PS C:\dev\komiti_library&gt; mkdir custom-addons
+PS C:\dev\komiti_library&gt; echo $null &gt; custom-addons/.gitkeep</code></pre>
+
+<p>Now create the <strong>prod</strong> compose file at <code>infra/local/odoo-prod-docker-desktop/docker-compose.yml</code>:</p>
+
+<pre><code>name: komiti-library-prod
 
 services:
   postgres:
     image: postgres:16
     restart: unless-stopped
     environment:
-      POSTGRES_DB: komiti_academy_odoo
-      POSTGRES_USER: admin.komiti_odoo
-      POSTGRES_PASSWORD: komiti-academy-local-dev
+      POSTGRES_DB: komiti_library_prod
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: komiti-library-prod-local
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin.komiti_odoo -d komiti_academy_odoo"]
+      test: ["CMD-SHELL", "pg_isready -U odoo -d komiti_library_prod"]
       interval: 10s
       timeout: 5s
       retries: 10
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      academy:
+      library-prod:
         aliases:
           - db
 
@@ -974,15 +998,15 @@ services:
     environment:
       HOST: db
       PORT: 5432
-      USER: admin.komiti_odoo
-      PASSWORD: komiti-academy-local-dev
+      USER: odoo
+      PASSWORD: komiti-library-prod-local
     ports:
-      - "8067:8069"
+      - "8069:8069"
     volumes:
       - odoo-data:/var/lib/odoo
       - ../../../custom-addons:/mnt/extra-addons:rw
     networks:
-      academy:
+      library-prod:
         aliases:
           - odoo
 
@@ -991,34 +1015,114 @@ volumes:
   odoo-data:
 
 networks:
-  academy:</code></pre>
+  library-prod:</code></pre>
 
-<p><strong>Step 2 &mdash; start the stack.</strong> Open a terminal, navigate to the directory that contains your <code>docker-compose.yml</code>, and run:</p>
+<p>Then create the <strong>dev</strong> compose file at <code>infra/local/odoo-dev-docker-desktop/docker-compose.yml</code>:</p>
 
-<pre class="snippet"><code>PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose up -d</code></pre>
+<pre><code>name: komiti-library-dev
 
-<p>Docker will pull the <code>postgres:16</code> and <code>odoo:19.0</code> images (this may take a few minutes the first time), create the network, volumes, and start both containers.</p>
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: komiti_library_dev
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: komiti-library-dev-local
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d komiti_library_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      library-dev:
+        aliases:
+          - db
 
-<p><strong>Step 3 &mdash; verify the runtime.</strong> Check that both containers are running and healthy:</p>
+  odoo:
+    image: odoo:19.0
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      HOST: db
+      PORT: 5432
+      USER: odoo
+      PASSWORD: komiti-library-dev-local
+    ports:
+      - "8067:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ../../../custom-addons:/mnt/extra-addons:rw
+    networks:
+      library-dev:
+        aliases:
+          - odoo
+
+volumes:
+  postgres-data:
+  odoo-data:
+
+networks:
+  library-dev:</code></pre>
+
+<p>Notice the key differences between prod and dev: the project name, database name, password, network name, and the host port (<code>8069</code> for prod, <code>8067</code> for dev). Each environment gets its own Docker volumes and network, so their data is fully isolated.</p>
+
+<p><strong>Step 3 &mdash; commit the infrastructure files to <code>main</code>.</strong></p>
+
+<pre><code>PS C:\dev\komiti_library&gt; git add -A
+PS C:\dev\komiti_library&gt; git commit -m "Add infra: prod and dev Docker Compose stacks"
+PS C:\dev\komiti_library&gt; git push origin main</code></pre>
+
+<p>Infrastructure lives on <code>main</code>. Every feature branch you create later will inherit these files.</p>
+
+<p><strong>Step 4 &mdash; bring up the prod Odoo instance.</strong></p>
+
+<pre><code>PS C:\dev\komiti_library&gt; cd infra/local/odoo-prod-docker-desktop
+PS C:\dev\komiti_library\infra\local\odoo-prod-docker-desktop&gt; docker compose up -d</code></pre>
+
+<p>Docker will pull the <code>postgres:16</code> and <code>odoo:19.0</code> images (this may take a few minutes the first time). Once done, verify:</p>
 
 <pre class="snippet"><code>PS ...&gt; docker compose ps</code></pre>
 
-<p>You should see two services: <code>postgres</code> with status <code>healthy</code> and <code>odoo</code> with status <code>running</code>. If Postgres is not yet healthy, wait a few seconds and check again.</p>
+<p>You should see two services: <code>postgres</code> (healthy) and <code>odoo</code> (running). Open <a href="http://localhost:8069">http://localhost:8069</a> in your browser. You will see the Odoo database creation screen. Create a database &mdash; this is your production baseline. Leave it clean for now; don&rsquo;t install any custom module here yet.</p>
 
-<p><strong>Step 4 &mdash; open Odoo in the browser.</strong> Navigate to <a href="http://localhost:8067">http://localhost:8067</a>. You should see the Odoo database creation screen. Create a new database &mdash; the credentials are the ones defined in the Compose file above (<code>admin.komiti_odoo</code> / <code>komiti-academy-local-dev</code>).</p>
+<p><strong>Step 5 &mdash; create a feature branch.</strong></p>
 
-<p><strong>Step 5 &mdash; verify the addons mount.</strong> If you have any custom addons in <code>custom-addons/</code> in your repo, they should appear in Odoo under <strong>Settings &rarr; Activate developer mode &rarr; Apps &rarr; Update Apps List</strong>. This confirms the bind mount is working correctly.</p>
+<pre><code>PS ...&gt; cd C:\dev\komiti_library
+PS C:\dev\komiti_library&gt; git checkout -b 2026-04-01-library-module
+PS C:\dev\komiti_library&gt; git push -u origin 2026-04-01-library-module</code></pre>
 
-<p><strong>Step 6 &mdash; stop or tear down.</strong> When you are done working:</p>
+<p>You are now on a feature branch created from <code>main</code>. The infrastructure files you committed in step 3 are already here.</p>
+
+<p><strong>Step 6 &mdash; bring up the dev Odoo instance.</strong></p>
+
+<pre><code>PS C:\dev\komiti_library&gt; cd infra/local/odoo-dev-docker-desktop
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose up -d</code></pre>
+
+<p>Verify with <code>docker compose ps</code>, then open <a href="http://localhost:8067">http://localhost:8067</a>. Create a database here too &mdash; this is your development instance where you will install and test your module as you build it.</p>
+
+<p><strong>Step 7 &mdash; understand what you now have.</strong></p>
+
+<p>At this point, two independent Odoo instances are running on your machine:</p>
 <ul>
-    <li>To stop containers but keep data: <code>docker compose stop</code></li>
+    <li><strong>prod</strong> at <code>localhost:8069</code> &mdash; clean baseline, no custom module installed.</li>
+    <li><strong>dev</strong> at <code>localhost:8067</code> &mdash; your development playground, tied to the feature branch.</li>
+</ul>
+<p>Both mount the same <code>custom-addons/</code> folder on disk. When you later add your <code>library</code> module there, the files will be visible to both instances &mdash; but only the dev database will have the module <em>installed</em>. The prod database stays clean until you deliberately install a released version. This mirrors real-world discipline: code on disk is not the same as a running, installed module.</p>
+
+<p><strong>Stopping and restarting.</strong> When you are done working:</p>
+<ul>
+    <li>To stop containers but keep data: <code>docker compose stop</code> (run from the respective directory)</li>
     <li>To stop and remove containers but keep volumes (data survives): <code>docker compose down</code></li>
     <li>To remove everything including data: <code>docker compose down -v</code></li>
 </ul>
+<p>Next time you resume, navigate to the compose directory and run <code>docker compose up -d</code>. As long as you haven&rsquo;t removed the volumes, your database and filestore will still be there.</p>
 
-<p>Next time you want to continue, simply run <code>docker compose up -d</code> again from the same directory. As long as you haven&rsquo;t removed the volumes, your database and filestore will still be there.</p>
-
-<p><strong>What to understand from this option:</strong> you now have a working Odoo + Postgres runtime that is functionally equivalent to what Option A produces via Terraform. The difference is that you did not practice Terraform project structure, variables, or the plan/apply cycle. If you later get cloud access, you can return to Option A to learn that layer. For now, you have everything you need to continue with the Odoo module development tutorials.</p>
+<p><strong>What to understand from this option:</strong> you now have a working two-environment Odoo setup that is functionally equivalent to what Option A produces via Terraform. The difference is that you did not practice Terraform project structure, variables, or the plan/apply cycle. If you later get cloud access, you can return to Option A to learn that layer. For now, you have everything you need to continue with the Odoo module development tutorials.</p>
 
 <!-- ───────── 9 ───────── -->
 <h2 id="s9">9) What to read next</h2>
