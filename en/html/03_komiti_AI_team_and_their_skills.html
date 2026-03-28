@@ -200,15 +200,23 @@ details summary {
         <li><a href="#s3">Instructions vs instructions vs skills — when to use which</a></li>
         <li><a href="#s4">Multi-root workspaces</a></li>
         <li><a href="#s-video">Other ways to customise agents</a></li>
-        <li><a href="#s6">Instructions and skills in <code>odoo4komiti</code></a>
+        <li><a href="#s6">Custom agents — your team's AI personas</a>
             <ol>
-                <li><a href="#s6-1">Visual overview — file tree</a></li>
-                <li><a href="#s6-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
-                <li><a href="#s6-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
-                <li><a href="#s6-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
-                <li><a href="#s6-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
-                <li><a href="#s6-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
-                <li><a href="#s6-7"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
+                <li><a href="#s6-1">What is a custom agent?</a></li>
+                <li><a href="#s6-2">How to create one</a></li>
+                <li><a href="#s6-3">GAM mandate: every KomITi developer needs a custom agent</a></li>
+                <li><a href="#s6-4">Minimum configuration for a KomITi custom agent</a></li>
+            </ol>
+        </li>
+        <li><a href="#s7">Instructions and skills in <code>odoo4komiti</code></a>
+            <ol>
+                <li><a href="#s7-1">Visual overview — file tree</a></li>
+                <li><a href="#s7-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
+                <li><a href="#s7-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
+                <li><a href="#s7-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
+                <li><a href="#s7-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
+                <li><a href="#s7-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+                <li><a href="#s7-7"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
             </ol>
         </li>
     </ol>
@@ -403,11 +411,149 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s6">6) Instructions and skills in <code>odoo4komiti</code></h2>
+<h2 id="s6">6) Custom agents — your team's AI personas</h2>
+
+<p>Chapter 5 mentioned custom agents as one of the ways to customise how your AI works. Custom agents deserve their own chapter because they are the <strong>capstone</strong> of GAM — they bring together instructions, skills, tool restrictions, and identity into a single file that gives the agent a <strong>name, scope, and personality</strong>.</p>
+
+<h3 id="s6-1">6.1) What is a custom agent?</h3>
+
+<p>A custom agent is a <code>.agent.md</code> file placed in the <code>.github/agents/</code> folder of your repository. It defines a <strong>named persona</strong> that you invoke by typing <code>@AgentName</code> in the VS Code chat. When invoked, the agent receives the full body of the <code>.agent.md</code> file as system-level context — <strong>on top of</strong> the global and scoped instructions that already load from the workspace.</p>
+
+<p>Think of it this way: instructions define <em>rules for the workspace</em>; a custom agent defines <em>who is working in that workspace</em>. Two agents can share the same instructions but have different scopes, different tool access, and different ownership boundaries.</p>
+
+<p>Real examples from KomITi:</p>
+<ul>
+    <li><code>@odoo4komiti</code> — the owner-agent for the <code>odoo4komiti</code> repo. It is the <strong>only</strong> agent allowed to push to <code>staging</code> and <code>main</code>, run deploys, and execute runbooks.</li>
+    <li><code>@Academy</code> — the content-agent for the <code>komiti_academy</code> repo. It owns tutorial HTML, follows the pedagogy skill, and hands off to <code>@odoo4komiti</code> for promotion and deploy.</li>
+</ul>
+
+<div class="note">
+    <strong>Note:</strong> a custom agent <strong>does not replace</strong> instructions or skills — it layers on top of them. Instructions still load automatically (global + scoped), skills still activate on demand. The <code>.agent.md</code> file adds identity, ownership boundaries, and agent-specific constraints.
+</div>
+
+<h3 id="s6-2">6.2) How to create one</h3>
+
+<p>Creating a custom agent takes three steps:</p>
+
+<ol>
+    <li><strong>Create the folder:</strong> <code>.github/agents/</code> in your repository root (if it does not exist yet).</li>
+    <li><strong>Create the file:</strong> <code>.github/agents/YourAgent.agent.md</code>. The filename (without extension) becomes the default agent name.</li>
+    <li><strong>Write frontmatter + body:</strong></li>
+</ol>
+
+<pre><code>---
+name: MyAgent
+description: "Short sentence — when to invoke this agent."
+tools: [read, edit, search, todo, agent]
+user-invocable: true
+---
+
+You are **MyAgent** — the designated agent for [scope].
+
+## Identity
+- Always identify yourself as `MyAgent`.
+- Respond in Serbian Cyrillic by default.
+
+## Scope
+- What this agent works on.
+
+## Constraints
+- What rules it must follow.
+- What it must NOT do.</code></pre>
+
+<p>The <strong>YAML frontmatter</strong> (between <code>---</code> markers) has four fields:</p>
+
+<table>
+<thead>
+    <tr><th>Field</th><th>Required</th><th>What it does</th></tr>
+</thead>
+<tbody>
+    <tr><td><code>name</code></td><td>Yes</td><td>The <code>@mention</code> name the user types in chat (e.g. <code>@Academy</code>).</td></tr>
+    <tr><td><code>description</code></td><td>Yes</td><td>Short sentence explaining when to use this agent. VS Code shows this in the agent picker and uses it for routing.</td></tr>
+    <tr><td><code>tools</code></td><td>No</td><td>Array of tools the agent is allowed to use. Restricting tools prevents the agent from accidentally running commands outside its domain (e.g. a content agent should not have <code>execute</code>).</td></tr>
+    <tr><td><code>user-invocable</code></td><td>No</td><td><code>true</code> means the user can invoke this agent with <code>@AgentName</code>. If <code>false</code>, only other agents can call it as a subagent.</td></tr>
+</tbody>
+</table>
+
+<p>The <strong>body</strong> (everything after the frontmatter) is free-form Markdown. VS Code injects the entire body as system-level context when the agent is invoked. Structure it with clear sections: Identity, Scope, Constraints, Approach — and any domain-specific reference material (file maps, conventions, terminology).</p>
+
+<div class="tip">
+    <strong>Tip:</strong> keep the body concise. Every token in the <code>.agent.md</code> file consumes context window space. Put detailed procedures in skills (<code>SKILL.md</code>) instead of duplicating them in the agent body.
+</div>
+
+<h3 id="s6-3">6.3) GAM mandate: every KomITi developer needs a custom agent</h3>
+
+<p>GAM for KomITi prescribes that <strong>every developer must create a custom agent</strong> for each repository they own or actively develop in. The rationale:</p>
+
+<ul>
+    <li><strong>Clear ownership.</strong> The <code>.agent.md</code> file declares who may push where. When multiple agents exist in a multi-root workspace, each one knows its boundaries — no accidental cross-repo pushes or unauthorized promotions.</li>
+    <li><strong>Consistent team identity.</strong> Every team member's agent speaks the same language (Serbian Cyrillic), follows the same commit discipline, and applies the same Definition of Done. The agent file is the single place where this is enforced per-persona.</li>
+    <li><strong>Predictable handoffs.</strong> When <code>@Academy</code> finishes a tutorial edit, it knows to hand off to <code>@odoo4komiti</code> — not to push directly to production. This boundary is documented in each agent's Constraints section.</li>
+    <li><strong>Tool safety.</strong> A content agent does not need terminal access. A deploy agent does not need notebook tools. The <code>tools</code> array enforces the principle of least privilege.</li>
+</ul>
+
+<div class="important">
+    <strong>Important:</strong> <code>.agent.md</code> files are committed to the repository. This means agent definitions are <strong>version-controlled, reviewable, and shared</strong> across the team — unlike personal VS Code settings that live only on one machine.
+</div>
+
+<h3 id="s6-4">6.4) Minimum configuration for a KomITi custom agent</h3>
+
+<p>To be GAM-compliant, every KomITi custom agent must include at least these elements:</p>
+
+<table>
+<thead>
+    <tr><th>#</th><th>Element</th><th>Why mandatory</th></tr>
+</thead>
+<tbody>
+    <tr><td>1</td><td><strong>Frontmatter: <code>name</code></strong></td><td>Defines the <code>@mention</code> identifier. Without it the agent cannot be invoked.</td></tr>
+    <tr><td>2</td><td><strong>Frontmatter: <code>description</code></strong></td><td>VS Code uses this for agent routing. A missing description means the agent will not appear in the picker.</td></tr>
+    <tr><td>3</td><td><strong>Frontmatter: <code>tools</code></strong></td><td>Restricts agent capabilities to what it actually needs (principle of least privilege).</td></tr>
+    <tr><td>4</td><td><strong>Identity section</strong></td><td>Declares the agent name, default language (Serbian Cyrillic), and ownership boundary (which branches/repos it may push to).</td></tr>
+    <tr><td>5</td><td><strong>Scope section</strong></td><td>Lists what the agent works on — prevents scope creep and guides the router.</td></tr>
+    <tr><td>6</td><td><strong>Constraints section</strong></td><td>Rules the agent must follow: which instruction files to read, what it must not do (e.g. "do not push to main"), handoff protocol.</td></tr>
+</tbody>
+</table>
+
+<p>A minimal KomITi-compliant agent file looks like this:</p>
+
+<pre><code>---
+name: MyProjectAgent
+description: "Use for development work in the my-project repository."
+tools: [read, edit, search, todo]
+user-invocable: true
+---
+
+You are **MyProjectAgent** — the designated agent for the `my-project` repository.
+
+## Identity
+- Always identify yourself as `MyProjectAgent`.
+- Respond in Serbian Cyrillic by default.
+- You may push to feature branches only. Hand off to the
+  repo owner for promotion to `staging` and `main`.
+
+## Scope
+- Python module development in `src/`.
+- Unit tests in `tests/`.
+- Documentation updates in `docs/`.
+
+## Constraints
+- Follow `.github/copilot-instructions.md` for all repo-level rules.
+- One commit = one logical unit.
+- After every significant change, update `SESSION_NOTES.md`.
+- Do not deploy — prepare a HANDOFF block instead.</code></pre>
+
+<div class="note">
+    <strong>Note:</strong> beyond the minimum, you can add as much domain knowledge as needed: file maps, callout conventions, terminology glossaries, handoff protocols, and pointers to relevant instruction/skill files. See the <code>@Academy</code> and <code>@odoo4komiti</code> agents in the KomITi repos for full examples.
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s7">7) Instructions and skills in <code>odoo4komiti</code></h2>
 
 <p>The <code>odoo4komiti</code> repository uses a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
 
-<h3 id="s6-1">6.1) Visual overview — file tree</h3>
+<h3 id="s7-1">7.1) Visual overview — file tree</h3>
 
 <div class="ascii-diagram">odoo4komiti/
 ├── .github/
@@ -445,7 +591,7 @@ applyTo: "custom-addons/**"
 └── (skills — currently referenced via the
      agent-customization skill at VS Code level)</div>
 
-<h3 id="s6-2">6.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
+<h3 id="s7-2">7.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
 
 <p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
 
@@ -468,7 +614,7 @@ applyTo: "custom-addons/**"
 </tbody>
 </table>
 
-<h3 id="s6-3">6.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
+<h3 id="s7-3">7.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
 
@@ -480,7 +626,7 @@ applyTo: "custom-addons/**"
     <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
 </ul>
 
-<h3 id="s6-4">6.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
+<h3 id="s7-4">7.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
 
 <p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
 
@@ -492,7 +638,7 @@ applyTo: "custom-addons/**"
     <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
 </ul>
 
-<h3 id="s6-5">6.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
+<h3 id="s7-5">7.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
 
@@ -505,7 +651,7 @@ applyTo: "custom-addons/**"
     <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
 </ul>
 
-<h3 id="s6-6">6.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
+<h3 id="s7-6">7.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
 
@@ -518,7 +664,7 @@ applyTo: "custom-addons/**"
     <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
 </ul>
 
-<h3 id="s6-7">6.7) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
+<h3 id="s7-7">7.7) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
 
 <p>Scope: <code>applyTo: "crewai_orchestration/**"</code> + <code>description</code> (also loads on-demand when agent detects a handoff task).</p>
 
