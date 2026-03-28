@@ -122,12 +122,18 @@ tbody tr:hover { background: #f0eaf4; }
 .toc li { margin-bottom: 3.2px; }
 .toc a { color: #A65949; text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
-.note {
+.important {
     background: #fffbe6; border-left: 4px solid #f0b429;
     padding: 12px 18px; margin: 14px 0;
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
-.note strong { color: #b07d00; }
+.important strong { color: #b07d00; }
+.note {
+    background: #e3f2fd; border-left: 4px solid #1976d2;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.note strong { color: #0d47a1; }
 .tip {
     background: #e8f5e9; border-left: 4px solid #43a047;
     padding: 12px 18px; margin: 14px 0;
@@ -569,7 +575,7 @@ PS C:\dev\komiti_library> ls
 <pre><code>PS C:\Users\you> mkdir C:\dev
 PS C:\Users\you> cd C:\dev</code></pre>
 
-<div class="note">
+<div class="important">
     <strong>Important:</strong> Do <strong>not</strong> place your development folder inside OneDrive, Dropbox or any other cloud-synced folder. Cloud sync services constantly lock and rewrite files in the background, which causes conflicts with Git and with AI coding agents (e.g. GitHub Copilot). Always use a plain local path like <code>C:\dev</code>.
 </div>
 
@@ -795,7 +801,7 @@ PS C:\dev\komiti_library> git commit -m "Add z.md to feature branch"</code></pre
 </ul>
 <p>The <strong>short commit ID</strong> (e.g. <code>66bee36</code>) is the abbreviated commit hash that Git prints after a successful commit. That number and letters are not random: it is a short version of the unique identifier of that commit. The full commit hash is much longer, and Git in everyday work often shows only the abbreviated version, sufficient to clearly identify the commit in that repo. Practically, <code>66bee36</code> means: "this exact code snapshot". That's why you can say, for example: <em>look at commit <code>66bee36</code></em> or <em>this change entered <code>66bee36</code></em>.</p>
 
-<div class="note">
+<div class="important">
     <strong>Important:</strong> Git technically does not commit "the entire branch" as a single special object, but creates a new snapshot of everything you staged while on that branch, so it is more precise to say: <em>on this branch I committed all current changes</em>, rather than <em>I committed the branch</em>.
 </div>
 
@@ -862,7 +868,7 @@ PS C:\dev\komiti_library> git push origin staging</code></pre>
     <li>merge the feature content in (<em>copy the sheets from your working binder into it</em>)</li>
     <li>push to the remote GitHub branch (<em>send the updated binder back to the remote cabinet</em>)</li>
 </ul>
-<div class="note">
+<div class="important">
     <strong>Important:</strong> after <code>git merge 2026-03-23-play_xyz</code>, Git may open a text editor and show a default merge commit message such as <code>Merge branch '2026-03-23-play_xyz' into staging</code>. This is normal: Git is asking you to confirm the commit message for the new merge commit. In most cases you can keep the default message. If the editor is <code>vim</code>, press <code>Esc</code>, type <code>:wq</code>, then press <code>Enter</code> to save and finish the merge.
 </div>
 

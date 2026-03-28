@@ -120,18 +120,18 @@ tbody tr:hover { background: #f0eaf4; }
 .toc li { margin-bottom: 3.2px; }
 .toc a { color: #A65949; text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
-.note {
+.important {
     background: #fffbe6; border-left: 4px solid #f0b429;
     padding: 12px 18px; margin: 14px 0;
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
-.note strong { color: #b07d00; }
-.info {
+.important strong { color: #b07d00; }
+.note {
     background: #e3f2fd; border-left: 4px solid #1976d2;
     padding: 12px 18px; margin: 14px 0;
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
-.info strong { color: #0d47a1; }
+.note strong { color: #0d47a1; }
 .tip {
     background: #e8f5e9; border-left: 4px solid #43a047;
     padding: 12px 18px; margin: 14px 0;
@@ -218,9 +218,9 @@ details summary {
 
 <p>At KomITi we follow what we call <strong>Governed Agent Methodology (GAM)</strong> — where we prefer a native VS Code approach where rules are delivered to the AI agent <strong>automatically</strong>, through built-in agent customization (global instructions, glob-scoped instructions, on-demand skills).</p>
 
-<p>An alternative approach is GitHub's <strong>Spec-Driven Development (SDD)</strong>, released in early 2026 as an open-source toolkit (<a href="https://github.com/github/spec-kit">github/spec-kit</a>, 83 k &#11088;). SDD introduced a structured pipeline — <code>constitution &rarr; specify &rarr; plan &rarr; tasks &rarr; implement</code> — where AI agents build software from specifications rather than ad-hoc prompts. However, in SDD the agent reads its governing rules only <strong>on demand</strong> — when the user explicitly invokes a slash command.</p>
+<p>Unlike GitHub's <a href="https://github.com/github/spec-kit"><strong>Spec-Driven Development (SDD)</strong></a> where the agent reads its governing instructions only <strong>on demand</strong> (when the user explicitly invokes a slash command), we at KomITi prefer stronger assurance that governance will be respected (GAM prefers native VS Code agent customization that injects the instructions before the agent writes a single character).</p>
 
-<p>GAM gives us stronger assurance that governance will be respected, because VS Code injects the rules before the agent writes a single character. The sections below explain how each GAM layer should be applied at KomITi.</p>
+<p>To be GAM-compliant:</p>
 
 <h2 id="s1">1) Start with instructions</h2>
 
@@ -243,7 +243,7 @@ details summary {
     <li>Navigation index (pointers to scoped files).</li>
 </ul>
 
-<div class="info">
+<div class="note">
     <strong>Note:</strong> in SDD, the equivalent of <code>copilot-instructions.md</code> is <code>constitution.md</code> — both hold immutable project-level principles. The key difference: VS Code loads <code>copilot-instructions.md</code> automatically in every conversation, while SDD's <code>constitution.md</code> is read on demand when a slash command tells the agent to consult it.
 </div>
 
@@ -260,7 +260,7 @@ applyTo: "custom-addons/**"
 - View inheritance must use stable inherit_id references.
 ...</code></pre>
 
-<div class="note">
+<div class="important">
     <strong>Key point:</strong> The filename does not determine scope — only the <code>applyTo</code> frontmatter does. A file named <code>custom-addons/odoo.instructions.md</code> with <code>applyTo: "infra/**"</code> would activate for infrastructure files, not for custom-addons.
 </div>
 
@@ -335,7 +335,7 @@ applyTo: "custom-addons/**"
     <strong>Rule of thumb:</strong> If the agent should know a rule at all times — use instructions. If the agent only needs a procedure when you ask for a specific task — use a skill.<br>
     <strong>Tone difference:</strong> Instructions sound like <em>"Always do X / never do Y"</em>. Skills sound like <em>"Step 1… Step 2… Step 3…"</em>.
 </div>
-<div class="note">
+<div class="important">
     <strong>Watch out for contradictions.</strong> The agent can see many instructions (global and scoped) and skills simultaneously — especially in a multi-root workspace. There is <strong>no priority hierarchy</strong> between global instructions, scoped instructions, and skills: all loaded text lands in the same context window with equal weight. If one instruction says <em>"Respond in Serbian"</em> and another says <em>"Respond in English"</em>, the agent receives both and the result is non-deterministic — it may pick one, try to satisfy both, or alternate randomly. Avoid this by placing cross-cutting rules (language, formatting, commit conventions) in only <strong>one</strong> repo's global instructions, and by using specific scopes: <em>"When working on <code>en/html/**</code> respond in English; for everything else respond in Serbian Cyrillic."</em>
 </div>
 <hr>

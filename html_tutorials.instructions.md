@@ -63,15 +63,15 @@ Four callout classes exist. Each has a consistent colour, label, and semantic ro
 
 | Class   | Colour       | Label               | Purpose |
 |---------|-------------|----------------------|---------|
-| `.note` | amber/brown | `<strong>Important:</strong>` | Gotchas, common mistakes, things that break if ignored |
-| `.info` | blue        | `<strong>Note:</strong>`      | Neutral extra context, clarifications, background info |
+| `.important` | amber/brown | `<strong>Important:</strong>` | Gotchas, common mistakes, things that break if ignored |
+| `.note` | blue        | `<strong>Note:</strong>`      | Neutral extra context, clarifications, background info |
 | `.tip`  | green       | `<strong>Tip:</strong>`       | Shortcuts, best practices, productivity hints |
 | `.ascii-diagram` | dark terminal | _(none)_ | ASCII diagrams rendered as code blocks |
 
 Markup pattern (same for all callout classes):
 
 ```html
-<div class="info">
+<div class="note">
     <strong>Note:</strong> PowerShell accepts both <code>/</code> and
     <code>\</code> when navigating directories&hellip;
 </div>
@@ -80,18 +80,18 @@ Markup pattern (same for all callout classes):
 CSS definitions (must be present in every tutorial `<style>`):
 
 ```css
-.note {
+.important {
     background: #fffbe6; border-left: 4px solid #f0b429;
     padding: 12px 18px; margin: 14px 0;
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
-.note strong { color: #b07d00; }
-.info {
+.important strong { color: #b07d00; }
+.note {
     background: #e3f2fd; border-left: 4px solid #1976d2;
     padding: 12px 18px; margin: 14px 0;
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
-.info strong { color: #0d47a1; }
+.note strong { color: #0d47a1; }
 .tip {
     background: #e8f5e9; border-left: 4px solid #43a047;
     padding: 12px 18px; margin: 14px 0;
@@ -101,13 +101,13 @@ CSS definitions (must be present in every tutorial `<style>`):
 ```
 
 Rules:
-- **Do not mix labels and classes.** `.note` always starts with `Important:`, `.info` always starts with `Note:`, `.tip` always starts with `Tip:`.
+- **Do not mix labels and classes.** `.important` always starts with `Important:`, `.note` always starts with `Note:`, `.tip` always starts with `Tip:`. Domain-specific labels (`Common mistake:`, `Prerequisites:`, etc.) are allowed on `.important` boxes when the content is a gotcha.
 - The first word after the bold label is lowercase (sentence continues).
 - Keep callout text concise — aim for 1–3 sentences.
-- Older tutorials may use `.vscode-sc` or `.change` for blue boxes; when editing those files, migrate them to `.info`.
+- Older tutorials may use `.vscode-sc` or `.change` for blue boxes; when editing those files, migrate them to `.note`.
 
 ## Styling conventions
-- Use the existing CSS classes: `note` (amber/brown), `info` (blue), `tip` (green), `ascii-diagram` (dark terminal block).
+- Use the existing CSS classes: `important` (amber/brown), `note` (blue), `tip` (green), `ascii-diagram` (dark terminal block).
 - Use the standard tutorial typography baseline from the existing `en/html/` files:
 	`body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 15px; line-height: 1.225; color: #2c2c2c; background: #f4f6f9; }`
 	`.page-wrapper { max-width: 980px; margin: 20px auto; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.1); padding: 30px 36px; }`

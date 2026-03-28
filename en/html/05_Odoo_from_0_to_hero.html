@@ -145,12 +145,18 @@
         .toc a   { color: #A65949; text-decoration: none; }
         .toc a:hover { text-decoration: underline; }
         /* callouts */
-        .note {
+        .important {
             background: #fffbe6; border-left: 4px solid #f0b429;
             padding: 12px 18px; margin: 14px 0;
             border-radius: 0 6px 6px 0; font-size: 14px;
         }
-        .note strong { color: #b07d00; }
+        .important strong { color: #b07d00; }
+        .note {
+            background: #e3f2fd; border-left: 4px solid #1976d2;
+            padding: 12px 18px; margin: 14px 0;
+            border-radius: 0 6px 6px 0; font-size: 14px;
+        }
+        .note strong { color: #0d47a1; }
         .tip {
             background: #e8f5e9; border-left: 4px solid #43a047;
             padding: 12px 18px; margin: 14px 0;
@@ -358,7 +364,7 @@
     <p>The <strong>addons path</strong> is an Odoo configuration listing directories where the server looks for available addons. By default it contains Odoo's own bundled apps and base module. You extend it by adding directories for custom or community modules.</p>
     <p>The <code>odoo scaffold</code> command provides a quick way to create a module skeleton:</p>
     <pre>python odoo-bin scaffold library ~/work19/library</pre>
-        <div class="note"><strong>Prerequisites:</strong> run this command from an Odoo source checkout where <code>odoo-bin</code> exists, use a Python environment with the project dependencies installed, and pass an existing addons directory as the destination path so Odoo can later load the generated module through its <code>addons_path</code> configuration.</div>
+        <div class="important"><strong>Prerequisites:</strong> run this command from an Odoo source checkout where <code>odoo-bin</code> exists, use a Python environment with the project dependencies installed, and pass an existing addons directory as the destination path so Odoo can later load the generated module through its <code>addons_path</code> configuration.</div>
 
     <h3 id="step1-3">1.3) Recommended Module Structure in Odoo 19</h3>
     <p>The scaffold command creates a basic skeleton. The full recommended structure for a production module in Odoo 19 is:</p>
@@ -421,7 +427,7 @@ from . import library_book  <span class="comment"># imports library/models/libra
 
 <span class="comment"># library/controllers/__init__.py</span>
 from . import main          <span class="comment"># imports library/controllers/main.py</span></pre>
-    <div class="note"><strong>Common mistake:</strong> Adding a new model file (e.g. <code>models/library_member.py</code>) but forgetting to add <code>from . import library_member</code> to <code>models/__init__.py</code>. The file exists on disk but Odoo never loads it — the model does not appear in the database and no error is shown.</div>
+    <div class="important"><strong>Common mistake:</strong> Adding a new model file (e.g. <code>models/library_member.py</code>) but forgetting to add <code>from . import library_member</code> to <code>models/__init__.py</code>. The file exists on disk but Odoo never loads it — the model does not appear in the database and no error is shown.</div>
 
     <h4>What each <code>__init__.py</code> contains</h4>
     <table>
@@ -519,7 +525,7 @@ from . import main          <span class="comment"># imports library/controllers/
     "views/library_menu.xml",          # 4. menus reference views
 ],</pre>
     <p>The same principle applies to any cross-file reference: a view that inherits another view must come after it; a record that sets a Many2one field pointing to another record must come after that record's file.</p>
-    <div class="note"><strong>Common mistake:</strong> Putting <code>ir.model.access.csv</code> first, before the security XML. The CSV tries to look up a group that does not exist yet and raises <code>ValueError: External ID not found in the system: library.library_group_user</code>.</div>
+    <div class="important"><strong>Common mistake:</strong> Putting <code>ir.model.access.csv</code> first, before the security XML. The CSV tries to look up a group that does not exist yet and raises <code>ValueError: External ID not found in the system: library.library_group_user</code>.</div>
 
     <div class="tip"><strong>Tip — technical name vs display name:</strong> The manifest <code>"name"</code> key is the <em>display name</em> shown in the Apps list and Settings. The <strong>technical name</strong> is always the <em>directory name</em> on disk. The technical name is what you use in the <code>-i</code> / <code>-u</code> CLI flags (<code>-i library</code>), in Python imports (<code>from odoo.addons.library import ...</code>), and as the prefix in XML IDs (<code>library.library_group_user</code>). These two names can differ — calling <code>-i "Library Management"</code> will fail; you must use the directory name <code>library</code>.</div>
 
@@ -610,7 +616,7 @@ from . import main          <span class="comment"># imports library/controllers/
           parent="menu_library_catalog"
           action="action_library_book" /&gt;</pre>
     <p>Odoo builds the full menu tree at runtime by following these <code>parent</code> chains. A menu with no parent is the root; everything else is a descendant. There is no limit to nesting depth, but in practice three levels is the Odoo convention.</p>
-    <div class="note"><strong>Common mistake:</strong> Writing <code>parent="library.menu_library"</code> (with the module prefix) when the parent is defined in the <em>same file</em>. Within a single XML file you can reference local IDs without the module prefix. The module prefix (<code>library.</code>) is only needed when you reference an ID defined in a <em>different</em> file or module.</div>
+    <div class="important"><strong>Common mistake:</strong> Writing <code>parent="library.menu_library"</code> (with the module prefix) when the parent is defined in the <em>same file</em>. Within a single XML file you can reference local IDs without the module prefix. The module prefix (<code>library.</code>) is only needed when you reference an ID defined in a <em>different</em> file or module.</div>
 
     <h4>Why are the menus split across multiple XML files?</h4>
     <p>The Library module defines its top menu in <code>views/library_menu.xml</code> and the child menus (+ their actions) inside <code>views/book_view.xml</code>. This split is a deliberate Odoo convention, not a technical requirement:</p>
@@ -929,7 +935,7 @@ Assign user to  <span class="hl">library_group_manager</span><br>
         <li><strong>implied_ids</strong>: Groups whose privileges are inherited. <code>(4, ref('...'))</code> adds a link to an existing record.</li>
         <li><strong>users</strong> <em>(removed in v17)</em>: Do not use — raises <code>ValueError: Invalid field 'users' in 'res.groups'</code>. Assign users via Settings UI after installation.</li>
     </ul>
-    <div class="note"><strong>Note:</strong> The <code>library_security.xml</code> file must come <em>before</em> menu and view files in the manifest <code>data</code> list. Menus and views reference security groups, and those references must already be defined.</div>
+    <div class="important"><strong>Important:</strong> The <code>library_security.xml</code> file must come <em>before</em> menu and view files in the manifest <code>data</code> list. Menus and views reference security groups, and those references must already be defined.</div>
     <div class="v19-new"><span class="badge v-new">New in v17</span> <strong>Become Superuser:</strong> Developer mode now includes a "Become Superuser" option (<em>Settings → Developer Tools → Become Superuser</em>). This bypasses all access checks globally and is useful for testing views before security is fully set up.</div>
 
     <hr>
@@ -1098,7 +1104,7 @@ class Book(models.Model):
             <tr><td><code>Json</code></td><td>Native JSON data (PostgreSQL jsonb)</td><td><strong>New in v18</strong></td></tr>
         </tbody>
     </table>
-    <div class="note"><strong>Relational fields</strong> (<code>Many2one</code>, <code>Many2many</code>, <code>One2many</code>) do not store a value directly — they store a reference (a foreign key) that points to a record in <em>another</em> table. For example, <code>publisher_id = fields.Many2one("res.partner")</code> stores the ID of a row in the <code>res_partner</code> table. <code>res.partner</code> is Odoo's built-in model for all contacts — companies, individuals, customers, and suppliers. By pointing publisher and authors to it, your module reuses the existing contact database instead of duplicating names and addresses.</div>
+    <div class="note"><strong>Note:</strong> relational fields (<code>Many2one</code>, <code>Many2many</code>, <code>One2many</code>) do not store a value directly — they store a reference (a foreign key) that points to a record in <em>another</em> table. For example, <code>publisher_id = fields.Many2one("res.partner")</code> stores the ID of a row in the <code>res_partner</code> table. <code>res.partner</code> is Odoo's built-in model for all contacts — companies, individuals, customers, and suppliers. By pointing publisher and authors to it, your module reuses the existing contact database instead of duplicating names and addresses.</div>
 
     <h3 id="step4-3">4.3) Common Field Attributes</h3>
     <p>Every field type accepts keyword arguments that control its behaviour. These are the most commonly used ones:</p>
@@ -1161,7 +1167,7 @@ access_book_manager,BookManager,model_library_book,library.library_group_manager
     </ul>
     <p>The first line gives all internal users (<code>base.group_user</code>) read/write/create access — this ensures the menu and New button are visible without requiring manual group assignment after install. Library-specific groups add no extra permissions here but can be used for finer-grained record rules. Library managers get full access including delete.</p>
     <div class="v19-warn"><span class="badge v-removed">Important — menu visibility in Odoo 17+</span> A top-level menu is <strong>hidden</strong> if the user has no read access to the model the action opens. If you only define ACL rows for custom groups (and no user is assigned to those groups), the menu will be invisible to everyone including the admin. Always include a <code>base.group_user</code> row with at least <code>perm_read=1</code> so the menu appears for all internal users.</div>
-    <div class="note"><strong>Important:</strong> The admin user also follows access security rules. Always test with a regular user account as well — testing only with admin can hide missing permissions.</div>
+    <div class="important"><strong>Important:</strong> The admin user also follows access security rules. Always test with a regular user account as well — testing only with admin can hide missing permissions.</div>
 
     <h3 id="step5-2">5.2) Row-Level Access Rules (Record Rules)</h3>
     <p><strong>Record Rules</strong> (<code>ir.rule</code>) provide row-level filtering — limiting which individual records a group can see. A record rule is placed inside a <code>&lt;data noupdate="1"&gt;</code> block so it is created on install but never overwritten on upgrades:</p>
@@ -1381,7 +1387,7 @@ access_book_manager,BookManager,model_library_book,library.library_group_manager
     <p>Every <code>&lt;filter&gt;</code> element must have a unique <code>name</code> attribute — this has been required since Odoo 12 and remains true in v19.</p>
     <div class="tip"><strong>Tip — domain syntax:</strong> A <code>domain</code> is a list of conditions written as Python-style tuples: <code>[('field', 'operator', value)]</code>. Each tuple is <code>(field_name, comparison_operator, value)</code>. Multiple conditions are ANDed by default. Common operators: <code>=</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>in</code>, <code>not in</code>, <code>like</code>, <code>ilike</code> (case-insensitive contains). Use a prefix <code>'|'</code> before two conditions for OR, or <code>'&amp;'</code> for explicit AND: <code>['|', ('active','=',True), ('isbn','!=',False)]</code>. An empty list <code>[]</code> means no restriction — all records match.</div>
     <div class="v19-warn"><span class="badge v-removed">Removed in v17 — <code>&lt;group&gt;</code> wrapper inside <code>&lt;search&gt;</code></span> In Odoo 15/16 you would wrap Group By filters in <code>&lt;group expand="0" string="Group By"&gt;</code>. This wrapper was removed in Odoo 17 — it raises <em>Invalid view definition</em> at install. The UI now automatically separates Filter and Group By items based on whether the filter uses <code>domain</code> or <code>context={'group_by': ...}</code>. Use <code>&lt;separator/&gt;</code> to add a visual divider between sections.</div>
-    <div class="note"><strong>active_test context:</strong> Models with an <code>active</code> field have an implicit <code>active=True</code> filter applied by the ORM on every query. Without <code>context="{'active_test': False}"</code> on the Inactive filter, the filter appears to do nothing — the ORM overrides the domain before it reaches the database.</div>
+    <div class="important"><strong>active_test context:</strong> Models with an <code>active</code> field have an implicit <code>active=True</code> filter applied by the ORM on every query. Without <code>context="{'active_test': False}"</code> on the Inactive filter, the filter appears to do nothing — the ORM overrides the domain before it reaches the database.</div>
 
     <h3 id="step6-7">6.7) The <code>context</code> Attribute on Filters</h3>
     <p>Filters can do one of two things: restrict the records shown (<code>domain</code>), or change how the ORM queries and displays data (<code>context</code>). The <code>context</code> attribute injects key-value pairs into the query context when the filter is active:</p>
