@@ -189,34 +189,38 @@ details summary {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#s1">Start with instructions</a>
+        <li><a href="#s1">Start with Custom agents</a>
             <ol>
-                <li><a href="#s1-1">Global instructions — <code>copilot-instructions.md</code></a></li>
-                <li><a href="#s1-2">Scoped instructions — <code>*.instructions.md</code></a></li>
-                <li><a href="#s1-3">How VS Code decides which instructions to load</a></li>
+                <li><a href="#s1-1">What is a custom agent?</a></li>
+                <li><a href="#s1-2">How to create one</a></li>
             </ol>
         </li>
-        <li><a href="#s2">Add skills as you grow</a></li>
-        <li><a href="#s3">Instructions vs instructions vs skills — when to use which</a></li>
-        <li><a href="#s4">Multi-root workspaces</a></li>
-        <li><a href="#s-video">Other ways to customise agents</a></li>
-        <li><a href="#s6">Custom agents — your team's AI personas</a>
+        <li><a href="#s2">Define instructions</a>
             <ol>
-                <li><a href="#s6-1">What is a custom agent?</a></li>
-                <li><a href="#s6-2">How to create one</a></li>
-                <li><a href="#s6-3">GAM mandate: every KomITi developer needs a custom agent</a></li>
-                <li><a href="#s6-4">Minimum configuration for a KomITi custom agent</a></li>
+                <li><a href="#s2-1">Global instructions — <code>copilot-instructions.md</code></a></li>
+                <li><a href="#s2-2">Scoped instructions — <code>*.instructions.md</code></a></li>
+                <li><a href="#s2-3">How VS Code decides which instructions to load</a></li>
             </ol>
         </li>
-        <li><a href="#s7">Instructions and skills in <code>odoo4komiti</code></a>
+        <li><a href="#s3">Add skills as you grow</a></li>
+        <li><a href="#s4">Global vs Scoped instructions vs Skills — when to use which</a></li>
+        <li><a href="#s5">Guardrailing agents: two approaches</a>
+            <ol>
+                <li><a href="#s5-1">Always-on agent customization in VS Code</a></li>
+                <li><a href="#s5-2">On-demand agent customization with SDD</a></li>
+            </ol>
+        </li>
+        <li><a href="#s6">Multi-root workspaces</a></li>
+        <li><a href="#s7">Governed Agent Methodology (GAM) at KomITi</a>
             <ol>
                 <li><a href="#s7-1">Visual overview — file tree</a></li>
-                <li><a href="#s7-2"><code>.github/copilot-instructions.md</code> — global rules</a></li>
-                <li><a href="#s7-3"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
-                <li><a href="#s7-4"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
-                <li><a href="#s7-5"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
-                <li><a href="#s7-6"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
-                <li><a href="#s7-7"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
+                <li><a href="#s7-2">Every KomITi developer needs a custom agent</a></li>
+                <li><a href="#s7-3"><code>.github/copilot-instructions.md</code> — global rules</a></li>
+                <li><a href="#s7-4"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
+                <li><a href="#s7-5"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
+                <li><a href="#s7-6"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
+                <li><a href="#s7-7"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+                <li><a href="#s7-8"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
             </ol>
         </li>
     </ol>
@@ -226,196 +230,13 @@ details summary {
 
 <p>At KomITi we follow what we call <strong>Governed Agent Methodology (GAM)</strong> — where we prefer a native VS Code approach where rules are delivered to the AI agent <strong>automatically</strong>, through built-in agent customization (global instructions, glob-scoped instructions, on-demand skills).</p>
 
-<p>Unlike GitHub's <a href="https://github.com/github/spec-kit"><strong>Spec-Driven Development (SDD)</strong></a> where the agent reads its governing instructions only <strong>on demand</strong> (when the user explicitly invokes a slash command), we at KomITi prefer stronger assurance that governance will be respected (GAM prefers native VS Code agent customization that injects the instructions before the agent writes a single character).</p>
+<p>A GAM-compliant workspace is built from three building blocks — <strong>custom agents</strong> (§1), <strong>instructions</strong> (§2), and <strong>skills</strong> (§3). The sections that follow cover each one, then dive into KomITi's concrete setup (§7).</p>
 
-<p>To be GAM-compliant:</p>
+<h2 id="s1">1) Start with Custom agents</h2>
 
-<h2 id="s1">1) Start with instructions</h2>
+<p>Custom agents are the <strong>capstone</strong> of GAM — they bring together instructions, skills, tool restrictions, and identity into a single file that gives the agent a <strong>name, scope, and personality</strong>.</p>
 
-<p>Think of instructions as a <strong>permanent briefing document</strong> the agent reads before it starts working. They replace the need to repeat the same rules in every prompt. Instructions are <code>.md</code> files — saved at a specific location and/or with a specific filename convention — that <strong>automatically load into the AI agent's context</strong> when it works in your workspace.</p>
-
-<p>Instruction <code>.md</code> files, introduced with the <code>.github/copilot-instructions.md</code> convention in 2024, are a <strong>GitHub Copilot feature</strong>. Other tools have equivalents: Amazon Kiro uses <code>.kiro/steering/</code> documents, Anthropic's Claude Code uses <code>CLAUDE.md</code>, Cursor uses <code>.cursor/rules/</code>, and Cline uses <code>.clinerules</code>.</p>
-
-<p>There are two kinds:</p>
-
-<h3 id="s1-1">1.1) Global instructions — <code>copilot-instructions.md</code></h3>
-
-<p>Place a file at <code>.github/copilot-instructions.md</code> in the root of your repository. VS Code loads this file <strong>automatically in every conversation</strong>, regardless of which files the agent is working on.</p>
-
-<p>Use it for rules that apply everywhere:</p>
-<ul>
-    <li>Language preference (e.g. respond in Serbian Cyrillic).</li>
-    <li>Git workflow (branch promotion, commit discipline).</li>
-    <li>Definition of Done.</li>
-    <li>Agent ownership (who may push to which branches).</li>
-    <li>Navigation index (pointers to scoped files).</li>
-</ul>
-
-<div class="note">
-    <strong>Note:</strong> in SDD, the equivalent of <code>copilot-instructions.md</code> is <code>constitution.md</code> — both hold immutable project-level principles. The key difference: VS Code loads <code>copilot-instructions.md</code> automatically in every conversation, while SDD's <code>constitution.md</code> is read on demand when a slash command tells the agent to consult it.
-</div>
-
-<h3 id="s1-2">1.2) Scoped instructions — <code>*.instructions.md</code></h3>
-
-<p>Any file ending with <code>.instructions.md</code> can contain a YAML frontmatter block with an <code>applyTo</code> glob pattern. VS Code loads this file <strong>only when the agent opens or edits files matching that pattern</strong>.</p>
-
-<pre class="snippet"><code>---
-applyTo: "custom-addons/**"
----
-
-# Odoo Development Discipline
-- Module upgrade mandatory for every changed module.
-- View inheritance must use stable inherit_id references.
-...</code></pre>
-
-<div class="important">
-    <strong>Key point:</strong> The filename does not determine scope — only the <code>applyTo</code> frontmatter does. A file named <code>custom-addons/odoo.instructions.md</code> with <code>applyTo: "infra/**"</code> would activate for infrastructure files, not for custom-addons.
-</div>
-
-<h3 id="s1-3">1.3) How VS Code decides which instructions to load</h3>
-
-<table>
-<thead>
-    <tr><th>File</th><th>When loaded</th></tr>
-</thead>
-<tbody>
-    <tr><td><code>.github/copilot-instructions.md</code></td><td>Always (every conversation)</td></tr>
-    <tr><td><code>*.instructions.md</code> with <code>applyTo</code></td><td>Only when opened/edited files match the glob</td></tr>
-    <tr><td><code>*.instructions.md</code> without <code>applyTo</code></td><td>On-demand (agent reads when the task matches the <code>description</code>)</td></tr>
-</tbody>
-</table>
-
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s2">2) Add skills as you grow</h2>
-
-<p>Skills are <strong>folders</strong> of instructions, scripts, and resources that the agent can load on demand. Unlike instructions (which are policy/constraints that load automatically), skills are step-by-step playbooks the agent reads when it recognizes a matching task. A skill folder can also contain scripts, templates, examples, and other assets alongside the main instruction file.</p>
-
-<p>A skill is defined by a <code>SKILL.md</code> file inside a named folder — for example <code>.github/skills/deploy-prod/SKILL.md</code>. In VS Code (GitHub Copilot), project skills live in <code>.github/skills/</code>. Personal skills (not shared with the team) live in <code>~/.copilot/skills/</code>. The <code>SKILL.md</code> file has a <code>description</code> in its frontmatter. The agent sees all skill descriptions in every conversation (~100 tokens each), but only reads the full skill body when the task matches.</p>
-
-<p>Skills are also available as <strong>slash commands</strong> — type <code>/</code> in the chat input to see a list of available skills and invoke one directly (e.g. <code>/deploy-prod</code>).</p>
-
-<p>Think of it this way:</p>
-<ul>
-    <li><strong>Instructions</strong> = "always follow these rules" (loaded automatically).</li>
-    <li><strong>Skills</strong> = "here is how to do X step by step" (loaded on demand, with bundled assets).</li>
-</ul>
-
-<p>Example: a skill for creating VS Code customization files knows the exact YAML syntax, file naming conventions, and validation steps — but the agent only reads that procedure when you actually ask it to create or debug an instruction file.</p>
-
-<p>A real example from this project: <code>komiti_academy/.github/skills/pedagogy/SKILL.md</code> is a pedagogy skill that defines how to write and review tutorial content — voice and tone, section structure, observation blocks, analogies, and numbering conventions. When you ask the agent to "review section 3 of tutorial 04", it matches the skill description, loads the full body, and applies those rules. When you ask it to fix a Terraform config, the skill stays unloaded.</p>
-
-<p>Agent Skills are an <a href="https://agentskills.io/">open standard</a> — they work across GitHub Copilot in VS Code, Copilot CLI, and the Copilot coding agent. Claude Code also supports <code>SKILL.md</code> files (stored in <code>.claude/skills/</code>). Amazon Kiro does not have an on-demand procedure equivalent; in Kiro, everything goes into the steering documents.</p>
-
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s3">3) Instructions vs instructions vs skills — when to use which</h2>
-
-<table>
-<thead>
-    <tr><th>Filename</th><th>What it does</th><th>When loaded</th><th>Example</th></tr>
-</thead>
-<tbody>
-    <tr>
-        <td><code>.github/copilot-instructions.md</code></td>
-        <td>Global policy</td>
-        <td><strong>Always</strong> — every conversation</td>
-        <td>"Git workflow: feature → PR → main. Deploy staging first, then prod."</td>
-    </tr>
-    <tr>
-        <td><code>*.instructions.md</code></td>
-        <td>Contextual rules</td>
-        <td><strong>On-demand</strong> — applyTo glob or by description match</td>
-        <td><code>applyTo: "infra/**"</code> — "Always <code>plan</code> before <code>apply</code>. Backup state before import."</td>
-    </tr>
-    <tr>
-        <td><code>SKILL.md</code></td>
-        <td>On-demand procedure</td>
-        <td><strong>On demand</strong> — user invokes <code>/skill</code>, or agent matches the task from a ~100-token description summary</td>
-        <td>"Use when deploying to production" — 1) smoke test, 2) merge, 3) pull, 4) verify</td>
-    </tr>
-</tbody>
-</table>
-
-<div class="tip">
-    <strong>Rule of thumb:</strong> If the agent should know a rule at all times — use instructions. If the agent only needs a procedure when you ask for a specific task — use a skill.<br>
-    <strong>Tone difference:</strong> Instructions sound like <em>"Always do X / never do Y"</em>. Skills sound like <em>"Step 1… Step 2… Step 3…"</em>.
-</div>
-<div class="important">
-    <strong>Watch out for contradictions.</strong> The agent can see many instructions (global and scoped) and skills simultaneously — especially in a multi-root workspace. There is <strong>no priority hierarchy</strong> between global instructions, scoped instructions, and skills: all loaded text lands in the same context window with equal weight. If one instruction says <em>"Respond in Serbian"</em> and another says <em>"Respond in English"</em>, the agent receives both and the result is non-deterministic — it may pick one, try to satisfy both, or alternate randomly. Avoid this by placing cross-cutting rules (language, formatting, commit conventions) in only <strong>one</strong> repo's global instructions, and by using specific scopes: <em>"When working on <code>en/html/**</code> respond in English; for everything else respond in Serbian Cyrillic."</em>
-</div>
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s4">4) Multi-root workspaces</h2>
-
-<p>In a <strong>multi-root workspace</strong> (covered in <a href="02_git_vscode_basics.html">Git &amp; VS Code Basics</a>), Copilot loads <code>.github/copilot-instructions.md</code> from <strong>every</strong> repository folder in the workspace, not just the one you are editing.</p>
-
-<p>Practical example: if your workspace contains <code>odoo4komiti/</code> and <code>komiti_academy/</code>, the agent sees instructions from both repos simultaneously.</p>
-
-<p>Scoped <code>*.instructions.md</code> files still activate by <code>applyTo</code> glob — but the glob is evaluated relative to the repo root, not the workspace root. This means an <code>applyTo: "custom-addons/**"</code> in <code>odoo4komiti/</code> will only match files inside <code>odoo4komiti/custom-addons/</code>, never files in <code>komiti_academy/</code>.</p>
-
-<p><strong>Skills</strong> are also discovered across all repos: VS Code scans <code>.github/skills/</code> in every repo folder. Skills have no <code>applyTo</code> — the agent sees all skill descriptions globally (like <code>copilot-instructions.md</code>), but only loads the full <code>SKILL.md</code> body on demand when the task matches the description.</p>
-
-<div class="tip">
-    <strong>Why this matters:</strong> You can place engineering rules in one repo, tutorial/content rules in another, and skills in whichever repo owns the procedure. The agent sees everything in every conversation, and there is no need to duplicate across repos.
-</div>
-
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s-video">5) Other ways to customise agents</h2>
-
-<p>In the chapters above we covered <strong>instructions</strong> (global and scoped) and <strong>skills</strong> — two of the most important customisation mechanisms. However, VS Code offers many other ways to shape how your AI agent behaves: custom agents, prompt files, MCP servers, tool restrictions, and more. The following video gives you a broad overview of all available options:</p>
-
-<div style="text-align:center; margin: 32px 0 8px 0;">
-    <a href="https://www.youtube.com/watch?v=flpKLkZla2Q" target="_blank" rel="noopener" style="display:inline-block; position:relative;">
-        <img src="https://img.youtube.com/vi/flpKLkZla2Q/hqdefault.jpg" alt="Watch video on YouTube" style="max-width:560px; width:100%; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-        <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:68px; height:48px; background:rgba(255,0,0,0.85); border-radius:12px; display:flex; align-items:center; justify-content:center;">
-            <span style="display:inline-block; width:0; height:0; border-style:solid; border-width:10px 0 10px 20px; border-color:transparent transparent transparent #fff; margin-left:4px;"></span>
-        </span>
-    </a>
-</div>
-
-<p>Another approach to agent customisation is <strong>Spec-Driven Development (SDD)</strong>, an open-source methodology by GitHub (<a href="https://github.com/github/spec-kit">github/spec-kit</a>, 83 k ⭐). SDD drives development through a structured pipeline: <code>constitution → specify → plan → tasks → implement</code>. The table below compares our GAM mechanisms with their SDD equivalents:</p>
-
-<table>
-<thead>
-    <tr><th>GAM mechanism</th><th>SDD equivalent</th><th>Key difference</th></tr>
-</thead>
-<tbody>
-    <tr>
-        <td><code>copilot-instructions.md</code></td>
-        <td><code>constitution.md</code></td>
-        <td>GAM: <strong>auto-loaded</strong> by VS Code in every conversation. SDD: agent reads it <strong>on demand</strong> when a slash command says so.</td>
-    </tr>
-    <tr>
-        <td><code>*.instructions.md</code> + <code>applyTo</code></td>
-        <td><em>(no equivalent)</em></td>
-        <td>SDD has no glob-based contextual auto-loading. This is GAM's main differentiator.</td>
-    </tr>
-    <tr>
-        <td><code>SKILL.md</code></td>
-        <td><code>/speckit.*</code> slash commands</td>
-        <td>Both on-demand — the most similar layer. SDD commands are prompt files in <code>.github/agents/</code>.</td>
-    </tr>
-</tbody>
-</table>
-
-<div class="tip">
-    <strong>Tip:</strong> GAM and SDD are not competing — they are complementary. GAM defines <em>how the agent should behave</em> (governance); SDD defines <em>what the agent should build</em> (specification). You can layer SDD on top of GAM by running <code>specify init --ai copilot</code> in a project that already has instructions and skills.
-</div>
-
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s6">6) Custom agents — your team's AI personas</h2>
-
-<p>Chapter 5 mentioned custom agents as one of the ways to customise how your AI works. Custom agents deserve their own chapter because they are the <strong>capstone</strong> of GAM — they bring together instructions, skills, tool restrictions, and identity into a single file that gives the agent a <strong>name, scope, and personality</strong>.</p>
-
-<h3 id="s6-1">6.1) What is a custom agent?</h3>
+<h3 id="s1-1">1.1) What is a custom agent?</h3>
 
 <p>A custom agent is a <code>.agent.md</code> file placed in the <code>.github/agents/</code> folder of your repository. It defines a <strong>named persona</strong> that you invoke by typing <code>@AgentName</code> in the VS Code chat. When invoked, the agent receives the full body of the <code>.agent.md</code> file as system-level context — <strong>on top of</strong> the global and scoped instructions that already load from the workspace.</p>
 
@@ -431,7 +252,7 @@ applyTo: "custom-addons/**"
     <strong>Note:</strong> a custom agent <strong>does not replace</strong> instructions or skills — it layers on top of them. Instructions still load automatically (global + scoped), skills still activate on demand. The <code>.agent.md</code> file adds identity, ownership boundaries, and agent-specific constraints.
 </div>
 
-<h3 id="s6-2">6.2) How to create one</h3>
+<h3 id="s1-2">1.2) How to create one</h3>
 
 <p>Creating a custom agent takes three steps:</p>
 
@@ -481,22 +302,227 @@ You are **MyAgent** — the designated agent for [scope].
     <strong>Tip:</strong> keep the body concise. Every token in the <code>.agent.md</code> file consumes context window space. Put detailed procedures in skills (<code>SKILL.md</code>) instead of duplicating them in the agent body.
 </div>
 
-<h3 id="s6-3">6.3) GAM mandate: every KomITi developer needs a custom agent</h3>
+<hr>
 
-<p>GAM for KomITi prescribes that <strong>every developer must create a custom agent</strong> for each repository they own or actively develop in. The rationale:</p>
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s2">2) Define instructions</h2>
+
+<p>Think of instructions as a <strong>permanent briefing document</strong> the agent reads before it starts working. They replace the need to repeat the same rules in every prompt. Instructions are <code>.md</code> files — saved at a specific location and/or with a specific filename convention — that <strong>automatically load into the AI agent's context</strong> when it works in your workspace.</p>
+
+<p>Instruction <code>.md</code> files, introduced with the <code>.github/copilot-instructions.md</code> convention in 2024, are a <strong>GitHub Copilot feature</strong>. Other tools have equivalents: Amazon Kiro uses <code>.kiro/steering/</code> documents, Anthropic's Claude Code uses <code>CLAUDE.md</code>, Cursor uses <code>.cursor/rules/</code>, and Cline uses <code>.clinerules</code>.</p>
+
+<p>There are two kinds:</p>
+
+<h3 id="s2-1">2.1) Global instructions — <code>copilot-instructions.md</code></h3>
+
+<p>Place a file at <code>.github/copilot-instructions.md</code> in the root of your repository. VS Code loads this file <strong>automatically in every conversation</strong>, regardless of which files the agent is working on.</p>
+
+<p>Use it for rules that apply everywhere:</p>
+<ul>
+    <li>Language preference (e.g. respond in Serbian Cyrillic).</li>
+    <li>Git workflow (branch promotion, commit discipline).</li>
+    <li>Definition of Done.</li>
+    <li>Agent ownership (who may push to which branches).</li>
+    <li>Navigation index (pointers to scoped files).</li>
+</ul>
+
+<div class="note">
+    <strong>Note:</strong> in SDD, the equivalent of <code>copilot-instructions.md</code> is <code>constitution.md</code> — both hold immutable project-level principles. The key difference: VS Code loads <code>copilot-instructions.md</code> automatically in every conversation, while SDD's <code>constitution.md</code> is read on demand when a slash command tells the agent to consult it.
+</div>
+
+<h3 id="s2-2">2.2) Scoped instructions — <code>*.instructions.md</code></h3>
+
+<p>Any file ending with <code>.instructions.md</code> can contain a YAML frontmatter block with an <code>applyTo</code> glob pattern. VS Code loads this file <strong>only when the agent opens or edits files matching that pattern</strong>.</p>
+
+<pre class="snippet"><code>---
+applyTo: "custom-addons/**"
+---
+
+# Odoo Development Discipline
+- Module upgrade mandatory for every changed module.
+- View inheritance must use stable inherit_id references.
+...</code></pre>
+
+<div class="important">
+    <strong>Key point:</strong> The filename does not determine scope — only the <code>applyTo</code> frontmatter does. A file named <code>custom-addons/odoo.instructions.md</code> with <code>applyTo: "infra/**"</code> would activate for infrastructure files, not for custom-addons.
+</div>
+
+<h3 id="s2-3">2.3) How VS Code decides which instructions to load</h3>
+
+<table>
+<thead>
+    <tr><th>File</th><th>When loaded</th></tr>
+</thead>
+<tbody>
+    <tr><td><code>.github/copilot-instructions.md</code></td><td>Always (every conversation)</td></tr>
+    <tr><td><code>*.instructions.md</code> with <code>applyTo</code></td><td>Only when opened/edited files match the glob</td></tr>
+    <tr><td><code>*.instructions.md</code> without <code>applyTo</code></td><td>On-demand (agent reads when the task matches the <code>description</code>)</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s3">3) Add skills as you grow</h2>
+
+<p>Skills are <strong>folders</strong> of instructions, scripts, and resources that the agent can load on demand. Unlike instructions (which are policy/constraints that load automatically), skills are step-by-step playbooks the agent reads when it recognizes a matching task. A skill folder can also contain scripts, templates, examples, and other assets alongside the main instruction file.</p>
+
+<p>A skill is defined by a <code>SKILL.md</code> file inside a named folder — for example <code>.github/skills/deploy-prod/SKILL.md</code>. In VS Code (GitHub Copilot), project skills live in <code>.github/skills/</code>. Personal skills (not shared with the team) live in <code>~/.copilot/skills/</code>. The <code>SKILL.md</code> file has a <code>description</code> in its frontmatter. The agent sees all skill descriptions in every conversation (~100 tokens each), but only reads the full skill body when the task matches.</p>
+
+<p>Skills are also available as <strong>slash commands</strong> — type <code>/</code> in the chat input to see a list of available skills and invoke one directly (e.g. <code>/deploy-prod</code>).</p>
+
+<p>Think of it this way:</p>
+<ul>
+    <li><strong>Instructions</strong> = "always follow these rules" (loaded automatically).</li>
+    <li><strong>Skills</strong> = "here is how to do X step by step" (loaded on demand, with bundled assets).</li>
+</ul>
+
+<p>Example: a skill for creating VS Code customization files knows the exact YAML syntax, file naming conventions, and validation steps — but the agent only reads that procedure when you actually ask it to create or debug an instruction file.</p>
+
+<p>A real example from this project: <code>komiti_academy/.github/skills/pedagogy/SKILL.md</code> is a pedagogy skill that defines how to write and review tutorial content — voice and tone, section structure, observation blocks, analogies, and numbering conventions. When you ask the agent to "review section 3 of tutorial 04", it matches the skill description, loads the full body, and applies those rules. When you ask it to fix a Terraform config, the skill stays unloaded.</p>
+
+<p>Agent Skills are an <a href="https://agentskills.io/">open standard</a> — they work across GitHub Copilot in VS Code, Copilot CLI, and the Copilot coding agent. Claude Code also supports <code>SKILL.md</code> files (stored in <code>.claude/skills/</code>). Amazon Kiro does not have an on-demand procedure equivalent; in Kiro, everything goes into the steering documents.</p>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s4">4) Global vs Scoped instructions vs Skills — when to use which</h2>
+
+<table>
+<thead>
+    <tr><th>Filename</th><th>What it does</th><th>When loaded</th><th>Example</th></tr>
+</thead>
+<tbody>
+    <tr>
+        <td><code>.github/copilot-instructions.md</code></td>
+        <td>Global policy</td>
+        <td><strong>Always</strong> — every conversation</td>
+        <td>"Git workflow: feature → PR → main. Deploy staging first, then prod."</td>
+    </tr>
+    <tr>
+        <td><code>*.instructions.md</code></td>
+        <td>Contextual rules</td>
+        <td><strong>On-demand</strong> — applyTo glob or by description match</td>
+        <td><code>applyTo: "infra/**"</code> — "Always <code>plan</code> before <code>apply</code>. Backup state before import."</td>
+    </tr>
+    <tr>
+        <td><code>SKILL.md</code></td>
+        <td>On-demand procedure</td>
+        <td><strong>On demand</strong> — user invokes <code>/skill</code>, or agent matches the task from a ~100-token description summary</td>
+        <td>"Use when deploying to production" — 1) smoke test, 2) merge, 3) pull, 4) verify</td>
+    </tr>
+</tbody>
+</table>
+
+<div class="tip">
+    <strong>Rule of thumb:</strong> If the agent should know a rule at all times — use instructions. If the agent only needs a procedure when you ask for a specific task — use a skill.<br>
+    <strong>Tone difference:</strong> Instructions sound like <em>"Always do X / never do Y"</em>. Skills sound like <em>"Step 1… Step 2… Step 3…"</em>.
+</div>
+<div class="important">
+    <strong>Watch out for contradictions.</strong> The agent can see many instructions (global and scoped) and skills simultaneously — especially in a multi-root workspace. There is <strong>no priority hierarchy</strong> between global instructions, scoped instructions, and skills: all loaded text lands in the same context window with equal weight. If one instruction says <em>"Respond in Serbian"</em> and another says <em>"Respond in English"</em>, the agent receives both and the result is non-deterministic — it may pick one, try to satisfy both, or alternate randomly. Avoid this by placing cross-cutting rules (language, formatting, commit conventions) in only <strong>one</strong> repo's global instructions, and by using specific scopes: <em>"When working on <code>en/html/**</code> respond in English; for everything else respond in Serbian Cyrillic."</em>
+</div>
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s5">5) Guardrailing agents: two approaches</h2>
+
+<h3 id="s5-1">5.1) Always-on agent customization in VS Code</h3>
+
+<p>In the chapters above we covered <strong>custom agents</strong>, <strong>instructions</strong> (global and scoped) and <strong>skills</strong> — three of the most important customisation mechanisms. However, VS Code offers many other ways to shape how your AI agent behaves: prompt files, MCP servers, tool restrictions, and more. The following video gives you a broad overview of all available options:</p>
+
+<div style="text-align:center; margin: 32px 0 8px 0;">
+    <a href="https://www.youtube.com/watch?v=flpKLkZla2Q" target="_blank" rel="noopener" style="display:inline-block; position:relative;">
+        <img src="https://img.youtube.com/vi/flpKLkZla2Q/hqdefault.jpg" alt="Watch video on YouTube" style="max-width:560px; width:100%; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:68px; height:48px; background:rgba(255,0,0,0.85); border-radius:12px; display:flex; align-items:center; justify-content:center;">
+            <span style="display:inline-block; width:0; height:0; border-style:solid; border-width:10px 0 10px 20px; border-color:transparent transparent transparent #fff; margin-left:4px;"></span>
+        </span>
+    </a>
+</div>
+
+<h3 id="s5-2">5.2) On-demand agent customization with SDD</h3>
+
+<p>Another approach to agent customisation is <strong>Spec-Driven Development (SDD)</strong>, an open-source methodology by GitHub (<a href="https://github.com/github/spec-kit">github/spec-kit</a>, 83 k ⭐). SDD drives development through a structured pipeline: <code>constitution → specify → plan → tasks → implement</code>.</p>
+
+<p>In this approach the agent reads its governing instructions only <strong>on demand</strong>, when the user explicitly invokes a slash command.</p>
+
+<p>The table below compares our GAM mechanisms with their SDD equivalents:</p>
+
+<table>
+<thead>
+    <tr><th>GAM mechanism</th><th>SDD equivalent</th><th>Key difference</th></tr>
+</thead>
+<tbody>
+    <tr>
+        <td><code>copilot-instructions.md</code></td>
+        <td><code>constitution.md</code></td>
+        <td>GAM: <strong>auto-loaded</strong> by VS Code in every conversation. SDD: agent reads it <strong>on demand</strong> when a slash command says so.</td>
+    </tr>
+    <tr>
+        <td><code>*.instructions.md</code> + <code>applyTo</code></td>
+        <td><em>(no equivalent)</em></td>
+        <td>SDD has no glob-based contextual auto-loading. This is GAM's main differentiator.</td>
+    </tr>
+    <tr>
+        <td><code>SKILL.md</code></td>
+        <td><code>/speckit.*</code> slash commands</td>
+        <td>Both on-demand — the most similar layer. SDD commands are prompt files in <code>.github/agents/</code>.</td>
+    </tr>
+</tbody>
+</table>
+
+<div class="tip">
+    <strong>Tip:</strong> GAM and SDD are not competing — they are complementary. GAM defines <em>how the agent should behave</em> (governance); SDD defines <em>what the agent should build</em> (specification). You can layer SDD on top of GAM by running <code>specify init --ai copilot</code> in a project that already has instructions and skills.
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s6">6) Multi-root workspaces</h2>
+
+<p>In a <strong>multi-root workspace</strong> (covered in <a href="02_git_vscode_basics.html">Git &amp; VS Code Basics</a>), Copilot loads <code>.github/copilot-instructions.md</code> from <strong>every</strong> repository folder in the workspace, not just the one you are editing.</p>
+
+<p>Practical example: if your workspace contains <code>odoo4komiti/</code> and <code>komiti_academy/</code>, the agent sees instructions from both repos simultaneously.</p>
+
+<p>Scoped <code>*.instructions.md</code> files still activate by <code>applyTo</code> glob — but the glob is evaluated relative to the repo root, not the workspace root. This means an <code>applyTo: "custom-addons/**"</code> in <code>odoo4komiti/</code> will only match files inside <code>odoo4komiti/custom-addons/</code>, never files in <code>komiti_academy/</code>.</p>
+
+<p><strong>Skills</strong> are also discovered across all repos: VS Code scans <code>.github/skills/</code> in every repo folder. Skills have no <code>applyTo</code> — the agent sees all skill descriptions globally (like <code>copilot-instructions.md</code>), but only loads the full <code>SKILL.md</code> body on demand when the task matches the description.</p>
+
+<div class="tip">
+    <strong>Why this matters:</strong> You can place engineering rules in one repo, tutorial/content rules in another, and skills in whichever repo owns the procedure. The agent sees everything in every conversation, and there is no need to duplicate across repos.
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s7">7) Governed Agent Methodology (GAM) at KomITi</h2>
+
+<p>This section shows how GAM works in practice — the concrete instruction files, custom agents, and skills that the <code>odoo4komiti</code> repository uses. The repository has a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
+
+<h3 id="s7-1">7.1) Visual overview — file tree</h3>
+
+<div class="ascii-diagram">odoo4komiti/
+├── .github/
+│   ├── copilot-instructions.md                 ← global rules: ownership, git, rollback, DoD
+│   ├── agents/
+│   │   └── odoo4komiti.agent.md                ← custom agent: identity, scope, constraints, tools
+│   └── instructions/
+│       ├── odoo.instructions.md                ← custom-addons/** | Odoo rules, matrix, discipline
+│       ├── terraform.instructions.md           ← infra/** | Terraform/AWS rules, DEV/PROD flow
+│       ├── komiti_timesheet.instructions.md    ← komiti_timesheet/** | file map, lock date, smoke test
+│       ├── komiti_gantt.instructions.md        ← komiti_gantt/** | view, OWL, resize, sync rules
+│       └── INTER_AGENT_HANDOFF.instructions.md ← crewai_orchestration/** + description | handoff protocol
+└── skills                                      ← currently via VS Code-level agent-customization skill</div>
+
+<h3 id="s7-2">7.2) Every KomITi developer needs a custom agent</h3>
+
+<p>GAM prescribes that <strong>every developer must create a custom agent</strong> for each repository they own or actively develop in. The rationale:</p>
 
 <ul>
     <li><strong>Clear ownership.</strong> The <code>.agent.md</code> file declares who may push where. When multiple agents exist in a multi-root workspace, each one knows its boundaries — no accidental cross-repo pushes or unauthorized promotions.</li>
-    <li><strong>Consistent team identity.</strong> Every team member's agent speaks the same language (Serbian Cyrillic), follows the same commit discipline, and applies the same Definition of Done. The agent file is the single place where this is enforced per-persona.</li>
+    <li><strong>Consistent team identity.</strong> Every team member's agent speaks the same language (Serbian Cyrillic), follows the same commit discipline, and applies the same Definition of Done.</li>
     <li><strong>Predictable handoffs.</strong> When <code>@Academy</code> finishes a tutorial edit, it knows to hand off to <code>@odoo4komiti</code> — not to push directly to production. This boundary is documented in each agent's Constraints section.</li>
     <li><strong>Tool safety.</strong> A content agent does not need terminal access. A deploy agent does not need notebook tools. The <code>tools</code> array enforces the principle of least privilege.</li>
 </ul>
-
-<div class="important">
-    <strong>Important:</strong> <code>.agent.md</code> files are committed to the repository. This means agent definitions are <strong>version-controlled, reviewable, and shared</strong> across the team — unlike personal VS Code settings that live only on one machine.
-</div>
-
-<h3 id="s6-4">6.4) Minimum configuration for a KomITi custom agent</h3>
 
 <p>To be GAM-compliant, every KomITi custom agent must include at least these elements:</p>
 
@@ -542,56 +568,15 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
 - After every significant change, update `SESSION_NOTES.md`.
 - Do not deploy — prepare a HANDOFF block instead.</code></pre>
 
+<div class="important">
+    <strong>Important:</strong> <code>.agent.md</code> files are committed to the repository. This means agent definitions are <strong>version-controlled, reviewable, and shared</strong> across the team — unlike personal VS Code settings that live only on one machine.
+</div>
+
 <div class="note">
     <strong>Note:</strong> beyond the minimum, you can add as much domain knowledge as needed: file maps, callout conventions, terminology glossaries, handoff protocols, and pointers to relevant instruction/skill files. See the <code>@Academy</code> and <code>@odoo4komiti</code> agents in the KomITi repos for full examples.
 </div>
 
-<hr>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s7">7) Instructions and skills in <code>odoo4komiti</code></h2>
-
-<p>The <code>odoo4komiti</code> repository uses a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
-
-<h3 id="s7-1">7.1) Visual overview — file tree</h3>
-
-<div class="ascii-diagram">odoo4komiti/
-├── .github/
-│   └── copilot-instructions.md               ← global (always loaded)
-│                                                 agent ownership, Git workflow,
-│                                                 rollback matrix, Definition of Done,
-│                                                 submodule topology, navigation index
-│
-├── odoo.instructions.md                       ← applyTo: "custom-addons/**"
-│                                                 Odoo engineering rules,
-│                                                 change type matrix,
-│                                                 post-change discipline
-│
-├── terraform.instructions.md                  ← applyTo: "infra/**"
-│                                                 plan-before-apply, state/secrets
-│                                                 policy, DEV/PROD workflows
-│
-├── custom-addons/
-│   ├── komiti_timesheet/
-│   │   └── komiti_timesheet.instructions.md   ← applyTo: "custom-addons/komiti_timesheet/**"
-│   │                                             From/To fields, lock date,
-│   │                                             file map, upgrade + smoke test
-│   │
-│   └── komiti_gantt/
-│       └── komiti_gantt.instructions.md       ← applyTo: "custom-addons/komiti_gantt/**"
-│                                                 custom view type, OWL controller,
-│                                                 resize behavior, cross-module sync
-│
-├── crewai_orchestration/
-│   └── INTER_AGENT_HANDOFF.instructions.md    ← applyTo: "crewai_orchestration/**"
-│                                                 + description (on-demand)
-│                                                 inter-agent handoff format,
-│                                                 ACTION field rules, direction matrix
-│
-└── (skills — currently referenced via the
-     agent-customization skill at VS Code level)</div>
-
-<h3 id="s7-2">7.2) <code>.github/copilot-instructions.md</code> — global rules</h3>
+<h3 id="s7-3">7.3) <code>.github/copilot-instructions.md</code> — global rules</h3>
 
 <p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
 
@@ -614,7 +599,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
 </tbody>
 </table>
 
-<h3 id="s7-3">7.3) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
+<h3 id="s7-4">7.4) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
 
@@ -626,7 +611,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
 </ul>
 
-<h3 id="s7-4">7.4) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
+<h3 id="s7-5">7.5) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
 
 <p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
 
@@ -638,7 +623,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
 </ul>
 
-<h3 id="s7-5">7.5) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
+<h3 id="s7-6">7.6) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
 
@@ -651,7 +636,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
 </ul>
 
-<h3 id="s7-6">7.6) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
+<h3 id="s7-7">7.7) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
 
@@ -664,7 +649,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
 </ul>
 
-<h3 id="s7-7">7.7) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
+<h3 id="s7-8">7.8) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
 
 <p>Scope: <code>applyTo: "crewai_orchestration/**"</code> + <code>description</code> (also loads on-demand when agent detects a handoff task).</p>
 
