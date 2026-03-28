@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infrastructure: Terraform, Docker &amp; AWS Foundations — KomITi Academy</title>
+<title>Infrastructure: Terraform, Docker &amp; AWS Foundations â€” KomITi Academy</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -15,17 +15,17 @@ body {
 }
 .page-wrapper {
     max-width: 980px;
-    margin: 20px auto;
+    margin: 10px auto;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.1);
-    padding: 30px 36px;
+    padding: 15px 18px;
 }
 .book-meta {
     text-align: center;
     border-bottom: 3px solid #A65949;
-    padding-bottom: 28px;
-    margin-bottom: 40px;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
 }
 .book-meta .book-title {
     font-size: 13px;
@@ -41,12 +41,12 @@ h2 {
     color: #A65949;
     border-left: 5px solid #A65949;
     padding-left: 14px;
-    margin: 48px 0 16px 0;
+    margin: 24px 0 8px 0;
 }
 h3 {
     font-size: 17px;
     color: #1a1a2e;
-    margin: 32px 0 10px 0;
+    margin: 16px 0 5px 0;
     border-bottom: 1px solid #e8e8e8;
     padding-bottom: 5px;
 }
@@ -68,13 +68,13 @@ code {
 pre {
     background: #1e1e2e;
     color: #cdd6f4;
-    padding: 20px 24px;
+    padding: 10px 12px;
     border-radius: 6px;
     overflow-x: auto;
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 13.5px;
     line-height: 1.6;
-    margin: 14px 0 20px 0;
+    margin: 7px 0 10px 0;
     border-left: 4px solid #A65949;
 }
 .snippet {
@@ -112,8 +112,8 @@ tbody tr:hover { background: #f0eaf4; }
     background: #faf7fc;
     border: 1px solid #e0d0e8;
     border-radius: 8px;
-    padding: 24px 28px;
-    margin-bottom: 40px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
 }
 .toc h3 { border: none; color: #A65949; margin-top: 0; font-size: 16px; }
 .toc ol { margin-top: 8px; list-style-type: decimal; }
@@ -147,17 +147,17 @@ a:hover { text-decoration: underline; }
     border: 1px solid rgba(205, 214, 244, 0.15);
     border-left: 4px solid #A65949;
     border-radius: 6px;
-    padding: 20px 24px;
+    padding: 10px 12px;
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 13px;
     line-height: 1.5;
     white-space: pre;
     overflow-x: auto;
-    margin: 14px 0 20px 0;
+    margin: 7px 0 10px 0;
 }
 @media (max-width: 991.98px) {
     .page-wrapper {
-        padding: 24px 18px;
+        padding: 12px 9px;
     }
 }
 footer {
@@ -171,7 +171,7 @@ footer {
 .checklist { list-style: none; margin-left: 0; padding-left: 0; }
 .checklist li { padding: 6px 0 6px 32px; position: relative; margin-bottom: 4px; }
 .checklist li::before {
-    content: '☐';
+    content: 'â˜';
     position: absolute;
     left: 6px;
     top: 6px;
@@ -185,14 +185,14 @@ footer {
 <body>
 <div class="page-wrapper">
 
-<!-- ───────── HEADER ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="book-meta">
     <div class="book-title">KomITi Academy</div>
     <h1>Infrastructure: Terraform, Docker &amp; AWS Foundations</h1>
     <div class="subtitle">Delivery mental model for the entire KomITi system</div>
 </div>
 
-<p>This is a foundation document for candidates and every new KomITi engineer. It teaches the infrastructure layer from scratch — not through abstract toy examples, but through the real KomITi AWS/Terraform/Docker context.</p>
+<p>This is a foundation document for candidates and every new KomITi engineer. It teaches the infrastructure layer from scratch â€” not through abstract toy examples, but through the real KomITi AWS/Terraform/Docker context.</p>
 
 <p>The purpose is not to turn you into a cloud/platform specialist in 4 hours, but to give you an operational mental model:</p>
 <ul>
@@ -204,7 +204,7 @@ footer {
 
 <p>By the end of this document you will understand the full infra stack, and in the hands-on lab (<a href="#s8">section 8</a>) you will bring up the Odoo runtime that serves as the foundation for all future tutorials.</p>
 
-<!-- ───────── TABLE OF CONTENTS ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ TABLE OF CONTENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="toc">
     <h3>Table of Contents</h3>
     <ol>
@@ -249,7 +249,7 @@ footer {
     </ol>
 </div>
 
-<!-- ───────── 1 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 1 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s1">1) What is the infra stack in KomITi</h2>
 
 <p>When we say &ldquo;infra&rdquo; in this repo, we don&rsquo;t mean a single tool, but multiple layers working together:</p>
@@ -268,29 +268,29 @@ footer {
     <li>each layer has its own purpose, its own risk, and its own operational vocabulary.</li>
 </ul>
 
-<!-- ───────── 2 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s2">2) AWS fundamentals you need to know</h2>
 
-<p><code>AWS</code> (Amazon Web Services) is a cloud platform — a collection of on-demand computing services (servers, storage, networking, databases, and more) hosted in Amazon's data centres worldwide. Instead of buying and maintaining physical hardware, you rent exactly the resources you need and pay only for what you use.</p>
+<p><code>AWS</code> (Amazon Web Services) is a cloud platform â€” a collection of on-demand computing services (servers, storage, networking, databases, and more) hosted in Amazon's data centres worldwide. Instead of buying and maintaining physical hardware, you rent exactly the resources you need and pay only for what you use.</p>
 
 <p>In this learning context, you don&rsquo;t study AWS as a catalog of 200 services, but as a minimal operational set which is:</p>
 <ul>
     <li><strong>region</strong>: the geographic/operational context in which resources live, and in which you must consistently reason about latency, availability, and resource locality,</li>
-    <li><code>EC2</code>: the virtual machine where the runtime actually lives — in KomITi, a single host carries the entire runtime layer,</li>
-    <li><code>VPC</code> / subnet: network space and segmentation — part of production safety, not a side detail,</li>
+    <li><code>EC2</code>: the virtual machine where the runtime actually lives â€” in KomITi, a single host carries the entire runtime layer,</li>
+    <li><code>VPC</code> / subnet: network space and segmentation â€” part of production safety, not a side detail,</li>
     <li><strong>security group</strong>: inbound/outbound firewall boundary that controls who is allowed to talk to your compute (SSH/HTTP/HTTPS),</li>
-    <li><code>EIP</code> (<code>Elastic IP</code>): a stable public IP address — how other systems reach the host as a stable endpoint,</li>
+    <li><code>EIP</code> (<code>Elastic IP</code>): a stable public IP address â€” how other systems reach the host as a stable endpoint,</li>
     <li><code>S3</code>: the object storage layer for backups and operational artifacts, decoupled from the VM lifecycle,</li>
     <li><code>Route 53</code> / DNS thinking: how a domain reaches the right host,</li>
     <li><strong>disk/volume reasoning</strong>: runtime is not just CPU and RAM but also storage.</li>
 </ul>
 
-<!-- ───────── 3 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 3 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s3">3) Docker and container fundamentals you need to know</h2>
 
 <p><strong>Docker</strong> is a platform for building, shipping, and running applications inside containers. Solomon Hykes created it in 2013 at dotCloud to solve the "works on my machine" problem by packaging an application with everything it needs to run.</p>
 
-<p>A <strong>container</strong> is an isolated runtime process with its own filesystem view, network namespace, and agreed-upon entrypoint — not a virtual machine. Containers build on Linux kernel features (cgroups and namespaces) that date back to 2006&ndash;2008, but Docker made them practical and accessible.</p>
+<p>A <strong>container</strong> is an isolated runtime process with its own filesystem view, network namespace, and agreed-upon entrypoint â€” not a virtual machine. Containers build on Linux kernel features (cgroups and namespaces) that date back to 2006&ndash;2008, but Docker made them practical and accessible.</p>
 
 <p>You need to know these concepts:</p>
 <ul>
@@ -425,7 +425,7 @@ db:
 
 
 
-<!-- ───────── 4 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 4 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s4">4) Terraform</h2>
 
 <h3 id="s4-1">4.1) Terraform mental model</h3>
@@ -616,14 +616,14 @@ db:
 
 <div class="ascii-diagram">Dependency graph  (arrows read "depends on")
 
-docker_container.odoo ──────┬──▶ docker_container.postgres
-                            │         │
-                            │         ├──▶ docker_image.postgres
-                            │         ├──▶ docker_network.odoo
-                            │         └──▶ docker_volume.postgres_data
-                            │
-                            ├──▶ docker_image.odoo
-                            └──▶ docker_volume.odoo_data</div>
+docker_container.odoo â”€â”€â”€â”€â”€â”€â”¬â”€â”€â–¶ docker_container.postgres
+                            â”‚         â”‚
+                            â”‚         â”œâ”€â”€â–¶ docker_image.postgres
+                            â”‚         â”œâ”€â”€â–¶ docker_network.odoo
+                            â”‚         â””â”€â”€â–¶ docker_volume.postgres_data
+                            â”‚
+                            â”œâ”€â”€â–¶ docker_image.odoo
+                            â””â”€â”€â–¶ docker_volume.odoo_data</div>
 
 <p>Read the arrows as &ldquo;depends on&rdquo;: <code>docker_container.odoo</code> depends on <code>docker_container.postgres</code> because Odoo cannot start without a running database. Postgres in turn depends on its image, a shared network, and a persistent volume for data. Odoo also needs its own image and a volume for the filestore. Terraform reads this graph and creates resources in the right order &mdash; volumes and images first, then postgres, then odoo.</p>
 
@@ -798,7 +798,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     </tbody>
 </table>
 
-<!-- ───────── 6 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 6 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s6">6) How to turn Terraform files into action and materialize artifacts (Docker containers, AWS resources, Odoo)</h2>
 
 <h3 id="s6-1">6.1) Plan is not a formality</h3>
@@ -852,7 +852,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>One more important command: <code>terraform destroy</code> tears down all resources Terraform manages. In a lab, it is how you cleanly remove everything. In production, it is irreversible and must never be run without explicit intent and backup.</p>
 
-<!-- ───────── 7 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 7 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s7">7) Minimal safe workflow in KomITi</h2>
 
 <p>When making a Terraform change, the minimum safe sequence is:</p>
@@ -870,7 +870,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>This is not bureaucracy; it is basic production discipline.</p>
 
-<!-- ───────── 8 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 8 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s8">8) Lab: bring up the Odoo runtime for development</h2>
 
 <p>In this lab the candidate will bring up the runtime on which you will &mdash; from zero to hero &mdash; develop the Odoo module. This lab is not part of the core product scope of the <code>komiti_academy</code> module, but a learning/support exercise so you can locally run and verify everything you build in the later tutorials.</p>
@@ -884,7 +884,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>There are two options depending on your available resources:</p>
 
-<!-- ── Option A ── -->
+<!-- â”€â”€ Option A â”€â”€ -->
 <h3 id="s8-a">Option A &mdash; for candidates WITH an AWS/Azure lab budget</h3>
 
 <p>If you have access to a cloud account where you can provision resources, this option lets you practice Terraform on real infrastructure. The purpose is not just to get a running Odoo, but for you to practically exercise:</p>
@@ -943,7 +943,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 
 <p>The minimum safe lab flow follows the same sequence as <a href="#s7">section 7</a>, ending with <code>terraform destroy -var-file=terraform.tfvars</code> to cleanly tear down the lab. If you successfully complete this path, you have truly practiced the Terraform shape and lifecycle discipline.</p>
 
-<!-- ── Option B ── -->
+<!-- â”€â”€ Option B â”€â”€ -->
 <h3 id="s8-b">Option B &mdash; for candidates WITHOUT an AWS/Azure lab budget</h3>
 
 <p>Don&rsquo;t worry &mdash; you can still do everything needed to continue learning. In this option you skip Terraform entirely and use Docker Compose to bring up Odoo directly on Docker Desktop. The result is the same two running Odoo instances (prod + dev) you need for the module development tutorials; the only difference is that Terraform infrastructure management is not part of your exercise.</p>
@@ -1157,7 +1157,7 @@ PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose 
 
 <p><strong>What to understand from this option:</strong> you now have a working two-environment Odoo setup that is functionally equivalent to what Option A produces via Terraform. The difference is that you did not practice Terraform project structure, variables, or the plan/apply cycle. If you later get cloud access, you can return to Option A to learn that layer. For now, you have everything you need to continue with the Odoo module development tutorials.</p>
 
-<!-- ───────── 9 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 9 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s9">9) What to read next</h2>
 
 <p>The following files live in the <code>odoo4komiti</code> repository. Open them from your local clone:</p>
@@ -1171,7 +1171,7 @@ PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose 
 
 <hr>
 
-<!-- ───────── 99 ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ 99 â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <h2 id="s99">99) Task on the komiti_academy project for candidates</h2>
 
 <ol class="task-list">
@@ -1222,7 +1222,7 @@ PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose 
 
 <p><strong>Solutions:</strong></p>
 
-<!-- ───────── FOOTER ───────── -->
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <footer>&copy; KomITi &middot; komiti.eu</footer>
 
 </div><!-- .page-wrapper -->
