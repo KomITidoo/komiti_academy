@@ -126,6 +126,12 @@ tbody tr:hover { background: #f0eaf4; }
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
 .note strong { color: #b07d00; }
+.info {
+    background: #e3f2fd; border-left: 4px solid #1976d2;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.info strong { color: #0d47a1; }
 .tip {
     background: #e8f5e9; border-left: 4px solid #43a047;
     padding: 12px 18px; margin: 14px 0;
@@ -183,14 +189,14 @@ details summary {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#s1">What are instructions?</a>
+        <li><a href="#s1">Start with instructions</a>
             <ol>
                 <li><a href="#s1-1">Global instructions — <code>copilot-instructions.md</code></a></li>
                 <li><a href="#s1-2">Scoped instructions — <code>*.instructions.md</code></a></li>
                 <li><a href="#s1-3">How VS Code decides which instructions to load</a></li>
             </ol>
         </li>
-        <li><a href="#s2">What are skills?</a></li>
+        <li><a href="#s2">Add skills as you grow</a></li>
         <li><a href="#s3">Instructions vs instructions vs skills — when to use which</a></li>
         <li><a href="#s4">Multi-root workspaces</a></li>
         <li><a href="#s-video">Other ways to customise agents</a></li>
@@ -209,7 +215,14 @@ details summary {
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s1">1) What are instructions?</h2>
+
+<p>At KomITi we follow what we call <strong>Governed Agent Methodology (GAM)</strong> — where we prefer a native VS Code approach where rules are delivered to the AI agent <strong>automatically</strong>, through built-in agent customization (global instructions, glob-scoped instructions, on-demand skills).</p>
+
+<p>An alternative approach is GitHub's <strong>Spec-Driven Development (SDD)</strong>, released in early 2026 as an open-source toolkit (<a href="https://github.com/github/spec-kit">github/spec-kit</a>, 83 k &#11088;). SDD introduced a structured pipeline — <code>constitution &rarr; specify &rarr; plan &rarr; tasks &rarr; implement</code> — where AI agents build software from specifications rather than ad-hoc prompts. However, in SDD the agent reads its governing rules only <strong>on demand</strong> — when the user explicitly invokes a slash command.</p>
+
+<p>GAM gives us stronger assurance that governance will be respected, because VS Code injects the rules before the agent writes a single character. The sections below explain how each GAM layer should be applied at KomITi.</p>
+
+<h2 id="s1">1) Start with instructions</h2>
 
 <p>Think of instructions as a <strong>permanent briefing document</strong> the agent reads before it starts working. They replace the need to repeat the same rules in every prompt. Instructions are <code>.md</code> files — saved at a specific location and/or with a specific filename convention — that <strong>automatically load into the AI agent's context</strong> when it works in your workspace.</p>
 
@@ -229,6 +242,10 @@ details summary {
     <li>Agent ownership (who may push to which branches).</li>
     <li>Navigation index (pointers to scoped files).</li>
 </ul>
+
+<div class="info">
+    <strong>Note:</strong> in SDD, the equivalent of <code>copilot-instructions.md</code> is <code>constitution.md</code> — both hold immutable project-level principles. The key difference: VS Code loads <code>copilot-instructions.md</code> automatically in every conversation, while SDD's <code>constitution.md</code> is read on demand when a slash command tells the agent to consult it.
+</div>
 
 <h3 id="s1-2">1.2) Scoped instructions — <code>*.instructions.md</code></h3>
 
@@ -263,7 +280,7 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s2">2) What are skills?</h2>
+<h2 id="s2">2) Add skills as you grow</h2>
 
 <p>Skills are <strong>folders</strong> of instructions, scripts, and resources that the agent can load on demand. Unlike instructions (which are policy/constraints that load automatically), skills are step-by-step playbooks the agent reads when it recognizes a matching task. A skill folder can also contain scripts, templates, examples, and other assets alongside the main instruction file.</p>
 
@@ -353,6 +370,37 @@ applyTo: "custom-addons/**"
         </span>
     </a>
 </div>
+
+<p>Another approach to agent customisation is <strong>Spec-Driven Development (SDD)</strong>, an open-source methodology by GitHub (<a href="https://github.com/github/spec-kit">github/spec-kit</a>, 83 k ⭐). SDD drives development through a structured pipeline: <code>constitution → specify → plan → tasks → implement</code>. The table below compares our GAM mechanisms with their SDD equivalents:</p>
+
+<table>
+<thead>
+    <tr><th>GAM mechanism</th><th>SDD equivalent</th><th>Key difference</th></tr>
+</thead>
+<tbody>
+    <tr>
+        <td><code>copilot-instructions.md</code></td>
+        <td><code>constitution.md</code></td>
+        <td>GAM: <strong>auto-loaded</strong> by VS Code in every conversation. SDD: agent reads it <strong>on demand</strong> when a slash command says so.</td>
+    </tr>
+    <tr>
+        <td><code>*.instructions.md</code> + <code>applyTo</code></td>
+        <td><em>(no equivalent)</em></td>
+        <td>SDD has no glob-based contextual auto-loading. This is GAM's main differentiator.</td>
+    </tr>
+    <tr>
+        <td><code>SKILL.md</code></td>
+        <td><code>/speckit.*</code> slash commands</td>
+        <td>Both on-demand — the most similar layer. SDD commands are prompt files in <code>.github/agents/</code>.</td>
+    </tr>
+</tbody>
+</table>
+
+<div class="tip">
+    <strong>Tip:</strong> GAM and SDD are not competing — they are complementary. GAM defines <em>how the agent should behave</em> (governance); SDD defines <em>what the agent should build</em> (specification). You can layer SDD on top of GAM by running <code>specify init --ai copilot</code> in a project that already has instructions and skills.
+</div>
+
+<hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <h2 id="s6">6) Instructions and skills in <code>odoo4komiti</code></h2>
