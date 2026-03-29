@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glossary · KomITi Academy</title>
+<title>Cheat Sheet &amp; Glossary · KomITi Academy</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -64,6 +64,28 @@ code {
     line-height: 1.225;
     vertical-align: baseline;
 }
+pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 10px 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 7px 0 10px 0;
+    border-left: 4px solid #A65949;
+}
+pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+}
+pre .comment { color: #6c7086; }
 blockquote {
     background: #fdf6ff;
     border-left: 4px solid #A65949;
@@ -129,9 +151,73 @@ footer {
 <!-- ── Header ── -->
 <div class="book-meta">
     <div class="book-title">KomITi Academy</div>
-    <h1>Glossary</h1>
-    <div class="subtitle">Quick index of terms, abbreviations and concepts used throughout onboarding</div>
+    <h1>Cheat Sheet &amp; Glossary</h1>
+    <div class="subtitle">Quick-reference commands and an index of terms used throughout onboarding</div>
 </div>
+
+<!-- ── Table of Contents ── -->
+<div class="toc">
+    <h3>Contents</h3>
+    <ol>
+        <li><a href="#cheat-sheet">Cheat Sheet — Git workflow</a></li>
+        <li><a href="#glossary">Glossary</a></li>
+    </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  1) CHEAT SHEET                                               -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="cheat-sheet">1) Cheat Sheet — Git workflow</h2>
+
+<p>The commands below follow the standard KomITi branching model: <code>main</code> → <code>staging</code> → feature branch → promote back. Copy-paste ready.</p>
+
+<h3>Start a new feature</h3>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b YYYY-MM-DD-feature_name
+git push -u origin YYYY-MM-DD-feature_name
+git merge origin/staging --no-edit</code></pre>
+
+<h3>Daily work cycle</h3>
+<pre><code>git add .
+git status --short
+git commit -m "short description of the change"
+git push</code></pre>
+
+<h3>Promote feature → staging</h3>
+<pre><code>git checkout staging
+git pull origin staging
+git merge origin/YYYY-MM-DD-feature_name --no-edit
+git push origin staging</code></pre>
+
+<h3>Promote staging → main</h3>
+<pre><code>git checkout main
+git pull origin main
+git merge origin/staging --no-edit
+git push origin main</code></pre>
+
+<h3>Return to your feature branch</h3>
+<pre><code>git checkout YYYY-MM-DD-feature_name
+git merge origin/staging --no-edit</code></pre>
+
+<h3>Clean up after merge</h3>
+<pre><code>git branch -d YYYY-MM-DD-feature_name
+git push origin --delete YYYY-MM-DD-feature_name
+git fetch --prune</code></pre>
+
+<h3>Useful one-liners</h3>
+<pre><code>git log --oneline -5          <span class="comment"># last 5 commits, compact</span>
+git diff --stat               <span class="comment"># changed files overview</span>
+git branch -a                 <span class="comment"># all branches (local + remote)</span>
+git stash                     <span class="comment"># stash uncommitted changes</span>
+git stash pop                 <span class="comment"># restore stashed changes</span></code></pre>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  2) GLOSSARY                                                  -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="glossary">2) Glossary</h2>
 
 <!-- ── Intro ── -->
 <p>
@@ -147,9 +233,9 @@ The reading rule is simple:
 <code>Where it appears</code> does not mean "every possible file in the repo", but the main learning/codex documents where the term matters most.
 </p>
 
-<!-- ── Table of Contents ── -->
+<!-- ── Alphabetical index ── -->
 <div class="toc">
-    <h3>Contents</h3>
+    <h3>Alphabetical index</h3>
     <p>
         <a href="#A">A</a> ·
         <a href="#B">B</a> ·
