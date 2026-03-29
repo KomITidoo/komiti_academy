@@ -72,7 +72,7 @@ pre {
     border-radius: 6px;
     overflow-x: auto;
     font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 13.5px;
+    font-size: 12px;
     line-height: 1.6;
     margin: 7px 0 10px 0;
     border-left: 4px solid #A65949;
@@ -149,7 +149,7 @@ a:hover { text-decoration: underline; }
     border-radius: 6px;
     padding: 10px 12px;
     font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.5;
     white-space: pre;
     overflow-x: auto;
@@ -202,7 +202,7 @@ footer {
     <li>and how these three layers connect into a single system.</li>
 </ul>
 
-<p>By the end of this document you will understand the full infra stack, and in the hands-on lab (<a href="#s8">section 8</a>) you will bring up the Odoo runtime that serves as the foundation for all future tutorials.</p>
+<p>By the end of this document you will understand the full infra stack, and in the hands-on lab (<a href="#s6">section 6</a>) you will bring up the Odoo runtime that serves as the foundation for all future tutorials.</p>
 
 <!-- ───────── TABLE OF CONTENTS ───────── -->
 <div class="toc">
@@ -228,23 +228,18 @@ footer {
                 <li><a href="#s4-6">Dependency reasoning</a></li>
                 <li><a href="#s4-7">Summarizing what Terraform code typically means in this repo</a></li>
                 <li><a href="#s4-8">How AWS, Docker, and Terraform connect into a single flow</a></li>
+                <li><a href="#s4-9">How to turn Terraform files into action and materialize artifacts</a></li>
+                <li><a href="#s4-10">Minimal safe workflow in KomITi</a></li>
             </ol>
         </li>
         <li><a href="#s5">Terraform vs Docker Compose: same information, different place of record</a></li>
-        <li><a href="#s6">How to turn Terraform files into action and materialize artifacts</a>
+        <li><a href="#s6">Lab: bring up the Odoo runtime for development</a>
             <ol>
-                <li><a href="#s6-1">Plan is not a formality</a></li>
-                <li><a href="#s6-2">Apply is not a deploy script</a></li>
+                <li><a href="#s6-a">Option A &mdash; with AWS/Azure lab budget (Terraform)</a></li>
+                <li><a href="#s6-b">Option B &mdash; without AWS/Azure lab budget (Docker Compose)</a></li>
             </ol>
         </li>
-        <li><a href="#s7">Minimal safe workflow in KomITi</a></li>
-        <li><a href="#s8">Lab: bring up the Odoo runtime for development</a>
-            <ol>
-                <li><a href="#s8-a">Option A &mdash; with AWS/Azure lab budget (Terraform)</a></li>
-                <li><a href="#s8-b">Option B &mdash; without AWS/Azure lab budget (Docker Compose)</a></li>
-            </ol>
-        </li>
-        <li><a href="#s9">What to read next</a></li>
+        <li><a href="#s7">What to read next</a></li>
         <li><a href="#s99">Task on the komiti_academy project for candidates</a></li>
     </ol>
 </div>
@@ -469,6 +464,10 @@ db:
 
 <!-- ───────── 4 ───────── -->
 <h2 id="s4">4) Terraform</h2>
+
+<div class="tip">
+    <strong>Tip:</strong> if you are a candidate without a budget for AWS services, you can skip this chapter for now and come back to it later.
+</div>
 
 <h3 id="s4-1">4.1) Terraform mental model</h3>
 
@@ -710,6 +709,73 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     <li>if a container won&rsquo;t start a service, that&rsquo;s not necessarily a Terraform bug,</li>
     <li>if Odoo is up but a functional flow doesn&rsquo;t work, that&rsquo;s no longer a pure infra problem.</li>
 </ul>
+
+<h3 id="s4-9">4.9) How to turn Terraform files into action and materialize artifacts (Docker containers, AWS resources, Odoo)</h3>
+
+<p><strong>4.9.1) Plan is not a formality.</strong> <code>terraform plan</code> is a terminal command, and it is not a checkbox before <code>apply</code>.</p>
+
+<p>Its purpose is to clearly show you:</p>
+<ul>
+    <li>what will be created,</li>
+    <li>what will be modified,</li>
+    <li>what will be deleted,</li>
+    <li>whether a seemingly small change has a large blast radius.</li>
+</ul>
+
+<p>Professional thinking means:</p>
+<ul>
+    <li>first you read the plan,</li>
+    <li>then you assess the impact,</li>
+    <li>only then do you run <code>apply</code>.</li>
+</ul>
+
+<p>If you can&rsquo;t read a Terraform plan, then you are not yet operationally safe for infrastructure work.</p>
+
+<p><strong>4.9.2) Apply is not a deploy script.</strong> The terminal command <code>terraform apply</code> does not mean &ldquo;I launched the server and I&rsquo;m done&rdquo;.</p>
+
+<p>Apply means:</p>
+<ul>
+    <li>Terraform has applied an infrastructure change,</li>
+    <li>state has been updated,</li>
+    <li>the cloud resource layer has been brought closer to the described state.</li>
+</ul>
+
+<p>But that is not the same as:</p>
+<ul>
+    <li>the application being functional,</li>
+    <li>the compose stack being healthy,</li>
+    <li>Odoo being operational,</li>
+    <li>day-2 ops steps being completed.</li>
+</ul>
+
+<p>In the KomITi AWS context, the flow often goes like this:</p>
+<ol>
+    <li>Terraform brings up the infrastructure skeleton.</li>
+    <li>The bootstrap/compose/runtime layer brings the application to an operational state.</li>
+    <li>Then verification follows.</li>
+</ol>
+
+<p>This is the same mental discipline as with Odoo: infra code truth is not the same as runtime truth.</p>
+
+<p>One more important command: <code>terraform destroy</code> tears down all resources Terraform manages. In a lab, it is how you cleanly remove everything. In production, it is irreversible and must never be run without explicit intent and backup.</p>
+
+<h3 id="s4-10">4.10) Minimal safe workflow in KomITi</h3>
+
+<p>When making a Terraform change, the minimum safe sequence is:</p>
+<ol>
+    <li>understand what you&rsquo;re changing at the resource level,</li>
+    <li>verify variables and environment context,</li>
+    <li>run <code>terraform init</code> if needed,</li>
+    <li>run <code>terraform validate</code>,</li>
+    <li>run <code>terraform plan</code>,</li>
+    <li>read the impact,</li>
+    <li>only then run <code>terraform apply</code>,</li>
+    <li>verify outputs and runtime,</li>
+    <li>document the operational delta if significant.</li>
+</ol>
+
+<p>This is not bureaucracy; it is basic production discipline.</p>
+
 <h2 id="s5">5) Terraform vs Docker Compose: same information, different place of record</h2>
 
 <p>Terraform files and Docker Compose complement each other, since you use each for what it does best. This is the case in <code>odoo4komiti</code>, which is a real production system. But in this <code>komiti_academy</code> lab &mdash; which is much simpler than <code>odoo4komiti</code> &mdash; you should view these two approaches as mutually exclusive variants (you use either Terraform or Docker Compose, not both simultaneously for the same runtime). Below is a mapping of the local <code>komiti_academy</code> lab so you can clearly see where the same runtime information is recorded in the Terraform variant versus the Compose variant.</p>
@@ -841,79 +907,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 </table>
 
 <!-- ───────── 6 ───────── -->
-<h2 id="s6">6) How to turn Terraform files into action and materialize artifacts (Docker containers, AWS resources, Odoo)</h2>
-
-<h3 id="s6-1">6.1) Plan is not a formality</h3>
-
-<p><code>terraform plan</code> is a terminal command, and it is not a checkbox before <code>apply</code>.</p>
-
-<p>Its purpose is to clearly show you:</p>
-<ul>
-    <li>what will be created,</li>
-    <li>what will be modified,</li>
-    <li>what will be deleted,</li>
-    <li>whether a seemingly small change has a large blast radius.</li>
-</ul>
-
-<p>Professional thinking means:</p>
-<ul>
-    <li>first you read the plan,</li>
-    <li>then you assess the impact,</li>
-    <li>only then do you run <code>apply</code>.</li>
-</ul>
-
-<p>If you can&rsquo;t read a Terraform plan, then you are not yet operationally safe for infrastructure work.</p>
-
-<h3 id="s6-2">6.2) Apply is not a deploy script</h3>
-
-<p>The terminal command <code>terraform apply</code> does not mean &ldquo;I launched the server and I&rsquo;m done&rdquo;.</p>
-
-<p>Apply means:</p>
-<ul>
-    <li>Terraform has applied an infrastructure change,</li>
-    <li>state has been updated,</li>
-    <li>the cloud resource layer has been brought closer to the described state.</li>
-</ul>
-
-<p>But that is not the same as:</p>
-<ul>
-    <li>the application being functional,</li>
-    <li>the compose stack being healthy,</li>
-    <li>Odoo being operational,</li>
-    <li>day-2 ops steps being completed.</li>
-</ul>
-
-<p>In the KomITi AWS context, the flow often goes like this:</p>
-<ol>
-    <li>Terraform brings up the infrastructure skeleton.</li>
-    <li>The bootstrap/compose/runtime layer brings the application to an operational state.</li>
-    <li>Then verification follows.</li>
-</ol>
-
-<p>This is the same mental discipline as with Odoo: infra code truth is not the same as runtime truth.</p>
-
-<p>One more important command: <code>terraform destroy</code> tears down all resources Terraform manages. In a lab, it is how you cleanly remove everything. In production, it is irreversible and must never be run without explicit intent and backup.</p>
-
-<!-- ───────── 7 ───────── -->
-<h2 id="s7">7) Minimal safe workflow in KomITi</h2>
-
-<p>When making a Terraform change, the minimum safe sequence is:</p>
-<ol>
-    <li>understand what you&rsquo;re changing at the resource level,</li>
-    <li>verify variables and environment context,</li>
-    <li>run <code>terraform init</code> if needed,</li>
-    <li>run <code>terraform validate</code>,</li>
-    <li>run <code>terraform plan</code>,</li>
-    <li>read the impact,</li>
-    <li>only then run <code>terraform apply</code>,</li>
-    <li>verify outputs and runtime,</li>
-    <li>document the operational delta if significant.</li>
-</ol>
-
-<p>This is not bureaucracy; it is basic production discipline.</p>
-
-<!-- ───────── 8 ───────── -->
-<h2 id="s8">8) Lab: bring up the Odoo runtime for development</h2>
+<h2 id="s6">6) Lab: bring up the Odoo runtime for development</h2>
 
 <p>In this lab the candidate will bring up the runtime on which you will &mdash; from zero to hero &mdash; develop the Odoo module. This lab is not part of the core product scope of the <code>komiti_academy</code> module, but a learning/support exercise so you can locally run and verify everything you build in the later tutorials.</p>
 
@@ -927,7 +921,7 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 <p>There are two options depending on your available resources:</p>
 
 <!-- ── Option A ── -->
-<h3 id="s8-a">Option A &mdash; for candidates WITH an AWS/Azure lab budget</h3>
+<h3 id="s6-a">Option A &mdash; for candidates WITH an AWS/Azure lab budget</h3>
 
 <p>If you have access to a cloud account where you can provision resources, this option lets you practice Terraform on real infrastructure. The purpose is not just to get a running Odoo, but for you to practically exercise:</p>
 <ul>
@@ -983,10 +977,10 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
     <li>only then do you verify whether the runtime is actually up.</li>
 </ul>
 
-<p>The minimum safe lab flow follows the same sequence as <a href="#s7">section 7</a>, ending with <code>terraform destroy -var-file=terraform.tfvars</code> to cleanly tear down the lab. If you successfully complete this path, you have truly practiced the Terraform shape and lifecycle discipline.</p>
+<p>The minimum safe lab flow follows the same sequence as <a href="#s4-10">section 4.10</a>, ending with <code>terraform destroy -var-file=terraform.tfvars</code> to cleanly tear down the lab. If you successfully complete this path, you have truly practiced the Terraform shape and lifecycle discipline.</p>
 
 <!-- ── Option B ── -->
-<h3 id="s8-b">Option B &mdash; for candidates WITHOUT an AWS/Azure lab budget</h3>
+<h3 id="s6-b">Option B &mdash; for candidates WITHOUT an AWS/Azure lab budget</h3>
 
 <p>Don&rsquo;t worry &mdash; you can still do everything needed to continue learning. In this option you skip Terraform entirely and use Docker Compose to bring up Odoo directly on Docker Desktop. The result is the same two running Odoo instances (prod + dev) you need for the module development tutorials; the only difference is that Terraform infrastructure management is not part of your exercise.</p>
 
@@ -1199,8 +1193,8 @@ PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose 
 
 <p><strong>What to understand from this option:</strong> you now have a working two-environment Odoo setup that is functionally equivalent to what Option A produces via Terraform. The difference is that you did not practice Terraform project structure, variables, or the plan/apply cycle. If you later get cloud access, you can return to Option A to learn that layer. For now, you have everything you need to continue with the Odoo module development tutorials.</p>
 
-<!-- ───────── 9 ───────── -->
-<h2 id="s9">9) What to read next</h2>
+<!-- ───────── 7 ───────── -->
+<h2 id="s7">7) What to read next</h2>
 
 <p>The following files live in the <code>odoo4komiti</code> repository. Open them from your local clone:</p>
 <ul>
@@ -1223,15 +1217,15 @@ PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose 
     </li>
     <li>
         <strong>For <code>komiti_academy</code>, list which runtime assumptions must be true</strong> before actually verifying that the module works.<br>
-        <em>Reference: This is explained in chapters <strong>3) Docker and container fundamentals you need to know</strong>, <strong>4.5.1) terraform.tfstate</strong>, and <strong>7) Minimal safe workflow in KomITi</strong>.</em>
+        <em>Reference: This is explained in chapters <strong>3) Docker and container fundamentals you need to know</strong>, <strong>4.5.1) terraform.tfstate</strong>, and <strong>4.10) Minimal safe workflow in KomITi</strong>.</em>
     </li>
     <li>
         <strong>Explain with one example</strong> why a container restart, a module upgrade, and actually verifying the affected flow are not the same thing.<br>
-        <em>Reference: This is explained in chapters <strong>3) Docker and container fundamentals you need to know</strong>, <strong>4.8) How AWS, Docker, and Terraform connect into a single flow</strong>, and <strong>7) Minimal safe workflow in KomITi</strong>.</em>
+        <em>Reference: This is explained in chapters <strong>3) Docker and container fundamentals you need to know</strong>, <strong>4.8) How AWS, Docker, and Terraform connect into a single flow</strong>, and <strong>4.10) Minimal safe workflow in KomITi</strong>.</em>
     </li>
     <li>
         <strong>Design and locally describe a Terraform lab</strong> in your repo <code>komiti_library</code> that uses Docker Desktop to bring up a Postgres and Odoo stack for a local <code>dev</code> runtime, with a clear file structure, variables, outputs, and a clear workflow sequence.<br>
-        <em>Reference: This is explained in chapters <strong>4.5.2) <code>variables.tf</code>, <code>terraform.tfvars.example</code>, and <code>terraform.tfvars</code></strong>, <strong>4.3) Directory structure: general and KomITi-specific</strong>, <strong>6.1) Plan is not a formality</strong>, <strong>7) Minimal safe workflow in KomITi</strong>, and <strong>8) Local Terraform + Docker Desktop lab for candidates</strong>.</em>
+        <em>Reference: This is explained in chapters <strong>4.5.2) <code>variables.tf</code>, <code>terraform.tfvars.example</code>, and <code>terraform.tfvars</code></strong>, <strong>4.3) Directory structure: general and KomITi-specific</strong>, <strong>4.9.1) Plan is not a formality</strong>, <strong>4.10) Minimal safe workflow in KomITi</strong>, and <strong>6) Lab: bring up the Odoo runtime for development</strong>.</em>
     </li>
     <li>
         <strong>Self-check:</strong> after reading the entire document, answer each of these in one or two sentences without guessing:

@@ -115,8 +115,8 @@ Rules:
 - Standard font sizes:
 	body text = `15px`
 	inline `code` = `13.5px`
-	`pre` / compact snippets = `13.5px`
-	`.ascii-diagram` = `13px`
+    `pre` / compact snippets = `12px`
+    `.ascii-diagram` = `12px`
 - Do not invent a per-tutorial body font, background, or wrapper system unless explicitly requested.
 - Terminal commands use `<pre><code>PS C:\dev\path> command</code></pre>`.
 - Inline code uses `<code>term</code>`.
