@@ -159,7 +159,12 @@ footer {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#cheat-sheet">Cheat Sheet — Git workflow</a></li>
+        <li><a href="#cheat-sheet">Cheat Sheet</a>
+            <ol>
+                <li><a href="#cs-git">Git workflow</a></li>
+                <li><a href="#cs-docker">Docker</a></li>
+            </ol>
+        </li>
         <li><a href="#glossary">Glossary</a></li>
     </ol>
 </div>
@@ -167,50 +172,74 @@ footer {
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!--  1) CHEAT SHEET                                               -->
 <!-- ══════════════════════════════════════════════════════════════ -->
-<h2 id="cheat-sheet">1) Cheat Sheet — Git workflow</h2>
+<h2 id="cheat-sheet">1) Cheat Sheet</h2>
 
+<h3 id="cs-git">Git workflow</h3>
 <p>The commands below follow the standard KomITi branching model: <code>main</code> → <code>staging</code> → feature branch → promote back. Copy-paste ready.</p>
 
-<h3>Start a new feature</h3>
-<pre><code>git checkout main
-git pull origin main
-git checkout -b YYYY-MM-DD-feature_name
-git push -u origin YYYY-MM-DD-feature_name
-git merge origin/staging --no-edit</code></pre>
+<h4>Start a new feature</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git checkout main
+PS C:\dev\komiti_library&gt; git pull origin main
+PS C:\dev\komiti_library&gt; git checkout -b YYYY-MM-DD-feature_name
+PS C:\dev\komiti_library&gt; git push -u origin YYYY-MM-DD-feature_name
+PS C:\dev\komiti_library&gt; git merge origin/staging --no-edit</code></pre>
 
-<h3>Daily work cycle</h3>
-<pre><code>git add .
-git status --short
-git commit -m "short description of the change"
-git push</code></pre>
+<h4>Daily work cycle</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git add .
+PS C:\dev\komiti_library&gt; git status --short
+PS C:\dev\komiti_library&gt; git commit -m "short description of the change"
+PS C:\dev\komiti_library&gt; git push</code></pre>
 
-<h3>Promote feature → staging</h3>
-<pre><code>git checkout staging
-git pull origin staging
-git merge origin/YYYY-MM-DD-feature_name --no-edit
-git push origin staging</code></pre>
+<h4>Promote feature → staging</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git checkout staging
+PS C:\dev\komiti_library&gt; git pull origin staging
+PS C:\dev\komiti_library&gt; git merge origin/YYYY-MM-DD-feature_name --no-edit
+PS C:\dev\komiti_library&gt; git push origin staging</code></pre>
 
-<h3>Promote staging → main</h3>
-<pre><code>git checkout main
-git pull origin main
-git merge origin/staging --no-edit
-git push origin main</code></pre>
+<h4>Promote staging → main</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git checkout main
+PS C:\dev\komiti_library&gt; git pull origin main
+PS C:\dev\komiti_library&gt; git merge origin/staging --no-edit
+PS C:\dev\komiti_library&gt; git push origin main</code></pre>
 
-<h3>Return to your feature branch</h3>
-<pre><code>git checkout YYYY-MM-DD-feature_name
-git merge origin/staging --no-edit</code></pre>
+<h4>Return to your feature branch</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git checkout YYYY-MM-DD-feature_name
+PS C:\dev\komiti_library&gt; git merge origin/staging --no-edit</code></pre>
 
-<h3>Clean up after merge</h3>
-<pre><code>git branch -d YYYY-MM-DD-feature_name
-git push origin --delete YYYY-MM-DD-feature_name
-git fetch --prune</code></pre>
+<h4>Clean up after merge</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git branch -d YYYY-MM-DD-feature_name
+PS C:\dev\komiti_library&gt; git push origin --delete YYYY-MM-DD-feature_name
+PS C:\dev\komiti_library&gt; git fetch --prune</code></pre>
 
-<h3>Useful one-liners</h3>
-<pre><code>git log --oneline -5          <span class="comment"># last 5 commits, compact</span>
-git diff --stat               <span class="comment"># changed files overview</span>
-git branch -a                 <span class="comment"># all branches (local + remote)</span>
-git stash                     <span class="comment"># stash uncommitted changes</span>
-git stash pop                 <span class="comment"># restore stashed changes</span></code></pre>
+<h4>Useful one-liners</h4>
+<pre><code>PS C:\dev\komiti_library&gt; git log --oneline -5          <span class="comment"># last 5 commits, compact</span>
+PS C:\dev\komiti_library&gt; git diff --stat               <span class="comment"># changed files overview</span>
+PS C:\dev\komiti_library&gt; git branch -a                 <span class="comment"># all branches (local + remote)</span>
+PS C:\dev\komiti_library&gt; git stash                     <span class="comment"># stash uncommitted changes</span>
+PS C:\dev\komiti_library&gt; git stash pop                 <span class="comment"># restore stashed changes</span></code></pre>
+
+<h3 id="cs-docker">Docker</h3>
+<p>Essential Docker and Docker Compose commands for the KomITi local development stack.</p>
+
+<h4>Container lifecycle</h4>
+<pre><code>PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose up -d          <span class="comment"># start all containers in background</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose down            <span class="comment"># stop and remove containers</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose restart         <span class="comment"># restart all containers</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose restart odoo    <span class="comment"># restart only the Odoo container</span></code></pre>
+
+<h4>Inspect running containers</h4>
+<pre><code>PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose ps              <span class="comment"># list running containers with status</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose logs -f odoo    <span class="comment"># follow Odoo logs in real time</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose logs --tail 50  <span class="comment"># last 50 lines from all containers</span></code></pre>
+
+<h4>Database operations</h4>
+<pre><code>PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose exec db psql -U odoo -d komiti_odoo_dev  <span class="comment"># open psql shell</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose exec db pg_dump -U odoo komiti_odoo_dev &gt; backup.dump  <span class="comment"># backup DB</span></code></pre>
+
+<h4>Useful one-liners</h4>
+<pre><code>PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose exec odoo odoo -u komiti_web -d komiti_odoo_dev --stop-after-init  <span class="comment"># upgrade a module</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker system prune -f         <span class="comment"># remove unused images, containers, networks</span>
+PS C:\dev\komiti_library\infra\local\odoo-dev-docker-desktop&gt; docker compose build --no-cache <span class="comment"># rebuild from scratch</span></code></pre>
 
 <hr>
 
