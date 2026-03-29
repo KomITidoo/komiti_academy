@@ -402,6 +402,13 @@ PS C:\dev\komiti_library> ls
     <li><strong>Large binary files and dumps</strong> — <code>*.dump</code>, <code>*.pgdump</code></li>
 </ul>
 
+<p><strong>A small example file:</strong></p>
+<pre class="snippet"><code># .gitignore
+passs.txt
+.env
+__pycache__/
+*.pgdump</code></pre>
+
 <p><strong>How it works — one pattern per line:</strong></p>
 <table>
 <thead>
@@ -416,11 +423,9 @@ PS C:\dev\komiti_library> ls
 </tbody>
 </table>
 
-<p><strong>Two important notes:</strong></p>
-<ul>
-    <li>The <code>.gitignore</code> file <strong>itself is tracked</strong> — it gets committed and shared with the team, so everyone has the same ignore rules.</li>
-    <li><code>.gitignore</code> only affects <strong>untracked</strong> files. If a file has already been committed, adding it to <code>.gitignore</code> will not remove it — you must first run <code>git rm --cached &lt;file&gt;</code> to stop tracking it, then commit that change.</li>
-</ul>
+<div class="note">
+    <strong>Note:</strong> the <code>.gitignore</code> file itself is tracked and should be committed so the whole team shares the same ignore rules. <code>git rm --cached &lt;file&gt;</code> stops tracking a file that was already committed; only after that will <code>.gitignore</code> keep it out of future commits.
+</div>
 
 <h3 id="s1-7">1.7) Git commands that you must know</h3>
 <table>
