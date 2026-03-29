@@ -338,48 +338,90 @@ footer {
 <pre class="snippet"><code>services:
   odoo-web:
     build:
-      context: .
-      dockerfile: Dockerfile.odoo
-    image: odoo:19.0-boto3
+      context: .                    # build context = repo root
+      dockerfile: Dockerfile.odoo   # custom Dockerfile (adds boto3 to stock Odoo image)
+    image: odoo:19.0-boto3          # tag for the built image
   db:
-    image: postgres:16</code></pre>
+    image: postgres:16              # official PostgreSQL 16 image from Docker Hub</code></pre>
 
 <ul>
         <li>which ports are exposed to the host,</li>
 </ul>
 <pre class="snippet"><code>odoo-web:
     ports:
-        - "8069:8069"
+        - "8069:8069"               # host:container — access Odoo at localhost:8069
 db:
     ports:
-        - "5432:5432"</code></pre>
+        - "5432:5432"               # host:container — expose PostgreSQL to host (dev convenience)</code></pre>
 
 <ul>
         <li>which volumes persist data,</li>
 </ul>
 <pre class="snippet"><code>odoo-web:
     volumes:
-        - odoo-data:/var/lib/odoo
-        - ./config/${ODOO_CONF_FILE:-odoo.conf}:/etc/odoo/odoo.conf:ro
-        - ./custom-addons:/mnt/extra-addons:rw
-        - ./third-party-addons:/mnt/third-party-addons:rw
+        - odoo-data:/var/lib/odoo                                        # filestore, sessions (named volume)
+        - ./config/${ODOO_CONF_FILE:-odoo.conf}:/etc/odoo/odoo.conf:ro   # Odoo config file (read-only bind mount)
+        - ./custom-addons:/mnt/extra-addons:rw                           # your custom modules (bind mount)
+        - ./third-party-addons:/mnt/third-party-addons:rw                # OCA / community modules (bind mount)
 db:
     volumes:
-        - pg-data:/var/lib/postgresql/data</code></pre>
+        - pg-data:/var/lib/postgresql/data                               # database files (named volume)</code></pre>
 
 <ul>
         <li>which environment variables are injected,</li>
 </ul>
 <pre class="snippet"><code>odoo-web:
     environment:
-        - AWS_ACCESS_KEY_ID
-        - AWS_SECRET_ACCESS_KEY
-        - AWS_DEFAULT_REGION
+        AWS_ACCESS_KEY_ID:               # passed from host; used for S3 backups (not needed locally)
+        AWS_SECRET_ACCESS_KEY:           # passed from host; used for S3 backups (not needed locally)
+        AWS_DEFAULT_REGION:              # passed from host; used for S3 backups (not needed locally)
+        HOST: db                         # network alias of the postgres service
+        PORT: 5432                       # default PostgreSQL port
+        USER: odoo                       # must match POSTGRES_USER in db service
+        PASSWORD: odoo123                # must match POSTGRES_PASSWORD in db service
 db:
     environment:
-        POSTGRES_DB: postgres
-        POSTGRES_USER: odoo
-        POSTGRES_PASSWORD: odoo123</code></pre>
+        POSTGRES_DB: postgres            # bootstrap DB for server start; will be unused after admin creates its own
+        POSTGRES_USER: odoo              # PostgreSQL superuser; Odoo connects as this user for ALL database operations
+        POSTGRES_PASSWORD: odoo123       # must match PASSWORD in the odoo-web service</code></pre>
+
+<div class="tip">
+    <strong>Tip:</strong> the username <code>odoo</code> is a community convention used in every official Odoo Docker example — changing it does not add real security (that is <em>security through obscurity</em>). What matters is a <strong>strong password</strong>. In production, replace <code>odoo123</code> with a long random string; the username can stay <code>odoo</code>.
+</div>
+
+<div class="ascii-diagram"><pre>
+┌─────────────────────────────────────────────┐
+│  odoo service                               │
+│                                             │
+│  environment:                               │
+│    HOST: db ─────────────────────────┐      │
+│    PORT: 5432 ───────────────────┐   │      │
+│    USER: odoo ───────────────┐   │   │      │
+│    PASSWORD:                 │   │   │      │
+│      komiti-library-dev-local│   │   │      │
+│                              │   │   │      │
+└──────────────────────────────┼───┼───┼──────┘
+                               │   │   │
+              must match ══════╪═══╪═══╪══════
+                               │   │   │
+┌──────────────────────────────┼───┼───┼──────┐
+│  postgres service            │   │   │      │
+│                              ▼   ▼   ▼      │
+│  environment:                               │
+│    POSTGRES_USER: odoo ◄─────┘   │   │      │
+│    POSTGRES_PASSWORD:            │   │      │
+│      komiti-library-dev-local ◄──┘   │      │
+│    POSTGRES_DB: postgres             │      │
+│                                      │      │
+│  listens on port 5432 ◄─────────────┘      │
+│                                      │      │
+│  networks:                           │      │
+│    library-dev:                      │      │
+│      aliases:                        │      │
+│        - db ◄────────────────────────┘      │
+│                                             │
+└─────────────────────────────────────────────┘
+</pre></div>
 
 <ul>
         <li>which service depends on which other service.</li>
@@ -387,7 +429,7 @@ db:
 <pre class="snippet"><code>odoo-web:
     depends_on:
         db:
-            condition: service_healthy</code></pre>
+            condition: service_healthy   # Odoo waits until pg_isready passes before starting</code></pre>
 
 <p>If you want to understand why Odoo appears on <code>localhost:8069</code>, why Postgres is on <code>5432</code>, why the filestore survives a container restart, or why Odoo waits for the database healthcheck, <code>docker-compose.yml</code> is the first file you should read.</p>
 
@@ -977,55 +1019,55 @@ PS C:\dev\komiti_library&gt; echo $null &gt; custom-addons/.gitkeep</code></pre>
 
 <p>Now create the <strong>prod</strong> compose file at <code>infra/local/odoo-prod-docker-desktop/docker-compose.yml</code>:</p>
 
-<pre><code>name: komiti-library-prod
+<pre><code>name: komiti-library-prod                                  # Docker Compose project name (prefixes container names)
 
 services:
   postgres:
-    image: postgres:16
-    restart: unless-stopped
+    image: postgres:16                                     # official PostgreSQL 16 image
+    restart: unless-stopped                                # auto-restart unless you explicitly stop it
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: komiti-library-prod-local
+      POSTGRES_DB: postgres                                # bootstrap DB for server start; unused later
+      POSTGRES_USER: odoo                                  # PostgreSQL superuser; Odoo connects as this user
+      POSTGRES_PASSWORD: komiti-library-prod-local         # must match PASSWORD in the odoo service
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]  # checks if PostgreSQL is ready to accept connections
+      interval: 10s                                        # check every 10 seconds
+      timeout: 5s                                          # fail if no response within 5 seconds
+      retries: 10                                          # mark unhealthy after 10 consecutive failures
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data             # persist database files across container restarts
     networks:
       library-prod:
         aliases:
-          - db
+          - db                                             # other services find postgres at hostname "db"
 
   odoo:
-    image: odoo:19.0
+    image: odoo:19.0                                       # official Odoo 19 image
     restart: unless-stopped
     depends_on:
       postgres:
-        condition: service_healthy
+        condition: service_healthy                         # wait for pg_isready before starting Odoo
     environment:
-      HOST: db
-      PORT: 5432
-      USER: odoo
-      PASSWORD: komiti-library-prod-local
+      HOST: db                                             # network alias of the postgres service
+      PORT: 5432                                           # default PostgreSQL port
+      USER: odoo                                           # must match POSTGRES_USER above
+      PASSWORD: komiti-library-prod-local                  # must match POSTGRES_PASSWORD above
     ports:
-      - "8068:8069"
+      - "8068:8069"                                        # host:container — access prod Odoo at localhost:8068
     volumes:
-      - odoo-data:/var/lib/odoo
-      - ../../../custom-addons:/mnt/extra-addons:rw
+      - odoo-data:/var/lib/odoo                            # filestore, sessions (named volume)
+      - ../../../custom-addons:/mnt/extra-addons:rw        # your modules from repo root (bind mount)
     networks:
       library-prod:
         aliases:
-          - odoo
+          - odoo                                           # optional: other services can find odoo by name
 
 volumes:
-  postgres-data:
-  odoo-data:
+  postgres-data:                                           # named volume for PostgreSQL data
+  odoo-data:                                               # named volume for Odoo filestore
 
 networks:
-  library-prod:</code></pre>
+  library-prod:                                            # isolated network for this stack</code></pre>
 
 <div class="note">
     <strong>Note:</strong> the line <code>../../../custom-addons:/mnt/extra-addons:rw</code> is a <em>bind mount</em>. It tells Docker: &ldquo;take the <code>custom-addons/</code> folder from the repo root on your Windows disk and make it appear inside the container at <code>/mnt/extra-addons</code>.&rdquo; The path starts with <code>../../../</code> because the compose file lives three directories deep (<code>infra/local/odoo-prod-docker-desktop/</code>). The dev compose file will have the same line, so both environments see the exact same folder on disk.
@@ -1033,55 +1075,55 @@ networks:
 
 <p>Then create the <strong>dev</strong> compose file at <code>infra/local/odoo-dev-docker-desktop/docker-compose.yml</code>:</p>
 
-<pre><code>name: komiti-library-dev
+<pre><code>name: komiti-library-dev                                   # Docker Compose project name (prefixes container names)
 
 services:
   postgres:
-    image: postgres:16
-    restart: unless-stopped
+    image: postgres:16                                     # official PostgreSQL 16 image
+    restart: unless-stopped                                # auto-restart unless you explicitly stop it
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: komiti-library-dev-local
+      POSTGRES_DB: postgres                                # bootstrap DB for server start; unused later
+      POSTGRES_USER: odoo                                  # PostgreSQL superuser; Odoo connects as this user
+      POSTGRES_PASSWORD: komiti-library-dev-local          # must match PASSWORD in the odoo service
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]  # checks if PostgreSQL is ready to accept connections
+      interval: 10s                                        # check every 10 seconds
+      timeout: 5s                                          # fail if no response within 5 seconds
+      retries: 10                                          # mark unhealthy after 10 consecutive failures
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data             # persist database files across container restarts
     networks:
       library-dev:
         aliases:
-          - db
+          - db                                             # other services find postgres at hostname "db"
 
   odoo:
-    image: odoo:19.0
+    image: odoo:19.0                                       # official Odoo 19 image
     restart: unless-stopped
     depends_on:
       postgres:
-        condition: service_healthy
+        condition: service_healthy                         # wait for pg_isready before starting Odoo
     environment:
-      HOST: db
-      PORT: 5432
-      USER: odoo
-      PASSWORD: komiti-library-dev-local
+      HOST: db                                             # network alias of the postgres service
+      PORT: 5432                                           # default PostgreSQL port
+      USER: odoo                                           # must match POSTGRES_USER above
+      PASSWORD: komiti-library-dev-local                   # must match POSTGRES_PASSWORD above
     ports:
-      - "8067:8069"
+      - "8067:8069"                                        # host:container — access dev Odoo at localhost:8067
     volumes:
-      - odoo-data:/var/lib/odoo
-      - ../../../custom-addons:/mnt/extra-addons:rw
+      - odoo-data:/var/lib/odoo                            # filestore, sessions (named volume)
+      - ../../../custom-addons:/mnt/extra-addons:rw        # your modules from repo root (bind mount)
     networks:
       library-dev:
         aliases:
-          - odoo
+          - odoo                                           # optional: other services can find odoo by name
 
 volumes:
-  postgres-data:
-  odoo-data:
+  postgres-data:                                           # named volume for PostgreSQL data
+  odoo-data:                                               # named volume for Odoo filestore
 
 networks:
-  library-dev:</code></pre>
+  library-dev:                                             # isolated network for this stack</code></pre>
 
 <div class="note">
     <strong>Note:</strong> the key differences between prod and dev are the project name, password, network name, and the host port (<code>8068</code> for prod, <code>8067</code> for dev). Keep <code>POSTGRES_DB</code> as <code>postgres</code> in both files. The real Odoo databases (<code>komiti_library_prod</code> and <code>komiti_library_dev</code>) are created later from the Odoo web UI. If you set <code>POSTGRES_DB</code> directly to those names, Postgres creates empty databases first and Odoo may return HTTP 500 instead of the normal database creation screen.
