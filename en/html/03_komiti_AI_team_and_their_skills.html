@@ -565,7 +565,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
 ## Constraints
 - Follow `.github/copilot-instructions.md` for all repo-level rules.
 - One commit = one logical unit.
-- After every significant change, update `SESSION_NOTES.md`.
+- Update the relevant instruction file when workflow rules change.
 - Do not deploy — prepare a HANDOFF block instead.</code></pre>
 
 <div class="important">
@@ -593,7 +593,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <tr><td>Code changes</td><td>Fix root cause; one commit = one logical unit; retry/rollback matrix (repo-only, runtime, deploy/infra).</td></tr>
     <tr><td>Testing and rollout</td><td>Functional test before merge; post-deploy smoke test; merge ≠ deploy.</td></tr>
     <tr><td>Definition of Done</td><td>6-point checklist (root cause, verification, runtime state, documentation, report, no artifacts).</td></tr>
-    <tr><td>Documentation</td><td>Every significant change updates <code>SESSION_NOTES.md</code> + relevant instruction file.</td></tr>
+    <tr><td>Documentation</td><td>Workflow or policy changes update the relevant instruction file.</td></tr>
     <tr><td>komiti_academy submodule</td><td>Two local copies; submodule refresh procedure; runtime artifact sync path; inter-agent handoff block format.</td></tr>
     <tr><td>Navigation index</td><td>Pointers to all scoped instruction files and operational runbooks.</td></tr>
 </tbody>
