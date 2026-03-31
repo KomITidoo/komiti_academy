@@ -330,7 +330,7 @@
     <ul>
         <li>Created a <strong>GitHub repository</strong> (<code>komiti_library</code>) with two branches: <code>main</code> (production) and <code>staging</code> (integration).</li>
         <li>Learned the <strong>Git workflow</strong>: feature branches, committing, pushing, promoting to <code>staging</code> and <code>main</code>.</li>
-        <li>Set up <strong>two Docker Compose stacks</strong> on Docker Desktop — a <strong>dev</strong> instance and a <strong>prod</strong> instance — each running Odoo 19 with its own PostgreSQL database.</li>
+        <li>Set up <strong>two Docker Compose stacks</strong> on Docker Desktop — a <strong>dev</strong> instance (port <code>8067</code>, database <code>komiti_library_dev</code>) and a <strong>prod</strong> instance (port <code>8068</code>, database <code>komiti_library_prod</code>) — each running Odoo 19 with its own PostgreSQL database.</li>
     </ul>
     <p>Your local environment is ready. Both Odoo instances are running and accessible in the browser. From this point on, you will be writing code that runs inside those containers.</p>
 
@@ -345,7 +345,7 @@
     <h4>Enabling the developer mode</h4>
     <p>Developer mode unlocks extra menus, technical information on fields, and debugging tools. To activate it:</p>
     <ol>
-        <li>Log in to your Odoo instance (e.g. <code>http://localhost:8069</code>).</li>
+        <li>Log in to your Odoo dev instance (<code>http://localhost:8067</code>).</li>
         <li>Go to <strong>Settings → General Settings</strong>.</li>
         <li>Scroll down to the <strong>Developer Tools</strong> section.</li>
         <li>Click <strong>Activate the developer mode</strong>.</li>
@@ -398,6 +398,9 @@
     <p>The <code>odoo scaffold</code> command provides a quick way to create a module skeleton:</p>
     <pre>python odoo-bin scaffold library ~/work19/library</pre>
         <div class="important"><strong>Prerequisites:</strong> run this command from an Odoo source checkout where <code>odoo-bin</code> exists, use a Python environment with the project dependencies installed, and pass an existing addons directory as the destination path so Odoo can later load the generated module through its <code>addons_path</code> configuration.</div>
+    <div class="tip"><strong>Tip — Docker Compose environment:</strong> if your infrastructure uses Docker Compose as set up in the <em>Infrastructure</em> lesson, you do not have <code>odoo-bin</code> on your host machine. Run the command inside the Odoo container instead, from your dev stack directory (<code>infra/local/odoo-dev-docker-desktop/</code>):
+<pre>docker compose exec web odoo scaffold library /mnt/extra-addons/library</pre>
+The same pattern applies to every <code>python odoo-bin</code> command in this tutorial: replace <code>python odoo-bin -c ~/work19/library.conf -d library</code> with <code>docker compose exec web odoo -d komiti_library_dev</code> and append <code>--stop-after-init</code> for one-off operations (install, upgrade, tests). After any Python code change, restart the service with <code>docker compose restart web</code>.</div>
 
     <h3 id="step1-3">3.3) Recommended Module Structure in Odoo 19</h3>
     <p>The scaffold command creates a basic skeleton. The full recommended structure for a production module in Odoo 19 is:</p>
@@ -600,6 +603,7 @@ from . import main          <span class="comment"># imports library/controllers/
 
     <h3 id="step1-12">3.12) Installing a Module</h3>
     <pre>python odoo-bin -c ~/work19/library.conf -d library -i library</pre>
+    <div class="tip"><strong>Tip — Docker:</strong> <code>docker compose exec web odoo -d komiti_library_dev -i library --stop-after-init</code></div>
 
     <h3 id="step1-13">3.13) Upgrading Modules</h3>
     <table>
@@ -612,6 +616,7 @@ from . import main          <span class="comment"># imports library/controllers/
         </tbody>
     </table>
     <pre>python odoo-bin -c ~/work19/library.conf -d library -u library</pre>
+    <div class="tip"><strong>Tip — Docker:</strong> <code>docker compose exec web odoo -d komiti_library_dev -u library --stop-after-init</code>. To restart after Python changes: <code>docker compose restart web</code>.</div>
     <p>The <code>--dev=all</code> option is available in all versions including v19 and automates this during development: XML/CSV changes are instantly reloaded; Python changes trigger an automatic server restart.</p>
 
     <hr>
@@ -1066,6 +1071,8 @@ python odoo-bin -c ~/work19/library.conf -u library --test-enable --test-tags=li
 
 # Run a single test method
 python odoo-bin -c ~/work19/library.conf -u library --test-enable --test-tags=library.TestBook.test_book_name_required</pre>
+    <div class="tip"><strong>Tip — Docker:</strong> replace <code>python odoo-bin -c ~/work19/library.conf</code> with <code>docker compose exec web odoo</code>, use <code>-d komiti_library_dev</code>, and append <code>--stop-after-init</code>. Example:
+<pre>docker compose exec web odoo -d komiti_library_dev -u library --test-enable --test-tags=library --stop-after-init</pre></div>
     <p>The <code>--test-tags</code> selector follows the pattern <code>tag.ClassName.method_name</code>. Each part is optional — you can stop at just the tag or the class. The example above runs only <code>test_book_name_required</code> inside <code>TestBook</code>, which is useful when debugging a failing constraint test without waiting for the full suite to complete.</p>
 
     <hr>
