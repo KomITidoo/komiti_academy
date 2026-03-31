@@ -1470,6 +1470,11 @@ access_book_manager,BookManager,model_library_book,library.library_group_manager
 Library   (menu_library)
   └── <span class="comment">&lt;!-- Level 2 — added here --&gt;</span>
       Books   (menu_library_book)  →  opens the Book list/form</pre>
+
+    <div class="note">
+        <strong>Note:</strong> Odoo has several action types. <strong>Window actions</strong> (<code>ir.actions.act_window</code>) are the most frequent — they present views in the web client. <strong>Report actions</strong> (<code>ir.actions.report</code>) run PDF/HTML reports. <strong>Server actions</strong> (<code>ir.actions.server</code>) define automated tasks such as sending e-mails or executing Python code. In this tutorial we focus on window actions because they are what you need to connect a menu item to a view.
+    </div>
+
     <p>A leaf menu item cannot open a view on its own — it must point to a <strong>window action</strong> (<code>ir.actions.act_window</code>) that tells Odoo which model to open and in which view modes. The action is defined first, then the menu item references it via the <code>action</code> attribute. Edit <code>views/library_menu.xml</code>:</p>
     <pre>&lt;!-- Action to open the Book list --&gt;
 &lt;record id="action_library_book" model="ir.actions.act_window"&gt;

@@ -223,6 +223,14 @@ details summary {
                 <li><a href="#s7-8"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
             </ol>
         </li>
+        <li><a href="#s99">Task on the komiti_academy project for the candidate</a>
+            <ol>
+                <li><a href="#s99-1">Activate GitHub Copilot</a></li>
+                <li><a href="#s99-2">Create your Mentor agent</a></li>
+                <li><a href="#s99-3">Configure custom agent settings</a></li>
+                <li><a href="#s99-4">Self-check</a></li>
+            </ol>
+        </li>
     </ol>
 </div>
 
@@ -659,6 +667,113 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>ACTION field rules</strong> — ACTION must be a complete, ordered checklist covering git ops, file sync, runtime verification, promotion/deploy, and downstream notification.</li>
     <li><strong>Direction matrix</strong> — who hands off to whom and what the typical ACTION steps are (komiti_academy → odoo4komiti, odoo4komiti → komiti_academy, either → user).</li>
     <li><strong>Rules</strong> — agents do not push to each other's repos; handoffs go through the user; receiving agent confirms each step.</li>
+</ul>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 99 — TASK                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2 id="s99">99) Task on the komiti_academy project for the candidate</h2>
+
+<p>In this task you will set up your personal AI coding assistant so it can help you throughout the rest of the KomITi Academy tutorials. You will activate GitHub Copilot, create a custom <code>Mentor</code> agent, and configure it through the VS Code settings UI.</p>
+
+<h3 id="s99-1">99.1) Activate GitHub Copilot</h3>
+
+<ol>
+    <li><strong>Open VS Code</strong> and click the Copilot icon (sparkle ✦) in the top-right area of the title bar, or press <code>Ctrl+Shift+I</code>.</li>
+    <li>If you do not see the icon, <strong>install the extension</strong>: go to Extensions (<code>Ctrl+Shift+X</code>), search for <code>GitHub Copilot</code>, and install it. It includes both Copilot and Copilot Chat.</li>
+    <li><strong>Sign in</strong> with your GitHub account when prompted. If you do not have a Copilot subscription yet, GitHub offers a free tier — activate it at <a href="https://github.com/settings/copilot">github.com/settings/copilot</a>.</li>
+    <li><strong>Verify:</strong> open the Copilot Chat panel (<code>Ctrl+Shift+I</code>) and type <code>Hello</code>. If Copilot responds, you are ready.</li>
+</ol>
+
+<div class="note">
+    <strong>Note:</strong> GitHub Copilot Free gives you a limited number of completions and chat messages per month. For this course that is enough. If your company provides a Copilot Business or Enterprise license, use that instead.
+</div>
+
+<h3 id="s99-2">99.2) Create your Mentor agent</h3>
+
+<p>You will create a custom agent called <code>Mentor</code> in your <code>komiti_library</code> repository. This agent will be your personal tutor — whenever you get stuck while following a tutorial, you can ask <code>@Mentor</code> in the Copilot Chat panel and it will help you in context.</p>
+
+<ol>
+    <li><strong>Create the agents folder</strong> in your <code>komiti_library</code> repo:
+<pre>PS C:\dev\komiti_library> mkdir .github\agents</pre>
+    </li>
+    <li><strong>Create the file</strong> <code>.github/agents/Mentor.agent.md</code> with the following content:
+<pre>---
+name: Mentor
+description: "Personal tutor for KomITi Academy tutorials. Ask @Mentor when you are stuck."
+tools: [read, search, execute]
+---
+
+You are **Mentor** — a patient, knowledgeable tutor for the KomITi Academy onboarding course.
+
+## Identity
+
+- Always identify yourself as Mentor.
+- Respond in the candidate's native language and script.
+
+## Scope
+
+- Answer questions about KomITi Academy tutorials.
+- Explain Odoo, Git, Docker, Terraform, and VS Code concepts covered in the tutorials.
+- Help debug errors the candidate encounters while following hands-on steps.
+- Point the candidate to the relevant tutorial section when the answer is already documented.
+
+## Constraints
+
+- Do not write code for the candidate — guide them to write it themselves.
+- Do not skip steps. If the candidate asks to jump ahead, explain why the current step matters.
+- When the candidate makes a terminology mistake, correct it constructively so they learn.
+- Keep answers short: 1–3 paragraphs unless the candidate asks for more detail.</pre>
+    </li>
+    <li><strong>Verify:</strong> open the Copilot Chat panel, type <code>@Mentor</code> and press Enter. You should see the Mentor agent respond with its identity. Try asking: <code>@Mentor What is a window action in Odoo?</code></li>
+</ol>
+
+<div class="tip">
+    <strong>Tip:</strong> the Mentor agent file is committed to your repository, so it is version-controlled and always available. If you discover a better instruction for the agent later, just edit the file and it takes effect immediately in the next chat message.
+</div>
+
+<h3 id="s99-3">99.3) Configure custom agent settings</h3>
+
+<p>VS Code has a dedicated settings page for customizing how Copilot agents behave globally across all your projects. Open it via the gear icon ⚙ in the Copilot Chat panel header → <strong>Configure Code Generation</strong>, or through <strong>File → Preferences → Settings</strong> and search for <code>copilot</code>.</p>
+
+<p>Configure the following settings:</p>
+
+<ol>
+    <li><strong>Response language</strong> — In the Copilot Chat settings, find <code>github.copilot.chat.localeOverride</code> and set it to the locale code of your native language (e.g. <code>sr</code> for Serbian, <code>de</code> for German, <code>fr</code> for French). This tells Copilot Chat to respond in your native language by default, regardless of the language you type in.
+        <div class="note">
+            <strong>Note:</strong> this setting affects Copilot Chat responses globally. It does not change the language of code, variable names, or comments — only the natural-language explanations and answers.
+        </div>
+    </li>
+    <li><strong>Instructions files discovery</strong> — Search for <code>github.copilot.chat.codeGeneration.useInstructionFiles</code> and make sure it is set to <code>true</code> (the default). This ensures Copilot reads your <code>.github/copilot-instructions.md</code> and <code>*.instructions.md</code> files automatically. If this is off, all the instruction files discussed in this tutorial would be ignored.
+        <em>Reference: <a href="#s2">2) Define instructions</a>.</em>
+    </li>
+    <li><strong>Inline suggestions toggle</strong> — Search for <code>github.copilot.enable</code> and confirm it is enabled for the languages you work with (Python, XML, JavaScript, Markdown). Inline suggestions are the grey "ghost text" completions that appear as you type. They are separate from Chat — you want both active.
+    </li>
+</ol>
+
+<div class="important">
+    <strong>Important:</strong> after changing any Copilot setting, <strong>reload the VS Code window</strong> (<code>Ctrl+Shift+P</code> → <code>Developer: Reload Window</code>) to make sure the new settings take effect in all active Copilot sessions.
+</div>
+
+<h3 id="s99-4">99.4) Self-check</h3>
+
+<p><strong>Key concepts — explain in your own words:</strong></p>
+<ul>
+    <li>What is a custom agent and how does it differ from a plain Copilot Chat conversation?</li>
+    <li>What is the difference between <code>.agent.md</code>, <code>copilot-instructions.md</code>, and <code>*.instructions.md</code>?</li>
+    <li>What does the <code>tools</code> field in the agent frontmatter control?</li>
+    <li>What is the purpose of <code>localeOverride</code>?</li>
+</ul>
+
+<p><strong>You must be able to answer:</strong></p>
+<ul>
+    <li>Where does the <code>Mentor.agent.md</code> file live in the repository file tree?</li>
+    <li>How do you invoke the Mentor agent in the Copilot Chat panel?</li>
+    <li>If you set <code>useInstructionFiles</code> to <code>false</code>, what happens to all the instruction files you create?</li>
+    <li>After changing a VS Code Copilot setting, what must you do for it to take effect?</li>
 </ul>
 
 <hr>
