@@ -189,38 +189,43 @@ details summary {
 <div class="toc">
     <h3>Contents</h3>
     <ol>
-        <li><a href="#s1">Start with Custom agents</a>
+        <li><a href="#s1">What are Agents, LLM Models, and MCP Servers</a>
             <ol>
-                <li><a href="#s1-1">What is a custom agent?</a></li>
-                <li><a href="#s1-2">How to create one</a></li>
+                <li><a href="#s1-1">How to connect VS Code with a GitHub Copilot agent</a></li>
             </ol>
         </li>
-        <li><a href="#s2">Define instructions</a>
+        <li><a href="#s2">Start with Custom agents</a>
             <ol>
-                <li><a href="#s2-1">Global instructions — <code>copilot-instructions.md</code></a></li>
-                <li><a href="#s2-2">Scoped instructions — <code>*.instructions.md</code></a></li>
-                <li><a href="#s2-3">How VS Code decides which instructions to load</a></li>
+                <li><a href="#s2-1">What is a custom agent?</a></li>
+                <li><a href="#s2-2">How to create one</a></li>
             </ol>
         </li>
-        <li><a href="#s3">Add skills as you grow</a></li>
-        <li><a href="#s4">Global vs Scoped instructions vs Skills — when to use which</a></li>
-        <li><a href="#s5">Guardrailing agents: two approaches</a>
+        <li><a href="#s3">Define instructions</a>
             <ol>
-                <li><a href="#s5-1">Always-on agent customization in VS Code</a></li>
-                <li><a href="#s5-2">On-demand agent customization with SDD</a></li>
+                <li><a href="#s3-1">Global instructions — <code>copilot-instructions.md</code></a></li>
+                <li><a href="#s3-2">Scoped instructions — <code>*.instructions.md</code></a></li>
+                <li><a href="#s3-3">How VS Code decides which instructions to load</a></li>
             </ol>
         </li>
-        <li><a href="#s6">Multi-root workspaces</a></li>
-        <li><a href="#s7">Governed Agent Methodology (GAM) at KomITi</a>
+        <li><a href="#s4">Add skills as you grow</a></li>
+        <li><a href="#s5">Global vs Scoped instructions vs Skills — when to use which</a></li>
+        <li><a href="#s6">Guardrailing agents: two approaches</a>
             <ol>
-                <li><a href="#s7-1">Visual overview — file tree</a></li>
-                <li><a href="#s7-2">Every KomITi developer needs a custom agent</a></li>
-                <li><a href="#s7-3"><code>.github/copilot-instructions.md</code> — global rules</a></li>
-                <li><a href="#s7-4"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
-                <li><a href="#s7-5"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
-                <li><a href="#s7-6"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
-                <li><a href="#s7-7"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
-                <li><a href="#s7-8"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
+                <li><a href="#s6-1">Always-on agent customization in VS Code</a></li>
+                <li><a href="#s6-2">On-demand agent customization with SDD</a></li>
+            </ol>
+        </li>
+        <li><a href="#s7">Multi-root workspaces</a></li>
+        <li><a href="#s8">Governed Agent Methodology (GAM) at KomITi</a>
+            <ol>
+                <li><a href="#s8-1">Visual overview — file tree</a></li>
+                <li><a href="#s8-2">Every KomITi developer needs a custom agent</a></li>
+                <li><a href="#s8-3"><code>.github/copilot-instructions.md</code> — global rules</a></li>
+                <li><a href="#s8-4"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
+                <li><a href="#s8-5"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
+                <li><a href="#s8-6"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
+                <li><a href="#s8-7"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
+                <li><a href="#s8-8"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
             </ol>
         </li>
         <li><a href="#s99">Task on the komiti_academy project for the candidate</a>
@@ -238,13 +243,81 @@ details summary {
 
 <p>At KomITi we follow what we call <strong>Governed Agent Methodology (GAM)</strong> — where we prefer a native VS Code approach where rules are delivered to the AI agent <strong>automatically</strong>, through built-in agent customization (global instructions, glob-scoped instructions, on-demand skills).</p>
 
-<p>A GAM-compliant workspace is built from three building blocks — <strong>custom agents</strong> (§1), <strong>instructions</strong> (§2), and <strong>skills</strong> (§3). The sections that follow cover each one, then dive into KomITi's concrete setup (§7).</p>
+<p>A GAM-compliant workspace is built from four building blocks — <strong>foundational concepts</strong> (§1), <strong>custom agents</strong> (§2), <strong>instructions</strong> (§3), and <strong>skills</strong> (§4). The sections that follow cover each one, then dive into KomITi's concrete setup (§8).</p>
 
-<h2 id="s1">1) Start with Custom agents</h2>
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s1">1) What are Agents, LLM Models, and MCP Servers</h2>
+
+<p>Before building your own agents, you need to understand the three components that make AI-assisted development possible:</p>
+
+<ul>
+    <li><strong>LLM (Large Language Model)</strong> is the AI brain — a neural network trained on vast amounts of text and code that can understand natural language, generate code, reason about problems, and hold a conversation. Examples: OpenAI GPT, Anthropic Claude, Google Gemini. The model itself has no memory between sessions, no access to your files, and no ability to run commands — it only processes text in and text out. Everything else requires tooling around it.
+        <ul>
+            <li><strong>How it thinks and where its knowledge comes from:</strong> an LLM does not look things up in a database. During training, it read billions of pages of text — documentation, source code, books, forums — and compressed the patterns into numerical weights. When you ask it a question, it predicts the most likely next words based on those patterns. It has no understanding in the human sense — it is sophisticated pattern matching. This is why it can write fluent code one moment and confidently state something incorrect the next. Treat it as a very fast, very well-read junior colleague who always needs verification.</li>
+            <li><strong>Context window:</strong> the LLM does not have infinite memory. Everything the agent sends to the model in a single interaction — your prompt, loaded instructions, file contents, tool outputs, conversation history — must fit into a fixed number of <strong>tokens</strong> (units of text, roughly ¾ of a word). When the context window fills up, the model starts losing earlier parts of the conversation. The entire GAM architecture — scoped instructions, on-demand skills, concise <code>.agent.md</code> files — exists precisely for this reason: <strong>spend context window budget only on what is relevant to the current task</strong>.</li>
+        </ul>
+    </li>
+    <li><strong>MCP Server (Model Context Protocol Server)</strong> is a bridge between the LLM and external systems. MCP is an open standard (created by Anthropic in 2024) that defines how an AI agent can call external tools — query a database, read a Jira ticket, trigger a CI pipeline, fetch live data from an API. Each MCP server exposes a set of <strong>tools</strong> (functions the agent can call) and <strong>resources</strong> (data the agent can read). Without MCP servers, the agent is limited to what VS Code provides natively — file reads, edits, terminal commands, and search.</li>
+    <li><strong>Agent</strong> is the orchestration layer that connects the LLM with tools and context. In VS Code, an agent receives your prompt, loads relevant instructions and skills into the LLM's context window, decides which tools to call (file search, terminal, MCP servers), interprets the results, and iterates until the task is done. A custom agent (<code>.agent.md</code>) adds identity, scope constraints, and guardrails on top of this loop.</li>
+</ul>
+
+<h4>How Agent, LLM, and MCP work together in VS Code and GitHub Copilot</h4>
+
+<p>GitHub Copilot is the agent runtime embedded in VS Code. When you open the Chat panel and switch to <strong>Agent mode</strong>, VS Code activates a loop that connects all three components:</p>
+
+<ol>
+    <li><strong>You type a request</strong> in the VS Code Chat panel — e.g. "add a num_pages field to the Book model". <br><em>Data stays local — nothing leaves your machine yet.</em></li>
+    <li><strong>The agent</strong> (GitHub Copilot, running inside VS Code) packages your request together with automatically loaded instructions (<code>copilot-instructions.md</code>, scoped <code>.instructions.md</code> files, and any active <code>.agent.md</code> identity). This combined package is sent to the <strong>LLM</strong>. <br><em>🌐 Leaves KomITi — your prompt text and all loaded instruction content travel through GitHub's API to the LLM provider's cloud (Anthropic, OpenAI, or Google, depending on the model you selected).</em></li>
+    <li><strong>The LLM</strong> (e.g. Claude or GPT, running on a remote server) reasons about the task. It does not touch your files directly — it returns a structured response telling the agent what to do next: "read file <code>models/library_book.py</code>". <br><em>🌐 The LLM's response travels back from the provider's cloud through GitHub to your VS Code.</em></li>
+    <li><strong>The agent executes the tool call</strong> — reads the file using VS Code's built-in file tool. <br><em>Local — the agent reads the file from your disk. Nothing leaves your machine in this step.</em></li>
+    <li><strong>The LLM</strong> sees the file content, decides what to change, and returns an edit instruction: "insert <code>num_pages = fields.Integer(...)</code> after line 12". <br><em>🌐 Leaves KomITi — the file content from step 4 is sent to the LLM provider's cloud as part of the next reasoning call. The LLM's edit instruction returns the same way.</em></li>
+    <li><strong>The agent applies the edit</strong> to the file on disk and shows you the diff. <br><em>Local — the edit is written to your disk. Nothing leaves your machine.</em></li>
+    <li>If the task requires external data — say, checking a production database schema — the agent calls an <strong>MCP server</strong> instead of a built-in tool. The MCP server queries the database and returns the result to the LLM for the next reasoning step. <br><em>The MCP call itself can be local (localhost DB) or within KomITi infra (AWS RDS). But the result the MCP server returns is then sent to the LLM provider's cloud 🌐 as part of the next reasoning call — same as step 5.</em></li>
+</ol>
+
+<div class="important">
+    <p><strong>Important:</strong> every piece of text the agent sends to the LLM — your prompt, instruction files, file contents, terminal output, MCP results — travels to the LLM provider's servers outside KomITi. The provider (Anthropic, OpenAI, Google) processes it and sends back a response. GitHub acts as a relay, but the actual reasoning happens on the provider's infrastructure. Keep this in mind when working with sensitive data: if you paste a production password into the chat, it will leave your machine.</p>
+</div>
+
+<p>This agent → LLM → tool → LLM loop repeats until the task is complete. Every cycle consumes context window tokens, which is why efficient instructions and targeted skills matter.</p>
+
+<div class="ascii-diagram">
+You (prompt) ──→ Agent ──→ LLM (reasoning)
+                  │  ↑           │
+                  │  └───────────┘
+                  │         ↕
+                  ├──→ VS Code tools (files, terminal, search)
+                  └──→ MCP Servers (databases, APIs, CI/CD)
+</div>
+
+<div class="note">
+    <strong>Note:</strong> you do not need MCP servers to start. VS Code's built-in tools (file read/write, terminal, search) are sufficient for most development tasks. MCP servers become valuable when you need the agent to interact with external systems — Databricks, Azure DevOps, Jira, Slack, or a production database.
+</div>
+
+<h3 id="s1-1">1.1) How to connect VS Code with a GitHub Copilot agent</h3>
+
+<p>GitHub Copilot is the agent runtime built into VS Code. To set it up:</p>
+
+<ol>
+    <li><strong>Install the extension:</strong> open VS Code → Extensions (<code>Ctrl+Shift+X</code>) → search for "GitHub Copilot" → install both <strong>GitHub Copilot</strong> and <strong>GitHub Copilot Chat</strong>.</li>
+    <li><strong>Sign in:</strong> click the Copilot icon in the bottom-right status bar → sign in with your GitHub account. You need an active <strong>Copilot Individual</strong>, <strong>Copilot Business</strong>, or <strong>Copilot Enterprise</strong> subscription.</li>
+    <li><strong>Choose a model:</strong> in the Chat panel, click the model selector dropdown (top of the chat input). Select the LLM you want — e.g. <code>Claude Sonnet 4</code>, <code>GPT-4.1</code>, or <code>Claude Opus 4</code>. Different models have different strengths; you can switch between them at any time.</li>
+    <li><strong>Switch to Agent mode:</strong> in the Chat panel, change the mode selector from "Ask" to <strong>"Agent"</strong>. In Agent mode, Copilot can read/write files, run terminal commands, and call MCP servers — not just answer questions.</li>
+    <li><strong>Test it:</strong> type a request in the chat input — e.g. <code>list all Python files in this project</code>. The agent should use the file search tool and return results. If it works, your setup is complete.</li>
+</ol>
+
+<div class="tip">
+    <strong>Tip:</strong> the Copilot subscription is tied to your GitHub account, not to where your code is hosted. You can use GitHub Copilot with repositories on Azure DevOps, GitLab, Bitbucket, or even local-only repos — as long as VS Code can open the folder and you are signed in to a Copilot-enabled GitHub account.
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2 id="s2">2) Start with Custom agents</h2>
 
 <p>Custom agents are the <strong>capstone</strong> of GAM — they bring together instructions, skills, tool restrictions, and identity into a single file that gives the agent a <strong>name, scope, and personality</strong>.</p>
 
-<h3 id="s1-1">1.1) What is a custom agent?</h3>
+<h3 id="s2-1">2.1) What is a custom agent?</h3>
 
 <p>A custom agent is a <code>.agent.md</code> file placed in the <code>.github/agents/</code> folder of your repository. It defines a <strong>named persona</strong> that you invoke by typing <code>@AgentName</code> in the VS Code chat. When invoked, the agent receives the full body of the <code>.agent.md</code> file as system-level context — <strong>on top of</strong> the global and scoped instructions that already load from the workspace.</p>
 
@@ -260,7 +333,7 @@ details summary {
     <strong>Note:</strong> a custom agent <strong>does not replace</strong> instructions or skills — it layers on top of them. Instructions still load automatically (global + scoped), skills still activate on demand. The <code>.agent.md</code> file adds identity, ownership boundaries, and agent-specific constraints.
 </div>
 
-<h3 id="s1-2">1.2) How to create one</h3>
+<h3 id="s2-2">2.2) How to create one</h3>
 
 <p>Creating a custom agent takes three steps:</p>
 
@@ -313,7 +386,7 @@ You are **MyAgent** — the designated agent for [scope].
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s2">2) Define instructions</h2>
+<h2 id="s3">3) Define instructions</h2>
 
 <p>Think of instructions as a <strong>permanent briefing document</strong> the agent reads before it starts working. They replace the need to repeat the same rules in every prompt. Instructions are <code>.md</code> files — saved at a specific location and/or with a specific filename convention — that <strong>automatically load into the AI agent's context</strong> when it works in your workspace.</p>
 
@@ -321,7 +394,7 @@ You are **MyAgent** — the designated agent for [scope].
 
 <p>There are two kinds:</p>
 
-<h3 id="s2-1">2.1) Global instructions — <code>copilot-instructions.md</code></h3>
+<h3 id="s3-1">3.1) Global instructions — <code>copilot-instructions.md</code></h3>
 
 <p>Place a file at <code>.github/copilot-instructions.md</code> in the root of your repository. VS Code loads this file <strong>automatically in every conversation</strong>, regardless of which files the agent is working on.</p>
 
@@ -338,7 +411,7 @@ You are **MyAgent** — the designated agent for [scope].
     <strong>Note:</strong> in SDD, the equivalent of <code>copilot-instructions.md</code> is <code>constitution.md</code> — both hold immutable project-level principles. The key difference: VS Code loads <code>copilot-instructions.md</code> automatically in every conversation, while SDD's <code>constitution.md</code> is read on demand when a slash command tells the agent to consult it.
 </div>
 
-<h3 id="s2-2">2.2) Scoped instructions — <code>*.instructions.md</code></h3>
+<h3 id="s3-2">3.2) Scoped instructions — <code>*.instructions.md</code></h3>
 
 <p>Any file ending with <code>.instructions.md</code> can contain a YAML frontmatter block with an <code>applyTo</code> glob pattern. VS Code loads this file <strong>only when the agent opens or edits files matching that pattern</strong>.</p>
 
@@ -355,7 +428,7 @@ applyTo: "custom-addons/**"
     <strong>Key point:</strong> The filename does not determine scope — only the <code>applyTo</code> frontmatter does. A file named <code>custom-addons/odoo.instructions.md</code> with <code>applyTo: "infra/**"</code> would activate for infrastructure files, not for custom-addons.
 </div>
 
-<h3 id="s2-3">2.3) How VS Code decides which instructions to load</h3>
+<h3 id="s3-3">3.3) How VS Code decides which instructions to load</h3>
 
 <table>
 <thead>
@@ -371,7 +444,7 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s3">3) Add skills as you grow</h2>
+<h2 id="s4">4) Add skills as you grow</h2>
 
 <p>Skills are <strong>folders</strong> of instructions, scripts, and resources that the agent can load on demand. Unlike instructions (which are policy/constraints that load automatically), skills are step-by-step playbooks the agent reads when it recognizes a matching task. A skill folder can also contain scripts, templates, examples, and other assets alongside the main instruction file.</p>
 
@@ -394,7 +467,7 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s4">4) Global vs Scoped instructions vs Skills — when to use which</h2>
+<h2 id="s5">5) Global vs Scoped instructions vs Skills — when to use which</h2>
 
 <table>
 <thead>
@@ -432,9 +505,9 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s5">5) Guardrailing agents: two approaches</h2>
+<h2 id="s6">6) Guardrailing agents: two approaches</h2>
 
-<h3 id="s5-1">5.1) Always-on agent customization in VS Code</h3>
+<h3 id="s6-1">6.1) Always-on agent customization in VS Code</h3>
 
 <p>In the chapters above we covered <strong>custom agents</strong>, <strong>instructions</strong> (global and scoped) and <strong>skills</strong> — three of the most important customisation mechanisms. However, VS Code offers many other ways to shape how your AI agent behaves: prompt files, MCP servers, tool restrictions, and more. The following video gives you a broad overview of all available options:</p>
 
@@ -447,7 +520,7 @@ applyTo: "custom-addons/**"
     </a>
 </div>
 
-<h3 id="s5-2">5.2) On-demand agent customization with SDD</h3>
+<h3 id="s6-2">6.2) On-demand agent customization with SDD</h3>
 
 <p>Another approach to agent customisation is <strong>Spec-Driven Development (SDD)</strong>, an open-source methodology by GitHub (<a href="https://github.com/github/spec-kit">github/spec-kit</a>, 83 k ⭐). SDD drives development through a structured pipeline: <code>constitution → specify → plan → tasks → implement</code>.</p>
 
@@ -485,7 +558,7 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s6">6) Multi-root workspaces</h2>
+<h2 id="s7">7) Multi-root workspaces</h2>
 
 <p>In a <strong>multi-root workspace</strong> (covered in <a href="02_git_vscode_basics.html">Git &amp; VS Code Basics</a>), Copilot loads <code>.github/copilot-instructions.md</code> from <strong>every</strong> repository folder in the workspace, not just the one you are editing.</p>
 
@@ -502,11 +575,11 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s7">7) Governed Agent Methodology (GAM) at KomITi</h2>
+<h2 id="s8">8) Governed Agent Methodology (GAM) at KomITi</h2>
 
 <p>This section shows how GAM works in practice — the concrete instruction files, custom agents, and skills that the <code>odoo4komiti</code> repository uses. The repository has a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
 
-<h3 id="s7-1">7.1) Visual overview — file tree</h3>
+<h3 id="s8-1">8.1) Visual overview — file tree</h3>
 
 <div class="ascii-diagram">odoo4komiti/
 ├── .github/
@@ -521,7 +594,7 @@ applyTo: "custom-addons/**"
 │       └── INTER_AGENT_HANDOFF.instructions.md ← crewai_orchestration/** + description | handoff protocol
 └── skills                                      ← currently via VS Code-level agent-customization skill</div>
 
-<h3 id="s7-2">7.2) Every KomITi developer needs a custom agent</h3>
+<h3 id="s8-2">8.2) Every KomITi developer needs a custom agent</h3>
 
 <p>GAM prescribes that <strong>every developer must create a custom agent</strong> for each repository they own or actively develop in. The rationale:</p>
 
@@ -584,7 +657,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <strong>Note:</strong> beyond the minimum, you can add as much domain knowledge as needed: file maps, callout conventions, terminology glossaries, handoff protocols, and pointers to relevant instruction/skill files. See the <code>@Academy</code> and <code>@odoo4komiti</code> agents in the KomITi repos for full examples.
 </div>
 
-<h3 id="s7-3">7.3) <code>.github/copilot-instructions.md</code> — global rules</h3>
+<h3 id="s8-3">8.3) <code>.github/copilot-instructions.md</code> — global rules</h3>
 
 <p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
 
@@ -607,7 +680,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
 </tbody>
 </table>
 
-<h3 id="s7-4">7.4) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
+<h3 id="s8-4">8.4) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
 
@@ -619,7 +692,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
 </ul>
 
-<h3 id="s7-5">7.5) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
+<h3 id="s8-5">8.5) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
 
 <p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
 
@@ -631,7 +704,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
 </ul>
 
-<h3 id="s7-6">7.6) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
+<h3 id="s8-6">8.6) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
 
@@ -644,7 +717,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
 </ul>
 
-<h3 id="s7-7">7.7) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
+<h3 id="s8-7">8.7) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
 
 <p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
 
@@ -657,7 +730,7 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
     <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
 </ul>
 
-<h3 id="s7-8">7.8) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
+<h3 id="s8-8">8.8) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
 
 <p>Scope: <code>applyTo: "crewai_orchestration/**"</code> + <code>description</code> (also loads on-demand when agent detects a handoff task).</p>
 

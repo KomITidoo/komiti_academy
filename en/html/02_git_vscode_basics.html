@@ -217,6 +217,7 @@ details summary {
                 <li><a href="#s2-3">Source Control</a></li>
                 <li><a href="#s2-4">Terminal</a></li>
                 <li><a href="#s5-1">VS Code Status Bar</a></li>
+                <li><a href="#s2-6">Connecting VS Code to GitHub</a></li>
             </ol>
         </li>
         <li><a href="#s6">Save is not the same as commit</a></li>
@@ -528,6 +529,36 @@ __pycache__/
     <li>If the indicator shows <code>2026-03-11-features</code>, you and the agent are both on <code>2026-03-11-features</code> right now. The agent <strong>can</strong> run <code>git checkout</code> and switch — the indicator updates accordingly.</li>
     <li>If the indicator does not match what you expect, run <code>git status</code> and <code>git branch --show-current</code> — you might be looking at a different repo in a multi-root workspace.</li>
     <li>In a multi-root workspace, VS Code shows Git context for the <strong>active file's repo</strong>, so pay attention to which file is active and in which root you are working.</li>
+</ul>
+
+<h3 id="s2-6">2.6) Connecting VS Code to GitHub</h3>
+<p>Before you can push code or use GitHub-powered features (e.g. GitHub Copilot), VS Code needs to know <strong>who you are on GitHub</strong>. There are two separate authentication layers — understand both:</p>
+
+<h4>Layer 1 — VS Code account sign-in</h4>
+<p>This connects the VS Code application to your GitHub identity and unlocks extensions that depend on it (GitHub Copilot, GitHub Pull Requests, Settings Sync).</p>
+<ol>
+    <li>In VS Code, look at the <strong>bottom-left corner</strong> of the Activity Bar — click the <strong>Accounts</strong> icon (person silhouette).</li>
+    <li>Click <strong>Sign in with GitHub to use GitHub Copilot</strong> (or <strong>Turn on Settings Sync…</strong> — either option triggers the same GitHub sign-in).</li>
+    <li>Your browser opens a GitHub authorization page — click <strong>Authorize Visual-Studio-Code</strong>.</li>
+    <li>The browser asks to open VS Code — allow it. VS Code now shows your GitHub username next to the Accounts icon.</li>
+</ol>
+<p>You do this once. VS Code remembers the session across restarts.</p>
+
+<h4>Layer 2 — Git CLI authentication (push / pull)</h4>
+<p>When you run <code>git push</code> or <code>git pull</code> for the first time on a new machine, Git itself needs credentials to talk to GitHub over HTTPS. On modern Windows, <strong>Git Credential Manager</strong> (GCM) handles this automatically:</p>
+<ol>
+    <li>You run <code>git push</code> in the terminal.</li>
+    <li>GCM opens a browser window asking you to sign in to GitHub (or shows a device-code prompt).</li>
+    <li>After you authorize, GCM stores the token securely in Windows Credential Manager — future push/pull commands work without prompts.</li>
+</ol>
+<div class="note">
+    <p><strong>Note:</strong> if you installed Git for Windows version 2.39 or later, Git Credential Manager is included automatically — you do not need to install anything extra. You can verify with <code>git credential-manager --version</code>.</p>
+</div>
+
+<h4>Quick check — am I connected?</h4>
+<ul>
+    <li><strong>VS Code account:</strong> click the Accounts icon — you should see your GitHub username listed.</li>
+    <li><strong>Git CLI:</strong> run <code>git credential-manager github list</code> — if it shows your username, credentials are stored.</li>
 </ul>
 
 <!-- ============================================================ -->
