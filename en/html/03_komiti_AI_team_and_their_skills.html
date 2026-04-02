@@ -191,7 +191,8 @@ details summary {
     <ol>
         <li><a href="#s1">What are Agents, LLM Models, and MCP Servers</a>
             <ol>
-                <li><a href="#s1-1">How to connect VS Code with a GitHub Copilot agent</a></li>
+                <li><a href="#s1-1">How Agent, LLM, and MCP work together</a></li>
+                <li><a href="#s1-2">How to connect VS Code with a GitHub Copilot agent</a></li>
             </ol>
         </li>
         <li><a href="#s2">Start with Custom agents</a>
@@ -251,17 +252,17 @@ details summary {
 <p>Before building your own agents, you need to understand the three components that make AI-assisted development possible:</p>
 
 <ul>
-    <li><strong>LLM (Large Language Model)</strong> is the AI brain — a neural network trained on vast amounts of text and code that can understand natural language, generate code, reason about problems, and hold a conversation. Examples: OpenAI GPT, Anthropic Claude, Google Gemini. The model itself has no memory between sessions, no access to your files, and no ability to run commands — it only processes text in and text out. Everything else requires tooling around it.
+    <li><strong>LLM (Large Language Model)</strong> is the AI brain — a neural network trained on vast amounts of text and code that can understand natural language, generate code, reason about problems, and hold a conversation. Examples: OpenAI GPT, Anthropic Claude, Google Gemini.
         <ul>
-            <li><strong>How it thinks and where its knowledge comes from:</strong> an LLM does not look things up in a database. During training, it read billions of pages of text — documentation, source code, books, forums — and compressed the patterns into numerical weights. When you ask it a question, it predicts the most likely next words based on those patterns. It has no understanding in the human sense — it is sophisticated pattern matching. This is why it can write fluent code one moment and confidently state something incorrect the next. Treat it as a very fast, very well-read junior colleague who always needs verification.</li>
-            <li><strong>Context window:</strong> the LLM does not have infinite memory. Everything the agent sends to the model in a single interaction — your prompt, loaded instructions, file contents, tool outputs, conversation history — must fit into a fixed number of <strong>tokens</strong> (units of text, roughly ¾ of a word). When the context window fills up, the model starts losing earlier parts of the conversation. The entire GAM architecture — scoped instructions, on-demand skills, concise <code>.agent.md</code> files — exists precisely for this reason: <strong>spend context window budget only on what is relevant to the current task</strong>.</li>
+            <li><strong>How it thinks:</strong> an LLM does not look things up in a database and has no access to your files or ability to run commands — it only processes text in and text out. During training, it read billions of pages of text — documentation, source code, books, forums — and compressed the patterns into numerical weights. When you ask it a question, it predicts the most likely next words based on those patterns. It has no understanding in the human sense — it is sophisticated pattern matching. This is why it can write fluent code one moment and confidently state something incorrect the next. Treat it as a very fast, very well-read junior colleague who always needs verification.</li>
+            <li><strong>Context window — the LLM's only memory:</strong> the model itself stores nothing. Every time you send a message, the agent re-sends the entire conversation history plus instructions plus file contents to the LLM from scratch — and all of it must fit into a fixed number of <strong>tokens</strong> (units of text, roughly ¾ of a word). When the context window fills up, the model starts losing earlier parts of the conversation. When you close the chat panel or start a new conversation, even that is gone — the model starts with a blank slate. The entire GAM architecture — scoped instructions, on-demand skills, concise <code>.agent.md</code> files — exists precisely for this reason: <strong>spend context window budget only on what is relevant to the current task</strong>.</li>
         </ul>
     </li>
-    <li><strong>MCP Server (Model Context Protocol Server)</strong> is a bridge between the LLM and external systems. MCP is an open standard (created by Anthropic in 2024) that defines how an AI agent can call external tools — query a database, read a Jira ticket, trigger a CI pipeline, fetch live data from an API. Each MCP server exposes a set of <strong>tools</strong> (functions the agent can call) and <strong>resources</strong> (data the agent can read). Without MCP servers, the agent is limited to what VS Code provides natively — file reads, edits, terminal commands, and search.</li>
     <li><strong>Agent</strong> is the orchestration layer that connects the LLM with tools and context. In VS Code, an agent receives your prompt, loads relevant instructions and skills into the LLM's context window, decides which tools to call (file search, terminal, MCP servers), interprets the results, and iterates until the task is done. A custom agent (<code>.agent.md</code>) adds identity, scope constraints, and guardrails on top of this loop.</li>
+    <li><strong>MCP Server (Model Context Protocol Server)</strong> is a bridge between the LLM and external systems. MCP is an open standard (created by Anthropic in 2024) that defines how an AI agent can call external tools — query a database, read a Jira ticket, trigger a CI pipeline, fetch live data from an API. Each MCP server exposes a set of <strong>tools</strong> (functions the agent can call) and <strong>resources</strong> (data the agent can read). Without MCP servers, the agent is limited to what VS Code provides natively — file reads, edits, terminal commands, and search.</li>
 </ul>
 
-<h4>How Agent, LLM, and MCP work together in VS Code and GitHub Copilot</h4>
+<h3 id="s1-1">1.1) How Agent, LLM, and MCP work together</h3>
 
 <p>GitHub Copilot is the agent runtime embedded in VS Code. When you open the Chat panel and switch to <strong>Agent mode</strong>, VS Code activates a loop that connects all three components:</p>
 
@@ -277,6 +278,15 @@ details summary {
 
 <div class="important">
     <p><strong>Important:</strong> every piece of text the agent sends to the LLM — your prompt, instruction files, file contents, terminal output, MCP results — travels to the LLM provider's servers outside KomITi. The provider (Anthropic, OpenAI, Google) processes it and sends back a response. GitHub acts as a relay, but the actual reasoning happens on the provider's infrastructure. Keep this in mind when working with sensitive data: if you paste a production password into the chat, it will leave your machine.</p>
+    <p>This is not just a best practice — it is a <strong>legal obligation</strong>. Three EU-level regulations (EU AI Act, GDPR, and NIS2 Directive) directly apply:</p>
+    <table>
+        <tr><th>Rule</th><th>Source</th><th>Practical consequence</th></tr>
+        <tr><td>Do not paste personal data into the prompt</td><td>GDPR Art. 44–49</td><td>Production dumps, customer data, PII — never in the chat.</td></tr>
+        <tr><td>Watch what the agent reads and sends on its own</td><td>GDPR Art. 44–49</td><td>The agent automatically reads files and MCP results and sends them to the LLM. If a file or DB query contains personal data (e.g. a log with email addresses, a production dump, a customer table), that data leaves KomITi without you pasting it. <code>.gitignore</code> protects Git — it does not protect the context window.</td></tr>
+        <tr><td>Review AI-generated code</td><td>EU AI Act Art. 26</td><td>Human oversight is mandatory — the "junior colleague" principle is not optional.</td></tr>
+        <tr><td>Label AI-generated content</td><td>EU AI Act Art. 50</td><td>If LLM output reaches the end user, it must be disclosed.</td></tr>
+        <tr><td>Use Copilot Business/Enterprise</td><td>GDPR Art. 28</td><td>Business licence includes a Data Processing Agreement (DPA); personal licence does not.</td></tr>
+    </table>
 </div>
 
 <p>This agent → LLM → tool → LLM loop repeats until the task is complete. Every cycle consumes context window tokens, which is why efficient instructions and targeted skills matter.</p>
@@ -294,7 +304,7 @@ You (prompt) ──→ Agent ──→ LLM (reasoning)
     <strong>Note:</strong> you do not need MCP servers to start. VS Code's built-in tools (file read/write, terminal, search) are sufficient for most development tasks. MCP servers become valuable when you need the agent to interact with external systems — Databricks, Azure DevOps, Jira, Slack, or a production database.
 </div>
 
-<h3 id="s1-1">1.1) How to connect VS Code with a GitHub Copilot agent</h3>
+<h3 id="s1-2">1.2) How to connect VS Code with a GitHub Copilot agent</h3>
 
 <p>GitHub Copilot is the agent runtime built into VS Code. To set it up:</p>
 
