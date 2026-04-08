@@ -250,15 +250,17 @@ details summary {
 <!-- ============================================================ -->
 <h2 id="s1"><img src="img/git_logo.svg" alt="Git logo" style="height:1.2em; vertical-align:middle; margin-right:0.3em;">1) Git basics you need to know</h2>
 
-<p><code>Git</code> is a distributed version control system — a software tool (<a href="https://git-scm.com/">https://git-scm.com/</a>) that tracks every change to every file in a project, keeps a complete history, and lets multiple people work on the same codebase without overwriting each other's work.</p>
+<p><code>Git</code> is a distributed version control system — a software tool for your laptop invented by Linus Torvalds in 2005 (<a href="https://git-scm.com/">https://git-scm.com/</a>) that tracks every change to every file in a folder, keeps a complete history, and lets multiple people work on the same codebase without overwriting each other's work.</p>
 
-<p>Imagine that:</p>
+<p>The problem that Git solves is this: without it, you end up with folders named <code>project_v2_final</code>, <code>project_v2_final_REAL</code>, <code>project_v2_FIXED_by_marko</code> — and nobody knows which version is current, what changed between them, or how to combine two people's work. Git replaces all of that with a single folder that remembers every version internally.</p>
+
+<p>Git manages to track versions of files by organizing them into:</p>
 <ul>
-    <li><strong>Git repo</strong> is a <strong>cabinet</strong>,</li>
-    <li><strong>branch</strong> is a separate <strong>binder</strong> inside that cabinet, and</li>
-    <li><strong>file</strong> is a <strong>sheet of paper</strong> inside that binder.</li>
+    <li><strong>Git repo</strong> — imagine that is a <strong>cabinet</strong>,</li>
+    <li><strong>branch</strong> — imagine that is a separate <strong>binder</strong> inside that cabinet, and</li>
+    <li><strong>file</strong> — imagine that is a <strong>sheet of paper</strong> inside that binder.</li>
 </ul>
-<p>You can only have one binder (branch) open (<code>checkout</code>) on your desk at a time; when you are done, you can copy (<code>merge</code>) sheets (files) from one binder (branch) into another. Git keeps every version of every sheet (file), compressed, inside a hidden <code>.git/</code> folder — so nothing is ever lost.</p>
+<p>Basic Git rule is that you can only have one binder (branch) open (<code>checkout</code>) on your desk at a time; when you are done, you can copy (<code>merge</code>) sheets (files) from one binder (branch) into another. Git keeps every version of every sheet (file), compressed, inside a hidden <code>.git/</code> folder — so nothing is ever lost.</p>
 
 <h3 id="s3">1.1) Local and remote (<img src="img/github_logo.svg" alt="GitHub logo" style="height:1.05em; vertical-align:middle; margin:0 0.15em;">GitHub) branch</h3>
 
@@ -484,7 +486,7 @@ __pycache__/
     <li>Can you have multiple workspaces at the same time? Yes, you can, but not in a single VS Code window.</li>
     <li>Practical rule: if you want clear context separation, fewer mistakes and less confusion about commands, it is often safer to have two windows than one cluttered multi-root workspace.</li>
 </ul>
-<p><strong>In a multi-root workspace each root folder has its own <code>.git/</code> directory and its own branch</strong> — they are completely independent repositories that just happen to be open in the same VS Code window. VS Code tracks them separately in the Source Control panel and the Status Bar switches context depending on which file is active.</p>
+<p><strong>In a multi-root workspace each root folder has its own <code>.git/</code> folder and its own branch</strong> — they are completely independent repositories that just happen to be open in the same VS Code window. VS Code tracks them separately in the Source Control panel and the Status Bar switches context depending on which file is active.</p>
 
 <h3 id="s2-3">2.3) Source Control</h3>
 <p><code>Source Control</code> is the VS Code panel that shows you the Git state of your repo. You open it from the Activity Bar on the left side or with <kbd>Ctrl+Shift+G</kbd>.</p>
@@ -607,7 +609,7 @@ __pycache__/
 </ul>
 
 <ol start="4">
-    <li>Create the working directory where all your development projects will live:</li>
+    <li>Create the working folder where all your development projects will live:</li>
 </ol>
 <pre><code>PS C:\Users\you> mkdir C:\dev
 PS C:\Users\you> cd C:\dev</code></pre>
