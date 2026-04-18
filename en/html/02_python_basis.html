@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basis — KomITi Academy</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            line-height: 1.225;
+            color: #2c2c2c;
+            background: #f4f6f9;
+        }
+        .page-wrapper {
+            max-width: 980px;
+            margin: 10px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+            padding: 15px 18px;
+        }
+        .book-meta {
+            text-align: center;
+            border-bottom: 3px solid #A65949;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+        .book-meta .book-title {
+            font-size: 13px;
+            color: #A65949;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        h1 { font-size: 32px; color: #1a1a2e; margin-bottom: 6px; }
+        .book-meta .subtitle { font-size: 16px; color: #666; font-style: italic; }
+        h2 {
+            font-size: 22px;
+            color: #A65949;
+            border-left: 5px solid #A65949;
+            padding-left: 14px;
+            margin: 24px 0 8px 0;
+        }
+        h3 {
+            font-size: 17px;
+            color: #1a1a2e;
+            margin: 16px 0 5px 0;
+            border-bottom: 1px solid #e8e8e8;
+            padding-bottom: 5px;
+        }
+        h4 { font-size: 15px; color: #444; margin: 20px 0 8px 0; }
+        p  { margin-bottom: 14px; }
+        ul, ol { margin: 8px 0 11.2px 28px; }
+        li { margin-bottom: 0; }
+        p, li, td, blockquote { line-height: 1.225; }
+        code {
+            background: #f0eaf4;
+            color: #A65949;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13.5px;
+            line-height: 1.225;
+            vertical-align: baseline;
+        }
+        pre {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 10px 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 7px 0 10px 0;
+            border-left: 4px solid #A65949;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        pre .comment { color: #6c7086; }
+        blockquote {
+            background: #fdf6ff;
+            border-left: 4px solid #A65949;
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+            color: #555;
+            font-style: italic;
+        }
+        blockquote strong { color: #A65949; font-style: normal; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0 24px 0; font-size: 13px; line-height: 1.3; }
+        thead tr { background: #A65949; color: #fff; }
+        th { padding: 5px 10px; text-align: left; font-weight: 600; }
+        td { padding: 4px 10px; border-bottom: 1px solid #e8e8e8; vertical-align: top; }
+        tbody tr:nth-child(even) { background: #faf7fc; }
+        tbody tr:hover { background: #f0eaf4; }
+        .toc {
+            background: #faf7fc;
+            border: 1px solid #e0d0e8;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+        }
+        .toc h3 { border: none; color: #A65949; margin-top: 0; font-size: 16px; }
+        .toc ol  { margin-top: 8px; list-style: none; }
+        .toc li  { margin-bottom: 3.2px; }
+        .toc a   { color: #A65949; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        /* callouts */
+        .important {
+            background: #fffbe6; border-left: 4px solid #f0b429;
+            padding: 12px 18px; margin: 14px 0;
+            border-radius: 0 6px 6px 0; font-size: 14px;
+        }
+        .important strong { color: #b07d00; }
+        .note {
+            background: #e3f2fd; border-left: 4px solid #1976d2;
+            padding: 12px 18px; margin: 14px 0;
+            border-radius: 0 6px 6px 0; font-size: 14px;
+        }
+        .note strong { color: #0d47a1; }
+        .tip {
+            background: #e8f5e9; border-left: 4px solid #43a047;
+            padding: 12px 18px; margin: 14px 0;
+            border-radius: 0 6px 6px 0; font-size: 14px;
+        }
+        .tip strong { color: #2e7d32; }
+        .ascii-diagram {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 10px 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 7px 0 10px 0;
+            white-space: pre;
+        }
+        hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
+        .summary-box {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-top: 32px;
+        }
+        .summary-box h3 { color: #c9a0dc; border-bottom: 1px solid #333; padding-bottom: 8px; }
+        .summary-box li { color: #cdd6f4; }
+        @media (max-width: 991.98px) {
+            .page-wrapper {
+                padding: 12px 9px;
+            }
+        }
+        footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #e8e8e8;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="book-meta">
+        <div class="book-title">KomITi Academy</div>
+        <h1>Python Basis</h1>
+        <div class="subtitle">The Python You Need Before Writing Your First Odoo Module</div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#intro">1) Introduction</a></li>
+            <li><a href="#s2">2) Variables, Data Types, and Operators</a>
+                <ol>
+                    <li><a href="#s2-1">2.1) Variables and Assignment</a></li>
+                    <li><a href="#s2-2">2.2) Core Data Types</a></li>
+                    <li><a href="#s2-3">2.3) Operators</a></li>
+                    <li><a href="#s2-4">2.4) Truthiness and Falsy Values</a></li>
+                </ol>
+            </li>
+            <li><a href="#s3">3) Strings</a>
+                <ol>
+                    <li><a href="#s3-1">3.1) String Basics and Common Methods</a></li>
+                    <li><a href="#s3-2">3.2) f-Strings (Formatted String Literals)</a></li>
+                </ol>
+            </li>
+            <li><a href="#s4">4) Data Structures</a>
+                <ol>
+                    <li><a href="#s4-1">4.1) Lists</a></li>
+                    <li><a href="#s4-2">4.2) Tuples</a></li>
+                    <li><a href="#s4-3">4.3) Dictionaries</a></li>
+                    <li><a href="#s4-4">4.4) List Comprehensions</a></li>
+                </ol>
+            </li>
+            <li><a href="#s5">5) Control Flow</a>
+                <ol>
+                    <li><a href="#s5-1">5.1) if / elif / else</a></li>
+                    <li><a href="#s5-2">5.2) for Loops</a></li>
+                    <li><a href="#s5-3">5.3) Ternary Expressions</a></li>
+                </ol>
+            </li>
+            <li><a href="#s6">6) Functions</a>
+                <ol>
+                    <li><a href="#s6-1">6.1) Defining and Calling Functions</a></li>
+                    <li><a href="#s6-2">6.2) Default Arguments and Keyword Arguments</a></li>
+                    <li><a href="#s6-3">6.3) *args and **kwargs</a></li>
+                    <li><a href="#s6-4">6.4) Return Values</a></li>
+                </ol>
+            </li>
+            <li><a href="#s7">7) Classes and Object-Oriented Programming</a>
+                <ol>
+                    <li><a href="#s7-1">7.1) Defining a Class</a></li>
+                    <li><a href="#s7-2">7.2) The self Parameter</a></li>
+                    <li><a href="#s7-3">7.3) Class Attributes vs Instance Attributes</a></li>
+                    <li><a href="#s7-4">7.4) Inheritance and super()</a></li>
+                    <li><a href="#s7-5">7.5) Underscore Naming Conventions</a></li>
+                </ol>
+            </li>
+            <li><a href="#s8">8) Decorators</a>
+                <ol>
+                    <li><a href="#s8-1">8.1) What is a Decorator?</a></li>
+                    <li><a href="#s8-2">8.2) Built-in Decorators: @classmethod, @staticmethod, @property</a></li>
+                    <li><a href="#s8-3">8.3) Odoo Decorators Preview</a></li>
+                </ol>
+            </li>
+            <li><a href="#s9">9) Modules, Imports, and Packages</a>
+                <ol>
+                    <li><a href="#s9-1">9.1) import and from ... import</a></li>
+                    <li><a href="#s9-2">9.2) __init__.py and Package Structure</a></li>
+                    <li><a href="#s9-3">9.3) Relative Imports</a></li>
+                </ol>
+            </li>
+            <li><a href="#s10">10) Exception Handling</a>
+                <ol>
+                    <li><a href="#s10-1">10.1) try / except / finally</a></li>
+                    <li><a href="#s10-2">10.2) raise</a></li>
+                    <li><a href="#s10-3">10.3) Context Managers (with statement)</a></li>
+                </ol>
+            </li>
+            <li><a href="#s11">11) Iterators and Built-in Functions</a>
+                <ol>
+                    <li><a href="#s11-1">11.1) zip(), enumerate(), range()</a></li>
+                    <li><a href="#s11-2">11.2) len(), int(), str(), type()</a></li>
+                    <li><a href="#s11-3">11.3) sum(), any(), all()</a></li>
+                </ol>
+            </li>
+            <li><a href="#s12">12) What to Read Next</a></li>
+            <li><a href="#s99">99) Task and Self-Check</a></li>
+        </ol>
+    </div>
+
+    <!-- 1) Introduction -->
+    <h2 id="intro">1) Introduction</h2>
+    <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="_blank" rel="noopener">Python</a> was created by Guido van Rossum in 1991. It is the primary programming language of the <a href="https://www.odoo.com/" target="_blank" rel="noopener">Odoo</a> framework — all server-side logic (models, business rules, controllers, tests) is written in Python.</p>
+    <p>This tutorial covers exactly the Python you need to follow <a href="05_Odoo_from_0_to_hero.html">Tutorial 05 — Odoo from 0 to Hero</a> and the <a href="https://www.odoo.com/documentation/19.0/developer/tutorials.html" target="_blank" rel="noopener">official Odoo 19 developer tutorials</a>. Nothing more, nothing less. If you already know Python, skim the sections and jump to <a href="#s99">Section 99</a> to test yourself.</p>
+    <div class="important"><strong>Prerequisites:</strong> you should have completed <a href="02_git_vscode_basics.html">Tutorial 02 — Git &amp; VS Code Basics</a> and have VS Code with a terminal open. All examples in this tutorial can be run in the Python interactive shell (<code>python</code> or <code>python3</code> in your terminal).</div>
+
+    <hr>
+
+    <!-- 2) Variables, Data Types, and Operators -->
+    <h2 id="s2">2) Variables, Data Types, and Operators</h2>
+
+    <h3 id="s2-1">2.1) Variables and Assignment</h3>
+    <p>A <strong>variable</strong> is a name that refers to a value. Python does not require you to declare the type — it is inferred from the value you assign.</p>
+<pre><code>name = "Library Management"    <span class="comment"># str</span>
+page_count = 350                <span class="comment"># int</span>
+price = 29.99                   <span class="comment"># float</span>
+is_active = True                <span class="comment"># bool</span></code></pre>
+    <p>Variable names must start with a letter or underscore, contain only letters, digits, and underscores, and are case-sensitive (<code>Name</code> ≠ <code>name</code>).</p>
+
+    <h3 id="s2-2">2.2) Core Data Types</h3>
+    <table>
+        <thead><tr><th>Type</th><th>Example</th><th>In Odoo</th></tr></thead>
+        <tbody>
+            <tr><td><code>str</code></td><td><code>"Odoo 19"</code></td><td>Field values (<code>fields.Char</code>), XML IDs</td></tr>
+            <tr><td><code>int</code></td><td><code>42</code></td><td>Record IDs, <code>fields.Integer</code></td></tr>
+            <tr><td><code>float</code></td><td><code>3.14</code></td><td><code>fields.Float</code>, monetary amounts</td></tr>
+            <tr><td><code>bool</code></td><td><code>True</code>, <code>False</code></td><td><code>fields.Boolean</code>, <code>active</code> flag</td></tr>
+            <tr><td><code>None</code></td><td><code>None</code></td><td>Empty fields, unset values</td></tr>
+        </tbody>
+    </table>
+    <p>You can check the type of any value with the built-in <code>type()</code> function:</p>
+<pre><code>>>> type(42)
+&lt;class 'int'&gt;
+>>> type("hello")
+&lt;class 'str'&gt;</code></pre>
+
+    <h3 id="s2-3">2.3) Operators</h3>
+    <table>
+        <thead><tr><th>Category</th><th>Operators</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td>Arithmetic</td><td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>//</code> <code>%</code> <code>**</code></td><td><code>10 // 3</code> → <code>3</code> (floor division)</td></tr>
+            <tr><td>Comparison</td><td><code>==</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></td><td><code>len(digits) == 13</code></td></tr>
+            <tr><td>Logical</td><td><code>and</code> <code>or</code> <code>not</code></td><td><code>if book.isbn and not book._check_isbn():</code></td></tr>
+            <tr><td>Membership</td><td><code>in</code> <code>not in</code></td><td><code>"base" in depends_list</code></td></tr>
+            <tr><td>Identity</td><td><code>is</code> <code>is not</code></td><td><code>value is None</code></td></tr>
+        </tbody>
+    </table>
+    <div class="tip"><strong>Tip:</strong> use <code>==</code> to compare values; use <code>is</code> only to compare with <code>None</code> (<code>if value is None</code>). This is a Python convention enforced by linters.</div>
+
+    <h3 id="s2-4">2.4) Truthiness and Falsy Values</h3>
+    <p>Python treats certain values as <code>False</code> in a boolean context. Everything else is <code>True</code>.</p>
+    <table>
+        <thead><tr><th>Falsy values</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td><code>False</code></td><td><code>if False:</code></td></tr>
+            <tr><td><code>None</code></td><td><code>if None:</code></td></tr>
+            <tr><td><code>0</code>, <code>0.0</code></td><td><code>if 0:</code></td></tr>
+            <tr><td><code>""</code> (empty string)</td><td><code>if "":</code></td></tr>
+            <tr><td><code>[]</code>, <code>()</code>, <code>{}</code> (empty containers)</td><td><code>if []:</code></td></tr>
+        </tbody>
+    </table>
+    <p>This is heavily used in Odoo. For example, <code>if not book.isbn:</code> is <code>True</code> when the ISBN field is empty (<code>""</code> or <code>False</code>).</p>
+
+    <hr>
+
+    <!-- 3) Strings -->
+    <h2 id="s3">3) Strings</h2>
+
+    <h3 id="s3-1">3.1) String Basics and Common Methods</h3>
+    <p>Strings are immutable sequences of characters, created with single (<code>'...'</code>) or double (<code>"..."</code>) quotes.</p>
+<pre><code>title = "Odoo Development"
+print(title.upper())      <span class="comment"># "ODOO DEVELOPMENT"</span>
+print(title.lower())      <span class="comment"># "odoo development"</span>
+print(title.replace("Odoo", "ERP"))  <span class="comment"># "ERP Development"</span>
+print(title.startswith("Odoo"))      <span class="comment"># True</span>
+print("7".isdigit())      <span class="comment"># True — used in ISBN validation</span></code></pre>
+    <p>Useful string methods you will encounter in Odoo development:</p>
+    <table>
+        <thead><tr><th>Method</th><th>Returns</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td><code>.strip()</code></td><td>String with leading/trailing whitespace removed</td><td><code>" abc ".strip()</code> → <code>"abc"</code></td></tr>
+            <tr><td><code>.split(sep)</code></td><td>List of substrings</td><td><code>"a,b,c".split(",")</code> → <code>["a", "b", "c"]</code></td></tr>
+            <tr><td><code>.join(iterable)</code></td><td>String from iterable</td><td><code>", ".join(["a", "b"])</code> → <code>"a, b"</code></td></tr>
+            <tr><td><code>.replace(old, new)</code></td><td>String with replacements</td><td><code>"978-0-20".replace("-", "")</code> → <code>"978020"</code></td></tr>
+            <tr><td><code>.isdigit()</code></td><td><code>True</code> if all chars are digits</td><td><code>"9780".isdigit()</code> → <code>True</code></td></tr>
+        </tbody>
+    </table>
+
+    <h3 id="s3-2">3.2) f-Strings (Formatted String Literals)</h3>
+    <p><strong>f-strings</strong> (Python 3.6+) let you embed expressions inside string literals by prefixing with <code>f</code> and wrapping expressions in <code>{}</code>.</p>
+<pre><code>isbn = "978-0-201-53082-7"
+name = "The Mythical Man-Month"
+label = f"[{isbn}] {name}"
+print(label)
+<span class="comment"># [978-0-201-53082-7] The Mythical Man-Month</span></code></pre>
+    <p>f-strings are used extensively in Odoo for error messages, display names, and logging:</p>
+<pre><code>raise ValidationError(f"The ISBN {book.isbn} is not valid.")</code></pre>
+
+    <hr>
+
+    <!-- 4) Data Structures -->
+    <h2 id="s4">4) Data Structures</h2>
+
+    <h3 id="s4-1">4.1) Lists</h3>
+    <p>A <strong>list</strong> is an ordered, mutable sequence. Created with square brackets <code>[]</code>.</p>
+<pre><code>authors = ["Daniel Reis", "Holger Brunn"]
+authors.append("Alexandre Fayolle")  <span class="comment"># add to end</span>
+print(authors[0])    <span class="comment"># "Daniel Reis" — zero-based indexing</span>
+print(authors[-1])   <span class="comment"># "Alexandre Fayolle" — last element</span>
+print(len(authors))  <span class="comment"># 3</span></code></pre>
+    <p><strong>Slicing</strong> extracts a portion of the list:</p>
+<pre><code>digits = [9, 7, 8, 0, 2, 0, 1, 5, 3, 0, 6, 3, 6]
+first_twelve = digits[:12]   <span class="comment"># [9, 7, 8, 0, 2, 0, 1, 5, 3, 0, 6, 3]</span>
+last = digits[-1]            <span class="comment"># 6</span></code></pre>
+    <p><strong>List repetition</strong> with <code>*</code>:</p>
+<pre><code>weights = [1, 3] * 6   <span class="comment"># [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3]</span></code></pre>
+
+    <h3 id="s4-2">4.2) Tuples</h3>
+    <p>A <strong>tuple</strong> is an ordered, <strong>immutable</strong> sequence. Created with parentheses <code>()</code>. Tuples cannot be changed after creation.</p>
+<pre><code>point = (10, 20)
+domain_rule = ("active", "=", True)  <span class="comment"># Odoo domain filter element</span>
+print(domain_rule[0])  <span class="comment"># "active"</span></code></pre>
+    <p>In Odoo, tuples are used for domain filters: <code>[('active', '=', True)]</code> — a list of tuples, where each tuple is a condition <code>(field, operator, value)</code>.</p>
+
+    <h3 id="s4-3">4.3) Dictionaries</h3>
+    <p>A <strong>dictionary</strong> is an unordered collection of key-value pairs. Created with curly braces <code>{}</code>.</p>
+<pre><code>book_data = {
+    "name": "Library Management",
+    "isbn": "978-0-201-53082-7",
+    "active": True,
+}
+print(book_data["name"])   <span class="comment"># "Library Management"</span>
+book_data["pages"] = 350   <span class="comment"># add a new key</span></code></pre>
+    <p>Dictionaries are everywhere in Odoo:</p>
+    <ul>
+        <li><code>create()</code> and <code>write()</code> accept dictionaries: <code>Book.create({"name": "Test"})</code></li>
+        <li>The module manifest (<code>__manifest__.py</code>) is a single dictionary.</li>
+        <li>Context values: <code>{"group_by": "publisher_id"}</code></li>
+    </ul>
+
+    <h3 id="s4-4">4.4) List Comprehensions</h3>
+    <p>A <strong>list comprehension</strong> builds a new list by applying an expression to each element of an iterable, optionally filtering.</p>
+<pre><code><span class="comment"># Extract digits from an ISBN string</span>
+isbn = "978-0-201-53082-7"
+digits = [int(x) for x in isbn if x.isdigit()]
+print(digits)  <span class="comment"># [9, 7, 8, 0, 2, 0, 1, 5, 3, 0, 8, 2, 7]</span></code></pre>
+    <p>General syntax: <code>[expression for variable in iterable if condition]</code></p>
+<pre><code><span class="comment"># Multiply paired elements</span>
+weights = [1, 3] * 6
+terms = [a * b for a, b in zip(digits[:12], weights)]
+print(terms)  <span class="comment"># [9, 21, 8, 0, 2, 0, 1, 15, 3, 0, 6, 9]</span></code></pre>
+    <div class="note"><strong>Note:</strong> <code>zip()</code> pairs elements from two lists: <code>zip([1,2], [3,4])</code> yields <code>(1,3), (2,4)</code>. The <code>a, b</code> syntax in the <code>for</code> clause is called <strong>tuple unpacking</strong>.</div>
+
+    <hr>
+
+    <!-- 5) Control Flow -->
+    <h2 id="s5">5) Control Flow</h2>
+
+    <h3 id="s5-1">5.1) if / elif / else</h3>
+    <p>Python uses indentation (4 spaces) to define code blocks — no curly braces.</p>
+<pre><code>isbn_length = len(digits)
+
+if isbn_length == 13:
+    print("ISBN-13 format")
+elif isbn_length == 10:
+    print("ISBN-10 format")
+else:
+    print("Invalid ISBN length")</code></pre>
+
+    <h3 id="s5-2">5.2) for Loops</h3>
+    <p>The <code>for</code> loop iterates over any <strong>iterable</strong> (list, tuple, string, dictionary, range, etc.).</p>
+<pre><code><span class="comment"># Iterate over a list</span>
+authors = ["Reis", "Brunn", "Fayolle"]
+for author in authors:
+    print(author)
+
+<span class="comment"># Iterate over a dictionary</span>
+book = {"name": "Test", "isbn": "123"}
+for key, value in book.items():
+    print(f"{key}: {value}")</code></pre>
+    <p>In Odoo, <code>self</code> inside a model method is a <strong>recordset</strong> — you iterate over it with <code>for record in self:</code>.</p>
+<pre><code>def button_check_isbn(self):
+    for book in self:              <span class="comment"># self = recordset of books</span>
+        if not book.isbn:
+            raise ValidationError(f"Please provide an ISBN for {book.name}")</code></pre>
+
+    <h3 id="s5-3">5.3) Ternary Expressions</h3>
+    <p>A one-line <code>if</code>/<code>else</code> expression (also called a conditional expression):</p>
+<pre><code>label = f"[{book.isbn}] {book.name}" if book.isbn else book.name</code></pre>
+    <p>Syntax: <code>value_if_true if condition else value_if_false</code></p>
+
+    <hr>
+
+    <!-- 6) Functions -->
+    <h2 id="s6">6) Functions</h2>
+
+    <h3 id="s6-1">6.1) Defining and Calling Functions</h3>
+    <p>A <strong>function</strong> groups reusable logic. Defined with the <code>def</code> keyword.</p>
+<pre><code>def check_isbn_length(isbn):
+    digits = [x for x in isbn if x.isdigit()]
+    return len(digits) == 13
+
+result = check_isbn_length("978-0-201-53082-7")
+print(result)  <span class="comment"># True</span></code></pre>
+
+    <h3 id="s6-2">6.2) Default Arguments and Keyword Arguments</h3>
+<pre><code>def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+print(greet("Srđan"))                  <span class="comment"># "Hello, Srđan!"</span>
+print(greet("Srđan", greeting="Hi"))   <span class="comment"># "Hi, Srđan!"</span></code></pre>
+
+    <h3 id="s6-3">6.3) *args and **kwargs</h3>
+    <p><code>*args</code> collects extra positional arguments into a tuple; <code>**kwargs</code> collects extra keyword arguments into a dictionary.</p>
+<pre><code>def example(*args, **kwargs):
+    print(args)    <span class="comment"># (1, 2, 3)</span>
+    print(kwargs)  <span class="comment"># {"key": "value"}</span>
+
+example(1, 2, 3, key="value")</code></pre>
+    <p>In Odoo, you will see <code>**kwargs</code> in controller methods:</p>
+<pre><code>@http.route("/library/books", auth="public", website=True)
+def list(self, **kwargs):     <span class="comment"># kwargs captures URL query parameters</span>
+    ...</code></pre>
+
+    <h3 id="s6-4">6.4) Return Values</h3>
+    <p>A function returns <code>None</code> by default. Use <code>return</code> to send back a value.</p>
+<pre><code>def _check_isbn(self):
+    self.ensure_one()
+    digits = [int(x) for x in self.isbn if x.isdigit()]
+    if len(digits) == 13:
+        ponderations = [1, 3] * 6
+        terms = [a * b for a, b in zip(digits[:12], ponderations)]
+        remain = sum(terms) % 10
+        check = 10 - remain if remain != 0 else 0
+        return digits[-1] == check    <span class="comment"># returns True or False</span>
+    return False                       <span class="comment"># early return if not 13 digits</span></code></pre>
+
+    <hr>
+
+    <!-- 7) Classes and OOP -->
+    <h2 id="s7">7) Classes and Object-Oriented Programming</h2>
+
+    <h3 id="s7-1">7.1) Defining a Class</h3>
+    <p>A <strong>class</strong> is a blueprint for creating objects. Python classes use the <code>class</code> keyword.</p>
+<pre><code>class Book:
+    def __init__(self, title, isbn):
+        self.title = title   <span class="comment"># instance attribute</span>
+        self.isbn = isbn
+
+    def describe(self):
+        return f"{self.title} ({self.isbn})"
+
+b = Book("The Pragmatic Programmer", "978-0201616224")
+print(b.describe())  <span class="comment"># "The Pragmatic Programmer (978-0201616224)"</span></code></pre>
+
+    <h3 id="s7-2">7.2) The self Parameter</h3>
+    <p>Every instance method receives <code>self</code> as the first argument — it refers to the specific object the method was called on. You do not pass it explicitly.</p>
+<pre><code>class Counter:
+    def __init__(self):
+        self.count = 0
+
+    def increment(self):
+        self.count += 1    <span class="comment"># self.count belongs to this specific Counter instance</span>
+
+c = Counter()
+c.increment()
+print(c.count)  <span class="comment"># 1</span></code></pre>
+    <div class="important"><strong>Important:</strong> in Odoo, <code>self</code> inside a model method is a <strong>recordset</strong>, not a single record. You must iterate with <code>for record in self:</code> to access individual records. Calling <code>self.ensure_one()</code> asserts that the recordset contains exactly one record.</div>
+
+    <h3 id="s7-3">7.3) Class Attributes vs Instance Attributes</h3>
+<pre><code>class Book:
+    _description = "Library Book"  <span class="comment"># class attribute — shared by all instances</span>
+
+    def __init__(self, title):
+        self.title = title         <span class="comment"># instance attribute — unique per instance</span></code></pre>
+    <p>In Odoo models, fields (<code>name = fields.Char(...)</code>) are defined as class attributes, but the ORM makes them behave as instance attributes at runtime.</p>
+
+    <h3 id="s7-4">7.4) Inheritance and super()</h3>
+    <p><strong>Inheritance</strong> lets a class reuse and extend another class.</p>
+<pre><code>class Animal:
+    def speak(self):
+        return "..."
+
+class Dog(Animal):          <span class="comment"># Dog inherits from Animal</span>
+    def speak(self):
+        return "Woof!"
+
+class Puppy(Dog):
+    def speak(self):
+        base = super().speak()   <span class="comment"># calls Dog.speak()</span>
+        return f"{base} (tiny)"
+
+p = Puppy()
+print(p.speak())  <span class="comment"># "Woof! (tiny)"</span></code></pre>
+    <p>In Odoo, every model inherits from <code>models.Model</code>:</p>
+<pre><code>class Book(models.Model):     <span class="comment"># inherits ORM methods: create, write, search, ...</span>
+    _name = "library.book"</code></pre>
+
+    <h3 id="s7-5">7.5) Underscore Naming Conventions</h3>
+    <table>
+        <thead><tr><th>Pattern</th><th>Convention</th><th>Odoo Example</th></tr></thead>
+        <tbody>
+            <tr><td><code>_name</code></td><td>Single leading underscore — "private" by convention (not enforced)</td><td><code>_name = "library.book"</code></td></tr>
+            <tr><td><code>__init__</code></td><td>Dunder (double underscore) — special Python method</td><td><code>__init__.py</code> package marker, <code>__manifest__.py</code></td></tr>
+            <tr><td><code>_check_isbn</code></td><td>Private method — internal helper, not called from outside the class</td><td><code>def _check_isbn(self):</code></td></tr>
+            <tr><td><code>button_check_isbn</code></td><td>No underscore — public method, callable from XML views</td><td><code>def button_check_isbn(self):</code></td></tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 8) Decorators -->
+    <h2 id="s8">8) Decorators</h2>
+
+    <h3 id="s8-1">8.1) What is a Decorator?</h3>
+    <p>A <strong>decorator</strong> is a function that wraps another function to add behaviour. It is applied with the <code>@</code> syntax above the function definition.</p>
+<pre><code>def log_call(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@log_call
+def greet(name):
+    return f"Hello, {name}!"
+
+greet("World")
+<span class="comment"># Prints: Calling greet</span>
+<span class="comment"># Returns: "Hello, World!"</span></code></pre>
+    <p>The <code>@log_call</code> line is equivalent to <code>greet = log_call(greet)</code>.</p>
+
+    <h3 id="s8-2">8.2) Built-in Decorators: @classmethod, @staticmethod, @property</h3>
+<pre><code>class Book:
+    _count = 0
+
+    def __init__(self, title):
+        self.title = title
+        Book._count += 1
+
+    @classmethod
+    def get_count(cls):            <span class="comment"># receives the class, not the instance</span>
+        return cls._count
+
+    @staticmethod
+    def is_valid_isbn(isbn):       <span class="comment"># no self or cls — a plain utility function on the class</span>
+        return len(isbn) == 13
+
+    @property
+    def label(self):               <span class="comment"># accessed as book.label, not book.label()</span>
+        return f"Book: {self.title}"</code></pre>
+    <p>In Odoo tests, <code>@classmethod</code> is used for <code>setUpClass</code>:</p>
+<pre><code>@classmethod
+def setUpClass(cls):
+    super().setUpClass()
+    cls.Book = cls.env["library.book"]</code></pre>
+
+    <h3 id="s8-3">8.3) Odoo Decorators Preview</h3>
+    <p>Odoo defines its own decorators in the <code>odoo.api</code> module. You will learn them in detail in <a href="05_Odoo_from_0_to_hero.html">Tutorial 05</a>. For now, know that they exist and what they do at a high level:</p>
+    <table>
+        <thead><tr><th>Decorator</th><th>Purpose</th></tr></thead>
+        <tbody>
+            <tr><td><code>@api.depends("field1", "field2")</code></td><td>Marks a computed field method — recalculates when listed fields change</td></tr>
+            <tr><td><code>@api.constrains("field")</code></td><td>Marks a validation method — runs on create/write, raises <code>ValidationError</code> on bad data</td></tr>
+            <tr><td><code>@api.onchange("field")</code></td><td>Runs when a field value changes in a form (before saving)</td></tr>
+            <tr><td><code>@api.model</code></td><td>Marks a class-level method that does not operate on a specific recordset</td></tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 9) Modules, Imports, and Packages -->
+    <h2 id="s9">9) Modules, Imports, and Packages</h2>
+
+    <h3 id="s9-1">9.1) import and from ... import</h3>
+    <p>A <strong>module</strong> is a single <code>.py</code> file. You import it to use its classes, functions, or variables.</p>
+<pre><code>import math
+print(math.sqrt(16))  <span class="comment"># 4.0</span>
+
+from math import sqrt
+print(sqrt(16))        <span class="comment"># 4.0 — imported directly</span></code></pre>
+    <p>Odoo imports follow a consistent pattern:</p>
+<pre><code>from odoo import api, fields, models
+from odoo.exceptions import ValidationError</code></pre>
+
+    <h3 id="s9-2">9.2) __init__.py and Package Structure</h3>
+    <p>A <strong>package</strong> is a folder containing an <code>__init__.py</code> file. The file marks the folder as importable and controls what gets loaded.</p>
+    <div class="ascii-diagram">library/
+├── __init__.py              ← from . import models, controllers
+├── __manifest__.py
+├── models/
+│   ├── __init__.py          ← from . import library_book
+│   └── library_book.py
+├── controllers/
+│   ├── __init__.py          ← from . import main
+│   └── main.py
+└── tests/
+    ├── __init__.py          ← from . import test_book
+    └── test_book.py</div>
+    <p>When Odoo loads the <code>library</code> module, it executes <code>library/__init__.py</code>, which imports the sub-packages. Each sub-package's <code>__init__.py</code> imports its <code>.py</code> files. This chain ensures all models, controllers, and tests are registered.</p>
+
+    <h3 id="s9-3">9.3) Relative Imports</h3>
+    <p>Inside a package, use a dot (<code>.</code>) to import from the same package:</p>
+<pre><code><span class="comment"># library/__init__.py</span>
+from . import models         <span class="comment"># imports library/models/__init__.py</span>
+from . import controllers    <span class="comment"># imports library/controllers/__init__.py</span>
+
+<span class="comment"># library/models/__init__.py</span>
+from . import library_book   <span class="comment"># imports library/models/library_book.py</span></code></pre>
+    <p>The <code>.</code> means "the current package". This is a <strong>relative import</strong>, as opposed to an <strong>absolute import</strong> like <code>from odoo import models</code>.</p>
+
+    <hr>
+
+    <!-- 10) Exception Handling -->
+    <h2 id="s10">10) Exception Handling</h2>
+
+    <h3 id="s10-1">10.1) try / except / finally</h3>
+<pre><code>try:
+    value = int("abc")
+except ValueError as e:
+    print(f"Error: {e}")     <span class="comment"># Error: invalid literal for int() with base 10: 'abc'</span>
+finally:
+    print("This always runs")</code></pre>
+    <p>You can catch specific exception types. Always catch the most specific type, not a bare <code>except:</code>.</p>
+
+    <h3 id="s10-2">10.2) raise</h3>
+    <p><code>raise</code> explicitly throws an exception.</p>
+<pre><code>from odoo.exceptions import ValidationError
+
+def validate_isbn(isbn):
+    if not isbn:
+        raise ValidationError("ISBN cannot be empty.")
+    if len(isbn) != 13:
+        raise ValidationError(f"The ISBN {isbn} is not valid.")</code></pre>
+    <p>In Odoo, <code>ValidationError</code> is the standard way to report user-facing validation failures. The framework catches it and displays the message in the UI.</p>
+
+    <h3 id="s10-3">10.3) Context Managers (with statement)</h3>
+    <p>The <code>with</code> statement ensures resources are properly cleaned up (e.g. files are closed, transactions are rolled back).</p>
+<pre><code><span class="comment"># File handling</span>
+with open("data.txt", "r") as f:
+    content = f.read()
+<span class="comment"># f is automatically closed here, even if an exception occurred</span></code></pre>
+    <p>In Odoo tests, <code>with self.assertRaises()</code> is a context manager that verifies an exception is raised:</p>
+<pre><code>with self.assertRaises(ValidationError):
+    self.Book.create({"name": False})  <span class="comment"># should raise ValidationError</span></code></pre>
+
+    <hr>
+
+    <!-- 11) Iterators and Built-in Functions -->
+    <h2 id="s11">11) Iterators and Built-in Functions</h2>
+
+    <h3 id="s11-1">11.1) zip(), enumerate(), range()</h3>
+<pre><code><span class="comment"># zip — pair elements from two lists</span>
+names = ["Alice", "Bob"]
+scores = [90, 85]
+for name, score in zip(names, scores):
+    print(f"{name}: {score}")
+
+<span class="comment"># enumerate — loop with an index</span>
+for i, name in enumerate(names):
+    print(f"{i}: {name}")
+
+<span class="comment"># range — generate a sequence of numbers</span>
+for i in range(5):
+    print(i)  <span class="comment"># 0, 1, 2, 3, 4</span></code></pre>
+
+    <h3 id="s11-2">11.2) len(), int(), str(), type()</h3>
+<pre><code>print(len([1, 2, 3]))  <span class="comment"># 3</span>
+print(int("42"))       <span class="comment"># 42</span>
+print(str(42))         <span class="comment"># "42"</span>
+print(type(42))        <span class="comment"># &lt;class 'int'&gt;</span></code></pre>
+
+    <h3 id="s11-3">11.3) sum(), any(), all()</h3>
+<pre><code>terms = [9, 21, 8, 0, 2, 0, 1, 15, 3, 0, 6, 9]
+print(sum(terms))        <span class="comment"># 74</span>
+print(sum(terms) % 10)   <span class="comment"># 4 — modulo for ISBN check digit</span>
+
+flags = [True, False, True]
+print(any(flags))  <span class="comment"># True — at least one is True</span>
+print(all(flags))  <span class="comment"># False — not all are True</span></code></pre>
+
+    <hr>
+
+    <!-- 12) What to Read Next -->
+    <h2 id="s12">12) What to Read Next</h2>
+    <ul>
+        <li><a href="05_Odoo_from_0_to_hero.html">Tutorial 05 — Odoo from 0 to Hero</a> — your first Odoo application, building on everything covered here.</li>
+        <li><a href="https://www.odoo.com/documentation/19.0/developer/tutorials.html" target="_blank" rel="noopener">Official Odoo 19 Developer Tutorials</a> — the canonical Odoo tutorial series.</li>
+        <li><a href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener">The Python Tutorial (docs.python.org)</a> — the official Python tutorial for deeper exploration of any topic.</li>
+    </ul>
+
+    <hr>
+
+    <!-- 99) Task and Self-Check -->
+    <h2 id="s99">99) Task and Self-Check</h2>
+
+    <h3>Task: ISBN-13 Check Digit Calculator</h3>
+    <p>Write a Python function <code>isbn_check_digit(isbn_12)</code> that takes a 12-character string (the first 12 digits of an ISBN-13) and returns the correct check digit (an integer 0–9). Use what you learned in this tutorial.</p>
+    <ol>
+        <li><strong>Extract digits</strong> — use a list comprehension to convert the string to a list of integers. <em>Reference: <a href="#s4-4">4.4</a>.</em></li>
+        <li><strong>Validate length</strong> — if the list does not have exactly 12 elements, raise a <code>ValueError</code>. <em>Reference: <a href="#s10-2">10.2</a>.</em></li>
+        <li><strong>Calculate weighted sum</strong> — create <code>[1, 3] * 6</code> and use <code>zip()</code> to pair digits with weights, then <code>sum()</code> the products. <em>Reference: <a href="#s4-4">4.4</a>, <a href="#s11-1">11.1</a>, <a href="#s11-3">11.3</a>.</em></li>
+        <li><strong>Compute check digit</strong> — use a ternary expression: <code>10 - (total % 10)</code> unless the remainder is 0, in which case the check digit is 0. <em>Reference: <a href="#s5-3">5.3</a>.</em></li>
+        <li><strong>Return the check digit</strong> — <em>Reference: <a href="#s6-4">6.4</a>.</em></li>
+    </ol>
+    <p>Test your function:</p>
+<pre><code>assert isbn_check_digit("978020153082") == 7
+assert isbn_check_digit("978144932539") == 4
+print("All tests passed!")</code></pre>
+
+    <h3>Self-check</h3>
+    <p><strong>Key concepts — explain in your own words:</strong></p>
+    <ul>
+        <li>variable, data type, truthiness</li>
+        <li>f-string</li>
+        <li>list, tuple, dictionary</li>
+        <li>list comprehension, tuple unpacking</li>
+        <li>for loop, ternary expression</li>
+        <li>function, default argument, <code>**kwargs</code></li>
+        <li>class, <code>self</code>, class attribute vs instance attribute</li>
+        <li>inheritance, <code>super()</code></li>
+        <li>decorator, <code>@classmethod</code></li>
+        <li>module, package, <code>__init__.py</code>, relative import</li>
+        <li><code>raise</code>, <code>try</code>/<code>except</code>, context manager</li>
+    </ul>
+    <p><strong>You must be able to answer:</strong></p>
+    <ul>
+        <li>What happens when you write <code>if not book.isbn:</code> and <code>isbn</code> is an empty string?</li>
+        <li>What is the difference between <code>==</code> and <code>is</code>?</li>
+        <li>Why does Odoo use <code>for record in self:</code> instead of accessing <code>self.field</code> directly?</li>
+        <li>What is the purpose of <code>__init__.py</code>?</li>
+        <li>What does <code>@api.depends("name")</code> tell Odoo to do?</li>
+        <li>Write a list comprehension that extracts all even numbers from <code>[1, 2, 3, 4, 5, 6]</code>.</li>
+        <li>What is the difference between <code>raise</code> and <code>return</code>?</li>
+    </ul>
+
+    <footer>
+        KomITi Academy — Python Basis &bull; 2026
+    </footer>
+</div>
+</body>
+</html>
