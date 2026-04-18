@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif">
+  <!-- MODEL box -->
+  <rect x="120" y="10" width="100" height="40" rx="4" fill="#e8e8e8" stroke="#999" stroke-width="1.5"/>
+  <text x="170" y="36" text-anchor="middle" font-size="14" font-weight="700" fill="#333">MODEL</text>
+
+  <!-- VIEW box -->
+  <rect x="10" y="100" width="100" height="40" rx="4" fill="#e8e8e8" stroke="#999" stroke-width="1.5"/>
+  <text x="60" y="126" text-anchor="middle" font-size="14" font-weight="700" fill="#333">VIEW</text>
+
+  <!-- CONTROLLER box -->
+  <rect x="230" y="100" width="100" height="40" rx="4" fill="#e8e8e8" stroke="#999" stroke-width="1.5"/>
+  <text x="280" y="126" text-anchor="middle" font-size="14" font-weight="700" fill="#333">CONTROLLER</text>
+
+  <!-- USER circle -->
+  <circle cx="170" cy="220" r="30" fill="#e8e8e8" stroke="#999" stroke-width="1.5"/>
+  <text x="170" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#333">USER</text>
+
+  <!-- Arrow: MODEL → VIEW (UPDATES) -->
+  <line x1="120" y1="40" x2="80" y2="100" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="72" y="68" font-size="10" fill="#666" font-weight="600">UPDATES</text>
+
+  <!-- Arrow: CONTROLLER → MODEL (MANIPULATES) -->
+  <line x1="260" y1="100" x2="220" y2="50" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="228" y="68" font-size="10" fill="#666" font-weight="600">MANIPULATES</text>
+
+  <!-- Arrow: VIEW → USER (SEES) -->
+  <line x1="60" y1="140" x2="145" y2="198" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="68" y="180" font-size="10" fill="#666" font-weight="600">SEES</text>
+
+  <!-- Arrow: USER → CONTROLLER (USES) -->
+  <line x1="195" y1="198" x2="270" y2="140" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="248" y="180" font-size="10" fill="#666" font-weight="600">USES</text>
+
+  <!-- Arrowhead marker -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

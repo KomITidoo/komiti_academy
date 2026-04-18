@@ -310,8 +310,19 @@
 
     <!-- Introduction -->
     <h2 id="intro">1) Introduction</h2>
-    <p>Developing in Odoo usually means creating our own modules. In this chapter, the goal is to create a first Odoo application from scratch, learn the steps needed to make it available to Odoo, install it, and iteratively build it up. Odoo follows a <strong>Model-View-Controller (MVC)-like architecture</strong>, and the chapter walks through each of those layers one by one.</p>
-    <p>The topics covered in this chapter are:</p>
+    <p>Developing in Odoo usually means creating our own modules. In this chapter, the goal is to create a first Odoo application from scratch, learn the steps needed to make it available to Odoo, install it, and iteratively build it up. Odoo follows a <strong><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="noopener">Model-View-Controller (MVC)</a>-like architecture</strong>.</p>
+    <img src="img/mvc_pattern.svg" alt="Model-View-Controller pattern diagram — User USES Controller, Controller MANIPULATES Model, Model UPDATES View, User SEES View" style="max-width:280px; display:block; margin:0.5em auto 1em auto;">
+    <p>MVC is an architectural pattern that separates an application into three distinct layers:</p>
+    <table>
+        <thead><tr><th>Layer</th><th>Responsibility</th><th>In Odoo</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Model</strong></td><td>Data and business logic — defines <em>what</em> the application knows and <em>how</em> the data behaves</td><td>Python classes (<code>models.Model</code>) — fields, constrains, compute methods, ORM</td></tr>
+            <tr><td><strong>View</strong></td><td>Presentation — defines <em>how</em> the user sees the data</td><td>XML definitions — form, list, search, kanban views + QWeb templates for the website</td></tr>
+            <tr><td><strong>Controller</strong></td><td>Entry point — receives user requests and coordinates Model and View</td><td>URL routes (Python <code>@http.route</code> controllers) + window action records in XML</td></tr>
+        </tbody>
+    </table>
+    <p>The key benefit: a change in one layer has minimal impact on the other two. For example, you can redesign a form view without touching the Python model.</p>
+    <p>The chapter walks through each of those layers one by one. The topics covered are:</p>
     <ul>
         <li>Overview of the library project</li>
         <li>3) Creating a new addon module</li>
@@ -337,7 +348,12 @@
     <h3 id="intro-2">1.2) What you have to know before starting the non-GUI Odoo development journey</h3>
     <p>Odoo can be customised in two ways:</p>
     <ul>
-        <li><strong>GUI customisation</strong> — using <strong>Odoo Studio</strong>, a paid drag-and-drop tool that lets you add fields, change views, and create simple automations without writing code. Studio is not covered in this onboarding course.</li>
+        <li><strong>GUI customisation</strong> — building directly in the browser without writing code:
+            <ul>
+                <li><strong>Odoo Studio</strong> — a paid drag-and-drop tool (Enterprise edition only) that lets you add fields, change views, and create simple automations. Studio is not covered in this onboarding course.</li>
+                <li><strong>Developer mode with Technical menus</strong> — available in all Odoo editions. By enabling developer mode (sometimes called debug mode) you unlock the <strong>Settings → Technical</strong> menu, which lets you create fields, views, actions, and automated rules directly in the UI. Most of what Studio can build, these menus can build too — albeit in a more technical way that is not as easy for non-developers.</li>
+            </ul>
+        </li>
         <li><strong>Non-GUI (code) development</strong> — writing Python models, XML views, and JavaScript components. This is what the rest of this tutorial covers.</li>
     </ul>
     <p>Even when developing through code, you will often need to inspect what Odoo is doing under the hood. For that, you need <strong>developer mode</strong>.</p>
