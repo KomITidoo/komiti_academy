@@ -1,6 +1,6 @@
 ---
 name: pedagogy
-description: "**CONTENT SKILL** — Write, review, or improve KomITi Academy tutorial content (HTML files in en/html/). USE FOR: writing new tutorial sections; reviewing existing sections for clarity, accuracy, and flow; restructuring or renumbering sections; adding hands-on steps, observations blocks, or self-check questions; ensuring consistent pedagogical voice. DO NOT USE FOR: deploy/promotion workflows (use handoff protocol); Odoo module development; infrastructure changes. INVOKES: file system tools (read/edit HTML tutorials), subagents for content review."
+description: "**CONTENT SKILL** — Write, review, or improve KomITi Academy tutorial content (HTML files in tutorials/). USE FOR: writing new tutorial sections; reviewing existing sections for clarity, accuracy, and flow; restructuring or renumbering sections; adding hands-on steps, observations blocks, or self-check questions; ensuring consistent pedagogical voice. DO NOT USE FOR: deploy/promotion workflows (use handoff protocol); Odoo module development; infrastructure changes. INVOKES: file system tools (read/edit HTML tutorials), subagents for content review."
 ---
 
 # KomITi Academy — Pedagogy Skill

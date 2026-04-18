@@ -1,10 +1,10 @@
 ---
-applyTo: "en/html/**/*.html"
+applyTo: "tutorials/**/*.html"
 ---
 
 # HTML Tutorial Rules
 
-These rules apply whenever you create or edit a file matching `en/html/**/*.html`.
+These rules apply whenever you create or edit a file matching `tutorials/**/*.html`.
 
 ## Shape
 Every tutorial is a **complete, standalone HTML document**: `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`. No external CSS, no JavaScript dependency. Inline `<style>` must be enough for the page to render correctly inside the Odoo Tutorials runtime.
@@ -47,7 +47,7 @@ When a bullet point (or sentence) explains what a command does, **start with the
 This makes the list scannable: the reader sees the command first, then decides whether to read the explanation.
 
 ## Content fidelity
-- HTML tutorials in `en/html/` are the canonical source. There is no separate Serbian markdown to sync against.
+- HTML tutorials in `tutorials/` are the canonical source. There is no separate Serbian markdown to sync against.
 - If a tutorial says `feature → staging → main`, do not output a different branch model.
 - Do not drop filenames, terms, or references that the tutorial treats as important.
 
@@ -108,7 +108,7 @@ Rules:
 
 ## Styling conventions
 - Use the existing CSS classes: `important` (amber/brown), `note` (blue), `tip` (green), `ascii-diagram` (dark terminal block).
-- Use the standard tutorial typography baseline from the existing `en/html/` files:
+- Use the standard tutorial typography baseline from the existing `tutorials/` files:
 	`body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 15px; line-height: 1.225; color: #2c2c2c; background: #f4f6f9; }`
 	`.page-wrapper { max-width: 980px; margin: 20px auto; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.1); padding: 30px 36px; }`
 	`code`, `pre`, and `.ascii-diagram` use `font-family: 'Consolas', 'Courier New', monospace;`.

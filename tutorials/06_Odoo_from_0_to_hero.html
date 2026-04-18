@@ -399,7 +399,11 @@
         <li>An <strong>addons directory</strong> contains several addon modules.</li>
         <li>An <strong>addons path</strong> is an Odoo configuration, with a list of directories where the Odoo server will look for available addons.</li>
     </ul>
-    <p>Some addon modules are featured as <strong>apps</strong>. Apps are top-level modules for a feature area in Odoo, shown in the top-level Apps menu (e.g., CRM, Project, HR). A non-app addon is expected to depend on an existing app and extend it. The distinction is: if the module adds major new functionality, it should be an app; if it modifies an existing app, it should be a regular addon module.</p>
+    <p>Some addon modules are featured as <strong>apps</strong>. Apps are top-level modules for a feature area in Odoo, shown in the top-level Apps menu (e.g., CRM, Project, HR). A non-app addon is expected to depend on an existing app and extend it. The distinction is:</p>
+    <ul>
+        <li>if the module adds major new functionality ⇒ it should be an <strong>app</strong>;</li>
+        <li>if it modifies an existing app ⇒ it should be a regular <strong>addon module</strong>.</li>
+    </ul>
     <p>To develop a new module, you:</p>
     <ol>
         <li>Ensure the working directory is in the Odoo server <strong>addons path</strong>.</li>

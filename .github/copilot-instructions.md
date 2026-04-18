@@ -6,7 +6,7 @@
 - Use professional terminology; if the user's phrasing is unclear, correct it constructively so they learn.
 
 ## Filenames and slugs
-- Tutorial HTML lives in `en/html/`. Do not move it elsewhere.
+- Tutorial HTML lives in `tutorials/`. Do not move it elsewhere.
 - Never rename an existing file or change its slug without an explicit request and a stated reason.
 
 ## Handoff after every HTML change
