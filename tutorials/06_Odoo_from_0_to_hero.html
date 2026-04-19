@@ -445,9 +445,12 @@
 
     <h3 id="step1-3">3.3) Create the Module Skeleton</h3>
     <p>The <code>odoo scaffold</code> command provides a quick way to create a module skeleton:</p>
-    <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose exec odoo odoo scaffold library /mnt/extra-addons/library</code></pre>
+    <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose exec odoo odoo scaffold library /mnt/extra-addons</code></pre>
     <div class="note"><strong>Note:</strong> in other Odoo tutorials and the official documentation you will often see the bare-metal form <code>python odoo-bin scaffold library ~/work19/library</code>. That syntax assumes Odoo is installed directly on the host with <code>odoo-bin</code> in the working directory and all Python dependencies in a local virtual environment. In your case the Odoo server process runs inside a Docker container, so you do not have <code>odoo-bin</code> on your host machine — <code>docker compose exec</code> is the equivalent way to reach it.</div>
-    <p>The command produces no output on success. The full recommended structure for a production module in Odoo 19 is:</p>
+    <p>The second argument is the <strong>destination directory</strong>, not the module folder itself — scaffold creates a <code>library/</code> subfolder inside it automatically. The command produces no output on success. Verify the skeleton was created inside the container:</p>
+    <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose exec odoo ls /mnt/extra-addons/library</code></pre>
+    <p>You should see files like <code>__init__.py</code>, <code>__manifest__.py</code>, <code>controllers/</code>, <code>models/</code>, etc. Because <code>/mnt/extra-addons</code> is a volume mapped to <code>custom-addons/</code> on your host (defined in <code>docker-compose.yml</code>), the same files are also visible at <code>C:\dev\KomITi\komiti_library\custom-addons\library\</code> in Windows Explorer and VS Code.</p>
+    <p>The full recommended structure for a production module in Odoo 19 is:</p>
     <pre>library/
 ├── __init__.py
 ├── __manifest__.py
