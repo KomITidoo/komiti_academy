@@ -424,12 +424,22 @@
         <li><strong>Navigate to your dev stack directory.</strong>
 <pre><code>cd C:\dev\KomITi\komiti_library\infra\local\odoo-dev-docker-desktop</code></pre></li>
         <li><strong>Check whether your dev containers are already running:</strong>
-<pre><code>docker compose ps</code></pre>
+<pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose ps</code></pre>
+        <ul><li>The <code>docker compose</code> command and its YAML file are explained in <a href="05_infrastructure.html#s3-2">Tutorial 05, section 3.2 — <code>docker-compose.yml</code></a>.</li></ul>
         You should see at least two services (<code>web</code> and <code>db</code>) with state <code>Up</code>. If the output is empty or shows <code>Exited</code>, bring them up:
-<pre><code>docker compose up -d</code></pre>
+<pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose up -d</code></pre>
+        <ul>
+            <li><code>up</code> — creates and starts all containers defined in <code>docker-compose.yml</code>.</li>
+            <li><code>-d</code> — detached mode: runs containers in the background so you get your terminal back instead of seeing live log output.</li>
+        </ul>
         Wait a few seconds, then run <code>docker compose ps</code> again to confirm both services are <code>Up</code>.</li>
         <li><strong>Verify the Odoo web interface.</strong> Open <code>http://localhost:8067</code> in your browser. You should see the Odoo login page (or the database manager if no database exists yet). If you cannot reach it, check the container logs:
-<pre><code>docker compose logs web --tail 30</code></pre></li>
+<pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose logs web --tail 30</code></pre>
+        <ul>
+            <li><code>logs</code> — prints stdout/stderr output from a container.</li>
+            <li><code>web</code> — the service name defined in <code>docker-compose.yml</code> whose logs you want to see.</li>
+            <li><code>--tail 30</code> — limits output to the last 30 lines (without it you get the entire log since the container started).</li>
+        </ul></li>
     </ol>
     <div class="note"><strong>Note:</strong> if you have not yet built this dev stack, go back to <a href="05_infrastructure.html#s6">Tutorial 05, section 6</a> and complete the lab first. Everything from this point forward assumes a working dev runtime.</div>
 

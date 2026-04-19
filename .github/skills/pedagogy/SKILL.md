@@ -82,6 +82,39 @@ When explaining a terminal command the candidate just ran:
 - Start with what the candidate **did**, not with the command syntax: "You created a new branch and switched to it."
 - Use peer bullets only for individual flags/arguments: `-b` = branch, `-u` = set upstream, etc.
 
+## First-mention command breakdown
+
+When a command (or a distinct sub-command / flag combination) appears **for the first time** in a tutorial, add a `<ul>` bullet list immediately after the `<pre><code>` block:
+
+### Step 1 — check earlier tutorials
+
+Search all preceding tutorials for that command. If it was already explained there, add **one bullet** linking to the specific section:
+
+```html
+<ul>
+    <li>The <code>docker compose</code> command and its YAML file are explained in
+        <a href="05_infrastructure.html#s3-2">Tutorial 05, section 3.2 — <code>docker-compose.yml</code></a>.</li>
+</ul>
+```
+
+### Step 2 — if not explained before, break it down here
+
+Give **each part** its own bullet — one sub-command, flag, or argument per `<li>`. Do not combine multiple parts into a single bullet.
+
+```html
+<ul>
+    <li><code>up</code> — creates and starts all containers defined in <code>docker-compose.yml</code>.</li>
+    <li><code>-d</code> — detached mode: runs containers in the background so you get your terminal back instead of seeing live log output.</li>
+</ul>
+```
+
+### Rules
+
+- Only on the **first occurrence** in the tutorial. Subsequent uses of the same command do not need the breakdown.
+- One bullet = one part of the command. Never combine two flags or two arguments in a single bullet.
+- Keep each bullet to one short sentence.
+- Self-evident parts (e.g. a plain directory path the candidate just typed) may be skipped.
+
 ## Analogies
 
 Use the **cabinet analogy** consistently across Git tutorials:
