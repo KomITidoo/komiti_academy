@@ -231,7 +231,7 @@
                 <ol>
                     <li><a href="#step1-1">3.1) What is an Addon Module, Addons Directory and Addons Path?</a></li>
                     <li><a href="#step1-2">3.2) Preparing the Addons Path</a></li>
-                    <li><a href="#step1-3">3.3) Recommended Module Structure in Odoo 19</a></li>
+                    <li><a href="#step1-3">3.3) Create the Module Skeleton</a></li>
                     <li><a href="#step1-4">3.4) The __init__.py Chain</a></li>
                     <li><a href="#step1-5">3.5) Creating the Manifest File</a></li>
                     <li><a href="#step1-6">3.6) Understanding depends</a></li>
@@ -417,7 +417,7 @@
     <p>The <strong>addons path</strong> is an Odoo configuration listing directories where the server looks for available addons. By default it contains Odoo's own bundled apps and base module. You extend it by adding directories for custom or community modules.</p>
 
     <h4>Before you begin — verify your runtime is up</h4>
-    <p>The commands in this section run <em>inside</em> the Odoo container. Before you can execute them, you need a running dev stack. Work through this checklist:</p>
+    <p><strong>Runtime</strong> is everything that needs to be running for Odoo to work: the Odoo server process, the PostgreSQL database, and the configuration that connects them. The commands in this section run <em>inside</em> the Odoo container. Before you can execute them, your entire runtime must be up. Work through this checklist:</p>
     <ol>
         <li><strong>Docker Desktop is running.</strong> Open Docker Desktop and confirm the engine status is <em>Running</em> (green icon in the system tray). If it is not running, start it and wait until it is ready.</li>
         <li><strong>Open a terminal.</strong> In VS Code, use the menu <strong>View → Terminal</strong> (or the shortcut <kbd>Ctrl</kbd>+<kbd>`</kbd>). This opens an integrated PowerShell terminal at the bottom of the editor. If you prefer a standalone window, press <kbd>Win</kbd>+<kbd>R</kbd>, type <code>powershell</code>, and press Enter.</li>
@@ -441,18 +441,13 @@
             <li><code>--tail 30</code> — limits output to the last 30 lines (without it you get the entire log since the container started).</li>
         </ul></li>
     </ol>
-    <div class="note"><strong>Note:</strong> if you have not yet built this dev stack, go back to <a href="05_infrastructure.html#s6">Tutorial 05, section 6</a> and complete the lab first. Everything from this point forward assumes a working dev runtime.</div>
+    <div class="note"><strong>Note:</strong> if you have not yet built this dev stack, go back to <a href="05_infrastructure.html#s6">Tutorial 05, section 6</a> and complete the lab first. Everything from this point forward assumes a working dev runtime (containers running, database reachable, Odoo responding on <code>localhost</code>).</div>
 
-    <h4>Create the module skeleton</h4>
+    <h3 id="step1-3">3.3) Create the Module Skeleton</h3>
     <p>The <code>odoo scaffold</code> command provides a quick way to create a module skeleton:</p>
-    <pre>python odoo-bin scaffold library ~/work19/library</pre>
-        <div class="important"><strong>Prerequisites:</strong> run this command from an Odoo source checkout where <code>odoo-bin</code> exists, use a Python environment with the project dependencies installed, and pass an existing addons directory as the destination path so Odoo can later load the generated module through its <code>addons_path</code> configuration.</div>
-    <div class="tip"><strong>Tip — Docker Compose environment:</strong> since your infrastructure uses Docker Compose as set up in <a href="05_infrastructure.html#s6">Tutorial 05</a>, you do not have <code>odoo-bin</code> on your host machine. Run the command inside the Odoo container instead, from the dev stack directory you navigated to above:
-<pre>docker compose exec odoo odoo scaffold library /mnt/extra-addons/library</pre>
-The same pattern applies to every <code>python odoo-bin</code> command in this tutorial: replace <code>python odoo-bin -c ~/work19/library.conf -d library</code> with <code>docker compose exec odoo odoo -d komiti_library_dev</code> and append <code>--stop-after-init</code> for one-off operations (install, upgrade, tests). After any Python code change, restart the service with <code>docker compose restart odoo</code>.</div>
-
-    <h3 id="step1-3">3.3) Recommended Module Structure in Odoo 19</h3>
-    <p>The scaffold command creates a basic skeleton. The full recommended structure for a production module in Odoo 19 is:</p>
+    <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose exec odoo odoo scaffold library /mnt/extra-addons/library</code></pre>
+    <div class="note"><strong>Note:</strong> in other Odoo tutorials and the official documentation you will often see the bare-metal form <code>python odoo-bin scaffold library ~/work19/library</code>. That syntax assumes Odoo is installed directly on the host with <code>odoo-bin</code> in the working directory and all Python dependencies in a local virtual environment. In your case the Odoo server process runs inside a Docker container, so you do not have <code>odoo-bin</code> on your host machine — <code>docker compose exec</code> is the equivalent way to reach it.</div>
+    <p>The command produces no output on success. The full recommended structure for a production module in Odoo 19 is:</p>
     <pre>library/
 ├── __init__.py
 ├── __manifest__.py
@@ -596,7 +591,7 @@ from . import main          <span class="comment"># imports library/controllers/
     <ul>
         <li><strong>Install order guarantee.</strong> On a fresh database Odoo installs dependencies before the current module, so all their models, views, and security records exist by the time your module's data files are processed. If you omit a dependency, the install may succeed on your machine (where the dep is already installed) but fail on a clean server — a classic "works for me" bug.</li>
         <li><strong>XML ID resolution.</strong> Your data files can only reference XML IDs from modules listed in <code>depends</code>. For example, <code>base.group_user</code> in your ACL CSV is resolvable only because <code>base</code> is in <code>depends</code>. Referencing an ID from an unlisted module raises an error at install time.</li>
-        <li><strong>Transitive dependencies.</strong> If module A depends on B, and B depends on C, then A's code can use models from C at runtime. However, you should still list C explicitly in A's <code>depends</code> if you directly reference its records or models — relying on transitive loading is fragile when B later drops its dependency on C.</li>
+        <li><strong>Transitive dependencies.</strong> If module A depends on B, and B depends on C, then A's code can use models from C at runtime (while the server is executing requests). However, you should still list C explicitly in A's <code>depends</code> if you directly reference its records or models — relying on transitive loading is fragile when B later drops its dependency on C.</li>
     </ul>
     <div class="tip"><strong>Tip:</strong> Always start with the smallest possible <code>depends</code> list. Add entries only when you get an "External ID not found" or "unknown model" error. Unnecessary dependencies slow down installation and bloat the module's footprint.</div>
 
@@ -702,7 +697,7 @@ from . import main          <span class="comment"># imports library/controllers/
           name="Books"
           parent="menu_library_catalog"
           action="action_library_book" /&gt;</pre>
-    <p>Odoo builds the full menu tree at runtime by following these <code>parent</code> chains. A menu with no parent is the root; everything else is a descendant. There is no limit to nesting depth, but in practice three levels is the Odoo convention.</p>
+    <p>Odoo builds the full menu tree at runtime (each time the web client loads) by following these <code>parent</code> chains. A menu with no parent is the root; everything else is a descendant. There is no limit to nesting depth, but in practice three levels is the Odoo convention.</p>
     <div class="important"><strong>Common mistake:</strong> Writing <code>parent="library.menu_library"</code> (with the module prefix) when the parent is defined in the <em>same file</em>. Within a single XML file you can reference local IDs without the module prefix. The module prefix (<code>library.</code>) is only needed when you reference an ID defined in a <em>different</em> file or module.</div>
 
     <h4>Why are the menus split across multiple XML files?</h4>
@@ -1029,7 +1024,7 @@ Assign user to  <span class="hl">library_group_manager</span><br>
 
     <!-- Step 3 -->
     <h2 id="step3">5) <span class="step-badge">Step 3</span> Adding Automated Tests</h2>
-    <p>Programming best practices include having automated tests. This is especially important for Python, where there is no compilation step and syntax errors only surface at runtime. This chapter follows a <strong>test-driven development (TDD)</strong> approach: write tests first, confirm they fail, then develop the code to make them pass.</p>
+    <p>Programming best practices include having automated tests. This is especially important for Python, where there is no compilation step and syntax errors only surface at runtime (when the code actually executes). This chapter follows a <strong>test-driven development (TDD)</strong> approach: write tests first, confirm they fail, then develop the code to make them pass.</p>
 
     <h3 id="step3-1">5.1) Requirements for Tests</h3>
     <ol>
@@ -1097,7 +1092,7 @@ class TestBook(TransactionCase):
         <li><strong><code>test_check_isbn_invalid</code></strong> — directly assigns a 13-digit all-zero ISBN to <code>book1</code>. The string has the correct length so the algorithm runs, but the computed check digit does not match the final <code>0</code>, causing <code>_check_isbn()</code> to return <code>False</code>.</li>
     </ul>
     <div class="change"><span class="badge v-changed">Recommended change since v17</span> <strong>Use <code>setUpClass()</code> instead of <code>setUp()</code>.</strong> The <code>setUp()</code> method runs before every individual test method, which is slow for large test suites involving database writes. The <code>setUpClass()</code> classmethod runs once per class and is significantly faster. Note: use <code>cls.</code> (not <code>self.</code>) inside <code>setUpClass</code>.</div>
-    <div class="v19-new"><span class="badge v-new">New in v17 — <code>@tagged()</code> decorator.</span> Tags allow fine-grained test selection at runtime with the <code>--test-tags</code> flag. The built-in tag <code>post_install</code> runs the tests after the module is installed. The <code>-at_install</code> prefix (minus sign) means "do not run during install" — only run in the post-install phase.</div>
+    <div class="v19-new"><span class="badge v-new">New in v17 — <code>@tagged()</code> decorator.</span> Tags allow fine-grained test selection at runtime (when the test runner executes) with the <code>--test-tags</code> flag. The built-in tag <code>post_install</code> runs the tests after the module is installed. The <code>-at_install</code> prefix (minus sign) means "do not run during install" — only run in the post-install phase.</div>
 
     <h3 id="step3-3">5.3) Testing Access Security</h3>
     <p>By default, tests run with the internal <code>__system__</code> user which bypasses access security. To test security properly, switch to a non-admin user in <code>setUpClass()</code>:</p>
@@ -1929,7 +1924,7 @@ registry.category("fields").add("isbn_widget", { component: IsbnWidget });</pre>
             <li><code>import { registry } from "@web/core/registry"</code> — The global Odoo registry. It maps string keys to implementations for fields, services, actions, and more. Registering here is the JavaScript equivalent of adding a record to <code>ir.ui.view</code> — it makes the widget known to the framework.</li>
             <li><code>import { standardFieldProps } from "@web/views/fields/standard_field_props"</code> — A pre-defined set of props that all field widgets receive from the form view: <code>value</code>, <code>update</code>, <code>readonly</code>, <code>required</code>, etc. Spreading them into <code>static props</code> tells OWL to accept and validate all of them.</li>
             <li><code>static template = "library.IsbnWidget"</code> — The XML ID of the OWL template that renders this component's HTML. Format is <code>module_name.TemplateName</code>. The template lives in a separate XML file (see below).</li>
-            <li><code>static props = { ...standardFieldProps }</code> — Declares the component's prop contract. OWL validates props at runtime in dev mode; missing or wrong-typed props raise a warning.</li>
+            <li><code>static props = { ...standardFieldProps }</code> — Declares the component's prop contract. OWL validates props at runtime (in the browser, while the component renders) in dev mode; missing or wrong-typed props raise a warning.</li>
             <li><code>get isValid()</code> — A JavaScript getter that strips hyphens from the current value and checks if the result is exactly 13 digits. Same logic as the Python constraint in section 9, mirrored in the browser for live feedback.</li>
             <li><code>this.props.update(ev.target.value)</code> — The form view passes an <code>update</code> callback as a prop. Calling it notifies the form that the field value has changed, keeping the ORM environment in sync with what the user typed.</li>
             <li><code>registry.category("fields").add("isbn_widget", { component: IsbnWidget })</code> — Registers the widget under the key <code>"isbn_widget"</code>. This name is used in the form view XML as <code>widget="isbn_widget"</code> to attach the component to a specific field.</li>
