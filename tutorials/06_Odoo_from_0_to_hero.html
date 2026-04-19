@@ -449,37 +449,38 @@
     <div class="note"><strong>Note:</strong> in other Odoo tutorials and the official documentation you will often see the bare-metal form <code>python odoo-bin scaffold library ~/work19/library</code>. That syntax assumes Odoo is installed directly on the host with <code>odoo-bin</code> in the working directory and all Python dependencies in a local virtual environment. In your case the Odoo server process runs inside a Docker container, so you do not have <code>odoo-bin</code> on your host machine — <code>docker compose exec</code> is the equivalent way to reach it.</div>
     <p>The second argument is the <strong>destination directory</strong>, not the module folder itself — scaffold creates a <code>library/</code> subfolder inside it automatically. The command produces no output on success. Verify the skeleton was created inside the container:</p>
     <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose exec odoo ls /mnt/extra-addons/library</code></pre>
-    <p>You should see files like <code>__init__.py</code>, <code>__manifest__.py</code>, <code>controllers/</code>, <code>models/</code>, etc. Because <code>/mnt/extra-addons</code> is a volume mapped to <code>custom-addons/</code> on your host (defined in <code>docker-compose.yml</code>), the same files are also visible at <code>C:\dev\KomITi\komiti_library\custom-addons\library\</code> in Windows Explorer and VS Code.</p>
+    <p>You should see files like <code>__init__.py</code>, <code>__manifest__.py</code>, <code>controllers/</code>, <code>models/</code>, etc.</p>
+    <p>These files exist both inside the container and on your Windows machine — they are not two separate copies. In <code>docker-compose.yml</code> the line <code>../../../custom-addons:/mnt/extra-addons:rw</code> creates a <strong>volume mapping</strong>: the container path <code>/mnt/extra-addons</code> and the host path <code>C:\dev\KomITi\komiti_library\custom-addons\</code> point to the same folder. The same principle applies on the EC2 production stack — there the files are physically on the Linux disk of the EC2 instance (e.g. <code>/opt/odoo4komiti/custom-addons/</code>), and Docker mounts that host directory into the container.</p>
     <p>The full recommended structure for a production module in Odoo 19 is:</p>
     <pre>library/
-├── __init__.py
-├── __manifest__.py
-├── controllers/
+├── __init__.py            # Python package marker (imports subpackages)
+├── __manifest__.py        # module metadata: name, version, depends, data files
+├── controllers/           # HTTP route handlers (web controllers)
 │   ├── __init__.py
 │   └── main.py
 ├── data/                  # initial data loaded on install
-├── demo/
+├── demo/                  # sample data loaded only in demo mode
 │   └── demo.xml
 ├── i18n/                  # translation files (.pot / .po)
-├── models/
+├── models/                # Python business logic and ORM model definitions
 │   ├── __init__.py
 │   └── library_book.py
-├── reports/               # PDF report templates
-├── security/
+├── reports/               # PDF report templates (QWeb)
+├── security/              # access rights and record rules
 │   ├── ir.model.access.csv
 │   └── library_security.xml
-├── static/
+├── static/                # web assets served to the browser
 │   └── description/
 │       └── icon.png
 │   └── src/
 │       ├── js/            # ES Module JavaScript files
 │       ├── scss/          # SCSS stylesheets
-│       ├── css/
+│       ├── css/           # plain CSS (rarely used — prefer scss/)
 │       └── xml/           # OWL component templates
-├── tests/
+├── tests/                 # automated test cases
 │   ├── __init__.py
 │   └── test_book.py
-├── views/
+├── views/                 # XML definitions for UI: forms, lists, menus, actions
 │   ├── book_view.xml
 │   ├── book_list_template.xml
 │   └── library_menu.xml
@@ -497,7 +498,7 @@
     <p>Every directory in an Odoo module that contains Python code must have an <code>__init__.py</code> file. This is a standard Python requirement: it turns the directory into a <strong>Python package</strong> so that its files can be imported with the <code>from . import</code> syntax.</p>
 
     <h4>How the import chain works</h4>
-    <p>When Odoo loads a module it executes its root <code>__init__.py</code>. That file must explicitly import every sub-package that contains Python code. The chain for the library module looks like this:</p>
+    <p>When Odoo loads a module it executes its root <code>__init__.py</code>. That file must explicitly import every sub-package that contains Python code. The import chain for the library module looks like this:</p>
     <pre><span class="comment"># odoo/addons/ (Odoo server entry point)
 #   └── loads library/__init__.py</span>
 
