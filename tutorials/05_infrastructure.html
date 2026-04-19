@@ -208,7 +208,12 @@ footer {
 <div class="toc">
     <h3>Table of Contents</h3>
     <ol>
-        <li><a href="#s1">What is the infra stack in KomITi</a></li>
+        <li><a href="#s1">What is the infra stack in KomITi</a>
+            <ol>
+                <li><a href="#s1-1">Stack</a></li>
+                <li><a href="#s1-2">Infra</a></li>
+            </ol>
+        </li>
         <li><a href="#s2">AWS fundamentals you need to know</a></li>
         <li><a href="#s3">Docker and container fundamentals you need to know</a>
             <ol>
@@ -247,7 +252,15 @@ footer {
 <!-- ───────── 1 ───────── -->
 <h2 id="s1">1) What is the infra stack in KomITi</h2>
 
-<p>When we say &ldquo;infra&rdquo; in this repo, we don&rsquo;t mean a single tool, but multiple layers working together:</p>
+<h3 id="s1-1">1.1) Stack</h3>
+
+<p>A <strong>stack</strong> is a set of software layers that work together to deliver a running service. The word comes from the idea of layers stacked on top of each other — each layer depends on the one below it. A classic example is the <em>LAMP stack</em> (Linux + Apache + MySQL + PHP).</p>
+
+<p>A <strong>stack directory</strong> is the folder on disk that contains the configuration files for one instance of a stack. For example, <code>infra/local/odoo-dev-docker-desktop/</code> is the stack directory for the local dev environment — it holds the <code>docker-compose.yml</code>, <code>.env</code>, and any other files Docker Compose needs to bring up that specific environment.</p>
+
+<h3 id="s1-2">1.2) Infra</h3>
+
+<p>When we say &ldquo;infra&rdquo; (short for <strong>infrastructure</strong>) in this repo, we don&rsquo;t mean a single tool, but multiple layers working together:</p>
 <ul>
     <li><strong>AWS</strong> is the cloud substrate: VM, network, IP, security boundary, disk,</li>
     <li><strong>Docker</strong> is the runtime packaging and local orchestration layer: how a service is packaged and run in a container, and how multiple services are coordinated via the terminal command <code>docker compose</code>,</li>
@@ -262,6 +275,28 @@ footer {
     <li>AWS does not replace application verification,</li>
     <li>each layer has its own purpose, its own risk, and its own operational vocabulary.</li>
 </ul>
+
+<p>So the <strong>KomITi infra stack</strong> is all of those layers combined — AWS + Docker + Terraform + Odoo/Caddy/Postgres — and when you see &ldquo;stack directory&rdquo; in later tutorials, it means the folder that holds the configuration for one specific instance of that stack (dev or prod, local or cloud). That can be visualized like this:</p>
+
+<div class="ascii-diagram">┌─────────────────────────────────────────┐
+│            Browser (korisnik)           │
+└────────────────┬────────────────────────┘
+                 │ HTTPS / HTTP
+┌────────────────▼────────────────────────┐
+│  Caddy          (reverse proxy, TLS)    │ ─┐
+├─────────────────────────────────────────┤  │
+│  Odoo 19        (application server)    │  ├── Docker контејнери
+├─────────────────────────────────────────┤  │   (docker-compose.yml)
+│  PostgreSQL 16  (database)              │ ─┘
+├─────────────────────────────────────────┤
+│  Docker Engine + Compose                │
+├─────────────────────────────────────────┤
+│  EC2 instance   (Ubuntu)                │
+├─────────────────────────────────────────┤
+│  VPC / Subnet / Security Group / EIP    │
+├─────────────────────────────────────────┤
+│  AWS Region     (eu-central-1)          │
+└─────────────────────────────────────────┘</div>
 
 <!-- ───────── 2 ───────── -->
 <h2 id="s2">2) AWS fundamentals you need to know</h2>
@@ -983,6 +1018,14 @@ docker_container.odoo ──────┬──▶ docker_container.postgres
 <h3 id="s6-b">Option B &mdash; for candidates WITHOUT an AWS/Azure lab budget</h3>
 
 <p>Don&rsquo;t worry &mdash; you can still do everything needed to continue learning. In this option you skip Terraform entirely and use Docker Compose to bring up Odoo directly on Docker Desktop. The result is the same two running Odoo instances (prod + dev) you need for the module development tutorials; the only difference is that Terraform infrastructure management is not part of your exercise.</p>
+
+<div class="ascii-diagram">┌─────────────────────────────────────────┐
+│  Odoo 19  +  PostgreSQL 16              │ ── Docker контејнери
+├─────────────────────────────────────────┤
+│  Docker Desktop + Compose               │
+├─────────────────────────────────────────┤
+│  Windows / macOS (локална машина)       │
+└─────────────────────────────────────────┘</div>
 
 <p><strong>Prerequisites:</strong></p>
 <ul>
