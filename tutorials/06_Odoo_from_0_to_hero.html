@@ -426,7 +426,7 @@
         <li><strong>Check whether your dev containers are already running:</strong>
 <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose ps</code></pre>
         <ul><li>The <code>docker compose</code> command and its YAML file are explained in <a href="05_infrastructure.html#s3-2">Tutorial 05, section 3.2 — <code>docker-compose.yml</code></a>.</li></ul>
-        You should see at least two services (<code>web</code> and <code>db</code>) with state <code>Up</code>. If the output is empty or shows <code>Exited</code>, bring them up:
+        You should see at least two services (<code>odoo</code> and <code>postgres</code>) with state <code>Up</code>. If the output is empty or shows <code>Exited</code>, bring them up:
 <pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose up -d</code></pre>
         <ul>
             <li><code>up</code> — creates and starts all containers defined in <code>docker-compose.yml</code>.</li>
@@ -434,10 +434,10 @@
         </ul>
         Wait a few seconds, then run <code>docker compose ps</code> again to confirm both services are <code>Up</code>.</li>
         <li><strong>Verify the Odoo web interface.</strong> Open <code>http://localhost:8067</code> in your browser. You should see the Odoo login page (or the database manager if no database exists yet). If you cannot reach it, check the container logs:
-<pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose logs web --tail 30</code></pre>
+<pre><code>PS local\odoo-dev-docker-desktop&gt; docker compose logs odoo --tail 30</code></pre>
         <ul>
             <li><code>logs</code> — prints stdout/stderr output from a container.</li>
-            <li><code>web</code> — the service name defined in <code>docker-compose.yml</code> whose logs you want to see.</li>
+            <li><code>odoo</code> — the service name defined in <code>docker-compose.yml</code> whose logs you want to see.</li>
             <li><code>--tail 30</code> — limits output to the last 30 lines (without it you get the entire log since the container started).</li>
         </ul></li>
     </ol>
@@ -448,8 +448,8 @@
     <pre>python odoo-bin scaffold library ~/work19/library</pre>
         <div class="important"><strong>Prerequisites:</strong> run this command from an Odoo source checkout where <code>odoo-bin</code> exists, use a Python environment with the project dependencies installed, and pass an existing addons directory as the destination path so Odoo can later load the generated module through its <code>addons_path</code> configuration.</div>
     <div class="tip"><strong>Tip — Docker Compose environment:</strong> since your infrastructure uses Docker Compose as set up in <a href="05_infrastructure.html#s6">Tutorial 05</a>, you do not have <code>odoo-bin</code> on your host machine. Run the command inside the Odoo container instead, from the dev stack directory you navigated to above:
-<pre>docker compose exec web odoo scaffold library /mnt/extra-addons/library</pre>
-The same pattern applies to every <code>python odoo-bin</code> command in this tutorial: replace <code>python odoo-bin -c ~/work19/library.conf -d library</code> with <code>docker compose exec web odoo -d komiti_library_dev</code> and append <code>--stop-after-init</code> for one-off operations (install, upgrade, tests). After any Python code change, restart the service with <code>docker compose restart web</code>.</div>
+<pre>docker compose exec odoo odoo scaffold library /mnt/extra-addons/library</pre>
+The same pattern applies to every <code>python odoo-bin</code> command in this tutorial: replace <code>python odoo-bin -c ~/work19/library.conf -d library</code> with <code>docker compose exec odoo odoo -d komiti_library_dev</code> and append <code>--stop-after-init</code> for one-off operations (install, upgrade, tests). After any Python code change, restart the service with <code>docker compose restart odoo</code>.</div>
 
     <h3 id="step1-3">3.3) Recommended Module Structure in Odoo 19</h3>
     <p>The scaffold command creates a basic skeleton. The full recommended structure for a production module in Odoo 19 is:</p>
@@ -652,7 +652,7 @@ from . import main          <span class="comment"># imports library/controllers/
 
     <h3 id="step1-12">3.12) Installing a Module</h3>
     <pre>python odoo-bin -c ~/work19/library.conf -d library -i library</pre>
-    <div class="tip"><strong>Tip — Docker:</strong> <code>docker compose exec web odoo -d komiti_library_dev -i library --stop-after-init</code></div>
+    <div class="tip"><strong>Tip — Docker:</strong> <code>docker compose exec odoo odoo -d komiti_library_dev -i library --stop-after-init</code></div>
 
     <h3 id="step1-13">3.13) Upgrading Modules</h3>
     <table>
@@ -665,7 +665,7 @@ from . import main          <span class="comment"># imports library/controllers/
         </tbody>
     </table>
     <pre>python odoo-bin -c ~/work19/library.conf -d library -u library</pre>
-    <div class="tip"><strong>Tip — Docker:</strong> <code>docker compose exec web odoo -d komiti_library_dev -u library --stop-after-init</code>. To restart after Python changes: <code>docker compose restart web</code>.</div>
+    <div class="tip"><strong>Tip — Docker:</strong> <code>docker compose exec odoo odoo -d komiti_library_dev -u library --stop-after-init</code>. To restart after Python changes: <code>docker compose restart odoo</code>.</div>
     <p>The <code>--dev=all</code> option is available in all versions including v19 and automates this during development: XML/CSV changes are instantly reloaded; Python changes trigger an automatic server restart.</p>
 
     <hr>
@@ -1120,8 +1120,8 @@ python odoo-bin -c ~/work19/library.conf -u library --test-enable --test-tags=li
 
 # Run a single test method
 python odoo-bin -c ~/work19/library.conf -u library --test-enable --test-tags=library.TestBook.test_book_name_required</pre>
-    <div class="tip"><strong>Tip — Docker:</strong> replace <code>python odoo-bin -c ~/work19/library.conf</code> with <code>docker compose exec web odoo</code>, use <code>-d komiti_library_dev</code>, and append <code>--stop-after-init</code>. Example:
-<pre>docker compose exec web odoo -d komiti_library_dev -u library --test-enable --test-tags=library --stop-after-init</pre></div>
+    <div class="tip"><strong>Tip — Docker:</strong> replace <code>python odoo-bin -c ~/work19/library.conf</code> with <code>docker compose exec odoo odoo</code>, use <code>-d komiti_library_dev</code>, and append <code>--stop-after-init</code>. Example:
+<pre>docker compose exec odoo odoo -d komiti_library_dev -u library --test-enable --test-tags=library --stop-after-init</pre></div>
     <p>The <code>--test-tags</code> selector follows the pattern <code>tag.ClassName.method_name</code>. Each part is optional — you can stop at just the tag or the class. The example above runs only <code>test_book_name_required</code> inside <code>TestBook</code>, which is useful when debugging a failing constraint test without waiting for the full suite to complete.</p>
 
     <hr>
