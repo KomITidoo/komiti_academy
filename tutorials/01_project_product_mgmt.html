@@ -145,7 +145,6 @@ footer {
 </head>
 <body>
 <div class="page-wrapper">
-
   <div class="book-meta">
     <div class="book-title">KomITi Academy</div>
     <h1>Product Management Methodology</h1>
@@ -153,6 +152,46 @@ footer {
   </div>
 
   <p>This document explains the current platform/app operating model around the etn/acdc/atc customized Odoo Platform, what each role is responsible for, and how those responsibilities map to the learning library.</p>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">How Change, Product and Project are interrelated</a></li>
+      <li>
+        <a href="#s2">Roles</a>
+        <ol>
+          <li><a href="#s2-1">Platform Owner</a></li>
+          <li><a href="#s2-2">Delivery Manager</a></li>
+          <li><a href="#s2-3">App Owner</a></li>
+          <li><a href="#s2-4">App Delivery Lead</a></li>
+          <li><a href="#s2-5">How roles appear in the <code>library</code> module example</a></li>
+        </ol>
+      </li>
+      <li><a href="#s3">What a developer should learn from this</a></li>
+      <li><a href="#s4">Summary — one sentence per role</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1 -->
+  <h2 id="s1">1) How Change, Product and Project are interrelated</h2>
+
+  <div style="margin: 16px 0 14px 0; padding: 0; background: transparent; border-radius: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: auto;">
+    <div style="position: relative; width: 100%; min-width: 560px; height: 355px;">
+      <div style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 520px; height: 315px; border-radius: 50%; background: #e7decd; border: 2px solid #d2b995; box-shadow: 0 8px 18px rgba(166, 89, 73, 0.10);"></div>
+      <div style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 390px; height: 235px; border-radius: 50%; background: #d9c8ab; box-shadow: 0 8px 18px rgba(166, 89, 73, 0.14);"></div>
+      <div style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 215px; height: 160px; border-radius: 50%; background: #A65949; box-shadow: 0 8px 18px rgba(166, 89, 73, 0.20);"></div>
+
+      <div style="position: absolute; left: 50%; top: 40px; transform: translateX(-50%); color: #1a1a2e; font-size: 21px; font-weight: 700; text-align: center; line-height: 1.15;">Change<br>Management</div>
+      <div style="position: absolute; left: 50%; top: 144px; transform: translateX(-50%); color: #1a1a2e; font-size: 20px; font-weight: 700; text-align: center; line-height: 1.15;">Product<br>Management</div>
+      <div style="position: absolute; left: 50%; top: 257px; transform: translateX(-50%); color: #fff; font-size: 18px; font-weight: 700; text-align: center; line-height: 1.15;">Project<br>Management</div>
+    </div>
+  </div>
+
+  <p>Change management is the outer frame, because organisational change defines why the organisation needs to move. Product management translates that change into platform or app capabilities, while project management delivers those capabilities through one project or, when scope and dependencies require it, through multiple coordinated projects.</p>
+
+  <!-- Section 2 -->
+  <h2 id="s2">2) Roles</h2>
 
 <!-- Visio-style diagram -->
 <div style="margin: 20px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
@@ -221,44 +260,17 @@ footer {
   </div>
 </div>
 
-  <p>The purpose is not for the candidate to become a project manager or product manager, but to understand:</p>
+  <p>The goal is not for the candidate to become a project manager or product manager, but to understand who makes which decision, who defines the problem and scope, who drives delivery, who owns operational stability and service governance after go-live, and which role a developer should address for each type of question across the platform organization.</p>
+  <p>These roles matter because unclear ownership creates wasted work, wrong assumptions, and misdirected questions across delivery teams and client-side participants. Distinguishing the four roles early keeps platform direction, app scope, delivery coordination, and service accountability consistently understood.</p>
   <ul>
-    <li>who makes which type of decision,</li>
-    <li>who defines the problem and scope,</li>
-    <li>who drives delivery,</li>
-    <li>who is the owner of operational stability and service governance,</li>
-    <li>whom the developer addresses which type of question to,</li>
-    <li>how these responsibilities should be understood consistently across the platform organization.</li>
+    <li><strong>Platform Owner</strong> owns platform direction, app alignment, and organisational change intent.</li>
+    <li><strong>Delivery Manager</strong> performs the program-management function across apps and delivery streams.</li>
+    <li><strong>App Owner</strong> owns one app's value, priorities, and service-management accountability.</li>
+    <li><strong>App delivery lead</strong> owns app-level delivery coordination and execution sequencing.</li>
   </ul>
 
-  <!-- Table of Contents -->
-  <div class="toc">
-    <h3>Contents</h3>
-    <ol>
-      <li><a href="#s1">Why these roles matter</a></li>
-      <li><a href="#s2">Platform Owner</a></li>
-      <li><a href="#s3">Delivery Manager</a></li>
-      <li><a href="#s4">App Owner</a></li>
-      <li><a href="#s5">App Delivery Lead</a></li>
-      <li><a href="#s6">How roles appear in the <code>library</code> module example</a></li>
-      <li><a href="#s7">What a developer should learn from this</a></li>
-      <li><a href="#s8">Summary — one sentence per role</a></li>
-    </ol>
-  </div>
-
-  <!-- Section 1 -->
-  <h2 id="s1">1) Why these roles matter</h2>
-
-  <p>It is often unclear who owns platform direction, who coordinates delivery across multiple apps, who owns one app end-to-end, who drives execution inside that app, and who is responsible for operational and maintenance accountability after go-live. Distinguishing these four roles early prevents wasted work and misdirected questions across all stakeholders, including delivery teams and client-side participants:</p>
-  <ul>
-    <li><strong>Platform Owner</strong> — owns platform direction (apps priorities, apps alignment etc.) and organisational change intent,</li>
-    <li><strong>Delivery Manager</strong> — performs the program-management function across apps and delivery streams,</li>
-    <li><strong>App Owner</strong> — owns one app's value, priorities, and service-management accountability,</li>
-    <li><strong>App delivery lead</strong> — owns app-level delivery coordination and execution sequencing.</li>
-  </ul>
-
-  <!-- Section 2 -->
-  <h2 id="s2">2) Platform Owner</h2>
+  <!-- Section 2.1 -->
+  <h3 id="s2-1">2.1) Platform Owner</h3>
 
   <p>Platform Owner is the business-side owner of the customized Odoo platform — why the platform exists, which organisational capabilities it should support, what belongs in/out of platform scope, and which change outcomes matter across etn/acdc/atc.</p>
 
@@ -270,8 +282,8 @@ footer {
   <blockquote>"Should this capability exist on the shared platform at all?"</blockquote>
   <blockquote>"Which organisational change is this platform release supposed to enable?"</blockquote>
 
-  <!-- Section 3 -->
-  <h2 id="s3">3) Delivery Manager</h2>
+  <!-- Section 2.2 -->
+  <h3 id="s2-2">2.2) Delivery Manager</h3>
 
   <p>Delivery Manager is the role that, in this operating model, performs the function that PMI would describe as <strong>program management</strong> — cross-app dependency management, sequencing, governance, release coordination, stakeholder alignment, and delivery visibility across multiple application streams.</p>
 
@@ -283,8 +295,8 @@ footer {
   <blockquote>"Which app goes first in this release wave and what are the dependencies?"</blockquote>
   <blockquote>"Which milestone, handoff, or rollout gate must be met before promotion?"</blockquote>
 
-  <!-- Section 4 -->
-  <h2 id="s4">4) App Owner</h2>
+  <!-- Section 2.3 -->
+  <h3 id="s2-3">2.3) App Owner</h3>
 
   <p>App Owner is the owner of one application's business meaning, scope, and priorities — why that app matters, which rules are genuine business obligations, what should be accepted into the app backlog, and what success looks like for that application.</p>
 
@@ -298,8 +310,8 @@ footer {
   <blockquote>"Is this really a business rule for this app, or only a technical idea?"</blockquote>
   <blockquote>"Who owns the incident priority and service expectation after this app goes live?"</blockquote>
 
-  <!-- Section 5 -->
-  <h2 id="s5">5) App delivery lead</h2>
+  <!-- Section 2.4 -->
+  <h3 id="s2-4">2.4) App delivery lead</h3>
 
   <p>App delivery lead is the owner of app-level delivery execution — planning the implementation sequence inside one app, coordinating day-to-day delivery, clearing blockers, preparing handoff, and keeping delivery status visible.</p>
 
@@ -311,8 +323,8 @@ footer {
   <blockquote>"What is the implementation sequence inside this app and what is blocked right now?"</blockquote>
   <blockquote>"When is the expected demo, verification, and handoff for this app change?"</blockquote>
 
-  <!-- Section 6 -->
-  <h2 id="s6">6) How roles appear in the <code>library</code> module example</h2>
+  <!-- Section 2.5 -->
+  <h3 id="s2-5">2.5) How roles appear in the <code>library</code> module example</h3>
 
   <ul>
     <li><strong>Platform Owner</strong> confirms that the library app belongs on the shared Odoo platform and that it supports the intended organisational change.</li>
@@ -321,8 +333,8 @@ footer {
     <li><strong>App delivery lead</strong> drives the execution sequence so the skeleton is done first, then MVP, then business logic, then website UI.</li>
   </ul>
 
-  <!-- Section 7 -->
-  <h2 id="s7">7) What a developer should learn from this</h2>
+  <!-- Section 3 -->
+  <h2 id="s3">3) What a developer should learn from this</h2>
 
   <ul>
     <li>When you are not sure whether a capability belongs on the shared platform, you address the question to Platform Owner.</li>
@@ -333,8 +345,8 @@ footer {
     <li>Do not assume scope or rules. Document what you know and what you assume.</li>
   </ul>
 
-  <!-- Section 8 -->
-  <h2 id="s8">8) Summary — one sentence per role</h2>
+  <!-- Section 4 -->
+  <h2 id="s4">4) Summary — one sentence per role</h2>
 
   <ul>
     <li><strong>Platform Owner</strong>: defines why the shared platform exists and which organisational change it is meant to enable.</li>
