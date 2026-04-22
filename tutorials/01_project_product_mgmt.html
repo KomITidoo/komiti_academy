@@ -148,7 +148,7 @@ footer {
   <div class="book-meta">
     <div class="book-title">KomITi Academy</div>
     <h1>Product Management Methodology</h1>
-    <div class="subtitle">Platform Owner · Delivery Manager · App Owner · App Delivery Lead</div>
+    <div class="subtitle">Change Manager · Delivery Manager · Product Owner · App Delivery Lead</div>
   </div>
 
   <p>This document explains the current platform/app operating model around the etn/acdc/atc customized Odoo Platform, what each role is responsible for, and how those responsibilities map to the learning library.</p>
@@ -161,14 +161,21 @@ footer {
       <li>
         <a href="#s2">Roles</a>
         <ol>
-          <li><a href="#s2-1">Platform Owner</a></li>
+          <li><a href="#s2-1">Change Manager</a></li>
           <li><a href="#s2-2">Delivery Manager</a></li>
-          <li><a href="#s2-3">App Owner</a></li>
+          <li><a href="#s2-3">Product Owner</a></li>
           <li><a href="#s2-4">App Delivery Lead</a></li>
           <li><a href="#s2-5">How roles appear in the <code>library</code> module example</a></li>
         </ol>
       </li>
-      <li><a href="#s3">Project Roadmap</a></li>
+        <li>
+          <a href="#s3">Project Roadmap</a>
+          <ol>
+            <li><a href="#s3-1">Odoo stream</a></li>
+            <li><a href="#s3-2">Microsoft Fabric stream</a></li>
+            <li><a href="#s3-3">Power BI stream</a></li>
+          </ol>
+        </li>
       <li><a href="#s4">What you should learn from this</a></li>
       <li><a href="#s5">Summary — one sentence per role</a></li>
     </ol>
@@ -203,10 +210,10 @@ footer {
     <!-- Platform roles row — uses same max-width as App row so arrow aligns with gap -->
     <div style="display: flex; justify-content: center; align-items: center; padding: 18px 24px 10px 24px;">
       <div style="display: flex; justify-content: center; align-items: center; width: 100%; max-width: 780px; gap: 20px;">
-        <!-- Platform Owner -->
+        <!-- Change Manager -->
         <div style="flex: 1; text-align: center;">
           <div style="display: inline-block; width: 56px; height: 56px; border-radius: 50%; background: #1a237e url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M12 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z'/%3E%3C/svg%3E&quot;) center/70% no-repeat; border: 2px solid #1a237e;"></div>
-          <div style="margin-top: 5px; font-weight: 700; color: #1a1a2e; font-size: 14px;">Platform Owner</div>
+          <div style="margin-top: 5px; font-weight: 700; color: #1a1a2e; font-size: 14px;">Change Manager</div>
           <div style="font-size: 12px; color: #1a237e; font-weight: 600;">(etn/acdc/ets)</div>
           <div style="margin-top: 4px; font-size: 11px; color: #555; font-style: italic;">Organisational Change management</div>
         </div>
@@ -229,13 +236,15 @@ footer {
         <div style="display: flex; justify-content: space-around; align-items: center; padding: 14px 10px;">
           <div style="text-align: center;">
             <div style="display: inline-block; width: 42px; height: 42px; border-radius: 50%; background: #1a237e url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M12 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z'/%3E%3C/svg%3E&quot;) center/70% no-repeat; border: 2px solid #1a237e;"></div>
-            <div style="margin-top: 4px; font-weight: 600; font-size: 12px; color: #1a1a2e;">App Owner</div>
+            <div style="margin-top: 4px; font-weight: 600; font-size: 12px; color: #1a1a2e;">Product Owner</div>
+            <div style="font-size: 11px; color: #555; font-style: italic;">what and why</div>
             <div style="font-size: 11px; color: #1a237e; font-weight: 600;">(etn/acdc/ets)</div>
           </div>
           <div style="font-size: 22px; color: #A65949; font-weight: 700;">⟷</div>
           <div style="text-align: center;">
             <div style="display: inline-block; width: 42px; height: 42px; border-radius: 50%; background: #A65949 url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M12 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z'/%3E%3C/svg%3E&quot;) center/70% no-repeat; border: 2px solid #A65949;"></div>
             <div style="margin-top: 4px; font-weight: 600; font-size: 12px; color: #1a1a2e;">App delivery lead</div>
+            <div style="font-size: 11px; color: #555; font-style: italic;">how and when</div>
             <div style="font-size: 11px; color: #A65949; font-weight: 600;">(KomITi)</div>
           </div>
         </div>
@@ -246,13 +255,15 @@ footer {
         <div style="display: flex; justify-content: space-around; align-items: center; padding: 14px 10px;">
           <div style="text-align: center;">
             <div style="display: inline-block; width: 42px; height: 42px; border-radius: 50%; background: #1a237e url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M12 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z'/%3E%3C/svg%3E&quot;) center/70% no-repeat; border: 2px solid #1a237e;"></div>
-            <div style="margin-top: 4px; font-weight: 600; font-size: 12px; color: #1a1a2e;">App Owner</div>
+            <div style="margin-top: 4px; font-weight: 600; font-size: 12px; color: #1a1a2e;">Product Owner</div>
+            <div style="font-size: 11px; color: #555; font-style: italic;">what and why</div>
             <div style="font-size: 11px; color: #1a237e; font-weight: 600;">(etn/acdc/ets)</div>
           </div>
           <div style="font-size: 22px; color: #A65949; font-weight: 700;">⟷</div>
           <div style="text-align: center;">
             <div style="display: inline-block; width: 42px; height: 42px; border-radius: 50%; background: #A65949 url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M12 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z'/%3E%3C/svg%3E&quot;) center/70% no-repeat; border: 2px solid #A65949;"></div>
             <div style="margin-top: 4px; font-weight: 600; font-size: 12px; color: #1a1a2e;">App delivery lead</div>
+            <div style="font-size: 11px; color: #555; font-style: italic;">how and when</div>
             <div style="font-size: 11px; color: #A65949; font-weight: 600;">(KomITi)</div>
           </div>
         </div>
@@ -264,22 +275,22 @@ footer {
   <p>The goal is not for the candidate to become a project manager or product manager, but to understand who makes which decision, who defines the problem and scope, who drives delivery, who owns operational stability and service governance after go-live, and which role a developer should address for each type of question across the platform organization.</p>
   <p>These roles matter because unclear ownership creates wasted work, wrong assumptions, and misdirected questions across delivery teams and client-side participants. Distinguishing the four roles early keeps platform direction, app scope, delivery coordination, and service accountability consistently understood.</p>
   <ul>
-    <li><strong>Platform Owner</strong> owns platform direction, app alignment, and organisational change intent.</li>
+    <li><strong>Change Manager</strong> owns platform direction, app alignment, and organisational change intent.</li>
     <li><strong>Delivery Manager</strong> performs the program-management function across apps and delivery streams.</li>
-    <li><strong>App Owner</strong> owns one app's value, priorities, and service-management accountability.</li>
+    <li><strong>Product Owner</strong> owns one app's value, priorities, and service-management accountability.</li>
     <li><strong>App delivery lead</strong> owns app-level delivery coordination and execution sequencing.</li>
   </ul>
 
   <!-- Section 2.1 -->
-  <h3 id="s2-1">2.1) Platform Owner</h3>
+  <h3 id="s2-1">2.1) Change Manager</h3>
 
-  <p>Platform Owner is the business-side owner of the customized Odoo platform — why the platform exists, which organisational capabilities it should support, what belongs in/out of platform scope, and which change outcomes matter across etn/acdc/atc.</p>
+  <p>Change Manager is the business-side owner of organisational change around the customized Odoo platform — why the platform exists, which organisational capabilities it should support, what belongs in/out of platform scope, and which change outcomes matter across etn/acdc/atc.</p>
 
-  <p>Platform Owner is best positioned as a client-side employee who has end-to-end visibility into the business processes the platform supports. Technical background is also strongly preferred for this role, because platform direction, app alignment, and change intent are much easier to define well when the person can reason across both process and technical constraints.</p>
+  <p>Change Manager is best positioned as a client-side employee who has end-to-end visibility into the business processes the platform supports. Technical background is also strongly preferred for this role, because platform direction, app alignment, and change intent are much easier to define well when the person can reason across both process and technical constraints.</p>
 
-  <p>Key references: <code>Scrum Guide</code> (product value accountability), <code>SAFe</code>, business ownership practices, and organisational change management.</p>
+  <p>Key references: organisational change management, business ownership practices, platform-governance practices, and enterprise transformation thinking.</p>
 
-  <p>Example questions a developer addresses to Platform Owner:</p>
+  <p>Example questions a developer addresses to Change Manager:</p>
   <blockquote>"Should this capability exist on the shared platform at all?"</blockquote>
   <blockquote>"Which organisational change is this platform release supposed to enable?"</blockquote>
 
@@ -297,17 +308,17 @@ footer {
   <blockquote>"Which milestone, handoff, or rollout gate must be met before promotion?"</blockquote>
 
   <!-- Section 2.3 -->
-  <h3 id="s2-3">2.3) App Owner</h3>
+  <h3 id="s2-3">2.3) Product Owner</h3>
 
-  <p>App Owner is the owner of one application's business meaning, scope, and priorities — why that app matters, which rules are genuine business obligations, what should be accepted into the app backlog, and what success looks like for that application.</p>
+  <p>Product Owner is the owner of one application's business meaning, scope, and priorities — why that app matters, which rules are genuine business obligations, what should be accepted into the app backlog, and what success looks like for that application.</p>
 
-  <p>End-to-end responsibility makes it recommended that App Owner also acts as the <strong>Service Manager</strong> for that app after go-live. That means service ownership, prioritization of incidents/requests, operational review, vendor/support coordination, and ensuring SLA/OLA expectations are actually owned by someone with full application accountability.</p>
+  <p>End-to-end responsibility makes it recommended that Product Owner also acts as the <strong>Service Manager</strong> for that app after go-live. That means service ownership, prioritization of incidents/requests, operational review, vendor/support coordination, and ensuring SLA/OLA expectations are actually owned by someone with full application accountability.</p>
 
-  <p>App Owner does not have to have a technical background, although having one is an advantage. App Owner must, however, have excellent knowledge of the business domain for which the app is being customized, because without strong domain knowledge the person cannot reliably judge priorities, business rules, or whether the customization is actually solving the right problem.</p>
+  <p>Product Owner does not have to have a technical background, although having one is an advantage. Product Owner must, however, have excellent knowledge of the business domain for which the app is being customized, because without strong domain knowledge the person cannot reliably judge priorities, business rules, or whether the customization is actually solving the right problem.</p>
 
-  <p>In Scrum terms this is closest to product/business accountability, but here it is explicitly extended with live-service accountability. Key references: <code>Scrum Guide</code>, <code>ITIL</code>, <code>ISO/IEC 20000</code>, and business ownership practices.</p>
+  <p>In Scrum terms this role aligns most closely with Product Owner accountability, but here it is explicitly extended with live-service accountability. Key references: <code>Scrum Guide</code>, <code>ITIL</code>, <code>ISO/IEC 20000</code>, and business ownership practices.</p>
 
-  <p>Example questions a developer addresses to App Owner:</p>
+  <p>Example questions a developer addresses to Product Owner:</p>
   <blockquote>"Is this really a business rule for this app, or only a technical idea?"</blockquote>
   <blockquote>"Who owns the incident priority and service expectation after this app goes live?"</blockquote>
 
@@ -316,7 +327,7 @@ footer {
 
   <p>App delivery lead is the owner of app-level delivery execution — planning the implementation sequence inside one app, coordinating day-to-day delivery, clearing blockers, preparing handoff, and keeping delivery status visible.</p>
 
-  <p>App delivery lead does not own cross-app program governance like Delivery Manager, and does not own business/service accountability like App Owner. This role owns the execution lane for one app.</p>
+  <p>App delivery lead does not own cross-app program governance like Delivery Manager, and does not own business/service accountability like Product Owner. This role owns the execution lane for one app.</p>
 
   <p>Key references: <code>PMBOK</code> project-delivery discipline, <code>PRINCE2</code>, <code>ISO 21502</code>, and team-level execution practices that work alongside Scrum delivery teams.</p>
 
@@ -328,9 +339,9 @@ footer {
   <h3 id="s2-5">2.5) How roles appear in the <code>library</code> module example</h3>
 
   <ul>
-    <li><strong>Platform Owner</strong> confirms that the library app belongs on the shared Odoo platform and that it supports the intended organisational change.</li>
+    <li><strong>Change Manager</strong> confirms that the library app belongs on the shared Odoo platform and that it supports the intended organisational change.</li>
     <li><strong>Delivery Manager</strong> coordinates when the library app lands relative to other apps, shared dependencies, and release gates.</li>
-    <li><strong>App Owner</strong> confirms that ISBN validation, member limits, lifecycle rules, and post-go-live support priorities are genuinely needed for the library app.</li>
+    <li><strong>Product Owner</strong> confirms that ISBN validation, member limits, lifecycle rules, and post-go-live support priorities are genuinely needed for the library app.</li>
     <li><strong>App delivery lead</strong> drives the execution sequence so the skeleton is done first, then MVP, then business logic, then website UI.</li>
   </ul>
 
@@ -374,14 +385,29 @@ footer {
     </div>
   </div>
 
-  <p>Analysis of needs comes first, because the organisation must define scope and priorities before delivery begins. Odoo PoC follows that analysis, then Odoo App projects start as the main delivery stream, while Microsoft Fabric runs in parallel with the app projects, and Power BI projects build on that foundation afterwards.</p>
+  <p>Project delivery runs in three streams: Odoo stream, Microsoft Fabric stream, and Power BI stream.</p>
+
+  <h3 id="s3-1">3.1) Odoo stream</h3>
+  <p>Odoo stream starts with analysis of needs, because the organisation must define high-level scope and priorities before delivery begins. After that analysis, the team sizes and provisions the Odoo infrastructure. Deliverables from Odoo Infra Work Package include:</p>
+  <ul>
+    <li><strong>Odoo infrastructure provisioned</strong> — the target runtime is installed and ready for platform work.</li>
+    <li><strong>Infrastructure Solution Design</strong> — the main infrastructure blueprint that defines the target Odoo architecture and build decisions.</li>
+    <li><strong>Current-State Assessment (As-Is)</strong> — the document that describes the existing environment before the target solution is built.</li>
+  </ul>
+  <p>Odoo PoC follows, then Odoo App projects continue as the main delivery stream.</p>
+
+  <h3 id="s3-2">3.2) Microsoft Fabric stream</h3>
+  <p>Microsoft Fabric stream runs in parallel with the Odoo App projects. This stream provisions the data platform, extracts data object by object, and supports the later AI PoC work.</p>
+
+  <h3 id="s3-3">3.3) Power BI stream</h3>
+  <p>Power BI stream builds on the Fabric foundation afterwards. This stream turns prepared data into reports and dashboards for business users.</p>
 
   <!-- Section 4 -->
   <h2 id="s4">4) What you should learn from this</h2>
 
   <ul>
-    <li>When you are not sure whether a capability belongs on the shared platform, you address the question to Platform Owner.</li>
-    <li>When you are not sure whether something is truly a business rule for one app or who owns service expectations after go-live, you address the question to App Owner.</li>
+    <li>When you are not sure whether a capability belongs on the shared platform, you address the question to Change Manager.</li>
+    <li>When you are not sure whether something is truly a business rule for one app or who owns service expectations after go-live, you address the question to Product Owner.</li>
     <li>When you are not sure how a change fits into the wider release wave or dependency graph, you address the question to Delivery Manager.</li>
     <li>When you are not sure about execution sequence, implementation status, or handoff inside one app, you address the question to App delivery lead.</li>
     <li>When you are not sure in which system or layer the problem lives, first read <code>04_infrastructure.html</code> to distinguish delivery/infra/runtime/application/functional domain.</li>
@@ -392,13 +418,13 @@ footer {
   <h2 id="s5">5) Summary — one sentence per role</h2>
 
   <ul>
-    <li><strong>Platform Owner</strong>: defines why the shared platform exists and which organisational change it is meant to enable.</li>
+    <li><strong>Change Manager</strong>: defines why the shared platform exists and which organisational change it is meant to enable.</li>
     <li><strong>Delivery Manager</strong>: performs the program-management function across apps, releases, and dependencies.</li>
-    <li><strong>App Owner</strong>: owns one app's business priorities and also carries the service-management accountability after go-live.</li>
+    <li><strong>Product Owner</strong>: owns one app's business priorities and also carries the service-management accountability after go-live.</li>
     <li><strong>App delivery lead</strong>: coordinates the execution sequence and handoff for one app's delivery stream.</li>
   </ul>
 
-  <p>When the module lives in production, these roles still apply: Platform Owner steers platform direction, Delivery Manager coordinates the wider delivery program, App Owner carries both business and service accountability for the app, App delivery lead drives execution, and the developer delivers per <code>ENGINEERING_CODEX.md</code> standards.</p>
+  <p>When the module lives in production, these roles still apply: Change Manager steers platform direction and organisational change intent, Delivery Manager coordinates the wider delivery program, Product Owner carries both business and service accountability for the app, App delivery lead drives execution, and the developer delivers per <code>ENGINEERING_CODEX.md</code> standards.</p>
 
   <footer>&copy; KomITi &middot; komiti.eu</footer>
 
