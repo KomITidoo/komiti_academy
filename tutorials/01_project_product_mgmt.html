@@ -310,31 +310,114 @@ a:hover { text-decoration: underline; }
   font-size: 9px;
   font-weight: 700;
 }
-/* Mobile: collapse to a vertical timeline */
+.pm-roadmap__mobile {
+  display: none;
+}
+/* Mobile: use a purpose-built vertical timeline instead of the desktop illustration */
 @media (max-width: 720px) {
+  .pm-roadmap {
+    padding: 14px 12px 16px 12px;
+    border-radius: 10px;
+  }
+  .pm-roadmap__caption {
+    font-size: 10px;
+    line-height: 1.35;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .pm-roadmap__title {
+    font-size: 17px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
   .pm-roadmap__plot {
-    aspect-ratio: auto;
-    min-height: 0;
-      padding-left: 32px;
-    border-left: 2px solid rgba(236,229,215,0.18);
+    display: none;
   }
-  .pm-roadmap__svg { display: none; }
-  .pm-roadmap__pin {
+  .pm-roadmap__mobile {
     position: relative;
-      transform: translate(calc(var(--pin-size) * -1), 0);
-    margin-bottom: 4px;
-    inset: auto;
-    left: 0 !important;
-    top: auto !important;
+    display: grid;
+    gap: 8px;
+    margin-top: 4px;
   }
-  .pm-roadmap__label {
+  .pm-roadmap__mobile::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    bottom: 18px;
+    width: 2px;
+    background: rgba(236,229,215,0.18);
+  }
+  .pm-roadmap__mobile-item {
     position: relative;
-    inset: auto;
-    left: 0 !important;
-    top: auto !important;
-    transform: none !important;
-    max-width: none;
-    margin: -28px 0 14px 0;
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+  }
+  .pm-roadmap__mobile-cw {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #A65949;
+    border: 2px solid #16202A;
+    box-shadow: 0 0 0 2px #A65949;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .pm-roadmap__mobile-card {
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid rgba(236,229,215,0.12);
+    border-radius: 8px;
+    background: #2C3844;
+    box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 6px 18px -10px rgba(0,0,0,.45);
+    color: #ECE5D7;
+    font-size: 12.5px;
+    line-height: 1.35;
+  }
+  .pm-roadmap__mobile-card strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #ECE5D7;
+    font-weight: 600;
+  }
+  .pm-roadmap__mobile-card span {
+    display: inline-block;
+    margin-top: 2px;
+    color: #C97D6D;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .pm-roadmap__mobile-card ul {
+    margin: 4px 0 0 16px;
+    padding: 0;
+    color: #B6BBC2;
+    font-size: 11.5px;
+  }
+  .pm-roadmap__mobile-card li {
+    margin: 0;
+  }
+  .pm-roadmap__mobile-item--phase .pm-roadmap__mobile-cw {
+    height: 28px;
+    margin-top: 6px;
+    border-radius: 999px;
+    background: #2C3844;
+    border-color: #C97D6D;
+    box-shadow: 0 0 0 2px rgba(201,125,109,0.7);
+    color: #ECE5D7;
+    font-size: 10.5px;
+  }
+  .pm-roadmap__mobile-item--phase .pm-roadmap__mobile-card {
+    border-color: rgba(201,125,109,0.55);
   }
   .pm-roadmap__week-scale { display: none; }
 }
@@ -649,7 +732,7 @@ footer {
       Scale faktor labela: near=1.00, mid=0.94, far=0.86.
       Renderirane dimenzije labela (W × H, prije scale):
           „Contract Sign-off“, „Odoo on-line“, „Fabric on-line“ ≈ 140 × 50
-          „Collect User Stories“, „Customization starts“ ≈ 155 × 50
+          „Customization starts“ ≈ 155 × 50
           „Core team“ (2 li) ≈ 96 × 78
           „Out-of-the-box“ (3 li) ≈ 140 × 100
           „Power BI Report Mock-up“ (wrap) ≈ 140 × 70
@@ -669,6 +752,10 @@ footer {
         (opacity: 0), but remains in the DOM as an editor/agent measuring layer.
       - It starts at X (left: 6%) and ends at X+24 (right edge aligned with pin 24 at 91%).
       - One tick = one calendar week. Major ticks match milestone labels.
+      - The on-road “Collecting Odoo User Stories” label is a phase label,
+        not a milestone marker; its path starts at X+8, the visible text clears
+        the X+8 anchor/stem, and the visible “Collecting Odoo User Stories” text is
+        stretched to end just before X+16 while following the road centerline.
       - Use this scale to make horizontal milestone spacing proportional to time.
   -->
   <figure class="pm-roadmap" aria-label="Indicative project roadmap with milestones in calendar weeks">
@@ -685,6 +772,7 @@ footer {
         <filter id="pmRoadShadow" x="-12%" y="-12%" width="124%" height="124%">
       <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000000" flood-opacity="0.28"/>
         </filter>
+        <path id="pmCollectUserStoriesPath" d="M 343.3,431 C 351,435 360,438 370,438 C 452,444 484,286 560,278 C 640,270 676,393 754,402 C 759,403 764,403 768.3,402"/>
       </defs>
       <path d="M -10,470
                C 70,430 86,254 180,246
@@ -707,12 +795,14 @@ footer {
                C 640,270 676,393 754,402
                C 834,410 882,318 980,262"
         fill="none" stroke="rgba(236,229,215,0.44)" stroke-width="3.2" stroke-dasharray="13 17" stroke-linecap="round"/>
+      <text fill="#ECE5D7" stroke="#16202A" stroke-width="5" paint-order="stroke" font-size="21" font-weight="700" letter-spacing="0.02em" dominant-baseline="middle" opacity="0.96">
+        <textPath href="#pmCollectUserStoriesPath" startOffset="21" text-anchor="start" textLength="318" lengthAdjust="spacing">Collecting Odoo User Stories</textPath>
+      </text>
       <g fill="none" stroke="#A65949" stroke-width="5" stroke-linecap="round" opacity="0.92">
         <path d="M 60,420 L 60,548"/>
         <path d="M 201.7,288 L 201.7,170"/>
         <path d="M 272.5,358 L 272.5,544"/>
         <path d="M 343.3,431 L 343.3,234"/>
-        <path d="M 485,338 L 485,165"/>
         <path d="M 626.7,303 L 626.7,467"/>
         <path d="M 768.3,402 L 768.3,230"/>
         <path d="M 910,315 L 910,169"/>
@@ -722,7 +812,6 @@ footer {
         <circle cx="201.7" cy="288" r="7"/>
         <circle cx="272.5" cy="358" r="7"/>
         <circle cx="343.3" cy="431" r="7"/>
-        <circle cx="485" cy="338" r="7"/>
         <circle cx="626.7" cy="303" r="7"/>
         <circle cx="768.3" cy="402" r="7"/>
         <circle cx="910" cy="315" r="7"/>
@@ -733,7 +822,6 @@ footer {
     <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 20.17%; top: 17.4%;">04</div>
     <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 27.25%; top: 86.1%;">06</div>
     <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 34.33%; top: 29.2%;">08</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 48.5%; top: 16.5%;">12</div>
     <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 62.67%; top: 71.9%;">16</div>
     <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 76.83%; top: 28.4%;">20</div>
       <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 17.2%;">24</div>
@@ -741,8 +829,7 @@ footer {
     <div class="pm-roadmap__label" style="left: 8.8%; top: 81.3%;"><strong>Contract Sign-off</strong><span class="pm-roadmap__cw">CW: X</span></div>
     <div class="pm-roadmap__label" style="left: 1.97%; top: 12.8%;" ><strong>Odoo on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 29.5%; top: 77.4%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
-      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 36.5%; top: 23%; min-width: 96px; max-width: 96px; border: 2px solid #A65949;"><strong>Core team</strong><ul><li>named</li><li>training</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 50.7%; top: 12.2%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
+      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 36.5%; top: 21.3%; min-width: 96px; max-width: 96px; border: 2px solid #A65949;"><strong>Core team</strong><ul><li>named</li><li>training</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 64.87%; top: 67.6%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 61.43%; top: 24.5%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 73.6%; top: 11.7%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+24</span></div>
@@ -759,7 +846,7 @@ footer {
       <span style="--week: 9;" data-week="+9"></span>
       <span style="--week: 10;" data-week="+10"></span>
       <span style="--week: 11;" data-week="+11"></span>
-      <span style="--week: 12;" data-week="+12" data-major="true"></span>
+      <span style="--week: 12;" data-week="+12"></span>
       <span style="--week: 13;" data-week="+13"></span>
       <span style="--week: 14;" data-week="+14"></span>
       <span style="--week: 15;" data-week="+15"></span>
@@ -773,6 +860,40 @@ footer {
       <span style="--week: 23;" data-week="+23"></span>
       <span style="--week: 24;" data-week="+24" data-major="true"></span>
     </div>
+    </div>
+    <div class="pm-roadmap__mobile" aria-label="Roadmap milestones in mobile list format">
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">X</div>
+        <div class="pm-roadmap__mobile-card"><strong>Contract Sign-off</strong><span>CW: X</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">04</div>
+        <div class="pm-roadmap__mobile-card"><strong>Odoo on-line</strong><span>CW: X+4</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">06</div>
+        <div class="pm-roadmap__mobile-card"><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span>CW: X+6</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">08</div>
+        <div class="pm-roadmap__mobile-card"><strong>Core team</strong><ul><li>named</li><li>training</li></ul><span>CW: X+8</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item pm-roadmap__mobile-item--phase">
+        <div class="pm-roadmap__mobile-cw">08-16</div>
+        <div class="pm-roadmap__mobile-card"><strong>Collecting Odoo User Stories</strong><span>CW: X+8 to X+16</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">16</div>
+        <div class="pm-roadmap__mobile-card"><strong>Customization starts</strong><span>CW: X+16</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">20</div>
+        <div class="pm-roadmap__mobile-card"><strong>Fabric on-line</strong><span>CW: X+20</span></div>
+      </div>
+      <div class="pm-roadmap__mobile-item">
+        <div class="pm-roadmap__mobile-cw">24</div>
+        <div class="pm-roadmap__mobile-card"><strong>Power BI Report Mock-up</strong><span>CW: X+24</span></div>
+      </div>
     </div>
   </figure>
 
