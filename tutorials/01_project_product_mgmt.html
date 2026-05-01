@@ -261,6 +261,54 @@ a:hover { text-decoration: underline; }
   color: #B6BBC2;
 }
 .pm-roadmap__label ul li { margin: 0; }
+.pm-roadmap__week-scale {
+  position: absolute;
+  left: 6%;
+  right: 9%;
+  bottom: 6px;
+  height: 30px;
+  z-index: 3;
+  pointer-events: none;
+  color: #B6BBC2;
+}
+.pm-roadmap__week-scale::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  border-top: 2px solid #F2C811;
+}
+.pm-roadmap__week-scale span {
+  position: absolute;
+  left: calc(var(--week) * 100% / 24);
+  top: 2px;
+  width: 1px;
+  height: 12px;
+  background: #F2C811;
+  transform: translateX(-50%);
+}
+.pm-roadmap__week-scale span::after {
+  content: attr(data-week);
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+  color: #B6BBC2;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+.pm-roadmap__week-scale span[data-major="true"] {
+  top: 0;
+  height: 16px;
+}
+.pm-roadmap__week-scale span[data-major="true"]::after {
+  color: #ECE5D7;
+  font-size: 9px;
+  font-weight: 700;
+}
 /* Mobile: collapse to a vertical timeline */
 @media (max-width: 720px) {
   .pm-roadmap__plot {
@@ -287,6 +335,7 @@ a:hover { text-decoration: underline; }
     max-width: none;
     margin: -28px 0 14px 0;
   }
+  .pm-roadmap__week-scale { display: none; }
 }
 footer {
     text-align: center;
@@ -613,6 +662,12 @@ footer {
           Ispod:   left  = pin.cx - W*/2
                    top   = (pin.cy - 75) + outer_r
       Konverzija u %: left% = left / 1000 * 100; top% = top / 545 * 100.
+
+    Weekly scale:
+      - .pm-roadmap__week-scale starts at X (left: 6%) and ends at X+24
+        (right edge aligned with pin 24 at 91%).
+      - One tick = one calendar week. Major ticks match milestone labels.
+      - Use this scale to make horizontal milestone spacing proportional to time.
   -->
   <figure class="pm-roadmap" aria-label="Indicative project roadmap with milestones in calendar weeks">
     <div class="pm-roadmap__caption">Indicative project roadmap — milestones in calendar weeks (CW), where X is contract sign-off</div>
@@ -652,43 +707,70 @@ footer {
         fill="none" stroke="rgba(236,229,215,0.44)" stroke-width="3.2" stroke-dasharray="13 17" stroke-linecap="round"/>
       <g fill="none" stroke="#A65949" stroke-width="5" stroke-linecap="round" opacity="0.92">
         <path d="M 60,420 L 60,548"/>
-        <path d="M 176,286 L 176,170"/>
-        <path d="M 292,380 L 292,544"/>
-        <path d="M 434,407 L 434,234"/>
-        <path d="M 556,275 L 556,165"/>
-        <path d="M 690,373 L 690,467"/>
-        <path d="M 816,388 L 816,290"/>
+        <path d="M 201.7,288 L 201.7,170"/>
+        <path d="M 272.5,358 L 272.5,544"/>
+        <path d="M 343.3,431 L 343.3,234"/>
+        <path d="M 485,338 L 485,165"/>
+        <path d="M 626.7,303 L 626.7,467"/>
+        <path d="M 768.3,402 L 768.3,290"/>
         <path d="M 910,315 L 910,169"/>
       </g>
       <g fill="#A65949" stroke="#ECE5D7" stroke-width="2">
         <circle cx="60" cy="420" r="7"/>
-        <circle cx="176" cy="286" r="7"/>
-        <circle cx="292" cy="380" r="7"/>
-        <circle cx="434" cy="407" r="7"/>
-        <circle cx="556" cy="275" r="7"/>
-        <circle cx="690" cy="373" r="7"/>
-        <circle cx="816" cy="388" r="7"/>
+        <circle cx="201.7" cy="288" r="7"/>
+        <circle cx="272.5" cy="358" r="7"/>
+        <circle cx="343.3" cy="431" r="7"/>
+        <circle cx="485" cy="338" r="7"/>
+        <circle cx="626.7" cy="303" r="7"/>
+        <circle cx="768.3" cy="402" r="7"/>
         <circle cx="910" cy="315" r="7"/>
       </g>
       </svg>
 
     <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 6%; top: 86.8%;">X</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 17.6%; top: 17.4%;">04</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 29.2%; top: 86.1%;">06</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 43.4%; top: 29.2%;">08</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 55.6%; top: 16.5%;">09</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 69%; top: 71.9%;">12</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 81.6%; top: 39.4%;">16</div>
-      <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 17.2%;">20</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 20.17%; top: 17.4%;">04</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 27.25%; top: 86.1%;">06</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 34.33%; top: 29.2%;">08</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 48.5%; top: 16.5%;">12</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 62.67%; top: 71.9%;">16</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 76.83%; top: 39.4%;">20</div>
+      <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 17.2%;">24</div>
 
     <div class="pm-roadmap__label" style="left: 8.8%; top: 81.3%;"><strong>Contract Sign-off</strong><span class="pm-roadmap__cw">CW: X</span></div>
-    <div class="pm-roadmap__label" style="left: -0.6%; top: 12.8%;" ><strong>Odoo on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
-      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 31.6%; top: 77.1%;"><strong>Intro training</strong><ul><li>Odoo 101</li><li>Product management methodology</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 26.5%; top: 19.7%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 57.8%; top: 12.2%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+9</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 52.5%; top: 67.6%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 66.2%; top: 35.5%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 73.6%; top: 11.7%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
+    <div class="pm-roadmap__label" style="left: 1.97%; top: 12.8%;" ><strong>Odoo on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 29.5%; top: 77.4%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
+      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 16.2%; top: 21%;"><strong>Intro training</strong><ul><li>Odoo 101</li><li>Product management methodology</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 50.7%; top: 12.2%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 64.87%; top: 67.6%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 61.43%; top: 35.5%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 73.6%; top: 11.7%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+24</span></div>
+    <div class="pm-roadmap__week-scale" aria-hidden="true">
+      <span style="--week: 0;" data-week="X" data-major="true"></span>
+      <span style="--week: 1;" data-week="+1"></span>
+      <span style="--week: 2;" data-week="+2"></span>
+      <span style="--week: 3;" data-week="+3"></span>
+      <span style="--week: 4;" data-week="+4" data-major="true"></span>
+      <span style="--week: 5;" data-week="+5"></span>
+      <span style="--week: 6;" data-week="+6" data-major="true"></span>
+      <span style="--week: 7;" data-week="+7"></span>
+      <span style="--week: 8;" data-week="+8" data-major="true"></span>
+      <span style="--week: 9;" data-week="+9"></span>
+      <span style="--week: 10;" data-week="+10"></span>
+      <span style="--week: 11;" data-week="+11"></span>
+      <span style="--week: 12;" data-week="+12" data-major="true"></span>
+      <span style="--week: 13;" data-week="+13"></span>
+      <span style="--week: 14;" data-week="+14"></span>
+      <span style="--week: 15;" data-week="+15"></span>
+      <span style="--week: 16;" data-week="+16" data-major="true"></span>
+      <span style="--week: 17;" data-week="+17"></span>
+      <span style="--week: 18;" data-week="+18"></span>
+      <span style="--week: 19;" data-week="+19"></span>
+      <span style="--week: 20;" data-week="+20" data-major="true"></span>
+      <span style="--week: 21;" data-week="+21"></span>
+      <span style="--week: 22;" data-week="+22"></span>
+      <span style="--week: 23;" data-week="+23"></span>
+      <span style="--week: 24;" data-week="+24" data-major="true"></span>
+    </div>
     </div>
   </figure>
 
