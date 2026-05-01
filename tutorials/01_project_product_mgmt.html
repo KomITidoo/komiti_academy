@@ -270,6 +270,7 @@ a:hover { text-decoration: underline; }
   z-index: 3;
   pointer-events: none;
   color: #B6BBC2;
+  opacity: 0;
 }
 .pm-roadmap__week-scale::before {
   content: "";
@@ -649,7 +650,7 @@ footer {
       Renderirane dimenzije labela (W × H, prije scale):
           „Contract Sign-off“, „Odoo on-line“, „Fabric on-line“ ≈ 140 × 50
           „Collect User Stories“, „Customization starts“ ≈ 155 × 50
-          „Intro training“ (2 li) ≈ 170 × 95
+          „Core team“ (2 li) ≈ 96 × 78
           „Out-of-the-box“ (3 li) ≈ 140 × 100
           „Power BI Report Mock-up“ (wrap) ≈ 140 × 70
       Formule (virtualne jedinice), gdje je W*=W·scale, H*=H·scale:
@@ -664,8 +665,9 @@ footer {
       Konverzija u %: left% = left / 1000 * 100; top% = top / 545 * 100.
 
     Weekly scale:
-      - .pm-roadmap__week-scale starts at X (left: 6%) and ends at X+24
-        (right edge aligned with pin 24 at 91%).
+      - .pm-roadmap__week-scale is intentionally invisible to readers
+        (opacity: 0), but remains in the DOM as an editor/agent measuring layer.
+      - It starts at X (left: 6%) and ends at X+24 (right edge aligned with pin 24 at 91%).
       - One tick = one calendar week. Major ticks match milestone labels.
       - Use this scale to make horizontal milestone spacing proportional to time.
   -->
@@ -712,7 +714,7 @@ footer {
         <path d="M 343.3,431 L 343.3,234"/>
         <path d="M 485,338 L 485,165"/>
         <path d="M 626.7,303 L 626.7,467"/>
-        <path d="M 768.3,402 L 768.3,290"/>
+        <path d="M 768.3,402 L 768.3,230"/>
         <path d="M 910,315 L 910,169"/>
       </g>
       <g fill="#A65949" stroke="#ECE5D7" stroke-width="2">
@@ -733,16 +735,16 @@ footer {
     <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 34.33%; top: 29.2%;">08</div>
     <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 48.5%; top: 16.5%;">12</div>
     <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 62.67%; top: 71.9%;">16</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 76.83%; top: 39.4%;">20</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 76.83%; top: 28.4%;">20</div>
       <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 17.2%;">24</div>
 
     <div class="pm-roadmap__label" style="left: 8.8%; top: 81.3%;"><strong>Contract Sign-off</strong><span class="pm-roadmap__cw">CW: X</span></div>
     <div class="pm-roadmap__label" style="left: 1.97%; top: 12.8%;" ><strong>Odoo on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 29.5%; top: 77.4%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
-      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 16.2%; top: 21%;"><strong>Intro training</strong><ul><li>Odoo 101</li><li>Product management methodology</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
+      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 36.5%; top: 23%; min-width: 96px; max-width: 96px; border: 2px solid #A65949;"><strong>Core team</strong><ul><li>named</li><li>training</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 50.7%; top: 12.2%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 64.87%; top: 67.6%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 61.43%; top: 35.5%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 61.43%; top: 24.5%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
     <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 73.6%; top: 11.7%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+24</span></div>
     <div class="pm-roadmap__week-scale" aria-hidden="true">
       <span style="--week: 0;" data-week="X" data-major="true"></span>
