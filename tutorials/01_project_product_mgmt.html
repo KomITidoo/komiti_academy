@@ -562,8 +562,8 @@ footer {
   <!--
     pm-roadmap design principles (do not remove — for future editors)
     ================================================================
-    Plot: aspect-ratio 1000 / 720; SVG viewBox 1000x560 occupies top 77.78% so
-    labels can sit above OR below the road without escaping the figure.
+    Plot: aspect-ratio 1000 / 545; SVG viewBox is cropped to y=75..620 so the
+    plot keeps only the active roadmap area, without unused top/bottom space.
 
     Pin anatomy (vertical stem + circular balloon):
       - DNO stuba  = donji kraj SVG <path> linije; uvijek leži na sredini puta
@@ -590,34 +590,35 @@ footer {
                 scale 1 / 0.94 / 0.86 za --near / --mid / --far perspektivu.
 
     Geometrija — RAČUNANJE pozicija (NE „na oko“):
-      Plot ≈ 944px × 760px (1% = 9.44w / 7.6h, aspect-ratio 1000/720).
+      Plot virtual canvas = 1000 × 545, cropped from original SVG y=75..620.
+      CSS top% is calculated from cropped_y = original_svg_y - 75.
       Pin je pozicioniran po CENTRU (transform: translate(-50%,-50%)).
       Label je pozicioniran po GORNJEM-LIJEVOM uglu (transform-origin: top left).
       Outer radius balona = pin_size/2 + ring:
           near=25, mid=22, far=19, final=18 (px).
       Scale faktor labela: near=1.00, mid=0.94, far=0.86.
       Renderirane dimenzije labela (W × H, prije scale):
-          „Contract Sign-off“, „Infra on-line“, „Fabric on-line“ ≈ 140 × 50
+          „Contract Sign-off“, „Odoo on-line“, „Fabric on-line“ ≈ 140 × 50
           „Collect User Stories“, „Customization starts“ ≈ 155 × 50
           „Intro training“ (2 li) ≈ 170 × 95
           „Out-of-the-box“ (3 li) ≈ 140 × 100
           „Power BI Report Mock-up“ (wrap) ≈ 140 × 70
-      Formule (px), gdje je W*=W·scale, H*=H·scale:
-          Lijevo:  left_px  = pin.cx - outer_r - W*
-                   top_px   = pin.cy - H*/2
-          Desno:   left_px  = pin.cx + outer_r
-                   top_px   = pin.cy - H*/2
-          Iznad:   left_px  = pin.cx - W*/2
-                   top_px   = pin.cy - outer_r - H*
-          Ispod:   left_px  = pin.cx - W*/2
-                   top_px   = pin.cy + outer_r
-      Konverzija u %: left% = left_px / 9.44; top% = top_px / 7.6.
+      Formule (virtualne jedinice), gdje je W*=W·scale, H*=H·scale:
+          Lijevo:  left  = pin.cx - outer_r - W*
+                   top   = (pin.cy - 75) - H*/2
+          Desno:   left  = pin.cx + outer_r
+                   top   = (pin.cy - 75) - H*/2
+          Iznad:   left  = pin.cx - W*/2
+                   top   = (pin.cy - 75) - outer_r - H*
+          Ispod:   left  = pin.cx - W*/2
+                   top   = (pin.cy - 75) + outer_r
+      Konverzija u %: left% = left / 1000 * 100; top% = top / 545 * 100.
   -->
   <figure class="pm-roadmap" aria-label="Indicative project roadmap with milestones in calendar weeks">
     <div class="pm-roadmap__caption">Indicative project roadmap — milestones in calendar weeks (CW), where X is contract sign-off</div>
     <h4 class="pm-roadmap__title">From sign-off to first Power BI Report</h4>
-    <div class="pm-roadmap__plot" style="aspect-ratio: 1000 / 720;">
-      <svg class="pm-roadmap__svg" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true" style="bottom: auto; height: 77.78%; overflow: visible;">
+    <div class="pm-roadmap__plot" style="aspect-ratio: 1000 / 545;">
+      <svg class="pm-roadmap__svg" viewBox="0 75 1000 545" preserveAspectRatio="none" aria-hidden="true" style="overflow: visible;">
       <defs>
         <linearGradient id="pmRoadTone" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#364551"/>
@@ -671,23 +672,23 @@ footer {
       </g>
       </svg>
 
-    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 6%; top: 76.1%;">X</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 17.6%; top: 23.7%;">02</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 29.2%; top: 75.6%;">03</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 43.4%; top: 32.5%;">04</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 55.6%; top: 22.9%;">05</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 69%; top: 64.9%;">06</div>
-    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 81.6%; top: 40.3%;">07</div>
-      <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 23.5%;">08</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 6%; top: 86.8%;">X</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 17.6%; top: 17.4%;">04</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 29.2%; top: 86.1%;">06</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 43.4%; top: 29.2%;">08</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 55.6%; top: 16.5%;">09</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 69%; top: 71.9%;">12</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 81.6%; top: 39.4%;">16</div>
+      <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 17.2%;">20</div>
 
-    <div class="pm-roadmap__label" style="left: 8.8%; top: 73.5%;"><strong>Contract Sign-off</strong><span class="pm-roadmap__cw">CW: X</span></div>
-    <div class="pm-roadmap__label" style="left: 0.1%; top: 20.4%;" ><strong>Infra on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
-      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 31.5%; top: 69.7%;"><strong>Intro training</strong><ul><li>Odoo 101</li><li>Product management methodology</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 27.1%; top: 26.3%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 47.9%; top: 13.8%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+9</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 51.2%; top: 61.8%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 75.2%; top: 32.1%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
-    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 76.3%; top: 19.5%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
+    <div class="pm-roadmap__label" style="left: 8.8%; top: 81.3%;"><strong>Contract Sign-off</strong><span class="pm-roadmap__cw">CW: X</span></div>
+    <div class="pm-roadmap__label" style="left: -0.6%; top: 12.8%;" ><strong>Odoo on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
+      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 31.6%; top: 77.1%;"><strong>Intro training</strong><ul><li>Odoo 101</li><li>Product management methodology</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 26.5%; top: 19.7%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 57.8%; top: 12.2%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+9</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 52.5%; top: 67.6%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 67.6%; top: 35.5%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 77.1%; top: 11.7%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
     </div>
   </figure>
 
