@@ -133,6 +133,161 @@ a:hover { text-decoration: underline; }
     padding: 12px 9px;
   }
 }
+/* Roadmap — winding road with milestones, KomITi style */
+.pm-roadmap {
+  margin: 18px 0 24px 0;
+  padding: 18px 18px 22px 18px;
+  background: #16202A;
+  border: 1px solid rgba(236,229,215,0.12);
+  border-radius: 12px;
+  color: #ECE5D7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.pm-roadmap__caption {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #B6BBC2;
+  margin-bottom: 14px;
+}
+.pm-roadmap__title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ECE5D7;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.01em;
+  border: 0;
+  padding: 0;
+}
+.pm-roadmap__plot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1000 / 560;
+  min-height: 380px;
+  overflow: visible;
+}
+.pm-roadmap__plot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(236,229,215,0.16), rgba(236,229,215,0) 20%),
+    linear-gradient(180deg, rgba(236,229,215,0.06) 0%, rgba(236,229,215,0) 26%);
+  pointer-events: none;
+}
+.pm-roadmap__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+.pm-roadmap__pin {
+    --pin-size: 44px;
+    --pin-ring: 2px;
+  position: absolute;
+    width: var(--pin-size);
+    height: var(--pin-size);
+  border-radius: 50%;
+  background: #A65949;
+  border: 2px solid #16202A;
+    box-shadow: 0 0 0 var(--pin-ring) #A65949, 0 10px 24px -12px rgba(0,0,0,.75);
+  color: #fff;
+    font-size: calc(var(--pin-size) * 0.28);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+  .pm-roadmap__pin--near {
+    --pin-size: 46px;
+  }
+  .pm-roadmap__pin--mid {
+    --pin-size: 40px;
+  }
+  .pm-roadmap__pin--far {
+    --pin-size: 34px;
+  }
+.pm-roadmap__pin--final {
+    --pin-size: 30px;
+    --pin-ring: 3px;
+  background: #8D4C3E;
+    box-shadow: 0 0 0 var(--pin-ring) #A65949, 0 10px 24px -12px rgba(0,0,0,.75);
+}
+.pm-roadmap__label {
+  position: absolute;
+  background: #2C3844;
+  border: 1px solid rgba(236,229,215,0.12);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #ECE5D7;
+  min-width: 140px;
+  max-width: 190px;
+  z-index: 1;
+  box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 6px 18px -10px rgba(0,0,0,.45);
+    transform-origin: top left;
+    transform: scale(var(--label-scale, 1));
+}
+  .pm-roadmap__label--mid {
+    --label-scale: 0.94;
+  }
+  .pm-roadmap__label--far {
+    --label-scale: 0.86;
+  }
+.pm-roadmap__label strong {
+  display: block;
+  font-weight: 600;
+  color: #ECE5D7;
+  margin-bottom: 2px;
+}
+.pm-roadmap__label .pm-roadmap__cw {
+  display: inline-block;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: #C97D6D;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.pm-roadmap__label ul {
+  margin: 4px 0 0 16px;
+  padding: 0;
+  font-size: 11.5px;
+  color: #B6BBC2;
+}
+.pm-roadmap__label ul li { margin: 0; }
+/* Mobile: collapse to a vertical timeline */
+@media (max-width: 720px) {
+  .pm-roadmap__plot {
+    aspect-ratio: auto;
+    min-height: 0;
+      padding-left: 32px;
+    border-left: 2px solid rgba(236,229,215,0.18);
+  }
+  .pm-roadmap__svg { display: none; }
+  .pm-roadmap__pin {
+    position: relative;
+      transform: translate(calc(var(--pin-size) * -1), 0);
+    margin-bottom: 4px;
+    inset: auto;
+    left: 0 !important;
+    top: auto !important;
+  }
+  .pm-roadmap__label {
+    position: relative;
+    inset: auto;
+    left: 0 !important;
+    top: auto !important;
+    transform: none !important;
+    max-width: none;
+    margin: -28px 0 14px 0;
+  }
+}
 footer {
     text-align: center;
     margin-top: 48px;
@@ -403,6 +558,84 @@ footer {
 
   <h3 id="s3-3">3.3) Power BI stream</h3>
   <p>Power BI stream builds on the Fabric foundation afterwards. This stream turns prepared data into reports and dashboards for business users.</p>
+
+  <figure class="pm-roadmap" aria-label="Indicative project roadmap with milestones in calendar weeks">
+    <div class="pm-roadmap__caption">Indicative project roadmap — milestones in calendar weeks (CW), where X is contract sign-off</div>
+    <h4 class="pm-roadmap__title">From sign-off to first Power BI Report</h4>
+    <div class="pm-roadmap__plot">
+      <svg class="pm-roadmap__svg" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="pmRoadTone" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#364551"/>
+      <stop offset="60%" stop-color="#2C3844"/>
+      <stop offset="100%" stop-color="#24303A"/>
+        </linearGradient>
+        <filter id="pmRoadShadow" x="-12%" y="-12%" width="124%" height="124%">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#000000" flood-opacity="0.28"/>
+        </filter>
+      </defs>
+      <path d="M -10,470
+               C 70,430 86,254 180,246
+               C 270,238 286,392 372,404
+               C 456,416 472,254 560,246
+               C 648,238 666,362 754,372
+               C 836,382 874,278 992,244
+               L 1000,284
+               C 892,314 854,438 754,430
+               C 654,422 640,300 562,304
+               C 480,308 462,472 374,472
+               C 284,472 266,316 186,324
+               C 98,332 52,504 -10,560
+               Z"
+        fill="url(#pmRoadTone)" filter="url(#pmRoadShadow)"/>
+      <path d="M -10,515
+           C 61,467 92,293 183,285
+               C 254,282 290,433 370,438
+               C 452,444 484,286 560,278
+               C 640,270 676,393 754,402
+               C 834,410 882,318 980,262"
+        fill="none" stroke="rgba(236,229,215,0.44)" stroke-width="3.2" stroke-dasharray="13 17" stroke-linecap="round"/>
+      <g fill="none" stroke="#A65949" stroke-width="5" stroke-linecap="round" opacity="0.92">
+        <path d="M 60,452 L 60,342"/>
+        <path d="M 176,286 L 176,170"/>
+        <path d="M 292,430 L 292,462"/>
+        <path d="M 434,346 L 434,292"/>
+        <path d="M 556,280 L 556,118"/>
+        <path d="M 690,388 L 690,420"/>
+        <path d="M 816,354 L 816,290"/>
+        <path d="M 910,256 L 910,106"/>
+      </g>
+      <g fill="#A65949" stroke="#ECE5D7" stroke-width="2">
+        <circle cx="60" cy="452" r="7"/>
+        <circle cx="176" cy="286" r="7"/>
+        <circle cx="292" cy="430" r="7"/>
+        <circle cx="434" cy="346" r="7"/>
+        <circle cx="556" cy="280" r="7"/>
+        <circle cx="690" cy="388" r="7"/>
+        <circle cx="816" cy="354" r="7"/>
+        <circle cx="910" cy="256" r="7"/>
+      </g>
+      </svg>
+
+    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 6%; top: 61%;">01</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--near" style="left: 17.6%; top: 30.5%;">02</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 29.2%; top: 82.5%;">03</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 43.4%; top: 52.2%;">04</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--mid" style="left: 55.6%; top: 21.2%;">05</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 69%; top: 75%;">06</div>
+    <div class="pm-roadmap__pin pm-roadmap__pin--far" style="left: 81.6%; top: 51.8%;">07</div>
+      <div class="pm-roadmap__pin pm-roadmap__pin--final" style="left: 91%; top: 19%;">08</div>
+
+    <div class="pm-roadmap__label" style="left: 0%; top: 37%;"><strong>Sign-off the contract</strong><span class="pm-roadmap__cw">CW: X</span></div>
+    <div class="pm-roadmap__label" style="left: 11%; top: 6%;" ><strong>Infra on-line</strong><span class="pm-roadmap__cw">CW: X+4</span></div>
+      <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 34%; top: 79%;"><strong>Intro training</strong><ul><li>Odoo 101</li><li>Product management methodology</li></ul><span class="pm-roadmap__cw">CW: X+6</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 35%; top: 2%;" ><strong>Out-of-the-box</strong><ul><li>HR</li><li>Fleet</li><li>Project</li></ul><span class="pm-roadmap__cw">CW: X+8</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 49%; top: 5%;"><strong>Collect User Stories</strong><span class="pm-roadmap__cw">CW: X+9</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--mid" style="left: 62%; top: 74%;" ><strong>Customization starts</strong><span class="pm-roadmap__cw">CW: X+12</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 77%; top: 67%;"><strong>Fabric on-line</strong><span class="pm-roadmap__cw">CW: X+16</span></div>
+    <div class="pm-roadmap__label pm-roadmap__label--far" style="left: 79%; top: 3%;" ><strong>Power BI Report Mock-up</strong><span class="pm-roadmap__cw">CW: X+20</span></div>
+    </div>
+  </figure>
 
   <!-- Section 4 -->
   <h2 id="s4">4) What you should learn from this</h2>
