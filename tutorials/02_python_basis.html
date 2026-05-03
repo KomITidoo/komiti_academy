@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Basis — KomITi Academy</title>
+    <title>Python Basics — KomITi Academy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -176,7 +176,7 @@
     <!-- Header -->
     <div class="book-meta">
         <div class="book-title">KomITi Academy</div>
-        <h1>Python Basis</h1>
+        <h1>Python Basics</h1>
         <div class="subtitle">The Python You Need Before Writing Your First Odoo Module</div>
     </div>
 
@@ -268,6 +268,7 @@
     <h2 id="intro">1) Introduction</h2>
     <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="_blank" rel="noopener">Python</a> was created by Guido van Rossum in 1991. It is the primary programming language of the <a href="https://www.odoo.com/" target="_blank" rel="noopener">Odoo</a> framework — all server-side logic (models, business rules, controllers, tests) is written in Python.</p>
     <p>This tutorial covers exactly the Python you need to follow <a href="06_Odoo_from_0_to_hero.html">Tutorial 06 — Odoo from 0 to Hero</a> and the <a href="https://www.odoo.com/documentation/19.0/developer/tutorials.html" target="_blank" rel="noopener">official Odoo 19 developer tutorials</a>. Nothing more, nothing less. If you already know Python, skim the sections and jump to <a href="#s99">Section 99</a> to test yourself.</p>
+    <div class="note"><strong>Note:</strong> do not only read the examples. Run the short snippets in a Python shell or scratch file, then change one value and run them again.</div>
     <div class="important"><strong>Prerequisites:</strong> you should have completed <a href="03_git_vscode_basics.html">Tutorial 03 — Git &amp; VS Code Basics</a> and have VS Code with a terminal open. All examples in this tutorial can be run in the Python interactive shell (<code>python</code> or <code>python3</code> in your terminal).</div>
 
     <hr>
@@ -470,6 +471,7 @@ result = check_isbn_length("978-0-201-53082-7")
 print(result)  <span class="comment"># True</span></code></pre>
 
     <h3 id="s6-2">6.2) Default Arguments and Keyword Arguments</h3>
+    <p><strong>Default arguments</strong> give a parameter a fallback value. <strong>Keyword arguments</strong> pass values by parameter name, which makes calls easier to read.</p>
 <pre><code>def greet(name, greeting="Hello"):
     return f"{greeting}, {name}!"
 
@@ -494,10 +496,10 @@ def list(self, **kwargs):     <span class="comment"># kwargs captures URL query 
     self.ensure_one()
     digits = [int(x) for x in self.isbn if x.isdigit()]
     if len(digits) == 13:
-        ponderations = [1, 3] * 6
-        terms = [a * b for a, b in zip(digits[:12], ponderations)]
-        remain = sum(terms) % 10
-        check = 10 - remain if remain != 0 else 0
+        weights = [1, 3] * 6
+        terms = [a * b for a, b in zip(digits[:12], weights)]
+        remainder = sum(terms) % 10
+        check = 10 - remainder if remainder != 0 else 0
         return digits[-1] == check    <span class="comment"># returns True or False</span>
     return False                       <span class="comment"># early return if not 13 digits</span></code></pre>
 
@@ -534,6 +536,7 @@ print(c.count)  <span class="comment"># 1</span></code></pre>
     <div class="important"><strong>Important:</strong> in Odoo, <code>self</code> inside a model method is a <strong>recordset</strong>, not a single record. You must iterate with <code>for record in self:</code> to access individual records. Calling <code>self.ensure_one()</code> asserts that the recordset contains exactly one record.</div>
 
     <h3 id="s7-3">7.3) Class Attributes vs Instance Attributes</h3>
+    <p><strong>Class attributes</strong> live on the class and are shared. <strong>Instance attributes</strong> live on one object created from that class.</p>
 <pre><code>class Book:
     _description = "Library Book"  <span class="comment"># class attribute — shared by all instances</span>
 
@@ -596,6 +599,7 @@ greet("World")
     <p>The <code>@log_call</code> line is equivalent to <code>greet = log_call(greet)</code>.</p>
 
     <h3 id="s8-2">8.2) Built-in Decorators: @classmethod, @staticmethod, @property</h3>
+    <p>Built-in decorators change how a method is bound or accessed without writing a custom wrapper.</p>
 <pre><code>class Book:
     _count = 0
 
@@ -760,11 +764,11 @@ print(all(flags))  <span class="comment"># False — not all are True</span></co
     <h2 id="s99">99) Task and Self-Check</h2>
 
     <h3>Task: ISBN-13 Check Digit Calculator</h3>
-    <p>Write a Python function <code>isbn_check_digit(isbn_12)</code> that takes a 12-character string (the first 12 digits of an ISBN-13) and returns the correct check digit (an integer 0–9). Use what you learned in this tutorial.</p>
+    <p>Write a Python function <code>isbn_check_digit(isbn_12)</code> that takes a 12-digit string (the first 12 digits of an ISBN-13) and returns the correct check digit (an integer 0–9). Use what you learned in this tutorial.</p>
     <ol>
         <li><strong>Extract digits</strong> — use a list comprehension to convert the string to a list of integers. <em>Reference: <a href="#s4-4">4.4</a>.</em></li>
         <li><strong>Validate length</strong> — if the list does not have exactly 12 elements, raise a <code>ValueError</code>. <em>Reference: <a href="#s10-2">10.2</a>.</em></li>
-        <li><strong>Calculate weighted sum</strong> — create <code>[1, 3] * 6</code> and use <code>zip()</code> to pair digits with weights, then <code>sum()</code> the products. <em>Reference: <a href="#s4-4">4.4</a>, <a href="#s11-1">11.1</a>, <a href="#s11-3">11.3</a>.</em></li>
+        <li><strong>Calculate weighted sum</strong> — create <code>[1, 3] * 6</code>, use <code>zip()</code> to pair digits with weights, then store <code>sum()</code> of the products in <code>total</code>. <em>Reference: <a href="#s4-4">4.4</a>, <a href="#s11-1">11.1</a>, <a href="#s11-3">11.3</a>.</em></li>
         <li><strong>Compute check digit</strong> — use a ternary expression: <code>10 - (total % 10)</code> unless the remainder is 0, in which case the check digit is 0. <em>Reference: <a href="#s5-3">5.3</a>.</em></li>
         <li><strong>Return the check digit</strong> — <em>Reference: <a href="#s6-4">6.4</a>.</em></li>
     </ol>
@@ -800,7 +804,7 @@ print("All tests passed!")</code></pre>
     </ul>
 
     <footer>
-        KomITi Academy — Python Basis &bull; 2026
+        KomITi Academy — Python Basics &bull; 2026
     </footer>
 </div>
 </body>
