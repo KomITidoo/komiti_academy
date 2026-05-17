@@ -803,16 +803,16 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
 <p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
 
 <div class="important">
-    <p><strong>KomITi team convention — Worktree-per-Branch (WTPB):</strong> on real KomITi repositories (<code>odoo4komiti</code> and <code>komiti_academy</code>), <code>git checkout -b</code> in the primary clone is <strong>not</strong> how a feature branch is started. Instead, the primary clone (e.g. <code>C:\dev\KomITi\odoo4komiti</code>, <code>C:\dev\KomITi\komiti_academy</code>) is permanently kept on <code>main</code> (or <code>staging</code>), and every feature branch is checked out in a sibling Git worktree at <code>C:\dev\KomITi\&lt;repo&gt;_worktrees\&lt;branch-name&gt;</code>, where the folder name is exactly the same as the Git branch name.</p>
+    <p><strong>KomITi team convention — Worktree-per-Branch (WTPB):</strong> on real KomITi repositories (<code>odoo4komiti</code> and <code>komiti_academy</code>), <code>git checkout -b</code> in the protected <code>main</code> worktree is <strong>not</strong> how a feature branch is started. Instead, the repository container (for example, <code>C:\dev\KomITi\odoo4komiti</code>) contains the protected worktree at <code>C:\dev\KomITi\odoo4komiti\main</code>, and every feature branch is checked out in a repo-scoped Git worktree at <code>C:\dev\KomITi\odoo4komiti\&lt;branch-name&gt;</code>, where the folder name is exactly the same as the Git branch name.</p>
     <p>Why: it makes the active branch unambiguous from Windows Explorer alone, and it lets multiple agents or developers work in parallel on different feature branches without disturbing the primary checkout.</p>
     <p>Create the worktree from the current <code>origin/main</code>:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti> git fetch origin
-PS C:\dev\KomITi\odoo4komiti> git worktree add -b 2026-03-23-play_xyz C:\dev\KomITi\odoo4komiti_worktrees\2026-03-23-play_xyz origin/main</code></pre>
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git fetch origin
+PS C:\dev\KomITi\odoo4komiti\main> git worktree add -b 2026-03-23-play_xyz C:\dev\KomITi\odoo4komiti\2026-03-23-play_xyz origin/main</code></pre>
     <p>List active worktrees and confirm which folder shows which branch:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti> git worktree list</code></pre>
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git worktree list</code></pre>
     <p>After the feature branch is merged into <code>main</code>, remove the worktree directory so it does not linger in Windows Explorer:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti> git worktree remove --force C:\dev\KomITi\odoo4komiti_worktrees\2026-03-23-play_xyz</code></pre>
-    <p>The same convention applies to <code>komiti_academy</code> under <code>C:\dev\KomITi\komiti_academy_worktrees\&lt;branch-name&gt;</code>. The full rule is recorded in <code>.github/copilot-instructions.md</code> in each repository (section <em>Working tree convention</em>).</p>
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git worktree remove --force C:\dev\KomITi\odoo4komiti\2026-03-23-play_xyz</code></pre>
+    <p>The same convention applies to <code>komiti_academy</code>: the protected worktree is <code>C:\dev\KomITi\komiti_academy\main</code>, and feature worktrees live under <code>C:\dev\KomITi\komiti_academy\&lt;branch-name&gt;</code>. The full rule is recorded in <code>.github/copilot-instructions.md</code> in each repository (section <em>Working tree convention</em>).</p>
     <p>The plain <code>git checkout -b</code> flow shown above is still valid for your own training repo <code>komiti_library</code>, where you are the only person working on it.</p>
 </div>
 
