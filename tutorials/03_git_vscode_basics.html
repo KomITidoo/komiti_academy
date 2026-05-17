@@ -222,7 +222,14 @@ details summary {
                 <li><a href="#s4-3">Create a GitHub account, a repository and the initial branches</a></li>
                 <li><a href="#s4-4">Clone the repository</a></li>
                 <li><a href="#s4-5">Get the latest main</a></li>
-                <li><a href="#s4-6">Create a new feature branch from main</a></li>
+                <li><a href="#s4-6">Create a new feature branch from main</a>
+                    <ol>
+                        <li><a href="#s4-6-1">Create the local branch</a></li>
+                        <li><a href="#s4-6-2">Publish the branch to GitHub</a></li>
+                        <li><a href="#s4-6-3">Bring in staging content (demo shortcut)</a></li>
+                        <li><a href="#s4-6-4">KomITi team convention &mdash; Worktree-per-Branch (WTPB)</a></li>
+                    </ol>
+                </li>
                 <li><a href="#s4-7">Make local changes</a></li>
                 <li><a href="#s4-8">Stage and commit</a></li>
                 <li><a href="#s4-9">Push to GitHub</a></li>
@@ -319,7 +326,7 @@ After each copy (merge), you walk to the remote cabinet (repo) and replace the r
     <li>Git does <strong>not</strong> download anything from GitHub into this folder when you change (<code>checkout</code>) branches — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed (files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>).</li>
 </ul>
 
-<div class="note"><strong>Note:</strong> on real KomITi repositories you will additionally see one separate folder <em>per active feature branch</em>. That is not Git creating a folder for every branch automatically — it is the team using the <code>git worktree</code> mechanism (KomITi Worktree-per-Branch convention) to expose each active feature branch as its own physical folder. The basic statement above (one folder = one currently checked-out branch) still holds inside each of those folders. The convention is introduced in <a href="#s4-6">section 4.6</a>.</div>
+<div class="note"><strong>Note:</strong> on real KomITi repositories you will additionally see one separate folder <em>per active feature branch</em>. That is not Git creating a folder for every branch automatically — it is the team using the <code>git worktree</code> mechanism (KomITi Worktree-per-Branch convention) to expose each active feature branch as its own physical folder. The basic statement above (one folder = one currently checked-out branch) still holds inside each of those folders. The convention is introduced in <a href="#s4-6-4">section 4.6.4</a>.</div>
 
 <p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>staging</code> and <code>2026-03-23-play_xyz</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
 
@@ -769,6 +776,9 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
 
 <!-- Step 6 -->
 <h3 id="s4-6">4.6) Create a new feature branch from <code>main</code></h3>
+<p>This section walks through creating a feature branch end-to-end. The first three sub-sections (4.6.1&ndash;4.6.3) use the plain <code>git checkout -b</code> flow on your training repo <code>komiti_library</code>. The last two (4.6.4&ndash;4.6.5) introduce the KomITi team convention that replaces <code>git checkout -b</code> on the real repositories.</p>
+
+<h4 id="s4-6-1">4.6.1) Create the local branch</h4>
 <p>First, confirm you are on <code>main</code>:</p>
 <pre><code>PS C:\dev\KomITi\komiti_library> git branch
 * main</code></pre>
@@ -779,6 +789,8 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
     <li><code>-b</code> means: create a new branch and immediately switch to it; it is a short option, i.e. a flag, and is an abbreviation of <code>branch</code>.</li>
     <li><code>2026-03-23-play_xyz</code> is an argument; with it you specify what the new branch will be named.</li>
 </ul>
+
+<h4 id="s4-6-2">4.6.2) Publish the branch to GitHub</h4>
 <p>If you want the branch to exist on GitHub right away:</p>
 <pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> git push -u origin 2026-03-23-play_xyz</code></pre>
 <p>You sent the new branch to GitHub and remembered the upstream link.</p>
@@ -787,6 +799,8 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
     <li><code>origin</code> is an argument and means: to which remote you are sending.</li>
     <li><code>2026-03-23-play_xyz</code> is an argument and means: which branch you are sending.</li>
 </ul>
+
+<h4 id="s4-6-3">4.6.3) Bring in staging content (demo shortcut)</h4>
 <p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). The straightforward way is to merge <code>origin/staging</code> into your feature branch:</p>
 <pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> git merge origin/staging</code></pre>
 <p>This is a teaching shortcut for the tutorial: in real KomITi workflow you start a feature from <code>main</code> and the feature is what later gets promoted into <code>staging</code> — not the other way around. Here we merge <code>origin/staging</code> just so the next steps (branch switching demo, promotion) have visible files to move around. An equivalent alternative is to create the feature directly from <code>origin/staging</code>: <code>git checkout -b 2026-03-23-play_xyz origin/staging</code>.</p>
@@ -797,22 +811,60 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
 </div>
 <p>Now your feature branch has <code>README.md</code>, <code>x.md</code> and <code>y.md</code> — the same as <code>staging</code>.</p>
 
+<h4 id="s4-6-4">4.6.4) KomITi team convention &mdash; Worktree-per-Branch (WTPB)</h4>
 <div class="important">
-    <p><strong>KomITi team convention — Worktree-per-Branch (WTPB):</strong> on real KomITi repositories (<code>odoo4komiti</code> and <code>komiti_academy</code>), <code>git checkout -b</code> in the protected <code>main</code> worktree is <strong>not</strong> how a feature branch is started. Instead, the repository container (for example, <code>C:\dev\KomITi\odoo4komiti</code>) contains the protected worktree at <code>C:\dev\KomITi\odoo4komiti\main</code>, and every feature branch is checked out in a repo-scoped Git worktree at <code>C:\dev\KomITi\odoo4komiti\&lt;branch-name&gt;</code>, where the folder name is exactly the same as the Git branch name.</p>
-    <p>Why: it makes the active branch unambiguous from Windows Explorer alone, and it lets multiple agents or developers work in parallel on different feature branches without disturbing the primary checkout.</p>
-    <p>Feature branches use the naming rule <code>YYYY-MM-DD-&lt;agent-or-developer&gt;-feature_name</code> — today's date, then the agent slug or developer name, then a short underscore-separated feature label. For example: <code>2026-05-17-Academy-03_git_vscode_basics_revision</code>.</p>
-    <p>Create the worktree from the current <code>origin/main</code>:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git fetch origin
-PS C:\dev\KomITi\odoo4komiti\main> git worktree add -b 2026-03-23-play_xyz C:\dev\KomITi\odoo4komiti\2026-03-23-play_xyz origin/main</code></pre>
-    <p>List active worktrees and confirm which folder shows which branch:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git worktree list</code></pre>
-    <p>After the feature branch is merged into <code>main</code>, remove the worktree directory so it does not linger in Windows Explorer:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git worktree remove --force C:\dev\KomITi\odoo4komiti\2026-03-23-play_xyz</code></pre>
-    <p>The same convention applies to <code>komiti_academy</code>: the protected worktree is <code>C:\dev\KomITi\komiti_academy\main</code>, and feature worktrees live under <code>C:\dev\KomITi\komiti_academy\&lt;branch-name&gt;</code>. The full rule is recorded in <code>.github/copilot-instructions.md</code> in each repository (section <em>Working tree convention</em>).</p>
-    <p>The plain <code>git checkout -b</code> flow shown above is still valid for your own training repo <code>komiti_library</code>, where you are the only person working on it.</p>
+    <p><strong>Important:</strong> this sub-section applies on the real KomITi repositories (<code>odoo4komiti</code> and <code>komiti_academy</code>) only. On your training repo <code>komiti_library</code> the plain <code>git checkout -b</code> flow from 4.6.1 is still the correct way.</p>
 </div>
+<p>On real KomITi repositories, <code>git checkout -b</code> in the protected <code>main</code> worktree is <strong>not</strong> how a feature branch is started. Instead, each feature branch is checked out in a <strong>separate folder on disk</strong>, side by side with <code>main</code>. The folder name equals the branch name exactly:</p>
+<div class="ascii-diagram">   Disk (Windows Explorer)              VS Code Explorer (multi-root workspace)
+   ─────────────────────────             ──────────────────────────────────────
+   C:\dev\KomITi\odoo4komiti\
+   ├── main\                              ─────►   [ main ]                          (branch: main)
+   ├── 2026-05-14-Sara-fix_login_css\     ─────►   [ 2026-05-14-Sara-fix_login_css ]  (branch: 2026-05-14-Sara-fix_login_css)
+   └── 2026-05-15-Marko-add_invoicing\    ─────►   [ 2026-05-15-Marko-add_invoicing ] (branch: 2026-05-15-Marko-add_invoicing)</div>
 
-<p>What you should notice:</p>
+<p><strong>Why we work this way &mdash; two concrete benefits:</strong></p>
+<ul>
+    <li><strong>The active branch is unambiguous from Windows Explorer alone.</strong> You never have to run <code>git branch --show-current</code> to know what you are editing &mdash; the folder name <em>is</em> the branch name.</li>
+    <li><strong>Multiple agents or developers can work in parallel without disturbing each other.</strong> The <em>protected</em> <code>main\</code> worktree is the one used to promote, deploy, and run production-shaped checks; it must always sit cleanly on <code>main</code>. Side-by-side feature folders mean nobody has to <code>git checkout</code> in <code>main\</code> to look at someone else&rsquo;s work.</li>
+</ul>
+<p><strong>Concrete scenario.</strong> Sara is fixing a login CSS bug; Marko is adding an invoicing report. Both branches exist as folders side by side (see diagram above):</p>
+<ul>
+    <li>Sara edits files in <code>C:\dev\KomITi\odoo4komiti\2026-05-14-Sara-fix_login_css\</code>.</li>
+    <li>Marko edits files in <code>C:\dev\KomITi\odoo4komiti\2026-05-15-Marko-add_invoicing\</code>.</li>
+    <li>Sara wants to peek at Marko&rsquo;s report code &mdash; she just opens his folder in a second VS Code window (or adds it as a second root to her workspace). No <code>git stash</code>, no <code>git checkout</code>, her own uncommitted edits stay exactly where they are.</li>
+    <li>Meanwhile <code>C:\dev\KomITi\odoo4komiti\main\</code> remains untouched on <code>main</code> &mdash; ready at any moment for promotion, deploy verification, or a clean reference build.</li>
+</ul>
+<p>Without WTPB this is impossible: a single folder can only have one branch checked out at a time, so peeking at a teammate&rsquo;s work means saving your own changes somewhere and switching branches &mdash; with all the risk of mixing edits.</p>
+
+<p><strong>Naming rule.</strong> Feature branches use <code>YYYY-MM-DD-&lt;agent-or-developer&gt;-feature_name</code> &mdash; today&rsquo;s date, then the agent slug or developer name, then a short underscore-separated feature label. For example: <code>2026-05-17-Academy-03_git_vscode_basics_revision</code>.</p>
+
+<p><strong>Create the worktree</strong> from the current <code>origin/main</code>:</p>
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git fetch origin
+PS C:\dev\KomITi\odoo4komiti\main> git worktree add -b 2026-05-14-Sara-fix_login_css C:\dev\KomITi\odoo4komiti\2026-05-14-Sara-fix_login_css origin/main</code></pre>
+<p><strong>List active worktrees</strong> and confirm which folder shows which branch:</p>
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git worktree list</code></pre>
+<p><strong>Remove the worktree</strong> after the feature branch is merged into <code>main</code>, so it does not linger in Windows Explorer:</p>
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git worktree remove --force C:\dev\KomITi\odoo4komiti\2026-05-14-Sara-fix_login_css</code></pre>
+<p>The same convention applies to <code>komiti_academy</code>: the protected worktree is <code>C:\dev\KomITi\komiti_academy\main</code>, and feature worktrees live under <code>C:\dev\KomITi\komiti_academy\&lt;branch-name&gt;</code>. The full rule is recorded in <code>.github/copilot-instructions.md</code> in each repository (section <em>Working tree convention</em>).</p>
+
+<p><strong>How to open the worktrees in VS Code.</strong> Each folder becomes one <em>root folder</em> in the same VS Code window (a <em>multi-root workspace</em>, see <a href="#s2-5">section 2.5</a>):</p>
+<ol>
+    <li>Open the protected worktree first: <code>File &rarr; Open Folder&hellip;</code> and pick <code>C:\dev\KomITi\odoo4komiti\main</code>. This is your baseline window.</li>
+    <li>For each active feature branch, run <code>File &rarr; Add Folder to Workspace&hellip;</code> and pick its worktree folder. VS Code will offer to save the result as a <code>.code-workspace</code> file &mdash; accept it, so the layout survives a restart.</li>
+    <li>The Explorer panel now shows one collapsible root per worktree. Clicking files under <code>main\</code> activates the <code>main</code> repo context; clicking files under a feature root activates that branch&rsquo;s context &mdash; no <code>git checkout</code> is ever needed to switch.</li>
+</ol>
+
+<p>What you should notice in VS Code with multiple worktrees open:</p>
+<ul>
+    <li><strong>Windows Explorer:</strong> one folder per active branch under <code>C:\dev\KomITi\odoo4komiti\</code>; the folder name equals the Git branch name exactly.</li>
+    <li><strong>VS Code Explorer:</strong> one top-level root per folder; the root header shows the folder name, which (by WTPB convention) is also the branch name.</li>
+    <li><strong>VS Code Source Control:</strong> one entry per root, each with its own staged and unstaged list. You stage and commit in the entry that matches the worktree you edited &mdash; no risk of mixing changes from two branches in one commit.</li>
+    <li><strong>Git status indicator (Status Bar):</strong> displays the branch of the <em>currently active file&rsquo;s root</em>. Click a file in <code>main\</code> &rarr; Status Bar shows <code>main</code>; click a file in a feature root &rarr; it switches to that branch. Fastest way to confirm which branch your next commit will land on.</li>
+</ul>
+<p>When a feature is merged and you run <code>git worktree remove &hellip;</code>, also remove the folder from VS Code: right-click the root in Explorer &rarr; <code>Remove Folder from Workspace</code>. Otherwise VS Code will keep showing a phantom root pointing at a deleted folder.</p>
+
+<p>What you should notice (overall, across 4.6.1&ndash;4.6.5):</p>
 <ul>
     <li><strong>Windows Explorer:</strong> After <code>git checkout -b</code>, no change — the new branch contains the same files as <code>main</code>. After <code>git merge origin/staging</code>, <code>y.md</code> appears in the folder.<br>
         <strong>Advanced content:</strong> deep dive into <code>.git/</code> — if you open the hidden <code>.git</code> folder, you can see what changed behind the scenes:
@@ -947,7 +999,7 @@ PS C:\dev\KomITi\komiti_library> git push origin staging</code></pre>
     <li>push to the remote GitHub branch (<em>send the updated binder back to the remote cabinet</em>)</li>
 </ul>
 <div class="important">
-    <strong>Important:</strong> after <code>git merge 2026-03-23-play_xyz</code>, Git may open a text editor and show a default merge commit message such as <code>Merge branch '2026-03-23-play_xyz' into staging</code>. This is normal: Git is asking you to confirm the commit message for the new merge commit. In most cases you can keep the default message. See the <code>vim</code> exit tip in <a href="#s4-6">section 4.6</a>.
+    <strong>Important:</strong> after <code>git merge 2026-03-23-play_xyz</code>, Git may open a text editor and show a default merge commit message such as <code>Merge branch '2026-03-23-play_xyz' into staging</code>. This is normal: Git is asking you to confirm the commit message for the new merge commit. In most cases you can keep the default message. See the <code>vim</code> exit tip in <a href="#s4-6-3">section 4.6.3</a>.
 </div>
 
 <p>What you should notice:</p>
