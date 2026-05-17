@@ -21,5 +21,13 @@
 - Feature branches use the naming rule `YYYY-MM-DD-<agent-or-developer>-feature_name` (Academy agent uses `Academy` as the agent slug).
 - The rule mirrors the engineering-side convention in `odoo4komiti/.github/copilot-instructions.md` and binds every agent that shares this repo.
 
+## Branch creation gate
+- Creating a new branch or worktree is **not** the default response to a tutorial task.
+- The Academy agent may create a new feature branch/worktree only when one of these is true:
+  1. the user explicitly tells it to create the branch/worktree,
+  2. `.github/skills/delivery-workflow/SKILL.md` explicitly says the current task requires Academy-side Git workflow,
+  3. the user explicitly asks for commit/push/merge/promotion and that workflow cannot be completed without the new branch/worktree.
+- If none of those gates is open, the Academy agent must stay in the current working context, prepare edits or a HANDOFF, and wait instead of creating a branch on its own.
+
 ## Handoff after every HTML change
 Every time you deliver or update an HTML tutorial, include a handoff using the unified format defined in `odoo4komiti/crewai_orchestration/INTER_AGENT_HANDOFF.instructions.md`. Set SOURCE, STYLING, ALIGN OK, and ODOO CSS to their tutorial-relevant values (not `n/a`).
