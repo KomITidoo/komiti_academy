@@ -140,12 +140,6 @@ tbody tr:hover { background: #f0eaf4; }
     border-radius: 0 6px 6px 0; font-size: 14px;
 }
 .tip strong { color: #2e7d32; }
-.vscode-sc {
-    background: #e3f2fd; border-left: 4px solid #1976d2;
-    padding: 12px 18px; margin: 14px 0;
-    border-radius: 0 6px 6px 0; font-size: 14px;
-}
-.vscode-sc strong { color: #0d47a1; }
 hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
 a { color: #A65949; text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -201,7 +195,7 @@ details summary {
     <ol>
         <li><a href="#s1">Git basics you need to know</a>
             <ol>
-                <li><a href="#s3">Local and remote (GitHub) branch</a></li>
+                <li><a href="#s1-1">Local and remote (GitHub) branch</a></li>
                 <li><a href="#s1-2">Does Git create a separate folder on disk for each branch?</a></li>
                 <li><a href="#s1-3">Let's deep dive into .git/</a></li>
                 <li><a href="#s1-4">clone vs fork</a></li>
@@ -216,31 +210,31 @@ details summary {
                 <li><a href="#s2-2">Workspace</a></li>
                 <li><a href="#s2-3">Source Control</a></li>
                 <li><a href="#s2-4">Terminal</a></li>
-                <li><a href="#s5-1">VS Code Status Bar</a></li>
+                <li><a href="#s2-5">VS Code Status Bar</a></li>
                 <li><a href="#s2-6">Connecting VS Code to GitHub</a></li>
             </ol>
         </li>
-        <li><a href="#s6">Save is not the same as commit</a></li>
-        <li><a href="#s7">Basic local workflow – Hands-on</a>
+        <li><a href="#s3">Save is not the same as commit</a></li>
+        <li><a href="#s4">Basic local workflow – Hands-on</a>
             <ol>
-                <li><a href="#s7-1">Install Git</a></li>
-                <li><a href="#s7-2">Configure Git (first-time setup)</a></li>
-                <li><a href="#s7-3">Create a GitHub account, a repository and the initial branches</a></li>
-                <li><a href="#s7-4">Clone the repository</a></li>
-                <li><a href="#s7-5">Get the latest main</a></li>
-                <li><a href="#s7-6">Create a new feature branch from main</a></li>
-                <li><a href="#s7-7">Make local changes</a></li>
-                <li><a href="#s7-8">Stage and commit</a></li>
-                <li><a href="#s7-9">Push to GitHub</a></li>
-                <li><a href="#s7-10">See it with your own eyes — branch switching demo</a></li>
-                <li><a href="#s7-11">Promotion to staging</a></li>
-                <li><a href="#s7-12">Promotion to main</a></li>
-                <li><a href="#s7-13">Return to your feature branch if you continue working</a></li>
-                <li><a href="#s7-14">Clean up: delete the branch and prune stale references</a></li>
+                <li><a href="#s4-1">Install Git</a></li>
+                <li><a href="#s4-2">Configure Git (first-time setup)</a></li>
+                <li><a href="#s4-3">Create a GitHub account, a repository and the initial branches</a></li>
+                <li><a href="#s4-4">Clone the repository</a></li>
+                <li><a href="#s4-5">Get the latest main</a></li>
+                <li><a href="#s4-6">Create a new feature branch from main</a></li>
+                <li><a href="#s4-7">Make local changes</a></li>
+                <li><a href="#s4-8">Stage and commit</a></li>
+                <li><a href="#s4-9">Push to GitHub</a></li>
+                <li><a href="#s4-10">See it with your own eyes — branch switching demo</a></li>
+                <li><a href="#s4-11">Promotion to staging</a></li>
+                <li><a href="#s4-12">Promotion to main</a></li>
+                <li><a href="#s4-13">Return to your feature branch if you continue working</a></li>
+                <li><a href="#s4-14">Clean up: delete the branch and prune stale references</a></li>
             </ol>
         </li>
-        <li><a href="#s8">Most common beginner mistakes</a></li>
-        <li><a href="#s12">What to read next</a></li>
+        <li><a href="#s5">Most common beginner mistakes</a></li>
+        <li><a href="#s6">What to read next</a></li>
         <li><a href="#s99">Task on the komiti_academy project for the candidate</a></li>
     </ol>
 </div>
@@ -262,9 +256,9 @@ details summary {
 </ul>
 <p>Basic Git rule is that you can only have one binder (branch) open (<code>checkout</code>) on your desk at a time; when you are done, you can copy (<code>merge</code>) files from one binder (branch) into another. Git keeps every version of every file, compressed, inside a hidden <code>.git/</code> folder — so nothing is ever lost.</p>
 
-<h3 id="s3">1.1) Local and remote (<img src="img/github_logo.svg" alt="GitHub logo" style="height:1.05em; vertical-align:middle; margin:0 0.15em;">GitHub) branch</h3>
+<h3 id="s1-1">1.1) Local and remote (<img src="img/github_logo.svg" alt="GitHub logo" style="height:1.05em; vertical-align:middle; margin:0 0.15em;">GitHub) branch</h3>
 
-<p><code>GitHub</code> is a platform where the remote repo lives. <code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, whereas <code>GitHub</code> is a platform.</p>
+<p><code>GitHub</code> is a platform where the remote repo lives. It was launched in 2008 by Chris Wanstrath, P. J. Hyett, Tom Preston-Werner and Scott Chacon, and acquired by Microsoft in 2018. <code>Git</code> and <code>GitHub</code> are not the same: <code>Git</code> is a version control system, whereas <code>GitHub</code> is a platform.</p>
 
 <div class="ascii-diagram">REMOTE BRANCHES   [origin/yyyy-MM-dd-feature]   [origin/staging]           [origin/main]
                        ^                           ^                          ^
@@ -325,7 +319,7 @@ After each copy (merge), you walk to the remote cabinet (repo) and replace the r
     <li>Git does <strong>not</strong> download anything from GitHub into this folder when you change (<code>checkout</code>) branches — it only overwrites files on disk from the local <code>.git/</code> database where Git stores all states of all branches, compressed (files that differ Git <strong>overwrites</strong>, files that exist only on the old branch Git <strong>deletes</strong>, and files that exist only on the new branch Git <strong>creates</strong>).</li>
 </ul>
 
-<div class="note"><strong>Note:</strong> on real KomITi repositories you will additionally see one separate folder <em>per active feature branch</em>. That is not Git creating a folder for every branch automatically — it is the team using the <code>git worktree</code> mechanism (KomITi Worktree-per-Branch convention) to expose each active feature branch as its own physical folder. The basic statement above (one folder = one currently checked-out branch) still holds inside each of those folders. The convention is introduced in <a href="#s7-6">section 4.6</a>.</div>
+<div class="note"><strong>Note:</strong> on real KomITi repositories you will additionally see one separate folder <em>per active feature branch</em>. That is not Git creating a folder for every branch automatically — it is the team using the <code>git worktree</code> mechanism (KomITi Worktree-per-Branch convention) to expose each active feature branch as its own physical folder. The basic statement above (one folder = one currently checked-out branch) still holds inside each of those folders. The convention is introduced in <a href="#s4-6">section 4.6</a>.</div>
 
 <p>Concrete example: imagine a repo with three branches — <code>main</code>, <code>staging</code> and <code>2026-03-23-play_xyz</code> — each containing different files. Both Windows Explorer and VS Code Explorer always show only the currently checked-out branch:</p>
 
@@ -461,7 +455,7 @@ __pycache__/
 <!-- 2) VS Code basics -->
 <!-- ============================================================ -->
 <h2 id="s2"><img src="img/vscode.svg" alt="VS Code logo" style="height:1.2em; vertical-align:middle; margin-right:0.3em;">2) VS Code basics you need to know</h2>
-<p>Visual Studio Code (VS Code) is a free, open-source code editor made by Microsoft, and it is the editor we use at KomITi for all development work. Install it now on your computer from <a href="https://code.visualstudio.com">https://code.visualstudio.com</a>.</p>
+<p>Visual Studio Code (VS Code) is a free, open-source code editor released by Microsoft in 2015. It is built on the Electron framework and runs on Windows, macOS and Linux. It is the editor we use at KomITi for all development work. Install it now on your computer from <a href="https://code.visualstudio.com">https://code.visualstudio.com</a>.</p>
 
 <h3 id="s2-1">2.1) Explorer</h3>
 <p><code>Explorer</code> is the left panel in VS Code where you see folders and files. Some tips on Explorer:</p>
@@ -509,7 +503,7 @@ __pycache__/
     <li>Everything you can do in an external terminal you can do here — the advantage is that it lives inside VS Code, next to your files and Source Control panel.</li>
 </ul>
 
-<h3 id="s5-1">2.5) VS Code Status Bar</h3>
+<h3 id="s2-5">2.5) VS Code Status Bar</h3>
 <p>The <strong>Status Bar</strong> is the thin horizontal strip at the very bottom of the VS Code window. At a glance you can see:</p>
 <ul>
     <li><strong>Git status indicator</strong> (left) — current branch, sync status, errors/warnings.</li>
@@ -549,7 +543,7 @@ __pycache__/
 <p>You do this once. VS Code remembers the session across restarts.</p>
 
 <h4>Layer 2 — Git CLI authentication (push / pull)</h4>
-<p>When you run <code>git push</code> or <code>git pull</code> for the first time on a new machine, Git itself needs credentials to talk to GitHub over HTTPS. On modern Windows, <strong>Git Credential Manager</strong> (GCM) handles this automatically:</p>
+<p>When you run <code>git push</code> or <code>git pull</code> for the first time on a new machine, Git itself needs credentials to talk to GitHub over HTTPS. On modern Windows, <strong>Git Credential Manager</strong> (GCM) handles this automatically. GCM is an open-source helper maintained by GitHub (originally developed by Microsoft starting in 2015) and ships with Git for Windows by default:</p>
 <ol>
     <li>You run <code>git push</code> in the terminal.</li>
     <li>GCM opens a browser window asking you to sign in to GitHub (or shows a device-code prompt).</li>
@@ -562,13 +556,13 @@ __pycache__/
 <h4>Quick check — am I connected?</h4>
 <ul>
     <li><strong>VS Code account:</strong> click the Accounts icon — you should see your GitHub username listed.</li>
-    <li><strong>Git CLI:</strong> run <code>git credential-manager github list</code> — if it shows your username, credentials are stored.</li>
+    <li><strong>Git CLI:</strong> run <code>git credential-manager github list</code> to list any stored GitHub accounts (works on GCM 2.6+). On older versions or if the command is not recognised, open <strong>Windows Credential Manager → Windows Credentials</strong> and look for entries starting with <code>git:https://github.com</code>.</li>
 </ul>
 
 <!-- ============================================================ -->
 <!-- 3) Save ≠ commit -->
 <!-- ============================================================ -->
-<h2 id="s6">3) Save is not the same as commit</h2>
+<h2 id="s3">3) Save is not the same as commit</h2>
 <p>This is a key beginner distinction:</p>
 <ul>
     <li><code>save</code> writes the file to disk,</li>
@@ -588,12 +582,12 @@ __pycache__/
 <!-- ============================================================ -->
 <!-- 7) Basic local workflow -->
 <!-- ============================================================ -->
-<h2 id="s7">4) Basic local workflow – Hands-on</h2>
+<h2 id="s4">4) Basic local workflow – Hands-on</h2>
 <p>In this section you will create your own GitHub repository, clone it to your machine and walk through the full KomITi <code>feature → staging → main</code> workflow with real commands. The repository you create here — <code>komiti_library</code> — is the same one you will use later in <a href="06_Odoo_from_0_to_hero.html">Odoo from 0 to Hero</a> to build the <code>library</code> Odoo module.</p>
 <p>Before you can follow the steps below, you need Git installed and a working connection to GitHub. The next sections walk you through that setup.</p>
 
 <!-- Prerequisites -->
-<h3 id="s7-1">4.1) Install Git</h3>
+<h3 id="s4-1">4.1) Install Git</h3>
 <ol>
     <li>Go to <a href="https://git-scm.com/downloads" target="_blank">https://git-scm.com/downloads</a> and download the installer for your operating system (Windows, macOS, or Linux).</li>
     <li>Run the installer. On Windows, the default options are fine — just click <strong>Next</strong> through each screen.</li>
@@ -620,7 +614,7 @@ PS C:\Users\you> cd C:\dev</code></pre>
     <strong>Important:</strong> Do <strong>not</strong> place your development folder inside OneDrive, Dropbox or any other cloud-synced folder. Cloud sync services constantly lock and rewrite files in the background, which causes conflicts with Git and with AI coding agents (e.g. GitHub Copilot). Always use a plain local path like <code>C:\dev</code>.
 </div>
 
-<h3 id="s7-2">4.2) Configure Git (first-time setup)</h3>
+<h3 id="s4-2">4.2) Configure Git (first-time setup)</h3>
 <p>Git needs to know who you are so it can label every commit with your name and e-mail. Run these two commands once — they are saved globally and apply to every repository on your machine:</p>
 <pre><code>PS C:\dev> git config --global user.name "Your Name"
 PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
@@ -629,7 +623,7 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>You should see <code>user.name</code> and <code>user.email</code> in the output.</p>
 <p>These two values are used for commit authorship. They are not necessarily the same as your GitHub username.</p>
 
-<h3 id="s7-3">4.3) Create a GitHub account, a repository and the initial branches</h3>
+<h3 id="s4-3">4.3) Create a GitHub account, a repository and the initial branches</h3>
 <p>GitHub is the remote service where your repositories will be hosted.</p>
 <ol>
     <li>If you don't have an account yet, go to <a href="https://github.com/signup" target="_blank">https://github.com/signup</a> and follow the steps.</li>
@@ -679,12 +673,10 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 <p>At the top of the GitHub repository page you may also see a yellow notice that says <code>staging had recent pushes</code> together with a <code>Compare &amp; pull request</code> button. That is GitHub suggesting that you compare the branch you just updated against another branch and optionally open a pull request.</p>
 <img src="img/github_recent_push_banner.png" alt="GitHub banner showing that staging had recent pushes and offering Compare and pull request" style="max-width:100%; display:block; margin:0.5em 0 1em 0; border:1px solid #e5e7eb; border-radius:8px;">
 <p>Clicking <code>Compare &amp; pull request</code> would start this workflow:</p>
-<pre class="ascii-diagram">
-   [origin/staging] ----pull request----&gt; [origin/main]
+<div class="ascii-diagram">   [origin/staging] ----pull request----&gt; [origin/main]
                      (GitHub suggests merging staging
                       into main because staging was
-                      created from main)
-</pre>
+                      created from main)</div>
 <ol>
     <li><strong>Compare (diff).</strong> GitHub opens a page showing a side-by-side comparison of exactly which lines were added, changed, or removed on <code>staging</code> compared to <code>main</code> (GitHub picks <code>main</code> automatically because you created <code>staging</code> from it).</li>
     <li><strong>Create a pull request (PR).</strong> On that same page there is a form to create a <strong>pull request</strong> — a formal proposal that says <em>"I want to merge these changes from <code>staging</code> into <code>main</code>."</em> A PR does <strong>not</strong> merge anything automatically; it opens a conversation where teammates can review the diff, leave comments, and request changes.</li>
@@ -706,7 +698,7 @@ PS C:\dev> git config --global user.email "your.email@example.com"</code></pre>
 </ol>
 <p>If a repository has no protection rules, anyone with write access can push directly to <code>main</code> — no PR needed. That is the default for new repositories and the current state of your <code>komiti_library</code>.</p>
 
-<h3 id="s7-4">4.4) Clone the repository</h3>
+<h3 id="s4-4">4.4) Clone the repository</h3>
 <p><code>git clone</code> downloads the entire repository (all branches, all history) from GitHub to your local machine. You only need to do this once per repository.</p>
 <ol>
     <li>Open PowerShell and navigate to <code>C:\dev</code>:</li>
@@ -744,7 +736,7 @@ d--h-          2026-03-26   12:00                .git
 <p>You are now ready for the step-by-step workflow below.</p>
 
 <!-- Step 5 -->
-<h3 id="s7-5">4.5) Get the latest <code>main</code></h3>
+<h3 id="s4-5">4.5) Get the latest <code>main</code></h3>
 <pre><code>PS C:\dev\KomITi\komiti_library> git checkout main
 PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
 <ul>
@@ -757,6 +749,8 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
     </li>
 </ul>
 <p>Here you are taking the latest main branch as a starting base. In the cabinet analogy: you opened the main binder (branch) and checked whether you have its latest files from the remote cabinet (repo).</p>
+
+<div class="note"><strong>Note:</strong> if this is the first iteration immediately after <code>git clone</code>, your local <code>main</code> is already in sync with <code>origin/main</code> — <code>git pull</code> reports <code>Already up to date.</code> and nothing on disk changes. That is normal, not a failure. The habit of running <code>git pull origin main</code> before every new feature branch is what matters; on later iterations, when teammates have pushed, the pull will actually bring new commits.</div>
 
 <p>What you should notice:</p>
 <ul>
@@ -774,7 +768,7 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
 </ul>
 
 <!-- Step 6 -->
-<h3 id="s7-6">4.6) Create a new feature branch from <code>main</code></h3>
+<h3 id="s4-6">4.6) Create a new feature branch from <code>main</code></h3>
 <p>First, confirm you are on <code>main</code>:</p>
 <pre><code>PS C:\dev\KomITi\komiti_library> git branch
 * main</code></pre>
@@ -793,8 +787,9 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
     <li><code>origin</code> is an argument and means: to which remote you are sending.</li>
     <li><code>2026-03-23-play_xyz</code> is an argument and means: which branch you are sending.</li>
 </ul>
-<p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). Bring it in now:</p>
+<p>But wait — your feature branch was created from <code>main</code>, which only has <code>x.md</code>. You also want the content from <code>staging</code> (which has <code>y.md</code>). The straightforward way is to merge <code>origin/staging</code> into your feature branch:</p>
 <pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> git merge origin/staging</code></pre>
+<p>This is a teaching shortcut for the tutorial: in real KomITi workflow you start a feature from <code>main</code> and the feature is what later gets promoted into <code>staging</code> — not the other way around. Here we merge <code>origin/staging</code> just so the next steps (branch switching demo, promotion) have visible files to move around. An equivalent alternative is to create the feature directly from <code>origin/staging</code>: <code>git checkout -b 2026-03-23-play_xyz origin/staging</code>.</p>
 <div class="tip">
 <p><strong>Tip:</strong> if a terminal text editor (Vim) opens asking you to confirm the merge commit message, type <code>:wq</code> and press <code>Enter</code> to save and exit. If you see <code>-- INSERT --</code> at the bottom, press <code>Esc</code> first, then <code>:wq</code>.</p>
 <p>To skip the editor entirely, add <code>--no-edit</code>:</p>
@@ -805,6 +800,7 @@ PS C:\dev\KomITi\komiti_library> git pull origin main</code></pre>
 <div class="important">
     <p><strong>KomITi team convention — Worktree-per-Branch (WTPB):</strong> on real KomITi repositories (<code>odoo4komiti</code> and <code>komiti_academy</code>), <code>git checkout -b</code> in the protected <code>main</code> worktree is <strong>not</strong> how a feature branch is started. Instead, the repository container (for example, <code>C:\dev\KomITi\odoo4komiti</code>) contains the protected worktree at <code>C:\dev\KomITi\odoo4komiti\main</code>, and every feature branch is checked out in a repo-scoped Git worktree at <code>C:\dev\KomITi\odoo4komiti\&lt;branch-name&gt;</code>, where the folder name is exactly the same as the Git branch name.</p>
     <p>Why: it makes the active branch unambiguous from Windows Explorer alone, and it lets multiple agents or developers work in parallel on different feature branches without disturbing the primary checkout.</p>
+    <p>Feature branches use the naming rule <code>YYYY-MM-DD-&lt;agent-or-developer&gt;-feature_name</code> — today's date, then the agent slug or developer name, then a short underscore-separated feature label. For example: <code>2026-05-17-Academy-03_git_vscode_basics_revision</code>.</p>
     <p>Create the worktree from the current <code>origin/main</code>:</p>
 <pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main> git fetch origin
 PS C:\dev\KomITi\odoo4komiti\main> git worktree add -b 2026-03-23-play_xyz C:\dev\KomITi\odoo4komiti\2026-03-23-play_xyz origin/main</code></pre>
@@ -832,10 +828,10 @@ PS C:\dev\KomITi\odoo4komiti\main> git worktree add -b 2026-03-23-play_xyz C:\de
 </ul>
 
 <!-- Step 7 -->
-<h3 id="s7-7">4.7) Make local changes</h3>
+<h3 id="s4-7">4.7) Make local changes</h3>
 <p>Now create a new file <code>z.md</code> that will exist only on your feature branch. Open VS Code, create the file, or do it straight from the terminal:</p>
-<pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> echo "This file exists only on the feature branch." > z.md</code></pre>
-<p><code>echo</code> is a shell command (not a Git command) that prints text; the <code>&gt;</code> operator redirects that text into a file, creating it if it does not exist.</p>
+<pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> Set-Content -Path z.md -Value "This file exists only on the feature branch."</code></pre>
+<p><code>Set-Content</code> is a PowerShell cmdlet (not a Git command) that writes text to a file, creating it if it does not exist. It defaults to UTF-8 on PowerShell 7+; on Windows PowerShell 5 it writes ANSI — use <code>-Encoding utf8</code> if you need an explicit encoding. Avoid the legacy <code>echo "..." &gt; z.md</code> redirection in PowerShell: it writes UTF-16 LE with a BOM, which Git will store but other tools may not expect.</p>
 <p>Then check the state:</p>
 <pre><code>PS C:\dev\KomITi\komiti_library> git status --short
 PS C:\dev\KomITi\komiti_library> git diff --stat</code></pre>
@@ -861,7 +857,7 @@ PS C:\dev\KomITi\komiti_library> git diff --stat</code></pre>
 </ul>
 
 <!-- Step 8 -->
-<h3 id="s7-8">4.8) Stage and commit</h3>
+<h3 id="s4-8">4.8) Stage and commit</h3>
 <pre><code>PS C:\dev\KomITi\komiti_library> git add z.md
 PS C:\dev\KomITi\komiti_library> git commit -m "Add z.md to feature branch"</code></pre>
 <ul>
@@ -880,7 +876,7 @@ PS C:\dev\KomITi\komiti_library> git commit -m "Add z.md to feature branch"</cod
 </div>
 
 <p>This means you locally saved the new state of your feature branch.</p>
-<p>This is the part where most beginners first truly see the difference between <strong>save</strong>, <strong>add</strong> and <strong>commit</strong> — revisit <a href="#s6">section 3</a> if you need a refresher.</p>
+<p>This is the part where most beginners first truly see the difference between <strong>save</strong>, <strong>add</strong> and <strong>commit</strong> — revisit <a href="#s3">section 3</a> if you need a refresher.</p>
 
 <p>What you should notice:</p>
 <ul>
@@ -898,9 +894,9 @@ PS C:\dev\KomITi\komiti_library> git commit -m "Add z.md to feature branch"</cod
 </ul>
 
 <!-- Step 9 -->
-<h3 id="s7-9">4.9) Push to GitHub</h3>
+<h3 id="s4-9">4.9) Push to GitHub</h3>
 <pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> git push origin 2026-03-23-play_xyz</code></pre>
-<p><code>git push origin 2026-03-23-play_xyz</code> sends local commits from that branch to GitHub (the <code>origin</code> and branch arguments work the same as in <a href="#s7-5">4.5</a>).</p>
+<p><code>git push origin 2026-03-23-play_xyz</code> sends local commits from that branch to GitHub (the <code>origin</code> and branch arguments work the same as in <a href="#s4-5">4.5</a>).</p>
 <p>Now the latest commit from your local feature branch also exists on GitHub, so the remote branch contains <code>z.md</code> too.</p>
 <p>This is an important distinction:</p>
 <ul>
@@ -917,7 +913,7 @@ PS C:\dev\KomITi\komiti_library> git commit -m "Add z.md to feature branch"</cod
     <li><strong>Git status indicator:</strong> Before the push, the status bar shows <strong>↑1</strong> next to the branch name — your local branch is 1 commit ahead of the remote. After <code>git push</code>, the <strong>↑1</strong> disappears and the sync indicator shows <strong>0↑ 0↓</strong>: your local branch and the remote branch are now fully in sync.</li>
 </ul>
 
-<h3 id="s7-10">4.10) See it with your own eyes — branch switching demo</h3>
+<h3 id="s4-10">4.10) See it with your own eyes — branch switching demo</h3>
 <p>Now comes the most tangible moment: you will switch between branches and <strong>watch files appear and disappear</strong> in both Windows Explorer and VS Code Explorer. Open a Windows Explorer window to <code>C:\dev\KomITi\komiti_library</code> and keep it visible side-by-side with your terminal.</p>
 <pre><code>PS C:\dev\KomITi\komiti_library> git checkout main
 PS C:\dev\KomITi\komiti_library> ls</code></pre>
@@ -929,8 +925,16 @@ PS C:\dev\KomITi\komiti_library> ls</code></pre>
 PS C:\dev\KomITi\komiti_library> ls</code></pre>
 <p>All three: <code>x.md</code>, <code>y.md</code> and <code>z.md</code> are back. This is exactly the behaviour explained in <a href="#s1-2">section 1.2</a> — Git physically overwrites, creates and deletes files on disk when you switch branches. You just proved it to yourself.</p>
 
+<p>What you should notice:</p>
+<ul>
+    <li><strong>Windows Explorer:</strong> files <code>y.md</code> and <code>z.md</code> physically disappear when you switch to <code>main</code>, <code>y.md</code> reappears on <code>staging</code>, and all three are back on the feature branch. Git creates and deletes real files on disk — the previous contents are not lost, they live compressed in <code>.git/objects/</code>.</li>
+    <li><strong>VS Code Explorer:</strong> the file tree refreshes automatically after each <code>git checkout</code>. No coloured decorations appear — every checkout lands you on a clean tree.</li>
+    <li><strong>VS Code Source Control:</strong> the panel stays at <strong>0 changes</strong> on every branch — you are only switching, not editing.</li>
+    <li><strong>Git status indicator:</strong> the branch name in the status bar changes with each <code>git checkout</code>: <code>main</code>, then <code>staging</code>, then <code>2026-03-23-play_xyz</code>. The sync indicator follows whichever remote tracking each branch is set to.</li>
+</ul>
+
 <!-- Step 10 -->
-<h3 id="s7-11">4.11) Promotion to <code>staging</code></h3>
+<h3 id="s4-11">4.11) Promotion to <code>staging</code></h3>
 <pre><code>PS C:\dev\KomITi\komiti_library> git checkout staging
 PS C:\dev\KomITi\komiti_library> git pull origin staging
 PS C:\dev\KomITi\komiti_library> git merge 2026-03-23-play_xyz
@@ -943,11 +947,19 @@ PS C:\dev\KomITi\komiti_library> git push origin staging</code></pre>
     <li>push to the remote GitHub branch (<em>send the updated binder back to the remote cabinet</em>)</li>
 </ul>
 <div class="important">
-    <strong>Important:</strong> after <code>git merge 2026-03-23-play_xyz</code>, Git may open a text editor and show a default merge commit message such as <code>Merge branch '2026-03-23-play_xyz' into staging</code>. This is normal: Git is asking you to confirm the commit message for the new merge commit. In most cases you can keep the default message. If the editor is <code>vim</code>, press <code>Esc</code>, type <code>:wq</code>, then press <code>Enter</code> to save and finish the merge.
+    <strong>Important:</strong> after <code>git merge 2026-03-23-play_xyz</code>, Git may open a text editor and show a default merge commit message such as <code>Merge branch '2026-03-23-play_xyz' into staging</code>. This is normal: Git is asking you to confirm the commit message for the new merge commit. In most cases you can keep the default message. See the <code>vim</code> exit tip in <a href="#s4-6">section 4.6</a>.
 </div>
 
+<p>What you should notice:</p>
+<ul>
+    <li><strong>Windows Explorer:</strong> after <code>git checkout staging</code>, <code>z.md</code> disappears (it lives only on the feature branch). After <code>git merge 2026-03-23-play_xyz</code>, <code>z.md</code> reappears — <code>staging</code> now contains the same files as the feature branch.</li>
+    <li><strong>VS Code Explorer:</strong> the file tree refreshes to match the checked-out branch. After the merge, <code>z.md</code> shows up in the tree without any decoration — it is committed by the merge commit itself.</li>
+    <li><strong>VS Code Source Control:</strong> after the merge the panel returns to <strong>0 changes</strong> (Git committed the merge for you). Before <code>git push</code>, the panel shows <strong>↑1</strong> in the branch indicator — one local commit ahead of <code>origin/staging</code>. After the push it returns to <strong>0↑ 0↓</strong>.</li>
+    <li><strong>Git status indicator:</strong> the branch name in the status bar reads <code>staging</code>. <code>git log --oneline -n 3</code> now shows the new merge commit at the top.</li>
+</ul>
+
 <!-- Step 11 -->
-<h3 id="s7-12">4.12) Promotion to <code>main</code></h3>
+<h3 id="s4-12">4.12) Promotion to <code>main</code></h3>
 <p>When the change is verified on <code>staging</code>, you go to <code>main</code>:</p>
 <pre><code>PS C:\dev\KomITi\komiti_library> git checkout main
 PS C:\dev\KomITi\komiti_library> git pull origin main
@@ -955,8 +967,16 @@ PS C:\dev\KomITi\komiti_library> git merge staging
 PS C:\dev\KomITi\komiti_library> git push origin main</code></pre>
 <p>Same pattern as 4.11. Note: in this workflow you merge <code>staging</code> into <code>main</code>, not the feature branch directly — the verified content comes from the intermediate branch. In the cabinet analogy: you open the main binder (branch) and copy into it the files that have already passed verification.</p>
 
+<p>What you should notice:</p>
+<ul>
+    <li><strong>Windows Explorer:</strong> after <code>git checkout main</code>, <code>y.md</code> and <code>z.md</code> disappear (only <code>x.md</code> existed on <code>main</code> before). After <code>git merge staging</code>, both reappear — <code>main</code> now matches <code>staging</code>.</li>
+    <li><strong>VS Code Explorer:</strong> the file tree refreshes to the new state of <code>main</code> after each command. No coloured decorations — the merge commits the files for you.</li>
+    <li><strong>VS Code Source Control:</strong> after the merge the panel shows <strong>0 changes</strong> with <strong>↑1</strong> pending push. After <code>git push origin main</code>, the indicator clears.</li>
+    <li><strong>Git status indicator:</strong> the branch name reads <code>main</code>. On a real KomITi repo, <code>main</code> is usually protected — the direct merge shown here works only because your own <code>komiti_library</code> has no branch protection rules yet.</li>
+</ul>
+
 <!-- Step 12 -->
-<h3 id="s7-13">4.13) Return to your feature branch if you continue working</h3>
+<h3 id="s4-13">4.13) Return to your feature branch if you continue working</h3>
 <pre class="snippet"><code>PS C:\dev\KomITi\komiti_library> git checkout 2026-03-23-play_xyz</code></pre>
 <ul>
     <li><code>git checkout 2026-03-23-play_xyz</code>: returns you to the local feature branch to continue working.</li>
@@ -972,8 +992,16 @@ PS C:\dev\KomITi\komiti_library> git push origin main</code></pre>
     <li>what promotion between branches is.</li>
 </ul>
 
+<p>What you should notice:</p>
+<ul>
+    <li><strong>Windows Explorer:</strong> <code>z.md</code> reappears on disk because the feature branch still contains it. The other files (<code>x.md</code>, <code>y.md</code>) are present too — they were merged in earlier.</li>
+    <li><strong>VS Code Explorer:</strong> the file tree refreshes to the feature-branch state. No coloured decorations — you have no uncommitted local changes yet.</li>
+    <li><strong>VS Code Source Control:</strong> the panel shows <strong>0 changes</strong>. Ready for new work.</li>
+    <li><strong>Git status indicator:</strong> the branch name in the status bar switches from <code>main</code> back to <code>2026-03-23-play_xyz</code>. The sync indicator shows <strong>0↑ 0↓</strong> — local and remote are in sync because nothing new has been committed since the last push.</li>
+</ul>
+
 <!-- Step 13 -->
-<h3 id="s7-14">4.14) Clean up: delete the branch and prune stale references</h3>
+<h3 id="s4-14">4.14) Clean up: delete the branch and prune stale references</h3>
 <p>Once your feature branch has been promoted all the way to <code>main</code>, it has served its purpose. Keeping it around only clutters the branch list. Good practice is to delete it — both locally and on GitHub.</p>
 
 <h4>Delete the local branch</h4>
@@ -997,10 +1025,18 @@ PS C:\dev\KomITi\komiti_library> git branch -d 2026-03-23-play_xyz</code></pre>
 
 <p>In the cabinet analogy: you finished with the working binder (feature branch), the files have been copied to the verification binder (<code>staging</code>) and the main binder (<code>main</code>), so you throw away the empty working binder — both from your desk (local) and from the remote cabinet (GitHub). Pruning is checking the cabinet list and crossing off binders that no longer physically exist.</p>
 
+<p>What you should notice:</p>
+<ul>
+    <li><strong>Windows Explorer:</strong> no change — <code>z.md</code> stays in the folder because <code>main</code> received it via the merge in 4.12. Deleting a <em>branch</em> does not delete the files that branch introduced once they have been merged into <code>main</code>.</li>
+    <li><strong>VS Code Explorer:</strong> no change in the file tree. The branch selector at the bottom no longer lists <code>2026-03-23-play_xyz</code> after the deletion.</li>
+    <li><strong>VS Code Source Control:</strong> the panel still shows <strong>0 changes</strong>. The Branches list in the Source Control overflow menu (<strong>⋯ → Checkout to…</strong>) no longer offers the deleted branch.</li>
+    <li><strong>Git status indicator:</strong> <code>git branch -a</code> lists only <code>main</code>, <code>staging</code> and their <code>origin/</code> counterparts. The feature branch is gone from both local and remote-tracking lists.</li>
+</ul>
+
 <!-- ============================================================ -->
 <!-- 8) Common mistakes -->
 <!-- ============================================================ -->
-<h2 id="s8">5) Most common beginner mistakes</h2>
+<h2 id="s5">5) Most common beginner mistakes</h2>
 <ul>
     <li>confusing <code>save</code> and <code>commit</code>,</li>
     <li>committing everything without reading the diff,</li>
@@ -1013,7 +1049,7 @@ PS C:\dev\KomITi\komiti_library> git branch -d 2026-03-23-play_xyz</code></pre>
 <!-- ============================================================ -->
 <!-- 6) What to read next -->
 <!-- ============================================================ -->
-<h2 id="s12">6) What to read next</h2>
+<h2 id="s6">6) What to read next</h2>
 <ul>
     <li><a href="https://komiti.eu/tutorials/doc/04_infrastructure">Infrastructure</a></li>
     <li><a href="https://komiti.eu/tutorials/doc/05_Odoo_from_0_to_hero">Odoo Development from Scratch</a></li>
@@ -1026,23 +1062,23 @@ PS C:\dev\KomITi\komiti_library> git branch -d 2026-03-23-play_xyz</code></pre>
 <p>You already have the <code>komiti_library</code> repo with <code>main</code>, <code>staging</code> and a feature branch from section 4. Now repeat the same workflow independently — this time with three new files whose names hint at which branch introduced them: <code>m.md</code>, <code>s.md</code> and <code>f.md</code>.</p>
 <ol>
     <li><strong>Seed <code>main</code> with <code>m.md</code></strong> — on GitHub (web), switch to the <code>main</code> branch, create <code>m.md</code> with one line <code>This file was seeded on main.</code> and commit directly to <code>main</code>.<br>
-        <em>Reference: same as <a href="#s7-3">4.3</a> where you created <code>x.md</code>.</em></li>
+        <em>Reference: same as <a href="#s4-3">4.3</a> where you created <code>x.md</code>.</em></li>
     <li><strong>Seed <code>staging</code> with <code>s.md</code></strong> — on GitHub (web), switch to <code>staging</code>, create <code>s.md</code> with one line <code>This file was seeded on staging.</code> and commit directly to <code>staging</code>.<br>
-        <em>Reference: same as <a href="#s7-3">4.3</a> where you created <code>y.md</code> on <code>staging</code>.</em></li>
+        <em>Reference: same as <a href="#s4-3">4.3</a> where you created <code>y.md</code> on <code>staging</code>.</em></li>
     <li><strong>Get the latest <code>main</code></strong> — locally, <code>git checkout main</code> and <code>git pull origin main</code>. Confirm <code>m.md</code> is now on disk.<br>
-        <em>Reference: <a href="#s7-5">4.5</a>.</em></li>
+        <em>Reference: <a href="#s4-5">4.5</a>.</em></li>
     <li><strong>Create a new feature branch</strong> — pick a name that follows the team branch naming convention (for example <code>2026-03-24-play_msf</code>: date + short topic). Push it with <code>-u</code>, then merge <code>origin/staging</code> so you also get <code>s.md</code>.<br>
-        <em>Reference: <a href="#s7-6">4.6</a>.</em></li>
+        <em>Reference: <a href="#s4-6">4.6</a>.</em></li>
     <li><strong>Create <code>f.md</code> on the feature branch</strong> — add one line <code>This file exists only on the feature branch.</code>, then stage, commit and push.<br>
-        <em>Reference: <a href="#s7-7">4.7</a>, <a href="#s7-8">4.8</a> and <a href="#s7-9">4.9</a>.</em></li>
+        <em>Reference: <a href="#s4-7">4.7</a>, <a href="#s4-8">4.8</a> and <a href="#s4-9">4.9</a>.</em></li>
     <li><strong>Branch switching demo</strong> — switch between <code>main</code>, <code>staging</code> and your feature branch, running <code>ls</code> after each checkout. Verify that <code>m.md</code> appears on all three, <code>s.md</code> appears on <code>staging</code> and the feature branch only, and <code>f.md</code> appears only on the feature branch.<br>
-        <em>Reference: <a href="#s7-10">4.10</a>.</em></li>
+        <em>Reference: <a href="#s4-10">4.10</a>.</em></li>
     <li><strong>Promote</strong> — merge your feature branch into <code>staging</code>, then <code>staging</code> into <code>main</code>, pushing after each merge.<br>
-        <em>Reference: <a href="#s7-11">4.11</a> and <a href="#s7-12">4.12</a>.</em></li>
+        <em>Reference: <a href="#s4-11">4.11</a> and <a href="#s4-12">4.12</a>.</em></li>
     <li><strong>Return to your feature branch</strong> — confirm you are back on it and ready for the next piece of work.<br>
-        <em>Reference: <a href="#s7-13">4.13</a>.</em></li>
+        <em>Reference: <a href="#s4-13">4.13</a>.</em></li>
     <li><strong>Clean up</strong> — delete your feature branch locally (<code>git branch -d</code>) and on GitHub (<code>git push origin --delete</code>), then run <code>git fetch --prune</code> and confirm with <code>git branch -a</code> that the feature branch is gone from both local and remote-tracking lists.<br>
-        <em>Reference: <a href="#s7-14">4.14</a>.</em></li>
+        <em>Reference: <a href="#s4-14">4.14</a>.</em></li>
     <li><strong>Remove practice files</strong> — you no longer need the <code>.md</code> files created during the tutorial. On <code>main</code>, delete all of them, commit, and push:
 <pre><code>PS C:\dev\KomITi\komiti_library> git checkout main
 PS C:\dev\KomITi\komiti_library> git rm x.md y.md z.md m.md s.md f.md
