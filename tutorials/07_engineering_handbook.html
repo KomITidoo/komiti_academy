@@ -191,6 +191,7 @@ footer {
             <ol>
                 <li><a href="#s2-1">The four KomITi repositories</a></li>
                 <li><a href="#s2-2">Agent ownership and authority</a></li>
+                <li><a href="#s2-3">Every repository needs a custom agent</a></li>
             </ol>
         </li>
         <li><a href="#s3">Branch model &mdash; <code>feature &rarr; staging &rarr; main</code></a>
@@ -282,6 +283,67 @@ footer {
 
 <div class="important">
     <strong>Important:</strong> ownership is about <em>authority</em>, not exclusivity. A non-owner agent can edit files, commit, and push <em>its own feature branch</em>. What it cannot do is merge or push into <code>staging</code> / <code>main</code>, or run deploy workflows. Those are the owner&rsquo;s reserved actions.
+</div>
+
+<h3 id="s2-3">2.3) Every repository needs a custom agent</h3>
+
+<p>KomITi prescribes that <strong>every repository that holds engineering work must have a custom agent</strong> declared in <code>.github/agents/*.agent.md</code>. The rationale:</p>
+
+<ul>
+    <li><strong>Clear ownership.</strong> The <code>.agent.md</code> file declares who may push where. When multiple agents share a multi-root workspace, each one knows its boundaries &mdash; no accidental cross-repo pushes or unauthorized promotions.</li>
+    <li><strong>Consistent team identity.</strong> Every agent speaks the same language (Serbian Cyrillic by default), follows the same commit discipline, and applies the same Definition of Done.</li>
+    <li><strong>Predictable handoffs.</strong> When <code>@Academy</code> finishes a tutorial edit, it hands off to <code>@odoo4komiti</code> instead of pushing to production. This boundary is documented in each agent&rsquo;s Constraints section.</li>
+    <li><strong>Tool safety.</strong> A content agent does not need terminal access. A deploy agent does not need notebook tools. The <code>tools</code> array enforces least privilege.</li>
+</ul>
+
+<p>To be KomITi-compliant, every custom agent must include at least these elements:</p>
+
+<table>
+    <thead><tr><th>#</th><th>Element</th><th>Why mandatory</th></tr></thead>
+    <tbody>
+        <tr><td>1</td><td><strong>Frontmatter: <code>name</code></strong></td><td>Defines the <code>@mention</code> identifier. Without it the agent cannot be invoked.</td></tr>
+        <tr><td>2</td><td><strong>Frontmatter: <code>description</code></strong></td><td>VS Code uses this for agent routing. A missing description means the agent will not appear in the picker.</td></tr>
+        <tr><td>3</td><td><strong>Frontmatter: <code>tools</code></strong></td><td>Restricts agent capabilities to what it actually needs (least privilege).</td></tr>
+        <tr><td>4</td><td><strong>Identity section</strong></td><td>Declares the agent name, default language, and ownership boundary (which branches/repos it may push to).</td></tr>
+        <tr><td>5</td><td><strong>Scope section</strong></td><td>Lists what the agent works on &mdash; prevents scope creep and guides the router.</td></tr>
+        <tr><td>6</td><td><strong>Constraints section</strong></td><td>Rules the agent must follow: which instruction files to read, what it must not do (e.g. &ldquo;do not push to main&rdquo;), handoff protocol.</td></tr>
+    </tbody>
+</table>
+
+<p>A minimal KomITi-compliant agent file looks like this:</p>
+
+<pre><code>---
+name: MyProjectAgent
+description: "Use for development work in the my-project repository."
+tools: [read, edit, search, todo]
+user-invocable: true
+---
+
+You are **MyProjectAgent** &mdash; the designated agent for the `my-project` repository.
+
+## Identity
+- Always identify yourself as `MyProjectAgent`.
+- Respond in Serbian Cyrillic by default.
+- You may push to feature branches only. Hand off to the
+  repo owner for promotion to `staging` and `main`.
+
+## Scope
+- Python module development in `src/`.
+- Unit tests in `tests/`.
+- Documentation updates in `docs/`.
+
+## Constraints
+- Follow `.github/copilot-instructions.md` for all repo-level rules.
+- One commit = one logical unit.
+- Update the relevant instruction file when workflow rules change.
+- Do not deploy &mdash; prepare a HANDOFF block instead.</code></pre>
+
+<div class="important">
+    <strong>Important:</strong> <code>.agent.md</code> files are committed to the repository. Agent definitions are <strong>version-controlled, reviewable, and shared</strong> across the team &mdash; unlike personal VS Code settings that live only on one machine.
+</div>
+
+<div class="note">
+    <strong>Note:</strong> beyond the minimum, an agent file can carry as much domain knowledge as needed: file maps, callout conventions, terminology glossaries, handoff protocols, and pointers to relevant instruction/skill files. See <code>.github/agents/Academy.agent.md</code> and <code>.github/agents/odoo4komiti.agent.md</code> for full KomITi examples.
 </div>
 
 <!-- ============================================================ -->
@@ -572,20 +634,39 @@ ACTION:    &lt;numbered list - every step the receiving side must execute&gt;</c
 <!-- ============================================================ -->
 <h2 id="s11">11) Where the rules live</h2>
 
-<p>This handbook is the canonical narrative. The machine-readable rules live in the repositories themselves &mdash; that is what each agent loads at the start of every session.</p>
+<p>This handbook is the canonical narrative. The machine-readable rules live in the repositories themselves &mdash; that is what each agent loads at the start of every session. A KomITi repository organises them under <code>.github/</code> as follows:</p>
+
+<div class="ascii-diagram">odoo4komiti/
+├── .github/
+│   ├── copilot-instructions.md                   ← global rules: ownership, git, rollback, DoD
+│   ├── agents/
+│   │   └── odoo4komiti.agent.md                  ← custom agent: identity, scope, constraints, tools
+│   ├── instructions/
+│   │   ├── odoo.instructions.md                  ← custom-addons/** | Odoo rules, matrix, discipline
+│   │   ├── terraform.instructions.md             ← infra/** | Terraform/AWS rules, DEV/PROD flow
+│   │   ├── komiti_timesheet.instructions.md      ← komiti_timesheet/** | file map, lock date, smoke test
+│   │   ├── komiti_gantt.instructions.md          ← komiti_gantt/** | view, OWL, resize, sync rules
+│   │   └── INTER_AGENT_HANDOFF.instructions.md   ← crewai_orchestration/** + on-demand | handoff protocol
+│   └── skills/
+│       └── delivery-workflow/SKILL.md            ← on-demand: branch/promote/deploy/smoke-test
+ENGINEERING_HANDBOOK.md                              ← short stub pointing at this Academy page</div>
+
+<p>The table below summarises what each of these files contains. <code>applyTo</code> is the glob pattern that triggers automatic loading; on-demand files are loaded when their <code>description</code> matches the current task.</p>
 
 <table>
-    <thead><tr><th>File</th><th>Scope</th></tr></thead>
+    <thead><tr><th>File</th><th>Loads</th><th>Scope and content</th></tr></thead>
     <tbody>
-        <tr><td><code>.github/copilot-instructions.md</code></td><td>Global rules per repository: agent ownership, branch model, working-tree convention, Definition of Done.</td></tr>
-        <tr><td><code>.github/instructions/INTER_AGENT_HANDOFF.instructions.md</code></td><td>The unified HANDOFF block format (section <a href="#s6">6</a>).</td></tr>
-        <tr><td><code>.github/instructions/odoo.instructions.md</code></td><td>Odoo development discipline (modules, views, ORM, manifests).</td></tr>
-        <tr><td><code>.github/instructions/terraform.instructions.md</code></td><td>Terraform / AWS discipline.</td></tr>
-        <tr><td><code>.github/skills/delivery-workflow/SKILL.md</code></td><td>Operational commands: feature-branch creation, localhost runtime prep, promotion, deploy, smoke-test.</td></tr>
-        <tr><td><code>.github/agents/*.agent.md</code></td><td>Canonical, versioned agent definitions (Academy, odoo4komiti, Etn, Designer, Explore).</td></tr>
-        <tr><td><code>infra/aws/odoo-dev-ec2-compose/RUNBOOK.md</code></td><td>DEV server runbook (deploy, restart, smoke-test).</td></tr>
-        <tr><td><code>infra/aws/odoo-prod-ec2-compose/RUNBOOK.md</code></td><td>PROD server runbook.</td></tr>
-        <tr><td><code>ENGINEERING_HANDBOOK.md</code> (repo root)</td><td>Short stub pointing at this Academy page. The stub is a redirect, not a copy.</td></tr>
+        <tr><td><code>.github/copilot-instructions.md</code></td><td>always</td><td>Global rules per repository: agent ownership, language, branch model, working-tree convention, retry/rollback matrix, Definition of Done, navigation index to scoped files.</td></tr>
+        <tr><td><code>.github/agents/*.agent.md</code></td><td>on <code>@mention</code></td><td>Canonical, versioned agent definitions (Academy, odoo4komiti, Etn, Designer, Explore). Identity, scope, constraints, tool restrictions.</td></tr>
+        <tr><td><code>.github/instructions/odoo.instructions.md</code></td><td><code>custom-addons/**</code></td><td>Odoo development discipline: change-type matrix, localhost vs remote runtime diagnosis, post-change sequence (pull → upgrade → restart → hard refresh), readable URLs.</td></tr>
+        <tr><td><code>.github/instructions/terraform.instructions.md</code></td><td><code>infra/**</code></td><td>Terraform / AWS discipline: <code>plan</code> before every <code>apply</code>; state and secrets never in git; DEV and PROD workflows; inventory / scaling / pause-resume scripts.</td></tr>
+        <tr><td><code>.github/instructions/komiti_timesheet.instructions.md</code></td><td><code>komiti_timesheet/**</code></td><td>Per-module rules: file map, lock-date consistency, upgrade command, UI smoke test.</td></tr>
+        <tr><td><code>.github/instructions/komiti_gantt.instructions.md</code></td><td><code>komiti_gantt/**</code></td><td>Per-module rules: file map (Python + OWL JS + QWeb + SCSS), behaviour rules, search-bar defaults, cross-module styling alignment, UI smoke test.</td></tr>
+        <tr><td><code>.github/instructions/INTER_AGENT_HANDOFF.instructions.md</code></td><td><code>crewai_orchestration/**</code> + on-demand</td><td>The unified HANDOFF block format (section <a href="#s6">6</a>): FROM, TO, BRANCH, COMMIT, FILES, DELTA, ACTION; ACTION field rules; direction matrix; receiving-agent confirmation protocol.</td></tr>
+        <tr><td><code>.github/skills/delivery-workflow/SKILL.md</code></td><td>on-demand</td><td>Operational commands: feature-branch creation, localhost runtime prep, promotion, deploy, smoke-test.</td></tr>
+        <tr><td><code>infra/aws/odoo-dev-ec2-compose/RUNBOOK.md</code></td><td>n/a (human reference)</td><td>DEV server runbook (deploy, restart, smoke-test).</td></tr>
+        <tr><td><code>infra/aws/odoo-prod-ec2-compose/RUNBOOK.md</code></td><td>n/a (human reference)</td><td>PROD server runbook.</td></tr>
+        <tr><td><code>ENGINEERING_HANDBOOK.md</code> (repo root)</td><td>n/a (human reference)</td><td>Short stub pointing at this Academy page. The stub is a redirect, not a copy.</td></tr>
     </tbody>
 </table>
 
