@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KomITi Engineering Handbook &mdash; KomITi Academy</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.225;
+    color: #2c2c2c;
+    background: #f4f6f9;
+}
+.page-wrapper {
+    max-width: 980px;
+    margin: 10px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    padding: 15px 18px;
+}
+.book-meta {
+    text-align: center;
+    border-bottom: 3px solid #A65949;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+}
+.book-meta .book-title {
+    font-size: 13px;
+    color: #A65949;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+h1 { font-size: 32px; color: #1a1a2e; margin-bottom: 6px; }
+.book-meta .subtitle { font-size: 16px; color: #666; font-style: italic; }
+h2 {
+    font-size: 22px;
+    color: #A65949;
+    border-left: 5px solid #A65949;
+    padding-left: 14px;
+    margin: 24px 0 8px 0;
+}
+h3 {
+    font-size: 17px;
+    color: #1a1a2e;
+    margin: 16px 0 5px 0;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 5px;
+}
+h4 { font-size: 15px; color: #444; margin: 20px 0 8px 0; }
+p  { margin-bottom: 14px; }
+ul, ol { margin: 8px 0 11.2px 28px; }
+li { margin-bottom: 0; }
+p, li, td, blockquote { line-height: 1.225; }
+code {
+    background: #f0eaf4;
+    color: #A65949;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    line-height: 1.225;
+    vertical-align: baseline;
+}
+pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 10px 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 7px 0 10px 0;
+    border-left: 4px solid #A65949;
+}
+.snippet {
+    padding: 10px 18px;
+    margin: 8px 0 14px 0;
+    line-height: 1.45;
+}
+pre .comment { color: #6c7086; }
+pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+}
+blockquote {
+    background: #fdf6ff;
+    border-left: 4px solid #A65949;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    color: #555;
+    font-style: italic;
+}
+blockquote strong { color: #A65949; font-style: normal; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0 24px 0; font-size: 13px; line-height: 1.3; }
+thead tr { background: #A65949; color: #fff; }
+th { padding: 5px 10px; text-align: left; font-weight: 600; }
+td { padding: 4px 10px; border-bottom: 1px solid #e8e8e8; vertical-align: top; }
+td:first-child code { white-space: nowrap; }
+tbody tr:nth-child(even) { background: #faf7fc; }
+tbody tr:hover { background: #f0eaf4; }
+.toc {
+    background: #faf7fc;
+    border: 1px solid #e0d0e8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+}
+.toc h3 { border: none; color: #A65949; margin-top: 0; font-size: 16px; }
+.toc ol { margin-top: 8px; list-style-type: decimal; }
+.toc ol ol { list-style-type: decimal; }
+.toc li { margin-bottom: 3.2px; }
+.toc a { color: #A65949; text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.important {
+    background: #fffbe6; border-left: 4px solid #f0b429;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.important strong { color: #b07d00; }
+.note {
+    background: #e3f2fd; border-left: 4px solid #1976d2;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.note strong { color: #0d47a1; }
+.tip {
+    background: #e8f5e9; border-left: 4px solid #43a047;
+    padding: 12px 18px; margin: 14px 0;
+    border-radius: 0 6px 6px 0; font-size: 14px;
+}
+.tip strong { color: #2e7d32; }
+hr { border: none; border-top: 2px solid #e0d0e8; margin: 48px 0; }
+a { color: #A65949; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.ascii-diagram {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border: 1px solid rgba(205, 214, 244, 0.15);
+    border-left: 4px solid #A65949;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre;
+    overflow-x: auto;
+    margin: 7px 0 10px 0;
+}
+@media (max-width: 991.98px) {
+    .page-wrapper {
+        padding: 12px 9px;
+    }
+}
+footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e8e8e8;
+    color: #999;
+    font-size: 13px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+<!-- Header -->
+<div class="book-meta">
+    <div class="book-title">KomITi Academy</div>
+    <h1>KomITi Engineering Handbook</h1>
+    <div class="subtitle">Branching, worktrees, promotion, deploy and handoff &mdash; the canonical KomITi engineering practice</div>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc">
+    <h3>Contents</h3>
+    <ol>
+        <li><a href="#s1">Purpose and scope</a></li>
+        <li><a href="#s2">Repository topology and ownership</a>
+            <ol>
+                <li><a href="#s2-1">The four KomITi repositories</a></li>
+                <li><a href="#s2-2">Agent ownership and authority</a></li>
+            </ol>
+        </li>
+        <li><a href="#s3">Branch model &mdash; <code>feature &rarr; staging &rarr; main</code></a>
+            <ol>
+                <li><a href="#s3-1">The three permanent branches</a></li>
+                <li><a href="#s3-2">Feature branch naming rule</a></li>
+            </ol>
+        </li>
+        <li><a href="#s4">Worktree-per-Branch (WTPB) convention</a></li>
+        <li><a href="#s5">Promotion workflow &mdash; owner-controlled</a>
+            <ol>
+                <li><a href="#s5-1">The promotion path</a></li>
+                <li><a href="#s5-2">What a non-owner agent may and may not do</a></li>
+                <li><a href="#s5-3">Pull requests vs handoff</a></li>
+            </ol>
+        </li>
+        <li><a href="#s6">Inter-agent handoff protocol</a>
+            <ol>
+                <li><a href="#s6-1">The unified HANDOFF block</a></li>
+                <li><a href="#s6-2">HANDOFF ID rules</a></li>
+                <li><a href="#s6-3">ACTION field rules</a></li>
+            </ol>
+        </li>
+        <li><a href="#s7">komiti_academy submodule lifecycle</a></li>
+        <li><a href="#s8">Code change discipline</a>
+            <ol>
+                <li><a href="#s8-1">One commit, one logical unit</a></li>
+                <li><a href="#s8-2">Retry / rollback matrix</a></li>
+            </ol>
+        </li>
+        <li><a href="#s9">Testing and rollout</a></li>
+        <li><a href="#s10">Definition of Done</a></li>
+        <li><a href="#s11">Where the rules live</a></li>
+    </ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- 1) Purpose and scope -->
+<!-- ============================================================ -->
+<h2 id="s1">1) Purpose and scope</h2>
+
+<p>This handbook is the <strong>single source of truth</strong> for how KomITi engineering work is organised &mdash; branches, worktrees, promotion path, deploy responsibility, and inter-agent communication. It binds <strong>every contributor</strong>, human or AI agent, who touches any KomITi repository.</p>
+
+<p>The handbook does not teach Git or VS Code from zero &mdash; that is the job of <a href="03_git_vscode_basics.html">tutorial 03: Git &amp; VS Code Basics</a>. It also does not document any single Odoo module, infrastructure stack, or product feature. Instead, it codifies the <em>operating rules</em> that all of those activities follow.</p>
+
+<div class="note">
+    <strong>Note:</strong> in each KomITi repository there is a short stub file <code>ENGINEERING_HANDBOOK.md</code> at the repo root. That stub exists only to point agents and developers at this Academy page. The canonical content lives <em>here</em>; the stub is a redirect, not a copy. If the two ever disagree, this Academy page wins.</p>
+</div>
+
+<p>The handbook draws on three on-repo sources, each of which remains authoritative for its own scope:</p>
+<ul>
+    <li><code>.github/copilot-instructions.md</code> &mdash; global rules per repository (agent ownership, branch model, working-tree convention, Definition of Done).</li>
+    <li><code>.github/instructions/INTER_AGENT_HANDOFF.instructions.md</code> &mdash; the unified handoff block format.</li>
+    <li><code>.github/skills/delivery-workflow/SKILL.md</code> &mdash; the operational commands (branch creation, localhost runtime prep, promotion, deploy, smoke-test).</li>
+</ul>
+
+<!-- ============================================================ -->
+<!-- 2) Repository topology and ownership -->
+<!-- ============================================================ -->
+<h2 id="s2">2) Repository topology and ownership</h2>
+
+<h3 id="s2-1">2.1) The four KomITi repositories</h3>
+
+<p>The KomITi engineering workspace contains four repositories, each with a distinct role:</p>
+
+<table>
+    <thead><tr><th>Repository</th><th>Container on disk</th><th>Role</th></tr></thead>
+    <tbody>
+        <tr><td><code>odoo4komiti</code></td><td><code>C:\dev\KomITi\odoo4komiti</code></td><td>KomITi product stack &mdash; Odoo custom addons, infra (Terraform / Docker), runbooks, deploy.</td></tr>
+        <tr><td><code>odoo4komiti4etn</code></td><td><code>C:\dev\KomITi\odoo4komiti4etn</code></td><td>ETN-tenant deploy of the same Odoo stack &mdash; owner-controlled DEV/PROD delivery.</td></tr>
+        <tr><td><code>komiti_academy</code></td><td><code>C:\dev\KomITi\komiti_academy</code></td><td>Tutorial content &mdash; the HTML pages you are reading right now.</td></tr>
+        <tr><td><code>komiti_library</code></td><td><code>C:\dev\KomITi\komiti_library</code></td><td>Training playground for newcomers &mdash; safe place to practise Git, branches, and basic Odoo modules.</td></tr>
+    </tbody>
+</table>
+
+<h3 id="s2-2">2.2) Agent ownership and authority</h3>
+
+<p>Each repository has a designated <strong>owner agent</strong>. The owner is the only agent allowed to promote into <code>staging</code> or <code>main</code>, or to run deploy workflows on the corresponding environments.</p>
+
+<table>
+    <thead><tr><th>Repository</th><th>Owner agent</th><th>Other agents may&hellip;</th></tr></thead>
+    <tbody>
+        <tr><td><code>odoo4komiti</code></td><td><code>odoo4komiti</code></td><td>work in their own feature branches; deliver via handoff.</td></tr>
+        <tr><td><code>odoo4komiti4etn</code></td><td><code>Etn</code></td><td>not promote or deploy without owner action.</td></tr>
+        <tr><td><code>komiti_academy</code></td><td><code>Academy</code></td><td>n/a &mdash; Academy is the only writer for tutorial content.</td></tr>
+        <tr><td><code>komiti_library</code></td><td>(no agent &mdash; human-only)</td><td>n/a &mdash; this is a training repo.</td></tr>
+    </tbody>
+</table>
+
+<div class="important">
+    <strong>Important:</strong> ownership is about <em>authority</em>, not exclusivity. A non-owner agent can edit files, commit, and push <em>its own feature branch</em>. What it cannot do is merge or push into <code>staging</code> / <code>main</code>, or run deploy workflows. Those are the owner&rsquo;s reserved actions.
+</div>
+
+<!-- ============================================================ -->
+<!-- 3) Branch model -->
+<!-- ============================================================ -->
+<h2 id="s3">3) Branch model &mdash; <code>feature &rarr; staging &rarr; main</code></h2>
+
+<h3 id="s3-1">3.1) The three permanent branches</h3>
+
+<p>Every KomITi repository follows the same three-branch model, taken from Vincent Driessen&rsquo;s <em>Git Flow</em> (2010) and adapted to a single integration branch:</p>
+
+<ul>
+    <li><code>main</code> &mdash; the <strong>protected production branch</strong>. Reflects what runs in production. Direct commits are forbidden. Only the owner agent may merge here, and only via the promotion path.</li>
+    <li><code>staging</code> &mdash; the <strong>canonical integration branch</strong>. All feature branches are merged here first; staging is what the local runtime, the DEV server, and the smoke tests verify before anything reaches <code>main</code>.</li>
+    <li><code>feature/&hellip;</code> &mdash; <strong>short-lived working branches</strong>. One feature branch = one logical change. Created from the current <code>origin/main</code>, merged into <code>staging</code>, then promoted to <code>main</code>.</li>
+</ul>
+
+<div class="ascii-diagram">REMOTE       [origin/&lt;feature&gt;]         [origin/staging]            [origin/main]
+                  ^                          ^                           ^
+                  | git push                 | git push                  | git push
+                  |                          |                           |
+LOCAL        [&lt;feature&gt;] ---merge--&gt; [staging] -------merge-------&gt; [main]
+                  ^
+                  |
+                  +-- git checkout -b &lt;feature&gt; (or git worktree add) from origin/main</div>
+
+<div class="note">
+    <strong>Note:</strong> production environment naming stays <code>prod</code> (e.g. <code>odoo-prod</code>, <code>etn-prod</code>). Only the Git production branch is called <code>main</code>. Do not conflate the two.
+</div>
+
+<h3 id="s3-2">3.2) Feature branch naming rule</h3>
+
+<p>Feature branches use the rule:</p>
+
+<pre class="snippet"><code>YYYY-MM-DD-&lt;agent-or-developer&gt;-feature_name</code></pre>
+
+<ul>
+    <li><code>YYYY-MM-DD</code> &mdash; today&rsquo;s date (the date the branch was created from <code>origin/main</code>).</li>
+    <li><code>&lt;agent-or-developer&gt;</code> &mdash; agent slug (<code>Academy</code>, <code>odoo4komiti</code>, <code>Etn</code>, <code>Designer</code>) or human developer name (e.g. <code>Marko</code>, <code>Sara</code>).</li>
+    <li><code>feature_name</code> &mdash; short underscore-separated label for the change.</li>
+</ul>
+
+<p>Examples:</p>
+<ul>
+    <li><code>2026-05-17-Academy-07_engineering_handbook</code> &mdash; Academy agent authoring tutorial 07 on 17 May 2026.</li>
+    <li><code>2026-05-14-Sara-fix_login_css</code> &mdash; developer Sara fixing the login CSS.</li>
+    <li><code>2026-05-15-Marko-add_invoicing_report</code> &mdash; developer Marko adding a new invoicing report.</li>
+</ul>
+
+<div class="important">
+    <strong>Important:</strong> the date prefix is mandatory. It is what keeps the branch list orderable and lets the team see at a glance how old a feature branch is. Branches without a date prefix are rejected at handoff.
+</div>
+
+<!-- ============================================================ -->
+<!-- 4) Worktree-per-Branch -->
+<!-- ============================================================ -->
+<h2 id="s4">4) Worktree-per-Branch (WTPB) convention</h2>
+
+<p>On the real KomITi repositories (<code>odoo4komiti</code>, <code>odoo4komiti4etn</code>, <code>komiti_academy</code>) a feature branch is <strong>not</strong> started with <code>git checkout -b</code> inside the protected <code>main</code> worktree. Instead, each branch lives in its <strong>own folder on disk</strong>, side by side with <code>main</code>. The folder name equals the branch name exactly.</p>
+
+<div class="ascii-diagram">   Disk (Windows Explorer)              VS Code Explorer (multi-root workspace)
+   &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;             &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+   C:\dev\KomITi\odoo4komiti\
+   &#9500;&#9472;&#9472; main\                              &#9472;&#9472;&#9472;&#9472;&#9472;&#9658;   [ main ]                          (branch: main)
+   &#9500;&#9472;&#9472; staging\                           &#9472;&#9472;&#9472;&#9472;&#9472;&#9658;   [ staging ]                       (branch: staging)
+   &#9500;&#9472;&#9472; 2026-05-14-Sara-fix_login_css\     &#9472;&#9472;&#9472;&#9472;&#9472;&#9658;   [ 2026-05-14-Sara-fix_login_css ]  (branch: 2026-05-14-Sara-fix_login_css)
+   &#9492;&#9472;&#9472; 2026-05-15-Marko-add_invoicing\    &#9472;&#9472;&#9472;&#9472;&#9472;&#9658;   [ 2026-05-15-Marko-add_invoicing ] (branch: 2026-05-15-Marko-add_invoicing)</div>
+
+<p><strong>Why WTPB &mdash; two concrete benefits:</strong></p>
+<ul>
+    <li><strong>The active branch is unambiguous from Windows Explorer alone.</strong> The folder name <em>is</em> the branch name &mdash; no need to run <code>git branch --show-current</code> to know what you are editing.</li>
+    <li><strong>Multiple agents or developers work in parallel without disturbing the protected worktrees.</strong> The <code>main\</code> and <code>staging\</code> folders are reserved for promotion, deploy, and reference builds; they must always sit cleanly on their respective branches. Side-by-side feature folders mean nobody has to <code>git checkout</code> in <code>main\</code> or <code>staging\</code> to look at someone else&rsquo;s work.</li>
+</ul>
+
+<p>The full hands-on walk-through &mdash; worktree commands, VS Code multi-root setup, what you should notice in Source Control and the Status Bar &mdash; lives in <a href="03_git_vscode_basics.html#s4-6-4">tutorial 03, section 4.6.4</a>. This handbook only fixes the <em>rule</em>; the tutorial teaches the <em>mechanics</em>.</p>
+
+<div class="important">
+    <strong>Important:</strong> WTPB applies on the real KomITi repos only. On the training repo <code>komiti_library</code> the plain <code>git checkout -b</code> flow is still correct &mdash; the training repo deliberately keeps things simple.
+</div>
+
+<p>Worktree commands you will use most often:</p>
+
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\main&gt; git fetch origin
+PS C:\dev\KomITi\odoo4komiti\main&gt; git worktree add -b 2026-05-14-Sara-fix_login_css C:\dev\KomITi\odoo4komiti\2026-05-14-Sara-fix_login_css origin/main
+PS C:\dev\KomITi\odoo4komiti\main&gt; git worktree list
+PS C:\dev\KomITi\odoo4komiti\main&gt; git worktree remove --force C:\dev\KomITi\odoo4komiti\2026-05-14-Sara-fix_login_css</code></pre>
+
+<!-- ============================================================ -->
+<!-- 5) Promotion workflow -->
+<!-- ============================================================ -->
+<h2 id="s5">5) Promotion workflow &mdash; owner-controlled</h2>
+
+<h3 id="s5-1">5.1) The promotion path</h3>
+
+<p>Every change reaches production along the same path:</p>
+
+<ol>
+    <li>Work in a feature branch + worktree &mdash; commit and push freely.</li>
+    <li>Verify the change locally at the appropriate level (file render, module install/upgrade, runtime smoke).</li>
+    <li>Send a handoff (section <a href="#s6">6</a>) to the owner agent.</li>
+    <li>Owner fetches the feature branch, reviews the diff, reruns the narrowest relevant validation.</li>
+    <li>Owner promotes <code>feature &rarr; staging</code>, deploys to DEV if applicable, smoke-tests.</li>
+    <li>Owner promotes <code>staging &rarr; main</code>, deploys to PROD if applicable, smoke-tests.</li>
+    <li>Owner confirms close-out (echoing the HANDOFF ID). Only then may the feature worktree and branch be cleaned up.</li>
+</ol>
+
+<h3 id="s5-2">5.2) What a non-owner agent may and may not do</h3>
+
+<table>
+    <thead><tr><th>Action</th><th>Non-owner agent</th><th>Owner agent</th></tr></thead>
+    <tbody>
+        <tr><td>Create a feature branch + worktree from <code>origin/main</code></td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Edit files, commit, push the feature branch to <code>origin</code></td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Merge a feature branch into <code>staging</code> or <code>main</code></td><td>No</td><td>Yes</td></tr>
+        <tr><td>Push directly to <code>staging</code> or <code>main</code></td><td>No</td><td>Yes (with care)</td></tr>
+        <tr><td>Run deploy workflows targeting DEV / PROD</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Upgrade Odoo modules, restart services, clear runtime caches</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Delete the feature branch or worktree</td><td>Only after owner confirms close-out</td><td>Yes</td></tr>
+    </tbody>
+</table>
+
+<h3 id="s5-3">5.3) Pull requests vs handoff</h3>
+
+<p>Pull requests are <strong>optional review artifacts</strong>. They are useful when a human reviewer wants a GitHub-side diff with comments. They do <em>not</em> replace:</p>
+<ul>
+    <li>the handoff block,</li>
+    <li>the owner&rsquo;s review of the diff in their own worktree,</li>
+    <li>the owner&rsquo;s control over when promotion actually happens,</li>
+    <li>or the runtime verification on the target environment.</li>
+</ul>
+
+<p>A merged PR does not mean &ldquo;done&rdquo;. Done is defined in section <a href="#s10">10</a>.</p>
+
+<!-- ============================================================ -->
+<!-- 6) Inter-agent handoff -->
+<!-- ============================================================ -->
+<h2 id="s6">6) Inter-agent handoff protocol</h2>
+
+<p>Agents do not push to each other&rsquo;s repos directly. They do not assume the other agent has context from a previous conversation. The <strong>only</strong> mechanism for cross-agent coordination is the unified <strong>HANDOFF block</strong>, relayed through the user.</p>
+
+<h3 id="s6-1">6.1) The unified HANDOFF block</h3>
+
+<p>Every handoff between agents MUST use this single fenced block (one-click-copy):</p>
+
+<pre><code>HANDOFF ID: &lt;from-agent&gt;-YYYYMMDD-NN
+FROM:      &lt;agent or repo that produced the change&gt;
+TO:        &lt;agent or repo that consumes it&gt;
+BRANCH:    &lt;branch name&gt;
+COMMIT:    &lt;short SHA or "uncommitted"&gt;
+SOURCE:    &lt;canonical source file or "no direct source"&gt;
+FILES:     &lt;list of changed files, one per line&gt;
+DELTA:     &lt;1-2 sentence summary of what changed&gt;
+STYLING:   yes | no | n/a
+ALIGN OK:  verified | not checked | n/a
+ODOO CSS:  not needed | needed (&lt;reason&gt;) | n/a
+ACTION:    &lt;numbered list - every step the receiving side must execute&gt;</code></pre>
+
+<p>Field notes:</p>
+<ul>
+    <li><strong><code>SOURCE</code></strong> &mdash; the canonical source file the change derives from, or <code>no direct source</code> if content was created in-session. For non-tutorial work use <code>n/a</code>.</li>
+    <li><strong><code>STYLING</code> / <code>ALIGN OK</code> / <code>ODOO CSS</code></strong> &mdash; tutorial QA fields. Set all three to <code>n/a</code> when the change is not an HTML tutorial.</li>
+    <li>All other fields are always required.</li>
+</ul>
+
+<h3 id="s6-2">6.2) HANDOFF ID rules</h3>
+
+<ul>
+    <li>Format: <code>&lt;from-agent&gt;-YYYYMMDD-NN</code> &mdash; e.g. <code>komiti_academy-20260517-02</code>.</li>
+    <li><code>NN</code> is a 2-digit counter for that sender on that date, starting at <code>01</code>.</li>
+    <li>Every new handoff gets a new <code>HANDOFF ID</code>. Revisions to the same work item create a new handoff with a new ID &mdash; never silently reuse an older ID for changed content.</li>
+    <li>The receiver MUST echo the <code>HANDOFF ID</code> in status updates, verification notes, and close-out messages, so both sides can track exactly which handoff was executed.</li>
+    <li>Do not use a bare counter like <code>docs_agent-7</code>; the date is mandatory.</li>
+</ul>
+
+<h3 id="s6-3">6.3) ACTION field rules</h3>
+
+<p><code>ACTION</code> must be a complete, ordered checklist &mdash; not a vague hint. Include every step required to close the loop:</p>
+<ol>
+    <li><strong>Git operations</strong> &mdash; commit, push, submodule update, merge.</li>
+    <li><strong>File sync</strong> &mdash; copy artifacts to their deploy-side location (e.g. <code>custom-addons/komiti_web/static/tutorials/en/</code>).</li>
+    <li><strong>Runtime verification</strong> &mdash; restart containers, clear assets, confirm UI.</li>
+    <li><strong>Promotion / deploy</strong> &mdash; if the change is ready for staging or prod, state the promotion path explicitly (e.g. <em>merge to staging &rarr; merge to main &rarr; deploy prod</em>).</li>
+    <li><strong>Downstream notification</strong> &mdash; if another agent or repo is affected, state who and what they need to do.</li>
+</ol>
+
+<p>If a step is not needed, omit it. Never write <em>&ldquo;deploy if needed&rdquo;</em> &mdash; either include the concrete deploy steps or leave them out.</p>
+
+<div class="tip">
+    <strong>Tip:</strong> if the receiver has to ask <em>&ldquo;what do you want me to do?&rdquo;</em>, the ACTION list was incomplete. A good handoff lets the receiver work straight from top to bottom without going back to the sender.
+</div>
+
+<!-- ============================================================ -->
+<!-- 7) komiti_academy submodule lifecycle -->
+<!-- ============================================================ -->
+<h2 id="s7">7) komiti_academy submodule lifecycle</h2>
+
+<p>Tutorial HTML lives in two places, and the relationship between them is the most common source of confusion for new contributors:</p>
+
+<ul>
+    <li><strong>Active working copy</strong> &mdash; <code>C:\dev\KomITi\komiti_academy\main</code> (standalone clone of <code>KomITidoo/komiti_academy</code>). Academy agent edits here.</li>
+    <li><strong>Deployment-side reference</strong> &mdash; <code>C:\dev\KomITi\odoo4komiti\staging\komiti_academy</code> (Git submodule, pinned to a specific commit). The Odoo runtime reads through this.</li>
+</ul>
+
+<p>The two are not magically in sync. After a push to <code>KomITidoo/komiti_academy</code>, the submodule needs an explicit update:</p>
+
+<pre class="snippet"><code>PS C:\dev\KomITi\odoo4komiti\staging&gt; git submodule update --remote komiti_academy</code></pre>
+
+<div class="important">
+    <strong>Important:</strong> Odoo&rsquo;s Docker runtime mounts only <code>custom-addons/</code> and <code>third-party-addons/</code>. The submodule itself is <em>not</em> served. Tutorial HTML files must be copied into <code>custom-addons/komiti_web/static/tutorials/en/</code> for Odoo to actually serve them. The deploy-side copy step is part of every Academy &rarr; <code>odoo4komiti</code> handoff.
+</div>
+
+<p>End-to-end flow for an Academy tutorial change:</p>
+
+<ol>
+    <li>Academy edits in <code>C:\dev\KomITi\komiti_academy\&lt;feature-branch&gt;\tutorials\</code>.</li>
+    <li>Academy commits, pushes feature branch, merges into <code>main</code>, pushes <code>main</code>.</li>
+    <li>Academy sends HANDOFF block with commit SHA + file list to <code>odoo4komiti</code> agent.</li>
+    <li><code>odoo4komiti</code> runs <code>git submodule update --remote komiti_academy</code>.</li>
+    <li><code>odoo4komiti</code> copies the changed HTML file(s) into <code>custom-addons/komiti_web/static/tutorials/en/</code>.</li>
+    <li><code>odoo4komiti</code> commits the submodule pointer + copied artifacts in <code>odoo4komiti</code>.</li>
+    <li><code>odoo4komiti</code> promotes through <code>staging &rarr; main</code>, deploys, restarts Odoo, smoke-tests the tutorial in the browser.</li>
+    <li><code>odoo4komiti</code> echoes the HANDOFF ID as close-out; only then does Academy clean up its feature worktree.</li>
+</ol>
+
+<!-- ============================================================ -->
+<!-- 8) Code change discipline -->
+<!-- ============================================================ -->
+<h2 id="s8">8) Code change discipline</h2>
+
+<h3 id="s8-1">8.1) One commit, one logical unit</h3>
+
+<ul>
+    <li><strong>Fix the root cause, not the symptom.</strong> A patch that hides the symptom but leaves the underlying bug in place is not finished work.</li>
+    <li><strong>One commit = one logical unit.</strong> No unrelated changes piggy-backing on the same commit (no &ldquo;while I was there I also reformatted X&rdquo;).</li>
+    <li><strong>If a failed attempt needs retry, roll back the agent&rsquo;s changes first.</strong> Restore the last known good state before trying again. Do not pile fixes on top of broken state.</li>
+</ul>
+
+<h3 id="s8-2">8.2) Retry / rollback matrix</h3>
+
+<table>
+    <thead><tr><th>Failure scope</th><th>What to restore before retry</th></tr></thead>
+    <tbody>
+        <tr><td>Repo-only failure (code, HTML, config not yet deployed)</td><td>Roll back the agent&rsquo;s local file changes; retry from last known good Git state.</td></tr>
+        <tr><td>Localhost runtime failure (module install/upgrade, container restart)</td><td>Restore the affected runtime layer (db, filestore, assets, containers) before retry &mdash; not just source code.</td></tr>
+        <tr><td>Deploy / infra failure (DEV / PROD)</td><td>Do not improvise. Follow the canonical RUNBOOK procedure and confirm runtime state before the next attempt.</td></tr>
+    </tbody>
+</table>
+
+<p>Rollback scope must <em>match</em> failure scope. Do not revert unrelated user changes when the failure was narrow.</p>
+
+<!-- ============================================================ -->
+<!-- 9) Testing and rollout -->
+<!-- ============================================================ -->
+<h2 id="s9">9) Testing and rollout</h2>
+
+<ul>
+    <li><strong>Functional test of the affected flow is mandatory before merge or deploy.</strong> &ldquo;It builds&rdquo; is not a test.</li>
+    <li><strong>Post-deploy smoke test is mandatory.</strong> A merged PR or a green CI run is not proof that the change works on the target environment.</li>
+    <li><strong>Merge does not equal deploy.</strong> Odoo runtime verification on the relevant environment (localhost, DEV server, or PROD server) is a separate step and is mandatory.</li>
+</ul>
+
+<div class="note">
+    <strong>Note:</strong> for tutorial HTML, the &ldquo;runtime verification&rdquo; step is: open the deployed URL in a browser, scroll to the changed section, confirm callouts render with the right colour, ASCII diagrams render in monospace, and all internal anchors still resolve.
+</div>
+
+<!-- ============================================================ -->
+<!-- 10) Definition of Done -->
+<!-- ============================================================ -->
+<h2 id="s10">10) Definition of Done</h2>
+
+<p>A task is finished only when <strong>all</strong> of these are true:</p>
+
+<ol>
+    <li>Root cause is addressed, not just the symptom.</li>
+    <li>The affected flow has been locally verified at the appropriate level.</li>
+    <li>If there is a runtime effect, runtime state has been confirmed (module upgrade, container restart, assets cleared, health checks green, UI flow walked end-to-end).</li>
+    <li>Documentation has been updated in the relevant instruction file whenever the workflow or operational rules changed.</li>
+    <li>The final report includes outcome, delta, and next step.</li>
+    <li>No leftover agent artifacts in the workspace (stale worktrees, stale branches, temp files, half-applied patches).</li>
+</ol>
+
+<div class="important">
+    <strong>Important:</strong> &ldquo;merged&rdquo; is not Done. &ldquo;deployed&rdquo; is not Done. Done is the full list above. If you cannot tick every item, name the missing one explicitly in your final report.
+</div>
+
+<!-- ============================================================ -->
+<!-- 11) Where the rules live -->
+<!-- ============================================================ -->
+<h2 id="s11">11) Where the rules live</h2>
+
+<p>This handbook is the canonical narrative. The machine-readable rules live in the repositories themselves &mdash; that is what each agent loads at the start of every session.</p>
+
+<table>
+    <thead><tr><th>File</th><th>Scope</th></tr></thead>
+    <tbody>
+        <tr><td><code>.github/copilot-instructions.md</code></td><td>Global rules per repository: agent ownership, branch model, working-tree convention, Definition of Done.</td></tr>
+        <tr><td><code>.github/instructions/INTER_AGENT_HANDOFF.instructions.md</code></td><td>The unified HANDOFF block format (section <a href="#s6">6</a>).</td></tr>
+        <tr><td><code>.github/instructions/odoo.instructions.md</code></td><td>Odoo development discipline (modules, views, ORM, manifests).</td></tr>
+        <tr><td><code>.github/instructions/terraform.instructions.md</code></td><td>Terraform / AWS discipline.</td></tr>
+        <tr><td><code>.github/skills/delivery-workflow/SKILL.md</code></td><td>Operational commands: feature-branch creation, localhost runtime prep, promotion, deploy, smoke-test.</td></tr>
+        <tr><td><code>.github/agents/*.agent.md</code></td><td>Canonical, versioned agent definitions (Academy, odoo4komiti, Etn, Designer, Explore).</td></tr>
+        <tr><td><code>infra/aws/odoo-dev-ec2-compose/RUNBOOK.md</code></td><td>DEV server runbook (deploy, restart, smoke-test).</td></tr>
+        <tr><td><code>infra/aws/odoo-prod-ec2-compose/RUNBOOK.md</code></td><td>PROD server runbook.</td></tr>
+        <tr><td><code>ENGINEERING_HANDBOOK.md</code> (repo root)</td><td>Short stub pointing at this Academy page. The stub is a redirect, not a copy.</td></tr>
+    </tbody>
+</table>
+
+<p>For terminology and per-command reference see <a href="99_cheat_sheet_and_glossary.html">tutorial 99: Cheat Sheet &amp; Glossary</a>. For the hands-on Git and VS Code mechanics that this handbook assumes, see <a href="03_git_vscode_basics.html">tutorial 03: Git &amp; VS Code Basics</a>.</p>
+
+<footer>
+    KomITi Academy &mdash; Engineering Handbook
+</footer>
+
+</div>
+</body>
+</html>
