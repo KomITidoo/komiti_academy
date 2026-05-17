@@ -217,18 +217,6 @@ details summary {
             </ol>
         </li>
         <li><a href="#s7">Multi-root workspaces</a></li>
-        <li><a href="#s8">Governed Agent Methodology (GAM) at KomITi</a>
-            <ol>
-                <li><a href="#s8-1">Visual overview — file tree</a></li>
-                <li><a href="#s8-2">Every KomITi developer needs a custom agent</a></li>
-                <li><a href="#s8-3"><code>.github/copilot-instructions.md</code> — global rules</a></li>
-                <li><a href="#s8-4"><code>odoo.instructions.md</code> — Odoo development discipline</a></li>
-                <li><a href="#s8-5"><code>terraform.instructions.md</code> — Terraform / AWS discipline</a></li>
-                <li><a href="#s8-6"><code>komiti_timesheet.instructions.md</code> — timesheet module</a></li>
-                <li><a href="#s8-7"><code>komiti_gantt.instructions.md</code> — Gantt module</a></li>
-                <li><a href="#s8-8"><code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</a></li>
-            </ol>
-        </li>
         <li><a href="#s99">Task on the komiti_academy project for the candidate</a>
             <ol>
                 <li><a href="#s99-1">Activate GitHub Copilot</a></li>
@@ -244,7 +232,7 @@ details summary {
 
 <p>At KomITi we follow what we call <strong>Governed Agent Methodology (GAM)</strong> — where we prefer a native VS Code approach where rules are delivered to the AI agent <strong>automatically</strong>, through built-in agent customization (global instructions, glob-scoped instructions, on-demand skills).</p>
 
-<p>A GAM-compliant workspace is built from four building blocks — <strong>foundational concepts</strong> (§1), <strong>custom agents</strong> (§2), <strong>instructions</strong> (§3), and <strong>skills</strong> (§4). The sections that follow cover each one, then dive into KomITi's concrete setup (§8).</p>
+<p>A GAM-compliant workspace is built from four building blocks — <strong>foundational concepts</strong> (§1), <strong>custom agents</strong> (§2), <strong>instructions</strong> (§3), and <strong>skills</strong> (§4). The sections that follow cover each one. For the concrete KomITi setup — which agents own which repositories, where each instruction file lives, and the engineering rules that bind them — see <a href="07_engineering_handbook.html">tutorial 07: Engineering Handbook</a>.</p>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <h2 id="s1">1) What are Agents, LLM Models, and MCP Servers</h2>
@@ -591,172 +579,7 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<h2 id="s8">8) Governed Agent Methodology (GAM) at KomITi</h2>
-
-<p>This section shows how GAM works in practice — the concrete instruction files, custom agents, and skills that the <code>odoo4komiti</code> repository uses. The repository has a three-level instruction hierarchy that mirrors the old CODEX file structure but now works natively with VS Code's automatic loading.</p>
-
-<h3 id="s8-1">8.1) Visual overview — file tree</h3>
-
-<div class="ascii-diagram">odoo4komiti/
-├── .github/
-│   ├── copilot-instructions.md                 ← global rules: ownership, git, rollback, DoD
-│   ├── agents/
-│   │   └── odoo4komiti.agent.md                ← custom agent: identity, scope, constraints, tools
-│   └── instructions/
-│       ├── odoo.instructions.md                ← custom-addons/** | Odoo rules, matrix, discipline
-│       ├── terraform.instructions.md           ← infra/** | Terraform/AWS rules, DEV/PROD flow
-│       ├── komiti_timesheet.instructions.md    ← komiti_timesheet/** | file map, lock date, smoke test
-│       ├── komiti_gantt.instructions.md        ← komiti_gantt/** | view, OWL, resize, sync rules
-│       └── INTER_AGENT_HANDOFF.instructions.md ← crewai_orchestration/** + description | handoff protocol
-└── skills                                      ← currently via VS Code-level agent-customization skill</div>
-
-<h3 id="s8-2">8.2) Every KomITi developer needs a custom agent</h3>
-
-<p>GAM prescribes that <strong>every developer must create a custom agent</strong> for each repository they own or actively develop in. The rationale:</p>
-
-<ul>
-    <li><strong>Clear ownership.</strong> The <code>.agent.md</code> file declares who may push where. When multiple agents exist in a multi-root workspace, each one knows its boundaries — no accidental cross-repo pushes or unauthorized promotions.</li>
-    <li><strong>Consistent team identity.</strong> Every team member's agent speaks the same language (Serbian Cyrillic), follows the same commit discipline, and applies the same Definition of Done.</li>
-    <li><strong>Predictable handoffs.</strong> When <code>@Academy</code> finishes a tutorial edit, it knows to hand off to <code>@odoo4komiti</code> — not to push directly to production. This boundary is documented in each agent's Constraints section.</li>
-    <li><strong>Tool safety.</strong> A content agent does not need terminal access. A deploy agent does not need notebook tools. The <code>tools</code> array enforces the principle of least privilege.</li>
-</ul>
-
-<p>To be GAM-compliant, every KomITi custom agent must include at least these elements:</p>
-
-<table>
-<thead>
-    <tr><th>#</th><th>Element</th><th>Why mandatory</th></tr>
-</thead>
-<tbody>
-    <tr><td>1</td><td><strong>Frontmatter: <code>name</code></strong></td><td>Defines the <code>@mention</code> identifier. Without it the agent cannot be invoked.</td></tr>
-    <tr><td>2</td><td><strong>Frontmatter: <code>description</code></strong></td><td>VS Code uses this for agent routing. A missing description means the agent will not appear in the picker.</td></tr>
-    <tr><td>3</td><td><strong>Frontmatter: <code>tools</code></strong></td><td>Restricts agent capabilities to what it actually needs (principle of least privilege).</td></tr>
-    <tr><td>4</td><td><strong>Identity section</strong></td><td>Declares the agent name, default language (Serbian Cyrillic), and ownership boundary (which branches/repos it may push to).</td></tr>
-    <tr><td>5</td><td><strong>Scope section</strong></td><td>Lists what the agent works on — prevents scope creep and guides the router.</td></tr>
-    <tr><td>6</td><td><strong>Constraints section</strong></td><td>Rules the agent must follow: which instruction files to read, what it must not do (e.g. "do not push to main"), handoff protocol.</td></tr>
-</tbody>
-</table>
-
-<p>A minimal KomITi-compliant agent file looks like this:</p>
-
-<pre><code>---
-name: MyProjectAgent
-description: "Use for development work in the my-project repository."
-tools: [read, edit, search, todo]
-user-invocable: true
----
-
-You are **MyProjectAgent** — the designated agent for the `my-project` repository.
-
-## Identity
-- Always identify yourself as `MyProjectAgent`.
-- Respond in Serbian Cyrillic by default.
-- You may push to feature branches only. Hand off to the
-  repo owner for promotion to `staging` and `main`.
-
-## Scope
-- Python module development in `src/`.
-- Unit tests in `tests/`.
-- Documentation updates in `docs/`.
-
-## Constraints
-- Follow `.github/copilot-instructions.md` for all repo-level rules.
-- One commit = one logical unit.
-- Update the relevant instruction file when workflow rules change.
-- Do not deploy — prepare a HANDOFF block instead.</code></pre>
-
-<div class="important">
-    <strong>Important:</strong> <code>.agent.md</code> files are committed to the repository. This means agent definitions are <strong>version-controlled, reviewable, and shared</strong> across the team — unlike personal VS Code settings that live only on one machine.
-</div>
-
-<div class="note">
-    <strong>Note:</strong> beyond the minimum, you can add as much domain knowledge as needed: file maps, callout conventions, terminology glossaries, handoff protocols, and pointers to relevant instruction/skill files. See the <code>@Academy</code> and <code>@odoo4komiti</code> agents in the KomITi repos for full examples.
-</div>
-
-<h3 id="s8-3">8.3) <code>.github/copilot-instructions.md</code> — global rules</h3>
-
-<p>This file loads in <strong>every conversation</strong>. It is the single source of truth for company-level engineering policy. Contents:</p>
-
-<table>
-<thead>
-    <tr><th>Section</th><th>What it defines</th></tr>
-</thead>
-<tbody>
-    <tr><td>Agent ownership</td><td>Only the <code>odoo4komiti</code> agent may push to <code>staging</code> and <code>main</code>; others work in feature branches only.</td></tr>
-    <tr><td>Language</td><td>Respond in Serbian Cyrillic by default.</td></tr>
-    <tr><td>Communication</td><td>Short, direct answers; status updates every 3–5 actions; final report = outcome + delta + next step.</td></tr>
-    <tr><td>Command formatting</td><td>Single-line with prompt and a comment indicating where commands run (Windows PowerShell vs EC2 bash).</td></tr>
-    <tr><td>Git and promotion</td><td><code>main</code> is protected; feature branches from <code>origin/main</code>; standard local workflow sequence; <code>staging</code> is the integration branch.</td></tr>
-    <tr><td>Code changes</td><td>Fix root cause; one commit = one logical unit; retry/rollback matrix (repo-only, runtime, deploy/infra).</td></tr>
-    <tr><td>Testing and rollout</td><td>Functional test before merge; post-deploy smoke test; merge ≠ deploy.</td></tr>
-    <tr><td>Definition of Done</td><td>6-point checklist (root cause, verification, runtime state, documentation, report, no artifacts).</td></tr>
-    <tr><td>Documentation</td><td>Workflow or policy changes update the relevant instruction file.</td></tr>
-    <tr><td>komiti_academy submodule</td><td>Two local copies; submodule refresh procedure; runtime artifact sync path; inter-agent handoff block format.</td></tr>
-    <tr><td>Navigation index</td><td>Pointers to all scoped instruction files and operational runbooks.</td></tr>
-</tbody>
-</table>
-
-<h3 id="s8-4">8.4) <code>odoo.instructions.md</code> — Odoo development discipline</h3>
-
-<p>Scope: <code>applyTo: "custom-addons/**"</code> — loads whenever the agent works on any Odoo addon.</p>
-
-<p>Key sections:</p>
-<ul>
-    <li><strong>Change type matrix</strong> — what verification is required for each type of change (docs-only, XML, JS, Python, DB restore, multi-module).</li>
-    <li><strong>Localhost vs remote runtime diff</strong> — a 5-step diagnostic order when behavior differs between environments.</li>
-    <li><strong>Post-change discipline</strong> — the exact sequence after model/view changes: pull → upgrade → restart → hard refresh → confirm.</li>
-    <li><strong>Readable URL</strong> — how to set <code>ir.actions.act_window.path</code> for human-friendly Odoo URLs.</li>
-</ul>
-
-<h3 id="s8-5">8.5) <code>terraform.instructions.md</code> — Terraform / AWS discipline</h3>
-
-<p>Scope: <code>applyTo: "infra/**"</code> — loads whenever the agent touches infrastructure code.</p>
-
-<p>Key sections:</p>
-<ul>
-    <li><strong>Policy</strong> — <code>terraform plan</code> before every <code>apply</code>; state and secrets never in git.</li>
-    <li><strong>DEV workflow</strong> — prerequisites (AWS CLI, Terraform install, SSO login), tfvars setup, init/validate/plan/apply sequence.</li>
-    <li><strong>PROD workflow</strong> — same structure but with the explicit rule: do not put DB/Odoo passwords in Terraform to avoid them ending up in <code>tfstate</code>.</li>
-    <li><strong>Inventory / scaling / pause-resume</strong> — PowerShell scripts for operational tasks.</li>
-</ul>
-
-<h3 id="s8-6">8.6) <code>komiti_timesheet.instructions.md</code> — timesheet module</h3>
-
-<p>Scope: <code>applyTo: "custom-addons/komiti_timesheet/**"</code> — loads only when working on this specific addon.</p>
-
-<p>Key sections:</p>
-<ul>
-    <li><strong>Purpose</strong> — From/To time entry, auto-calculated Hours, Timesheet Lock Date.</li>
-    <li><strong>File map</strong> — table of every file in the module and what it does.</li>
-    <li><strong>Design decisions</strong> — defensive logic (checks if line is "timesheet-like"), lock-date consistency through UI and server-side write path.</li>
-    <li><strong>Upgrade command</strong> — exact Docker Compose command to run.</li>
-    <li><strong>UI smoke test</strong> — 2-step manual verification procedure.</li>
-</ul>
-
-<h3 id="s8-7">8.7) <code>komiti_gantt.instructions.md</code> — Gantt module</h3>
-
-<p>Scope: <code>applyTo: "custom-addons/komiti_gantt/**"</code> — loads only when working on this specific addon.</p>
-
-<p>Key sections:</p>
-<ul>
-    <li><strong>Purpose</strong> — native Gantt view in Dispatching → Orders, bar resize, no 3rd-party dependency.</li>
-    <li><strong>File map</strong> — table covering Python models, OWL JS controller, QWeb templates, SCSS styles.</li>
-    <li><strong>Behavior rules</strong> — no hardcoded hiding of done/cancelled in JS; default search filter via action context.</li>
-    <li><strong>UI smoke test</strong> — 4-step verification (switcher, search bar, navigation, bar interactions).</li>
-    <li><strong>Cross-module alignment</strong> — when adding state colors, keep <code>komiti_gantt.scss</code>, dispatching styles, and search defaults in sync.</li>
-</ul>
-
-<h3 id="s8-8">8.8) <code>INTER_AGENT_HANDOFF.instructions.md</code> — inter-agent communication</h3>
-
-<p>Scope: <code>applyTo: "crewai_orchestration/**"</code> + <code>description</code> (also loads on-demand when agent detects a handoff task).</p>
-
-<p>Key sections:</p>
-<ul>
-    <li><strong>Handoff format</strong> — mandatory block format: FROM, TO, BRANCH, COMMIT, FILES, DELTA, ACTION.</li>
-    <li><strong>ACTION field rules</strong> — ACTION must be a complete, ordered checklist covering git ops, file sync, runtime verification, promotion/deploy, and downstream notification.</li>
-    <li><strong>Direction matrix</strong> — who hands off to whom and what the typical ACTION steps are (komiti_academy → odoo4komiti, odoo4komiti → komiti_academy, either → user).</li>
-    <li><strong>Rules</strong> — agents do not push to each other's repos; handoffs go through the user; receiving agent confirms each step.</li>
-</ul>
+<p>The four building blocks above — agents, instructions, skills, and multi-root workspaces — are the <strong>theory</strong> of GAM. How KomITi applies them in its four repositories (which agent owns what, which instruction file lives where, which rules bind which file glob) is the <strong>practice</strong>, and that is the subject of a separate handbook: <a href="07_engineering_handbook.html">tutorial 07: Engineering Handbook</a>. You do not need to read it to complete the task in §99 — that task is self-contained and uses only the concepts introduced in §§1–7 above.</p>
 
 <hr>
 
@@ -784,6 +607,8 @@ You are **MyProjectAgent** — the designated agent for the `my-project` reposit
 <h3 id="s99-2">99.2) Create your Mentor agent</h3>
 
 <p>You will create a custom agent called <code>Mentor</code> in your <code>komiti_library</code> repository. This agent will be your personal tutor — whenever you get stuck while following a tutorial, you can ask <code>@Mentor</code> in the Copilot Chat panel and it will help you in context.</p>
+
+<p>The file template below uses the <strong>six mandatory elements</strong> every KomITi-compliant custom agent must have: three frontmatter fields (<code>name</code>, <code>description</code>, <code>tools</code>) and three body sections (<strong>Identity</strong>, <strong>Scope</strong>, <strong>Constraints</strong>). What each frontmatter field does is described in <a href="#s2-2">§2.2</a>; the body sections declare who the agent is, what it works on, and what rules it must follow.</p>
 
 <ol>
     <li><strong>Create the agents folder</strong> in your <code>komiti_library</code> repo:
