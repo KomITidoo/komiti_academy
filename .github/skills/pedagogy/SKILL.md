@@ -93,7 +93,7 @@ Search all preceding tutorials for that command. If it was already explained the
 ```html
 <ul>
     <li>The <code>docker compose</code> command and its YAML file are explained in
-        <a href="05_infrastructure.html#s3-2">Tutorial 05, section 3.2 — <code>docker-compose.yml</code></a>.</li>
+        <a href="02_infrastructure.html#s3-2">Tutorial 02, section 3.2 — <code>docker-compose.yml</code></a>.</li>
 </ul>
 ```
 
