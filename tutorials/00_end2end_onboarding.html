@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -169,10 +169,11 @@ footer {
 
 <p>Document objective: This is the umbrella document for the entire set of documents in the KomITi Academy learning library. The goal of the library is to take a Candidate from a complete beginner to an independent Odoo/Python engineer in the KomITi way of working:</p>
 <ul>
-  <li>KomITi engineering codexes,</li>
+  <li>KomITi product management methodology (roles, responsibilities, delivery flow),</li>
   <li>KomITi infrastructure (AWS, Terraform, Docker setup),</li>
-  <li>KomITi git discipline (branch checkout / commit / push / pull / promote workflow),</li>
-  <li>KomITi Odoo custom modules development,</li>
+  <li>KomITi Python and Git discipline (language fundamentals, branch checkout / commit / push / pull / promote workflow),</li>
+  <li>KomITi Odoo custom modules development (manual, then accelerated with the KomITi AI team),</li>
+  <li>KomITi Engineering Handbook (operating rules that bind every layer).</li>
 </ul>
 
 <p>In short, the candidate will learn the full DevOps cycle end-to-end — from provisioning cloud infrastructure with Terraform and Docker to developing, testing and deploying custom Odoo modules.</p>
@@ -183,50 +184,50 @@ footer {
 
 <p>Your learning is organized as a project. The project follows a sequence of tutorials in KomITi Academy, each covering a distinct discipline and one new layer of the stack. The curriculum is built bottom-up: each tutorial assumes only the layers below it. Each tutorial ends with a self-check or a practical task; you move to the next tutorial only after confirming the exit criteria with the mentor.</p>
 <ul style="list-style:none; margin-left:0; padding-left:0;">
-  <li><strong>Project &amp; Product Management Roles</strong>
+  <li><strong><a href="01_project_product_mgmt.html">Product Management Methodology</a></strong>
     <ul>
       <li>Scope: who owns what — Product Manager, Business Owner, Project Manager, Service Owner — and why a developer must understand each role before writing code.</li>
       <li>Exit: candidate can explain the four roles and map them to real KomITi documents and decisions.</li>
     </ul>
   </li>
-  <li><strong>Infrastructure: Terraform, Docker &amp; AWS</strong>
-    <ul>
-      <li>Scope: AWS fundamentals (EC2, VPC, security group, EIP), Docker &amp; container fundamentals, Terraform (provider, resource, variables, state, plan/apply), the KomITi infra stack, problem-class separation (infra vs. runtime vs. application).</li>
-      <li>Exit: infra checklist passed; foundations practical drill completed; local Terraform + Docker Desktop lab running.</li>
-    </ul>
-  </li>
-  <li><strong>Python Basics</strong>
-    <ul>
-      <li>Scope: just enough Python (types, control flow, functions, classes, decorators, modules) to read and write Odoo code — no more, no less.</li>
-      <li>Exit: self-check passed; candidate can read an Odoo model file and explain every construct in it.</li>
-    </ul>
-  </li>
-  <li><strong>Git &amp; VS Code Basics</strong>
+  <li><strong><a href="02_git_vscode_basics.html">Git &amp; VS Code Basics</a></strong>
     <ul>
       <li>Scope: Git concepts (branch, commit, push, merge), VS Code elements (Workspace, Explorer, Source Control panel etc.), the KomITi promotion flow (feature → staging → main).</li>
       <li>Exit: self-check passed; candidate task on <code>komiti_library</code> project completed (first clean PR).</li>
     </ul>
   </li>
-  <li><strong>Odoo from 0 to Hero</strong>
+  <li><strong><a href="03_infrastructure.html">Infrastructure</a></strong> (Terraform, Docker &amp; AWS)
+    <ul>
+      <li>Scope: AWS fundamentals (EC2, VPC, security group, EIP), Docker &amp; container fundamentals, Terraform (provider, resource, variables, state, plan/apply), the KomITi infra stack, problem-class separation (infra vs. runtime vs. application).</li>
+      <li>Exit: infra checklist passed; foundations practical drill completed; local Terraform + Docker Desktop lab running.</li>
+    </ul>
+  </li>
+  <li><strong><a href="04_python_basis.html">Python Basics</a></strong>
+    <ul>
+      <li>Scope: just enough Python (types, control flow, functions, classes, decorators, modules) to read and write Odoo code — no more, no less.</li>
+      <li>Exit: self-check passed; candidate can read an Odoo model file and explain every construct in it.</li>
+    </ul>
+  </li>
+  <li><strong><a href="05_Odoo_from_0_to_hero.html">Odoo from 0 to Hero</a></strong>
     <ul>
       <li>Scope: building a complete <code>library</code> Odoo 19 module step-by-step — scaffold, models, relations, views, actions/menus, security, business logic, automated tests, website UI. Done by hand, no AI assistance assumed.</li>
       <li>Exit: exercise completed; <code>library</code> module installs, passes tests and is demonstrated to the mentor.</li>
     </ul>
   </li>
-  <li><strong>KomITi AI team and their skills (Agentic Engineering)</strong>
+  <li><strong><a href="06_komiti_AI_team_and_their_skills.html">Agentic Engineering</a></strong> (KomITi AI team and their skills)
     <ul>
       <li>Scope: agents, instructions, skills, multi-root workspaces — the theory of Agentic Engineering, and how to apply it to accelerate the same work the candidate just did by hand in the previous tutorial.</li>
       <li>Exit: self-check passed; candidate can describe how each KomITi agent owns its repository and which instruction file binds which file glob.</li>
     </ul>
   </li>
-  <li><strong>Engineering Handbook</strong>
+  <li><strong><a href="07_engineering_handbook.html">KomITi Engineering Handbook</a></strong>
     <ul>
       <li>Scope: the operating rules that bind every layer above — branching discipline, worktree-per-branch, promotion gates, multi-repo coordination, inter-agent handoff protocol.</li>
       <li>Exit: candidate can apply the handbook rules to a fresh feature branch on any of the four KomITi repositories.</li>
     </ul>
   </li>
 </ul>
-<p><strong>Glossary</strong> is a reference document used alongside every tutorial above.</p>
+<p><strong><a href="99_cheat_sheet_and_glossary.html">Cheat Sheet &amp; Glossary</a></strong> is a reference document used alongside every tutorial above.</p>
 
 <h3 id="s1-2">1.2) Schedule Plan</h3>
 
@@ -279,7 +280,7 @@ footer {
   <tr><td><strong>Docker Desktop</strong></td><td>Runs Odoo and PostgreSQL locally in containers</td><td>Free for personal use</td></tr>
   <tr><td><strong>GitHub account</strong></td><td>Remote repositories, pull requests, and code review</td><td>Free</td></tr>
   <tr><td><strong>GitHub Copilot</strong></td><td>AI coding assistant that will act as your mentor through chat and a custom <code>@Mentor</code> agent</td><td>Free tier or about $10/month for Pro</td></tr>
-  <tr><td><strong>AWS account</strong></td><td>Cloud infrastructure for Tutorial 02, Option A only</td><td>About $15-30/month</td></tr>
+  <tr><td><strong>AWS account</strong></td><td>Cloud infrastructure for Tutorial 03, Option A only</td><td>About $15-30/month</td></tr>
   <tr><td><strong>Terraform CLI</strong></td><td>Infrastructure-as-code tool used with AWS in Option A</td><td>Free</td></tr>
 </tbody>
 </table>

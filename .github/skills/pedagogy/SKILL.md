@@ -93,7 +93,7 @@ Search all preceding tutorials for that command. If it was already explained the
 ```html
 <ul>
     <li>The <code>docker compose</code> command and its YAML file are explained in
-        <a href="02_infrastructure.html#s3-2">Tutorial 02, section 3.2 — <code>docker-compose.yml</code></a>.</li>
+        <a href="03_infrastructure.html#s3-2">Tutorial 03, section 3.2 — <code>docker-compose.yml</code></a>.</li>
 </ul>
 ```
 
@@ -146,9 +146,9 @@ The KomITi Academy curriculum is built bottom-up. Each tutorial introduces exact
 |---|-------|----------|--------------|
 | 00 | Master plan | `00_end2end_onboarding.html` | The SoW that frames every other tutorial. |
 | 01 | Organisational | `01_project_product_mgmt.html` | Roles (PM, BO, ProjM, SO) and ownership boundaries. |
-| 02 | Infrastructure | `02_infrastructure.html` | AWS, Terraform, Docker — the substrate everything runs on. |
-| 03 | Language | `03_python_basis.html` | Just enough Python to read and write Odoo code. |
-| 04 | Tooling & process | `04_git_vscode_basics.html` | Git workflow, VS Code, the `feature → staging → main` discipline. |
+| 02 | Tooling & process | `02_git_vscode_basics.html` | Git workflow, VS Code, the `feature → staging → main` discipline. |
+| 03 | Infrastructure | `03_infrastructure.html` | AWS, Terraform, Docker — the substrate everything runs on. |
+| 04 | Language | `04_python_basis.html` | Just enough Python to read and write Odoo code. |
 | 05 | Application (manual) | `05_Odoo_from_0_to_hero.html` | Building a real Odoo module by hand — no AI assistance assumed. |
 | 06 | Agentic acceleration | `06_komiti_AI_team_and_their_skills.html` | Agents, instructions, skills — how to do the same work faster with AI. |
 | 07 | Operating handbook | `07_engineering_handbook.html` | The rules that bind all layers together for the live KomITi setup. |
@@ -157,6 +157,7 @@ The KomITi Academy curriculum is built bottom-up. Each tutorial introduces exact
 ### Layering rules
 
 - **Bottom-up dependency only.** Tutorial N may reference concepts from tutorials 00…N-1 but never from N+1…99 (except as a forward-pointer in "What to read next").
+- **Dev environment before infrastructure.** Git & VS Code (02) come before Infrastructure (03) so that the candidate can clone repos, create feature branches and commit work *before* learning Terraform/Docker/AWS. Tutorial 03 (Infrastructure) may freely assume Git workflow knowledge — e.g. `git checkout`, `git commit`, `git push`, feature-branch naming — because layer 02 is already complete.
 - **No agent contamination below layer 06.** Tutorials 01–05 must teach the underlying engineering discipline as if AI assistance did not exist. The candidate must be able to do the work manually before they are shown how to delegate it.
 - **Capstone-first, then accelerate.** Layer 05 is the candidate's first end-to-end build. Only after they have manually built something does layer 06 introduce agentic acceleration of the same workflow.
 - **Handbook is operating rules, not introduction.** Layer 07 codifies the rules that bind layers 02–06 in the live KomITi multi-repo setup; it is not a place to teach new mechanics.
