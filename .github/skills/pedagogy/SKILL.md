@@ -136,6 +136,42 @@ Section 99 always contains:
    - "Key concepts — explain in your own words:" (compact `<ul>` of terms)
    - "You must be able to answer:" (`<ul>` of questions)
 
+## Tutorial sequence — layered pedagogy
+
+The KomITi Academy curriculum is built bottom-up. Each tutorial introduces exactly one new layer and assumes only the layers below it. No tutorial may presuppose a layer above its position in the sequence.
+
+### Canonical order
+
+| # | Layer | Tutorial | What it adds |
+|---|-------|----------|--------------|
+| 00 | Master plan | `00_end2end_onboarding.html` | The SoW that frames every other tutorial. |
+| 01 | Organisational | `01_project_product_mgmt.html` | Roles (PM, BO, ProjM, SO) and ownership boundaries. |
+| 02 | Infrastructure | `02_infrastructure.html` | AWS, Terraform, Docker — the substrate everything runs on. |
+| 03 | Language | `03_python_basis.html` | Just enough Python to read and write Odoo code. |
+| 04 | Tooling & process | `04_git_vscode_basics.html` | Git workflow, VS Code, the `feature → staging → main` discipline. |
+| 05 | Application (manual) | `05_Odoo_from_0_to_hero.html` | Building a real Odoo module by hand — no AI assistance assumed. |
+| 06 | Agentic acceleration | `06_komiti_AI_team_and_their_skills.html` | Agents, instructions, skills — how to do the same work faster with AI. |
+| 07 | Operating handbook | `07_engineering_handbook.html` | The rules that bind all layers together for the live KomITi setup. |
+| 99 | Reference | `99_cheat_sheet_and_glossary.html` | Cross-cutting glossary and cheat sheet. |
+
+### Layering rules
+
+- **Bottom-up dependency only.** Tutorial N may reference concepts from tutorials 00…N-1 but never from N+1…99 (except as a forward-pointer in "What to read next").
+- **No agent contamination below layer 06.** Tutorials 01–05 must teach the underlying engineering discipline as if AI assistance did not exist. The candidate must be able to do the work manually before they are shown how to delegate it.
+- **Capstone-first, then accelerate.** Layer 05 is the candidate's first end-to-end build. Only after they have manually built something does layer 06 introduce agentic acceleration of the same workflow.
+- **Handbook is operating rules, not introduction.** Layer 07 codifies the rules that bind layers 02–06 in the live KomITi multi-repo setup; it is not a place to teach new mechanics.
+
+### When renumbering
+
+If a tutorial's layer position changes, update **all** of:
+
+1. The filename (`NN_slug.html`).
+2. Every `<a href="NN_slug.html…">` in every other tutorial.
+3. Every in-text reference of the form `tutorial NN` or `Tutorial NN`.
+4. The Scope-of-Work list in `00_end2end_onboarding.html`.
+5. The "Where it appears" entries in `99_cheat_sheet_and_glossary.html`.
+6. `_SLUG_ALIASES` in `odoo4komiti/.../komiti_web/controllers/tutorials.py` — add the old → new slug mapping so existing bookmarks still resolve.
+
 ## Content accuracy
 
 - Never invent content or reorder the canonical flow without an explicit request.

@@ -235,7 +235,7 @@ footer {
 
 <p>This handbook is the <strong>single source of truth</strong> for how KomITi engineering work is organised &mdash; branches, worktrees, promotion path, deploy responsibility, and inter-agent communication. It binds <strong>every contributor</strong>, human or AI agent, who touches any KomITi repository.</p>
 
-<p>The handbook does not teach Git or VS Code from zero &mdash; that is the job of <a href="03_git_vscode_basics.html">tutorial 03: Git &amp; VS Code Basics</a>. It also does not document any single Odoo module, infrastructure stack, or product feature. Instead, it codifies the <em>operating rules</em> that all of those activities follow.</p>
+<p>The handbook does not teach Git or VS Code from zero &mdash; that is the job of <a href="04_git_vscode_basics.html">tutorial 04: Git &amp; VS Code Basics</a>. It also does not document any single Odoo module, infrastructure stack, or product feature. Instead, it codifies the <em>operating rules</em> that all of those activities follow.</p>
 
 <div class="note">
     <strong>Note:</strong> in each KomITi repository there is a short stub file <code>ENGINEERING_HANDBOOK.md</code> at the repo root. That stub exists only to point agents and developers at this Academy page. The canonical content lives <em>here</em>; the stub is a redirect, not a copy. If the two ever disagree, this Academy page wins.</p>
@@ -418,7 +418,7 @@ LOCAL        [&lt;feature&gt;] ---merge--&gt; [staging] -------merge-------&gt; 
     <li><strong>Multiple agents or developers work in parallel without disturbing the protected worktrees.</strong> The <code>main\</code> and <code>staging\</code> folders are reserved for promotion, deploy, and reference builds; they must always sit cleanly on their respective branches. Side-by-side feature folders mean nobody has to <code>git checkout</code> in <code>main\</code> or <code>staging\</code> to look at someone else&rsquo;s work.</li>
 </ul>
 
-<p>The full hands-on walk-through &mdash; worktree commands, VS Code multi-root setup, what you should notice in Source Control and the Status Bar &mdash; lives in <a href="03_git_vscode_basics.html#s4-6-4">tutorial 03, section 4.6.4</a>. This handbook only fixes the <em>rule</em>; the tutorial teaches the <em>mechanics</em>.</p>
+<p>The full hands-on walk-through &mdash; worktree commands, VS Code multi-root setup, what you should notice in Source Control and the Status Bar &mdash; lives in <a href="04_git_vscode_basics.html#s4-6-4">tutorial 04, section 4.6.4</a>. This handbook only fixes the <em>rule</em>; the tutorial teaches the <em>mechanics</em>.</p>
 
 <div class="important">
     <strong>Important:</strong> WTPB applies on the real KomITi repos only. On the training repo <code>komiti_library</code> the plain <code>git checkout -b</code> flow is still correct &mdash; the training repo deliberately keeps things simple.
@@ -670,7 +670,7 @@ ENGINEERING_HANDBOOK.md                              ← short stub pointing at 
     </tbody>
 </table>
 
-<p>For terminology and per-command reference see <a href="99_cheat_sheet_and_glossary.html">tutorial 99: Cheat Sheet &amp; Glossary</a>. For the hands-on Git and VS Code mechanics that this handbook assumes, see <a href="03_git_vscode_basics.html">tutorial 03: Git &amp; VS Code Basics</a>.</p>
+<p>For terminology and per-command reference see <a href="99_cheat_sheet_and_glossary.html">tutorial 99: Cheat Sheet &amp; Glossary</a>. For the hands-on Git and VS Code mechanics that this handbook assumes, see <a href="04_git_vscode_basics.html">tutorial 04: Git &amp; VS Code Basics</a>.</p>
 
 <footer>
     KomITi Academy &mdash; Engineering Handbook
