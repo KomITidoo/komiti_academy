@@ -217,6 +217,7 @@ details summary {
             </ol>
         </li>
         <li><a href="#s7">Multi-root workspaces</a></li>
+        <li><a href="#s8">Reference: VS Code &amp; GitHub Copilot customization primitives</a></li>
         <li><a href="#s99">Task on the komiti_academy project for the candidate</a>
             <ol>
                 <li><a href="#s99-1">Activate GitHub Copilot</a></li>
@@ -579,7 +580,72 @@ applyTo: "custom-addons/**"
 <hr>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<p>The four building blocks above — agents, instructions, skills, and multi-root workspaces — are the <strong>theory</strong> of Agentic Engineering. How KomITi applies them in its four repositories (which agent owns what, which instruction file lives where, which rules bind which file glob) is the <strong>practice</strong>, and that is the subject of a separate handbook: <a href="07_engineering_handbook.html">tutorial 07: Engineering Handbook</a>. You do not need to read it to complete the task in §99 — that task is self-contained and uses only the concepts introduced in §§1–7 above.</p>
+<h2 id="s8">8) Reference: VS Code &amp; GitHub Copilot customization primitives</h2>
+
+<p>The sections above introduced the four building blocks you will use most often — custom agents, instructions, skills and multi-root workspaces. VS Code and GitHub Copilot expose a few more primitives that you have seen mentioned in passing (prompt files, hooks, MCP servers). The table below is a single-glance recap of <strong>every</strong> customisation primitive currently available, what each one is for, the file pattern that identifies it, and where it is typically placed in a repository.</p>
+
+<table>
+<thead>
+    <tr><th>Professional name</th><th>If you want…</th><th>Use</th><th>Typical path</th></tr>
+</thead>
+<tbody>
+    <tr>
+        <td><strong>Custom Agent</strong></td>
+        <td>a new specialist in the picker</td>
+        <td><code>*.agent.md</code></td>
+        <td><code>.github/agents/&lt;agent-name&gt;.agent.md</code></td>
+    </tr>
+    <tr>
+        <td><strong>Agent Instructions</strong> / Repository Instructions</td>
+        <td>rules for the whole repo</td>
+        <td><code>copilot-instructions.md</code> or <code>AGENTS.md</code></td>
+        <td><code>.github/copilot-instructions.md</code> or <code>AGENTS.md</code></td>
+    </tr>
+    <tr>
+        <td><strong>File Instructions</strong> / Scoped Instructions</td>
+        <td>rules for part of the repo</td>
+        <td><code>*.instructions.md</code></td>
+        <td><code>.github/instructions/&lt;name&gt;.instructions.md</code></td>
+    </tr>
+    <tr>
+        <td><strong>Prompt File</strong></td>
+        <td>a reusable prompt</td>
+        <td><code>*.prompt.md</code></td>
+        <td><code>.github/prompts/&lt;name&gt;.prompt.md</code></td>
+    </tr>
+    <tr>
+        <td><strong>Skill</strong></td>
+        <td>workflow knowledge / procedure</td>
+        <td><code>SKILL.md</code></td>
+        <td><code>.github/skills/&lt;skill-name&gt;/SKILL.md</code></td>
+    </tr>
+    <tr>
+        <td><strong>Hook</strong></td>
+        <td>an automatic enforced action</td>
+        <td>hook config</td>
+        <td><code>.github/hooks/&lt;hook-name&gt;.json</code></td>
+    </tr>
+    <tr>
+        <td><strong>MCP Server</strong></td>
+        <td>an external tool / API integration</td>
+        <td>MCP server config</td>
+        <td>VS Code MCP configuration at user or workspace level</td>
+    </tr>
+</tbody>
+</table>
+
+<div class="tip">
+    <strong>How to read this table:</strong> the <em>Use</em> column is the file pattern VS Code looks for; the <em>Typical path</em> column is where you place that file in a repository so VS Code discovers it automatically. Two primitives are different in that respect: a <strong>Hook</strong> still needs to be wired into a Git or CI pipeline before it does anything, and an <strong>MCP Server</strong> is registered through VS Code settings (user or workspace scope) rather than through a file in the repo.
+</div>
+
+<div class="note">
+    <strong>Note:</strong> custom agents, instructions and skills were covered in detail in §§2–4; prompt files, hooks and MCP servers are listed here for completeness so you have the full vocabulary before §99. They are introduced briefly in the video in §6.1.
+</div>
+
+<hr>
+
+<!-- ═════════════════════════════════════════════════════════════════ -->
+<p>The four building blocks above — agents, instructions, skills, and multi-root workspaces — are the <strong>theory</strong> of Agentic Engineering. How KomITi applies them in its four repositories (which agent owns what, which instruction file lives where, which rules bind which file glob) is the <strong>practice</strong>, and that is the subject of a separate handbook: <a href="07_engineering_handbook.html">tutorial 07: Engineering Handbook</a>. You do not need to read it to complete the task in §99 — that task is self-contained and uses only the concepts introduced in §§1–8 above.</p>
 
 <hr>
 
