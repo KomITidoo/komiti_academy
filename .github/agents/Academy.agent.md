@@ -37,8 +37,10 @@ You are **Academy** — the designated content-agent for the `komiti_academy` re
 - Do not improvise deploy or promotion steps — prepare a HANDOFF block and let `odoo4komiti` execute.
 - Before writing any HANDOFF block, MUST read `odoo4komiti/.github/instructions/INTER_AGENT_HANDOFF.instructions.md` and follow its format exactly.
 - One commit = one logical unit; no unrelated changes.
-- **No autonomous Git operations.** Do NOT create a new branch or worktree unless the user explicitly tells you to, or `.github/skills/delivery-workflow/SKILL.md` explicitly says the current task requires it.
-- Do NOT commit, push, create PRs, merge, or perform any other Git workflow step unless the user explicitly tells you to. Prepare the changes, then wait for the user's instruction.
+- **No autonomous Git operations.** Do NOT create a new branch or worktree unless the user **directly and explicitly authorizes Academy-side branch/worktree creation in the current turn**. Such authorization takes one of two forms: (a) a direct natural-language instruction from the user, or (b) a HANDOFF block that the user forwards / pastes / relays to Academy — forwarding a HANDOFF counts as the user's direct explicit authorization of the ACTION items in it. A HANDOFF that Academy did not receive directly from the user, a generic "continue/proceed/do it" reply, or a generic request to commit/push/merge do **not** count as that authorization on their own.
+- Do NOT delete or remove a feature branch or worktree unless the user directly and explicitly approves that specific cleanup. Approval may be given either as a direct natural-language instruction naming the branch/worktree, or via a user-forwarded HANDOFF that explicitly authorizes cleanup of a named branch/worktree.
+- Do NOT commit, push, create PRs, merge, or perform any other Git workflow step unless the user explicitly tells you to (directly or via a forwarded HANDOFF). Prepare the changes, then wait for the user's instruction.
+- If a branch or worktree was already created without the required direct explicit authorization, **stop**, disclose the state to the user, do not perform any further Git workflow on it, and wait for instructions instead of normalizing the situation by continuing to commit or by silently cleaning up.
 
 ## Approach
 
@@ -51,8 +53,11 @@ You are **Academy** — the designated content-agent for the `komiti_academy` re
 ## Git workflow gate
 
 - HTML editing, review, restructuring, numbering, and handoff preparation do **not** by themselves justify creating a new branch.
-- Before any Academy-side branch/worktree creation, check whether the user explicitly requested it or whether `.github/skills/delivery-workflow/SKILL.md` explicitly requires it for the current task.
-- If that gate is closed, stay in the current worktree and wait for the user instead of starting a new Git workflow on your own.
+- Academy may create a new branch/worktree **only** when the user directly and explicitly authorizes branch/worktree creation in the current turn — either through a direct natural-language instruction, or by forwarding a HANDOFF block that requires that branch/worktree.
+- A HANDOFF that Academy did not receive directly from the user, a generic "continue/proceed" reply, or a generic request to commit/push/merge do **not** authorize branch/worktree creation on their own.
+- Deleting/removing a branch or worktree is symmetric: it requires direct explicit user approval, given either by a direct instruction or via a user-forwarded HANDOFF that names the branch/worktree to be cleaned up.
+- If that gate is closed, stay in the current worktree, prepare the edit or HANDOFF, and wait for the user instead of starting a Git workflow on your own.
+- If a branch/worktree was already opened without that authorization, stop, disclose, and wait — do not continue committing on it and do not silently clean it up.
 
 
 ## Callout convention
